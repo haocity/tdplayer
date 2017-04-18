@@ -416,8 +416,9 @@ function Tdplayer(Element, src, poster, server, videoid, videotype) {
                      for(var i=0;i<tdplayer.videoelearr.length;i++){
                         if (i!=tdplayer.nowduan) {
                             var ele=tdplayer.videoelearr[i];
-                            ele.id="";
-                            ele.style.display="none";
+                            if(ele.style.display!="none"){
+                            	ele.style.display="none";
+                            }
                             ele.currentTime=0;
                             ele.pause();
                         }else{
@@ -449,13 +450,12 @@ function Tdplayer(Element, src, poster, server, videoid, videotype) {
             for(var i=0;i<tdplayer.videoelearr.length;i++){
                 if (i!=tdplayer.nowduan) {
                     var ele=tdplayer.videoelearr[i];
-                    ele.id="";
+                 
                     ele.style.display="none";
                     ele.currentTime=0;
                     ele.pause();
                 }else{
                     var ele=tdplayer.videoelearr[i];
-                    ele.id="dm-video-x";
                      tdplayer.Element=ele;
                     ele.style.display="block";
                     ele.play();
