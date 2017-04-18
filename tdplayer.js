@@ -389,20 +389,25 @@ function Tdplayer(Element, src, poster, server, videoid, videotype) {
         setInterval(function() {
             var videotime = getnowalltime();
             //当前段播放将要结束 缓存下一段
-            if (tdplayer.videoelearr[tdplayer.nowduan].currentTime+10>=tdplayer.videotimearr[tdplayer.nowduan]) {
+            var temp=tdplayer.videoelearr[tdplayer.nowduan].currentTime;
+            if (temp+10>=tdplayer.videotimearr[tdplayer.nowduan]) {
                 console.log('当前正在播放第'+tdplayer.nowduan+"段，正在加载下一段");
                 if (tdplayer.videoelearr[tdplayer.nowduan+1]) {
                     tdplayer.videoelearr[tdplayer.nowduan+1].preload='load';
                 };
             };
             //检测是否播放
-            if (tdplayer.a!=tdplayer.videoelearr[tdplayer.nowduan].currentTime) {
-                tdplay();
-            }
-            tdplayer.a=tdplayer.videoelearr[tdplayer.nowduan].currentTime;
+//          if(tdplayer.a){
+//          	if (tdplayer.a>temp-2||tdplayer.a<temp+2) {
+//          	console.log('playyy a:'+tdplayer.a+"  temp: "+temp);
+//              tdplay();
+//         	 }
+//          }
+            
+           // tdplayer.a=temp;
 
             //播放下一段
-            if (tdplayer.videoelearr[tdplayer.nowduan].currentTime==tdplayer.videotimearr[tdplayer.nowduan]) {
+            if (temp==tdplayer.videotimearr[tdplayer.nowduan]) {
                 console.log('正在播放下一段');
                 if (tdplayer.videoelearr[tdplayer.nowduan+1]) {
                     tdplayer.nowduan++;
