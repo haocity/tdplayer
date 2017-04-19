@@ -40,7 +40,7 @@ function acplay(ele,acid){
 		var e=document.createElement('div');
 		e.className='dm-loding';
 		ele.appendChild(e);
-		e.innerText="正在加载中..."
+		e.innerText="正在加载中...";
 	    var xmlhttp = new XMLHttpRequest();
 	    xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -52,16 +52,19 @@ function acplay(ele,acid){
 	         		var xmlhttp2;
 				    xmlhttp2 = new XMLHttpRequest();
 				    xmlhttp2.onreadystatechange = function() {
-				    if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
-				         var t = xmlhttp2.responseText;
-				         tdplayer.videosrcarr=JSON.parse(t).video;
-				         if(tdplayer.videosrcarr){
-				         	Tdplayer(ele,tdplayer.videosrcarr,tdplayer.videoinfo.coverImage);
+				    if (xmlhttp2.readyState == 4 ) {
+				    	if(xmlhttp2.status == 200){
+					         var t = xmlhttp2.responseText;
+					         tdplayer.videosrcarr=JSON.parse(t).video;
+					         if(tdplayer.videosrcarr){
+					         	Tdplayer(ele,tdplayer.videosrcarr,tdplayer.videoinfo.coverImage);
+					         }else{
+					         	e.innerText="视频解析失败";
+					         }
 				         }else{
 				         	e.innerText="视频解析失败";
 				         }
-				         
-				         }
+				    	}
 				    };
 				    xmlhttp2.open("GET", 'https://t5.haotown.cn/acfun/video/?ac='+acid, true);
 			    	xmlhttp2.send();
