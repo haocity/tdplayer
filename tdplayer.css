@@ -5,7 +5,9 @@
 	z-index: 6;
 	padding: 0 4px;
 }
-
+.dm-loding {
+  color: #8715EF;
+}
 .dm-left {
 	position: absolute;
 	will-change: transform;
