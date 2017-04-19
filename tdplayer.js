@@ -64,7 +64,8 @@ function acplay(ele, acid) {
                         if (tdplayer.videosrcarr) {
                             Tdplayer(ele, tdplayer.videosrcarr, tdplayer.videoinfo.coverImage);
                         } else {
-                            e.innerText =e.innerText+"\n视频解析失败";
+                            e.innerText =e.innerText+"\n视频解析失败  5秒后将重试";
+                            setTimeout(function(){ acplay(ele, acid)},5000);
                         }
                     } else {
                        e.innerText =e.innerText+"\n视频解析失败";
