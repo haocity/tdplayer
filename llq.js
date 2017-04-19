@@ -18,12 +18,8 @@ function loadtd(){
 		acplay(warp,pageInfo.id);
 	}
 	catch(e){
-		console.log('ccc');
-		setTimeout(loadtd,500)
+		console.log('loading..');
+		setTimeout(loadtd,100)
 	}
 }
-
-
-
-
 }());
