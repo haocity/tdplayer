@@ -35,7 +35,6 @@ function getstyle(a) {
         }
     }
 }
-
 var tdplayer = new Object();
 function acplay(ele,acid){
 	
@@ -55,18 +54,17 @@ function acplay(ele,acid){
 				         Tdplayer(ele,tdplayer.videosrcarr,tdplayer.videoinfo.coverImage)
 				         }
 				    };
-				    xmlhttp2.open("GET", 'https://app.haotown.cn/acfun/video/?ac='+acid, true);
+				    xmlhttp2.open("GET", 'https://t5.haotown.cn/acfun/video/?ac='+acid, true);
 			    	xmlhttp2.send();
 	         }
 	    };
-	    xmlhttp.open("GET",'https://app.haotown.cn/acfun/danmu/?ac='+acid, true);
+	    xmlhttp.open("GET",'https://t5.haotown.cn/acfun/danmu/?ac='+acid, true);
     	xmlhttp.send();
     	
 }
 
 
 function Tdplayer(Element, src, poster) {
-	console.log('sss');
     tdplayer.warp = Element;
     tdplayer.videosrcarr= src;
     tdplayer.vposter = poster;
@@ -95,7 +93,7 @@ function Tdplayer(Element, src, poster) {
             getallvideotime(tdplayer.videoelearr[i],i)
         };
          function getallvideotime(ele,i) {
-                console.log(i);
+           
                 var time = ele.duration;
                  if (!time) {
                     setTimeout(function() {
@@ -126,7 +124,7 @@ function Tdplayer(Element, src, poster) {
         tdplayer.width = tdplayer.Element.offsetWidth;
         tdplayer.height = tdplayer.Element.offsetHeight;
         tdplayer.send = function(text, color, wz, me) {
-            console.log('text:'+text);
+            
             tdplayer.width = tdplayer.Element.offsetWidth;
             tdplayer.height = tdplayer.Element.offsetHeight;
             var dm = document.createElement("div");
@@ -360,7 +358,9 @@ function Tdplayer(Element, src, poster) {
                     var oldduan=tdplayer.nowduan-1,oldtime=0,time2=0;
                     for (var i = 0; i <= oldduan; i++) {
                         oldtime+=tdplayer.videotimearr[i];
-                        time2=oldtime+tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i);
+                        if(tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i)){
+                        	time2=oldtime+tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i);
+                        } 
                     }
                     //console.log("oldtime"+oldtime);
                     //console.log("time2:"+time2);
@@ -373,6 +373,7 @@ function Tdplayer(Element, src, poster) {
             }
             if (tdplayer.nowdata) {
                 var inttime=parseInt(videotime*10);
+                console.log(inttime);
                 for (var i = 0; i < tdplayer.nowdata.length; i++) {
                     if (tdplayer.nowdata[i]) {
                         //console.log('nowtime:'+inttime);
@@ -478,6 +479,9 @@ function Tdplayer(Element, src, poster) {
         }
         //进度条
         $d("tranger").onmousedown = function() {
+        	if($d('video-control-play').display!='none'){
+        		$d('video-control-play').onclick();
+        	}
             var xbl = show_coords(event, this);
             $d("tranger-a").style.width = xbl.xbl * 100 + "%";
             tiao(xbl.xbl * tdplayer.alltime);
@@ -587,18 +591,22 @@ function Tdplayer(Element, src, poster) {
             };
         }
         $d("video-full").addEventListener("click", function() {
+        	console.log('fullll');
             var e = $d("dm-video-warp");
             document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement ? document.cancelFullScreen ? document.cancelFullScreen() :document.mozCancelFullScreen ? document.mozCancelFullScreen() :document.webkitCancelFullScreen && document.webkitCancelFullScreen() :e.requestFullscreen ? e.requestFullscreen() :e.mozRequestFullScreen ? e.mozRequestFullScreen() :e.webkitRequestFullscreen && e.webkitRequestFullscreen();
             setTimeout(function() {
+            	console.log('xxxx');
                 tdplayer.width = $d("danmu").offsetWidth;
                 var e = $d("danmu").getElementsByTagName("div");
                 dmspeend(tdplayer.width / 100);
-                for (var i = e.length - 1; i >= 0; i--) {
+                console.log('yyyyy');
+                for (var  i= 0; i <e.length; i++) {
+                	console.log(i);
                     if (hasClass(e[i], "dm-left")) {
                         e[i].style.transform = "translateX(-" + tdplayer.width + "px)";
                     }
                 }
-            }, 1e3);
+            }, 1000);
         });
         function showbar() {
             $d("dm-video-y").style.opacity = "1";

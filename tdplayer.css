@@ -137,7 +137,7 @@ body {
 
 .video-control {
 	position: absolute;
-	bottom: 0;
+	bottom: -5px;
 	padding-bottom: 10px;
 	left: 0px;
 	width: 100%;
@@ -146,6 +146,7 @@ body {
 	color: #fff;
 	line-height: 0px;
 	user-select: none;
+	z-index: 999;
 }
 
 .dm-icon {
