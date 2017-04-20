@@ -20,8 +20,8 @@
 	text-decoration: none;
 }
 .down-btn {
-	display: inline;
-	margin: 10px 5px;
+	display: inline-block;
+    margin: 3px 5px;
 	padding: 5px 10px;
 	border-radius: 5px;
 	background-color: #d07878;
