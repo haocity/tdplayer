@@ -6,7 +6,6 @@
     script.setAttribute('charset', 'UTF-8');
     script.setAttribute('src', 'https://haocity.github.io/tdplayer/tdplayer.min.js');
     document.head.appendChild(script);
-    //<link rel="stylesheet" type="text/css" href="tdplayer.css"/>
      var link = document.createElement('link');
     link.setAttribute('type', 'text/css');
     link.setAttribute('rel', 'stylesheet');
