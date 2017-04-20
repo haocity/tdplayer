@@ -41,16 +41,27 @@ function chadown(){
 	var w=$c('.crumb')[0];
 	var span=document.createElement('span');
 	span.className='banana fl';
-	span.innerHTML='<a href="#" id="tddownlink"><div class="fl ico" style="background: #d52c2c;"><div class="img" style="background: url(https://ooo.0o0.ooo/2017/04/20/58f83dbb3f6bb.png) no-repeat 50% 50%;background-size: 65%;"></div></div><span class="sp3 fl">下载</span><br><span class="sp4">本视频</span></div></a>';
+	span.innerHTML='<div class="fl ico" style="background: #d52c2c;"><div class="img" style="background: url(https://ooo.0o0.ooo/2017/04/20/58f83dbb3f6bb.png) no-repeat 50% 50%;background-size: 65%;"></div></div><span class="sp3 fl">下载</span><br><span class="sp4">本视频</span></div>';
 	w.insertBefore(span,w.childNodes[5]);
+	var d= document.createElement('div');
+	d.id='vdown';
+	d.style.display='none';
 	if(tdplayer.videosrcarr){
 		for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
 			var div=document.createElement('div');
 			div.className="down-btn";
 			var t=i+1;
-			div.innerHTML='<a href="'+tdplayer.videosrcarr[i]+'">下载'+t+'段</a>';
-			span.appendChild(div);
+			div.innerHTML='<a href="'+tdplayer.videosrcarr[i]+'" download="['+t+']'+tdplayer.videoinfo.title+'">下载'+t+'段</a>';
+			d.appendChild(div);
 		}
+		span.appendChild(d);
+		span.onclick=function(){
+			if(d.style.display=='none'){
+				d.style.display='block'
+			}else{
+				d.style.display='none'
+			}
+		};
 	}
 }
 var tdplayer = new Object();
@@ -78,6 +89,7 @@ function acplay(ele, acid) {
                         tdplayer.videosrcarr = JSON.parse(t).video;
                         if (tdplayer.videosrcarr) {
                             Tdplayer(ele, tdplayer.videosrcarr, tdplayer.videoinfo.coverImage);
+                            chadown();
                         } else {
                             e.innerText =e.innerText+"\n视频解析失败  5秒后将重试";
                             setTimeout(function(){ acplay(ele, acid)},5000);
