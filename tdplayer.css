@@ -116,7 +116,7 @@
 	width: 100%;
 }
 
-.dm-video-y {
+.video-con {
 	opacity: 0;
 	transition: opacity 1s;
 	-moz-transition: opacity 1s;
