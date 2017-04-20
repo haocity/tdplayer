@@ -37,7 +37,22 @@ function getstyle(a) {
         }
     }
 }
-
+function chadown(){
+	var w=$c('.crumb')[0];
+	var span=document.createElement('span');
+	span.className='banana fl';
+	span.innerHTML='<a href="#" id="tddownlink"><div class="fl ico" style="background: #d52c2c;"><div class="img" style="background: url(https://ooo.0o0.ooo/2017/04/20/58f83dbb3f6bb.png) no-repeat 50% 50%;background-size: 65%;"></div></div><span class="sp3 fl">下载</span><br><span class="sp4">本视频</span></div></a>';
+	w.insertBefore(span,w.childNodes[5]);
+	if(tdplayer.videosrcarr){
+		for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
+			var div=document.createElement('div');
+			div.className="down-btn";
+			var t=i+1;
+			div.innerHTML='<a href="'+tdplayer.videosrcarr[i]+'">下载'+t+'段</a>';
+			span.appendChild(div);
+		}
+	}
+}
 var tdplayer = new Object();
 
 function acplay(ele, acid) {
