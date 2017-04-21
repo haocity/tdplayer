@@ -22,21 +22,7 @@ function removeClass(elements, cName) {
     }
 }
 
-function getstyle(a) {
-    for (var c = 0; c < document.styleSheets.length; c++) {
-        var d;
-        if (document.styleSheets[c].cssRules) {
-            d = document.styleSheets[c].cssRules;
-        } else {
-            d = document.styleSheets[c].rules;
-        }
-        for (var b = 0; b < d.length; b++) {
-            if (d[b].selectorText == a) {
-                return d[b].style;
-            }
-        }
-    }
-}
+
 function chadown(){
 	var w=$c('.crumb')[0];
 	var span=document.createElement('span');
@@ -161,6 +147,10 @@ function Tdplayer(Element, src, poster) {
     //弹幕行高
     tdplayer.width = tdplayer.Element.offsetWidth;
     tdplayer.height = tdplayer.Element.offsetHeight;
+    //样式
+    tdplayer.style=document.createElement('style');
+	tdplayer.style.id='playerstyle';
+	document.body.appendChild(tdplayer.style);
     tdplayer.send = function(text, color, wz, me) {
         tdplayer.width = tdplayer.Element.offsetWidth;
         tdplayer.height = tdplayer.Element.offsetHeight;
@@ -294,8 +284,7 @@ function Tdplayer(Element, src, poster) {
     });
     //弹幕速度
     function dmspeend(v) {
-        getstyle(".dm-left").animation = "dmleft " + v + "s linear";
-        getstyle(".dm-left").webkitAnimation = "dmleft " + v + "s linear";
+    	tdplayer.style.innerText='.dm-left {animation: dmleft '+v+'s linear;-webkit-animation: dmleft '+v+'s linear;}';
     }
     //视频播放
     $d("video-control-play").onclick = function() {
