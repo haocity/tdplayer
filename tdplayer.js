@@ -26,8 +26,8 @@ function removeClass(elements, cName) {
 function chadown(){
 	var w=$c('.crumb')[0];
 	var span=document.createElement('span');
-	span.className='banana fl';
-	span.innerHTML='<div class="fl ico" style="background: #d52c2c;"><div class="img" style="background: url(https://ooo.0o0.ooo/2017/04/20/58f83dbb3f6bb.png) no-repeat 50% 50%;background-size: 65%;"></div></div><span class="sp3 fl">下载</span><br><span class="sp4">本视频</span></div>';
+	span.className='vdown fl';
+	span.innerHTML='<div class="fl ico" style="background: #d52c2c;"><div class="img" style="width: 36px;height: 36px;background: url(https://ooo.0o0.ooo/2017/04/20/58f83dbb3f6bb.png) no-repeat 50% 50%;background-size: 65%;"></div></div><span class="sp3 fl">下载</span><br><span class="sp4">本视频</span></div>';
 	w.insertBefore(span,w.childNodes[5]);
 	var d= document.createElement('div');
 	d.id='vdown';

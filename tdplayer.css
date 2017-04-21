@@ -2,6 +2,18 @@
 	section.player {
 	min-height:500px;
 }
+.vdown {
+    width: 110px;
+    margin: 0;
+    padding: 17px 0 17px 20px;
+    cursor: pointer;
+}
+section.crumb .vdown .ico {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
 #vdown {
 	position: absolute;
 	width: 300px;
@@ -20,8 +32,8 @@
 	text-decoration: none;
 }
 .down-btn {
-	display: inline-block;
-    margin: 3px 5px;
+	display: inline;
+	margin: 10px 5px;
 	padding: 5px 10px;
 	border-radius: 5px;
 	background-color: #d07878;
