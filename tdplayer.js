@@ -500,7 +500,9 @@ function Tdplayer(Element, src, poster) {
         var xbl = show_coords(event, this);
         $d("tranger-a").style.width = xbl.xbl * 100 + "%";
         tiao(xbl.xbl * tdplayer.alltime);
+        $d("dm-syk-range").click();
         tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
+        
     };
     //获取元素的纵坐标（相对于窗口）
     function getTop(e) {
