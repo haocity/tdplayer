@@ -376,21 +376,6 @@ function Tdplayer(Element, src, poster) {
         $d("tranger-a").style.width = videotime / tdplayer.alltime * 100 + "%";
         var buff = tdplayer.videoelearr[tdplayer.nowduan].buffered;
         //判断缓存段
-//      if(buff)
-//      {
-//      	var t=buff.end(0);
-//      	var oldduan = tdplayer.nowduan - 1, oldtime = 0, time2 = 0;
-//      	for (var i = 0; i <= oldduan; i++) {
-//              oldtime += tdplayer.videotimearr[i];
-//          }
-//      	time2 = oldtime + t;
-//      	var width = time2 / tdplayer.alltime * 100 + "%";
-//          if ($d("tranger-c").style.width != width) {
-//              $d("tranger-c").style.width = width;
-//          }
-//      	
-//      }
-        
         for (var i = 0; i < buff.length; i++) {
             if (buff.start(i) <= smalltime && smalltime < buff.end(i)) {
                 var oldduan = tdplayer.nowduan - 1, oldtime = 0, time2 = 0;
@@ -404,7 +389,7 @@ function Tdplayer(Element, src, poster) {
                 if ($d("tranger-c").style.width != width) {
                     $d("tranger-c").style.width = width;
                 }
-                
+                break;
             }
         }
         if (tdplayer.nowdata) {
