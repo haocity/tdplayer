@@ -587,7 +587,11 @@ function Tdplayer(Element, src, poster) {
         }
         if (e && e.keyCode == 32) {
             // space 键
-            $d("danmu").click();
+           if (tdplayer.Element.paused) {
+                $d("video-control-play").onclick();
+            } else {
+                $d("video-control-paused").onclick();
+             }
         }
         if (e && e.keyCode == 38) {
             // up 键
