@@ -457,6 +457,7 @@ function Tdplayer(Element, src, poster) {
                         tdplayer.Element = ele;
                         ele.style.display = "block";
                         ele.play();
+                        $d("dm-syk-range").click();
                         ele.currentTime = 0;
                     }
                 }
