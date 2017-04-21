@@ -5,8 +5,9 @@
 .vdown {
     width: 110px;
     margin: 0;
-    padding: 17px 0 17px 20px;
+    padding: 20px 10px;
     cursor: pointer;
+    position: relative;
 }
 section.crumb .vdown .ico {
     width: 36px;
