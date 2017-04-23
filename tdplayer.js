@@ -493,11 +493,12 @@ function Tdplayer(Element, src, poster) {
         }
     }
     //进度条
-    $d("tranger").onmousedown = function() {
+    $d("tranger").onmousedown = function(event) {
         if ($d("video-control-play").display != "none") {
             $d("video-control-play").onclick();
         }
-        var xbl = show_coords(event, this);
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        var xbl = show_coords(e, this);
         $d("tranger-a").style.width = xbl.xbl * 100 + "%";
         tiao(xbl.xbl * tdplayer.alltime);
         $d("dm-syk-range").click();
@@ -563,6 +564,7 @@ function Tdplayer(Element, src, poster) {
     //键盘
     document.onkeydown = function(event) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
+        
         showbar();
         if (e && e.keyCode == 39) {
             // right 键
@@ -687,10 +689,11 @@ function Tdplayer(Element, src, poster) {
             };
         }
     }
-        $c("#danmu")[0].onmousedown = function() {
+        $c("#danmu")[0].onmousedown = function(event) {
             var container = $c(".dm-video-warp")[0];
             var rightmenu = $c(".dm-rightmenu")[0];
-            if (event.button == 2) {
+            var e = event||window.event||arguments.callee.caller.arguments[0];
+            if (e.button == 2) {
                 rightmenu.style.display = "block";
                 var evt = window.event || arguments[0];
                 var leftedge, topedge, danmuheight = $d("danmu").offsetHeight, danmuwidth = $d("danmu").offsetWidth;
@@ -728,7 +731,7 @@ function Tdplayer(Element, src, poster) {
                 }
                 rightmenu.style.top = topedge + "px";
                 rightmenu.style.left = leftedge + "px";
-            } else if (event.button == 0) {
+            } else if (e.button == 0) {
                 //如果左按键
                 if (rightmenu.style.display == "block") {
                     rightmenu.style.display = "none";
