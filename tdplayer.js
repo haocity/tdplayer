@@ -15,13 +15,11 @@ function addClass(elements, cName) {
         elements.className += " " + cName;
     }
 }
-
 function removeClass(elements, cName) {
     if (hasClass(elements, cName)) {
         elements.className = elements.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
     }
 }
-
 
 function chadown(){
 	var w=$c('.crumb')[0];
@@ -41,10 +39,13 @@ function chadown(){
 			d.appendChild(div);
 		}
 		span.appendChild(d);
-		span.onclick=function(){
+		span.onmousemove=function(){
 			if(d.style.display=='none'){
 				d.style.display='block'
-			}else{
+			}
+		};
+		span.onmouseout=function(){
+			if(d.style.display=='block'){
 				d.style.display='none'
 			}
 		};
@@ -236,8 +237,8 @@ function Tdplayer(Element, src, poster) {
     });
     //弹幕回车按下
     $d("dm-text").onkeydown = function(event) {
-        var ev = event || window.event || arguments.callee.caller.arguments[0];
-        if (ev.keyCode == 13) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e.keyCode == 13) {
             $d("dm-up").click();
         }
     };
@@ -497,8 +498,8 @@ function Tdplayer(Element, src, poster) {
         if ($d("video-control-play").display != "none") {
             $d("video-control-play").onclick();
         }
-        var ev = event || window.event || arguments.callee.caller.arguments[0];
-        var xbl = show_coords(ev, this);
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        var xbl = show_coords(e, this);
         $d("tranger-a").style.width = xbl.xbl * 100 + "%";
         tiao(xbl.xbl * tdplayer.alltime);
         $d("dm-syk-range").click();
@@ -563,20 +564,21 @@ function Tdplayer(Element, src, poster) {
     }
     //键盘
     document.onkeydown = function(event) {
-        var ev = event || window.event || arguments.callee.caller.arguments[0];
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        
         showbar();
-        if (ev && ev.keyCode == 39) {
+        if (e && e.keyCode == 39) {
             // right 键
             var time = tdplayer.Element.currentTime;
             tdplayer.Element.currentTime = time + 5;
         }
-        if (ev && ev.keyCode == 37) {
+        if (e && e.keyCode == 37) {
             // left 键
             var time = tdplayer.Element.currentTime;
             tdplayer.Element.currentTime = time - 5;
             tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
         }
-        if (ev && ev.keyCode == 32) {
+        if (e && e.keyCode == 32) {
             // space 键
            if (tdplayer.Element.paused) {
                 $d("video-control-play").onclick();
@@ -584,12 +586,12 @@ function Tdplayer(Element, src, poster) {
                 $d("video-control-paused").onclick();
              }
         }
-        if (ev && ev.keyCode == 38) {
+        if (e && e.keyCode == 38) {
             // up 键
             $d("dm-syk-range").value = parseInt($d("dm-syk-range").value) + 1;
             $d("dm-syk-range").click();
         }
-        if (ev && ev.keyCode == 40) {
+        if (e && e.keyCode == 40) {
             // down 键
             $d("dm-syk-range").value = parseInt($d("dm-syk-range").value) - 1;
             $d("dm-syk-range").click();
@@ -689,15 +691,16 @@ function Tdplayer(Element, src, poster) {
         }
     }
         $c("#danmu")[0].onmousedown = function(event) {
-	    var ev = event||window.event||arguments.callee.caller.arguments[0];
             var container = $c(".dm-video-warp")[0];
             var rightmenu = $c(".dm-rightmenu")[0];
-            if (ev.button == 2) {
+            var e = event||window.event||arguments.callee.caller.arguments[0];
+            if (e.button == 2) {
                 rightmenu.style.display = "block";
+                var evt = window.event || arguments[0];
                 var leftedge, topedge, danmuheight = $d("danmu").offsetHeight, danmuwidth = $d("danmu").offsetWidth;
                 if (danmuheight == document.documentElement.clientHeight) {
-                    topedge = ev.clientY;
-                    leftedge = ev.clientX;
+                    topedge = evt.clientY;
+                    leftedge = evt.clientX;
                     if (leftedge + rightmenu.offsetWidth > danmuwidth) {
                         leftedge = danmuwidth - rightmenu.offsetWidth;
                     }
@@ -705,8 +708,8 @@ function Tdplayer(Element, src, poster) {
                         topedge = danmuheight - rightmenu.offsetHeight;
                     }
                 } else {
-                    topedge = ev.clientY + document.body.scrollTop - container.offsetTop;
-                    leftedge = ev.clientX - container.offsetLeft;
+                    topedge = evt.clientY + document.body.scrollTop - container.offsetTop;
+                    leftedge = evt.clientX - container.offsetLeft;
                     var tweidth = container.offsetWidth;
                     var theigtht = container.offsetHeight;
                     if (leftedge + rightmenu.offsetWidth > tweidth) {
@@ -729,7 +732,7 @@ function Tdplayer(Element, src, poster) {
                 }
                 rightmenu.style.top = topedge + "px";
                 rightmenu.style.left = leftedge + "px";
-            } else if (ev.button == 0) {
+            } else if (e.button == 0) {
                 //如果左按键
                 if (rightmenu.style.display == "block") {
                     rightmenu.style.display = "none";
