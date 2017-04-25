@@ -146,8 +146,20 @@ section.crumb .vdown .ico {
 }
 .dm-video {
 	background-color: #000;
-	height: 100%;
-	width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    min-width: 0px;
+    max-width: none;
+    min-height: 0px;
+    max-height: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: none;
+    margin: 0px !important;
+    flex: 1 1 0% !important;
+	
 }
 .video-con {
 	opacity: 0;
@@ -373,6 +385,7 @@ input[type=range]::-webkit-slider-thumb {
 	right: 0;
 	bottom: 0;
 }
+
 :-moz-full-screen .dm-video-main {
 	height: 100% !important;
 	width: 100% !important;
