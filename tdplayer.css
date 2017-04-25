@@ -30,7 +30,7 @@ section.crumb .vdown .ico {
 	text-decoration: none;
 }
 .down-btn {
-	display: inline;
+	display: inline-block;
 	margin: 10px 5px;
 	padding: 5px 10px;
 	border-radius: 5px;
