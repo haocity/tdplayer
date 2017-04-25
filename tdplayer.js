@@ -349,14 +349,6 @@ function Tdplayer(Element, src, poster) {
         tdplayer.changersound();
     }
     //音量调节
-    $d("dm-syk").onmousemove = function() {
-        $d("dm-syk-range").style.width = "70px";
-        $d("dm-syk-range").style.opacity = "1";
-    };
-    $d("dm-syk").onmouseout = function() {
-        $d("dm-syk-range").style.width = "1px";
-        $d("dm-syk-range").style.opacity = "0";
-    };
     $d("dm-syk-range").addEventListener("click", function() {
         var i = parseInt($d("dm-syk-range").value) * .01;
         tdplayer.Element.volume = i;
