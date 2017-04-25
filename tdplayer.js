@@ -375,21 +375,27 @@ function Tdplayer(Element, src, poster) {
         var buff = tdplayer.videoelearr[tdplayer.nowduan].buffered;
         //判断缓存段
         for (var i = 0; i < buff.length; i++) {
-            if (buff.start(i) <= smalltime && smalltime < buff.end(i)) {
-                var oldduan = tdplayer.nowduan - 1, oldtime = 0, time2 = 0;
-                for (var i = 0; i <= oldduan; i++) {
-                    oldtime += tdplayer.videotimearr[i];
-                }
-				if (tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i)) {
-                    time2 = oldtime + tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i);
-                }
-                var width = time2 / tdplayer.alltime * 100 + "%";
-                if ($d("tranger-c").style.width != width) {
-                    $d("tranger-c").style.width = width;
-                }
-                break;
-            }
+        	try{
+        		if (buff.start(i) <= smalltime && smalltime < buff.end(i)) {
+	                var oldduan = tdplayer.nowduan - 1, oldtime = 0, time2 = 0;
+	                for (var i = 0; i <= oldduan; i++) {
+	                    oldtime += tdplayer.videotimearr[i];
+	                }
+					if (tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i)) {
+	                    time2 = oldtime + tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i);
+	                }
+	                var width = time2 / tdplayer.alltime * 100 + "%";
+	                if ($d("tranger-c").style.width != width) {
+	                    $d("tranger-c").style.width = width;
+	                }
+	                break;
+	           }
+        	}catch(e){
+        		console.log(e);
+        	}
+            
         }
+        
         if (tdplayer.nowdata) {
             var inttime = parseInt(videotime * 10);
             for (var i = 0; i < tdplayer.nowdata.length; i++) {
