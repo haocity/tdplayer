@@ -39,11 +39,15 @@ section.crumb .vdown .ico {
 	text-align: center;
 }
 /*player*/
+#tplayer{
+	height: 730px;
+}
 .danmu {
 	color: #fff;
 	line-height: 31px;
 	z-index: 6;
 	padding: 0 4px;
+	font-weight: 600;
 }
 .dm-loding {
 	color: #8715EF;
