@@ -1,3 +1,8 @@
+/*!
+ * TDPLAYER.
+ * @author   HaoDong <ureygt@gmail.com> <http://www.haotown.cn>
+ * @license  The Star And Thank Author License (SATA)
+ */
 function $d(e) {
     return document.getElementById(e);
 }
