@@ -290,13 +290,11 @@ input[type=range]::-webkit-slider-thumb {
 	top: 2px;
 }
 #dm-syk-range {
-	width: 1px;
+	width: 70px;
 	display: block;
 	overflow: hidden;
-	opacity: 0;
+	opacity: 1;
 	margin-left: 14px;
-	transition: all 1s;
-	-webkit-transition: all 1s
 }
 /*loding*/
 	.dm-oneplay {
