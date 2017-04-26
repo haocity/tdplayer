@@ -20,42 +20,44 @@ function addClass(elements, cName) {
         elements.className += " " + cName;
     }
 }
+
 function removeClass(elements, cName) {
     if (hasClass(elements, cName)) {
         elements.className = elements.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
     }
 }
 
-function chadown(){
-	var w=$c('.crumb')[0];
-	var span=document.createElement('span');
-	span.className='vdown fl';
-	span.innerHTML='<div class="fl ico" style="background: #d52c2c;"><div class="img" style="width: 36px;height: 36px;background: url(https://ooo.0o0.ooo/2017/04/20/58f83dbb3f6bb.png) no-repeat 50% 50%;background-size: 65%;"></div></div><span class="sp3 fl">下载</span><br><span class="sp4">本视频</span></div>';
-	w.insertBefore(span,w.childNodes[5]);
-	var d= document.createElement('div');
-	d.id='vdown';
-	d.style.display='none';
-	if(tdplayer.videosrcarr){
-		for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
-			var div=document.createElement('div');
-			div.className="down-btn";
-			var t=i+1;
-			div.innerHTML='<a href="'+tdplayer.videosrcarr[i]+'" download="['+t+']'+tdplayer.videoinfo.title+'.mp4">下载'+t+'段</a>';
-			d.appendChild(div);
-		}
-		span.appendChild(d);
-		span.onmousemove=function(){
-			if(d.style.display=='none'){
-				d.style.display='block'
-			}
-		};
-		span.onmouseout=function(){
-			if(d.style.display=='block'){
-				d.style.display='none'
-			}
-		};
-	}
+function chadown() {
+    var w = $c(".crumb")[0];
+    var span = document.createElement("span");
+    span.className = "vdown fl";
+    span.innerHTML = '<div class="fl ico" style="background: #d52c2c;"><div class="img" style="width: 36px;height: 36px;background: url(https://ooo.0o0.ooo/2017/04/20/58f83dbb3f6bb.png) no-repeat 50% 50%;background-size: 65%;"></div></div><span class="sp3 fl">下载</span><br><span class="sp4">本视频</span></div>';
+    w.insertBefore(span, w.childNodes[5]);
+    var d = document.createElement("div");
+    d.id = "vdown";
+    d.style.display = "none";
+    if (tdplayer.videosrcarr) {
+        for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
+            var div = document.createElement("div");
+            div.className = "down-btn";
+            var t = i + 1;
+            div.innerHTML = '<a href="' + tdplayer.videosrcarr[i] + '" download="[' + t + "]" + tdplayer.videoinfo.title + '.mp4">下载' + t + "段</a>";
+            d.appendChild(div);
+        }
+        span.appendChild(d);
+        span.onmousemove = function() {
+            if (d.style.display == "none") {
+                d.style.display = "block";
+            }
+        };
+        span.onmouseout = function() {
+            if (d.style.display == "block") {
+                d.style.display = "none";
+            }
+        };
+    }
 }
+
 var tdplayer = new Object();
 
 function acplay(ele, acid) {
@@ -70,8 +72,8 @@ function acplay(ele, acid) {
             tdplayer.videoinfo = JSON.parse(tdplayer.data).info;
             //tdplayer.vposter = tdplayer.videoinfo.coverImage;
             tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
-            e.innerText =e.innerText+"\n获取视频弹幕信息成功..";
-            e.innerText =e.innerText+"\n正在解析视频地址";
+            e.innerText = e.innerText + "\n获取视频弹幕信息成功..";
+            e.innerText = e.innerText + "\n正在解析视频地址";
             var xmlhttp2;
             xmlhttp2 = new XMLHttpRequest();
             xmlhttp2.onreadystatechange = function() {
@@ -83,11 +85,13 @@ function acplay(ele, acid) {
                             Tdplayer(ele, tdplayer.videosrcarr, tdplayer.videoinfo.coverImage);
                             chadown();
                         } else {
-                            e.innerText =e.innerText+"\n视频解析失败  5秒后将重试";
-                            setTimeout(function(){ acplay(ele, acid)},5000);
+                            e.innerText = e.innerText + "\n视频解析失败  5秒后将重试";
+                            setTimeout(function() {
+                                acplay(ele, acid);
+                            }, 5e3);
                         }
                     } else {
-                       e.innerText =e.innerText+"\n视频解析失败";
+                        e.innerText = e.innerText + "\n视频解析失败";
                     }
                 }
             };
@@ -104,7 +108,7 @@ function Tdplayer(Element, src, poster) {
     tdplayer.videosrcarr = src;
     tdplayer.vposter = poster;
     tdplayer.nowduan = 0;
-    tdplayer.v = '<div class="dm-video-warp"id="dm-video-warp"><div class="dm-video-main"id="dm-video-main"><ul class="dm-rightmenu"><li class="tp-speend-con">播放速度 <ul class="tp-speend"><li>0.5</li><li>0.75</li><li>正常</li><li>1.25</li><li>1.5</li><li>2</li></ul></li><a href="https://github.com/haocity/tdplayer/issues" target="_blank"><li>意见反馈</li></a><a href="https://www.haotown.cn/about.html" target="_blank"><li>关于作者</li></a><a href="https://github.com/haocity/tdplayer" target="_blank"><li>About tdplayer</li></a></ul><div id="tdplayer"></div><div id="danmu"></div><div class="dm-oneplay"id="dm-oneplay"><svg style="width: 200px;height:200px;"class="dm-icon"viewBox="0 0 1024 1024"version="1.1"xmlns="http://www.w3.org/2000/svg"><path fill="#fff"d="M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z"/></svg></div><div class="dm-spinner"id="dm-spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div><div id="video-con"class="video-con"><div class="dm-send"id="dm-send"><div class="dm-logo-small"></div><input class="dm-tucao"type="text"id="dm-text"required="true"placeholder="客官，不来吐槽一下吗?"autocomplete="off"><div class="tp-color"><div class="tp-color-bo" id="tp-color-bo" style="background-color: rgb(255, 255, 255)"></div><div class="tp-con" id="tp-con"><div class="tp-place" id="tp-place">◀滚动弹幕</div><div id="tp-color-warp"></div></div></div><input class="dm-post"id="dm-up"type="submit"value="发送"></div><div id="video-control"class="video-control"><div style="float:right;"><span id="video-control-alltime" style="padding-right:6px">0:00</span><div class="dm-dmk"id="dm-dmk">弹</div><div class="dm-syk"id="dm-syk"><span class="dm-syk-ico">♫</span><input id="dm-syk-range" type="range"name="points"min="0"max="100"value="100"/></div><svg id="video-full"style="width: 20px;padding-right:30px;top: 9px;"xmlns="http://www.w3.org/2000/svg"xmlns:xlink="http://www.w3.org/1999/xlink"class="dm-icon"style=""viewBox="0 0 1024 1024"version="1.1"p-id="1427"><defs><style type="text/css"><![CDATA[]]></style></defs><path d="M971.862 52.538c-10.964-10.992-25.546-17.044-41.056-17.044L429.616 35.494l0 79.362 479.86 0 0 465.288 79.364 0L988.84 93.524C988.84 78.024 982.802 63.46 971.862 52.538z"p-id="1428"/><path d="M115.092 429.62 35.728 429.62l0 500.854c0 15.5 6.038 30.066 16.982 40.994 10.966 10.988 25.544 17.04 41.05 17.04l469.182 0 0-79.364L115.092 909.144 115.092 429.62z"p-id="1429"/><path d="M127.16 193.578l73.198 73.198-0.034 0.034 40.438 40.44 14.164 14.096 152.616 152.616c8.796 8.796 20.492 13.64 32.932 13.64 12.442 0 24.138-4.846 32.936-13.644 18.158-18.16 18.156-47.708-0.002-65.866l-141.318-141.318 0.094-0.094-40.484-40.486-14.162-13.97L192.812 127.492l146.47 0 0-92L101.16 35.492c-36.392 0-66 29.608-66 66l0 237.972 92 0L127.16 193.578z"p-id="1430"/><path d="M896.578 830.358l-73.198-73.198 0.034-0.034-40.44-40.44-14.148-14.084-152.622-152.62c-8.796-8.8-20.496-13.648-32.942-13.648-12.444 0-24.14 4.848-32.94 13.646-18.148 18.156-18.148 47.702 0.004 65.866l141.31 141.306-0.094 0.094 40.492 40.494 14.16 13.974 84.728 84.726-146.734 0 0 92 238.386 0c36.392 0 66-29.608 66-66l0-237.96-92 0L896.574 830.358z"p-id="1431"/></svg></div><div style="float: left;"><svg id="video-control-play"class="dm-icon"viewBox="0 0 1024 1024"version="1.1"xmlns="http://www.w3.org/2000/svg"><path fill="#fff"d="M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z"/></svg><svg id="video-control-paused"style="display:none" class="dm-icon"viewBox="0 0 1024 1024"version="1.1"xmlns="http://www.w3.org/2000/svg"><path fill="#fff"d="M256.033769 192.014198l127.977743 0 0 639.933741-127.977743 0 0-639.933741ZM639.976 191.982l127.993 0 0 639.966-127.993 0 0-639.966z"/></svg><span id="video-control-nowtime">0:00</span></div><div id="tranger" class="tranger" ><div class="tranger-a" id="tranger-a"></div><div class="tranger-b"></div><div id="tranger-c" class="tranger-c"></div></div></div></div></div></div>';
+    tdplayer.v = '<div class="dm-video-warp"id="dm-video-warp"><div class="dm-video-main"id="dm-video-main"><ul class="dm-rightmenu"><li class="tp-speend-con">播放速度 <ul class="tp-speend"><li>0.5</li><li>0.75</li><li>正常</li><li>1.25</li><li>1.5</li><li>2</li></ul></li><a href="https://github.com/haocity/tdplayer/issues" target="_blank"><li>意见反馈</li></a><a href="https://www.haotown.cn/about.html" target="_blank"><li>关于作者</li></a><a href="https://github.com/haocity/tdplayer" target="_blank"><li>About tdplayer</li></a></ul><div id="tdplayer"></div><div id="danmu"></div><div class="dm-oneplay"id="dm-oneplay"><svg style="width: 200px;height:200px;"class="dm-icon"viewBox="0 0 1024 1024"version="1.1"xmlns="http://www.w3.org/2000/svg"><path fill="#fff"d="M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z"/></svg></div><div class="dm-spinner"id="dm-spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div><div id="video-con"class="video-con"><div class="dm-send"id="dm-send"><div class="dm-logo-small"></div><input class="dm-tucao"type="text"id="dm-text"required="true"placeholder="客官，不来吐槽一下吗?"autocomplete="off"><div class="tp-color"><div class="tp-color-bo" id="tp-color-bo" style="background-color: rgb(255, 255, 255)"></div><div class="tp-con" id="tp-con"><div class="tp-place" id="tp-place">◀滚动弹幕</div><div id="tp-color-warp"></div></div></div><input class="dm-post"id="dm-up"type="submit"value="发送"></div><div id="video-control"class="video-control"><div style="float:right;"><span style="padding:0 6px 0 6px">0:00</span><div class="dm-dmk"id="dm-dmk">弹</div><div class="dm-syk"id="dm-syk"><span class="dm-syk-ico">♫</span><input id="dm-syk-range" type="range"name="points"min="0"max="100"value="100"/></div><svg id="video-full"style="width: 20px;padding-right:30px;top: 9px;"xmlns="http://www.w3.org/2000/svg"xmlns:xlink="http://www.w3.org/1999/xlink"class="dm-icon"style=""viewBox="0 0 1024 1024"version="1.1"p-id="1427"><defs><style type="text/css"><![CDATA[]]></style></defs><path d="M971.862 52.538c-10.964-10.992-25.546-17.044-41.056-17.044L429.616 35.494l0 79.362 479.86 0 0 465.288 79.364 0L988.84 93.524C988.84 78.024 982.802 63.46 971.862 52.538z"p-id="1428"/><path d="M115.092 429.62 35.728 429.62l0 500.854c0 15.5 6.038 30.066 16.982 40.994 10.966 10.988 25.544 17.04 41.05 17.04l469.182 0 0-79.364L115.092 909.144 115.092 429.62z"p-id="1429"/><path d="M127.16 193.578l73.198 73.198-0.034 0.034 40.438 40.44 14.164 14.096 152.616 152.616c8.796 8.796 20.492 13.64 32.932 13.64 12.442 0 24.138-4.846 32.936-13.644 18.158-18.16 18.156-47.708-0.002-65.866l-141.318-141.318 0.094-0.094-40.484-40.486-14.162-13.97L192.812 127.492l146.47 0 0-92L101.16 35.492c-36.392 0-66 29.608-66 66l0 237.972 92 0L127.16 193.578z"p-id="1430"/><path d="M896.578 830.358l-73.198-73.198 0.034-0.034-40.44-40.44-14.148-14.084-152.622-152.62c-8.796-8.8-20.496-13.648-32.942-13.648-12.444 0-24.14 4.848-32.94 13.646-18.148 18.156-18.148 47.702 0.004 65.866l141.31 141.306-0.094 0.094 40.492 40.494 14.16 13.974 84.728 84.726-146.734 0 0 92 238.386 0c36.392 0 66-29.608 66-66l0-237.96-92 0L896.574 830.358z"p-id="1431"/></svg></div><div style="float: left;"><svg id="video-control-play"class="dm-icon"viewBox="0 0 1024 1024"version="1.1"xmlns="http://www.w3.org/2000/svg"><path fill="#fff"d="M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z"/></svg><svg id="video-control-paused"style="display:none" class="dm-icon"viewBox="0 0 1024 1024"version="1.1"xmlns="http://www.w3.org/2000/svg"><path fill="#fff"d="M256.033769 192.014198l127.977743 0 0 639.933741-127.977743 0 0-639.933741ZM639.976 191.982l127.993 0 0 639.966-127.993 0 0-639.966z"/></svg><span id="video-control-nowtime">0:00</span></div><div id="tranger" class="tranger" ><div class="tranger-a" id="tranger-a"></div><div class="tranger-b"></div><div id="tranger-c" class="tranger-c"></div></div></div></div></div></div>';
     tdplayer.warp.innerHTML = tdplayer.v;
     console.log("ok");
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
@@ -154,9 +158,9 @@ function Tdplayer(Element, src, poster) {
     tdplayer.width = tdplayer.Element.offsetWidth;
     tdplayer.height = tdplayer.Element.offsetHeight;
     //样式
-    tdplayer.style=document.createElement('style');
-	tdplayer.style.id='playerstyle';
-	document.body.appendChild(tdplayer.style);
+    tdplayer.style = document.createElement("style");
+    tdplayer.style.id = "playerstyle";
+    document.body.appendChild(tdplayer.style);
     tdplayer.send = function(text, color, wz, me) {
         tdplayer.width = tdplayer.Element.offsetWidth;
         tdplayer.height = tdplayer.Element.offsetHeight;
@@ -290,7 +294,7 @@ function Tdplayer(Element, src, poster) {
     });
     //弹幕速度
     function dmspeend(v) {
-    	tdplayer.style.innerText='.dm-left {animation: dmleft '+v+'s linear;-webkit-animation: dmleft '+v+'s linear;}';
+        tdplayer.style.innerText = ".dm-left {animation: dmleft " + v + "s linear;-webkit-animation: dmleft " + v + "s linear;}";
     }
     //视频播放
     $d("video-control-play").onclick = function() {
@@ -370,32 +374,23 @@ function Tdplayer(Element, src, poster) {
     //定时器
     function danmutime() {
         var videotime = getnowalltime();
-        var smalltime = tdplayer.videoelearr[tdplayer.nowduan].currentTime;
+        var smalltime = tdplayer.Element.currentTime;
         $d("tranger-a").style.width = videotime / tdplayer.alltime * 100 + "%";
-        var buff = tdplayer.videoelearr[tdplayer.nowduan].buffered;
+        var buff = tdplayer.Element.buffered;
         //判断缓存段
-        for (var i = 0; i < buff.length; i++) {
-        	try{
-        		if (buff.start(i) <= smalltime && smalltime < buff.end(i)) {
-	                var oldduan = tdplayer.nowduan - 1, oldtime = 0, time2 = 0;
-	                for (var i = 0; i <= oldduan; i++) {
-	                    oldtime += tdplayer.videotimearr[i];
-	                }
-					if (tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i)) {
-	                    time2 = oldtime + tdplayer.videoelearr[tdplayer.nowduan].buffered.end(i);
-	                }
-	                var width = time2 / tdplayer.alltime * 100 + "%";
-	                if ($d("tranger-c").style.width != width) {
-	                    $d("tranger-c").style.width = width;
-	                }
-	                break;
-	           }
-        	}catch(e){
-        		console.log(e);
-        	}
-            
+        var oldduan = tdplayer.nowduan - 1, oldtime = 0, time2 = 0;
+        for (var i = 0; i <= oldduan; i++) {
+            oldtime += tdplayer.videotimearr[i];
         }
-        
+        try {
+            time2 = oldtime + buff.end(buff.length - 1);
+        } catch (e) {
+            console.log(e);
+        }
+        var width = time2 / tdplayer.alltime * 100 + "%";
+        if ($d("tranger-c").style.width != width) {
+            $d("tranger-c").style.width = width;
+        }
         if (tdplayer.nowdata) {
             var inttime = parseInt(videotime * 10);
             for (var i = 0; i < tdplayer.nowdata.length; i++) {
@@ -507,7 +502,6 @@ function Tdplayer(Element, src, poster) {
         tiao(xbl.xbl * tdplayer.alltime);
         $d("dm-syk-range").click();
         tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
-        
     };
     //获取元素的纵坐标（相对于窗口）
     function getTop(e) {
@@ -535,19 +529,21 @@ function Tdplayer(Element, src, poster) {
         };
     }
     //视频缓冲事件
-    for (var i = 0; i < tdplayer.videoelearr; i++) {
-        i.addEventListener("waiting", videohc);
-        function videohc() {
-            console.log("loding");
-            clearInterval(tdplayer.Interval);
-            tdplayer.dsq = 0;
-            $d("dm-spinner").style.display = "block";
-            var e = $d("danmu").getElementsByTagName("div");
-            for (var i = e.length - 1; i >= 0; i--) {
-                addClass(e[i], "dm-suspend");
-            }
+    function videohc() {
+        console.log("loding");
+        clearInterval(tdplayer.Interval);
+        tdplayer.dsq = 0;
+        $d("dm-spinner").style.display = "block";
+        var e = $d("danmu").getElementsByTagName("div");
+        for (var i = e.length - 1; i >= 0; i--) {
+            addClass(e[i], "dm-suspend");
         }
-        tdplayer.Element.addEventListener("playing", function() {
+    }
+    for (var i = 0; i < tdplayer.videoelearr.length; i++) {
+        tdplayer.videoelearr[i].addEventListener("waiting", function() {
+            videohc();
+        });
+        tdplayer.videoelearr[i].addEventListener("playing", function() {
             tdplay();
         });
     }
@@ -568,7 +564,6 @@ function Tdplayer(Element, src, poster) {
     //键盘
     document.onkeydown = function(event) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
-        
         showbar();
         if (e && e.keyCode == 39) {
             // right 键
@@ -583,11 +578,11 @@ function Tdplayer(Element, src, poster) {
         }
         if (e && e.keyCode == 32) {
             // space 键
-           if (tdplayer.Element.paused) {
+            if (tdplayer.Element.paused) {
                 $d("video-control-play").onclick();
             } else {
                 $d("video-control-paused").onclick();
-             }
+            }
         }
         if (e && e.keyCode == 38) {
             // up 键
@@ -693,62 +688,62 @@ function Tdplayer(Element, src, poster) {
             };
         }
     }
-        $c("#danmu")[0].onmousedown = function(event) {
-            var container = $c(".dm-video-warp")[0];
-            var rightmenu = $c(".dm-rightmenu")[0];
-            var e = event||window.event||arguments.callee.caller.arguments[0];
-            if (e.button == 2) {
-                rightmenu.style.display = "block";
-                var evt = window.event || arguments[0];
-                var leftedge, topedge, danmuheight = $d("danmu").offsetHeight, danmuwidth = $d("danmu").offsetWidth;
-                if (danmuheight == document.documentElement.clientHeight) {
-                    topedge = evt.clientY;
-                    leftedge = evt.clientX;
-                    if (leftedge + rightmenu.offsetWidth > danmuwidth) {
-                        leftedge = danmuwidth - rightmenu.offsetWidth;
-                    }
-                    if (topedge + rightmenu.offsetWidth > danmuheight) {
-                        topedge = danmuheight - rightmenu.offsetHeight;
-                    }
-                } else {
-                    topedge = evt.clientY + document.body.scrollTop - container.offsetTop;
-                    leftedge = evt.clientX - container.offsetLeft;
-                    var tweidth = container.offsetWidth;
-                    var theigtht = container.offsetHeight;
-                    if (leftedge + rightmenu.offsetWidth > tweidth) {
-                        leftedge = tweidth - rightmenu.offsetWidth;
-                    }
-                    if (topedge + rightmenu.offsetHeight > theigtht) {
-                        topedge = theigtht - rightmenu.offsetHeight;
-                    }
+    $c("#danmu")[0].onmousedown = function(event) {
+        var container = $c(".dm-video-warp")[0];
+        var rightmenu = $c(".dm-rightmenu")[0];
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e.button == 2) {
+            rightmenu.style.display = "block";
+            var evt = window.event || arguments[0];
+            var leftedge, topedge, danmuheight = $d("danmu").offsetHeight, danmuwidth = $d("danmu").offsetWidth;
+            if (danmuheight == document.documentElement.clientHeight) {
+                topedge = evt.clientY;
+                leftedge = evt.clientX;
+                if (leftedge + rightmenu.offsetWidth > danmuwidth) {
+                    leftedge = danmuwidth - rightmenu.offsetWidth;
                 }
-                if (window.document.all) {
-                    this.IContextmenuHander = function() {
-                        return false;
-                    };
-                    document.attachEvent("oncontextmenu", this.IContextmenuHander);
-                } else {
-                    this.IContextmenuHander = document.oncontextmenu;
-                    document.oncontextmenu = function() {
-                        return false;
-                    };
+                if (topedge + rightmenu.offsetWidth > danmuheight) {
+                    topedge = danmuheight - rightmenu.offsetHeight;
                 }
-                rightmenu.style.top = topedge + "px";
-                rightmenu.style.left = leftedge + "px";
-            } else if (e.button == 0) {
-                //如果左按键
-                if (rightmenu.style.display == "block") {
-                    rightmenu.style.display = "none";
-                } else {
-                    //视频暂停
-                    if (tdplayer.Element.paused) {
-                        $d("video-control-play").onclick();
-                    } else {
-                        $d("video-control-paused").onclick();
-                    }
+            } else {
+                topedge = evt.clientY + document.body.scrollTop - container.offsetTop;
+                leftedge = evt.clientX - container.offsetLeft;
+                var tweidth = container.offsetWidth;
+                var theigtht = container.offsetHeight;
+                if (leftedge + rightmenu.offsetWidth > tweidth) {
+                    leftedge = tweidth - rightmenu.offsetWidth;
+                }
+                if (topedge + rightmenu.offsetHeight > theigtht) {
+                    topedge = theigtht - rightmenu.offsetHeight;
                 }
             }
-        };
+            if (window.document.all) {
+                this.IContextmenuHander = function() {
+                    return false;
+                };
+                document.attachEvent("oncontextmenu", this.IContextmenuHander);
+            } else {
+                this.IContextmenuHander = document.oncontextmenu;
+                document.oncontextmenu = function() {
+                    return false;
+                };
+            }
+            rightmenu.style.top = topedge + "px";
+            rightmenu.style.left = leftedge + "px";
+        } else if (e.button == 0) {
+            //如果左按键
+            if (rightmenu.style.display == "block") {
+                rightmenu.style.display = "none";
+            } else {
+                //视频暂停
+                if (tdplayer.Element.paused) {
+                    $d("video-control-play").onclick();
+                } else {
+                    $d("video-control-paused").onclick();
+                }
+            }
+        }
+    };
     $d("tp-place").addEventListener("click", function() {
         if (tdplayer.dmplace == 1) {
             tdplayer.dmplace = 2;
