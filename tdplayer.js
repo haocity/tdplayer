@@ -114,11 +114,8 @@ function Tdplayer(Element, src, poster) {
     tdplayer.ele=new Object();
     tdplayer.ele.tdplayer =$c('.tdplayer')[0];
     tdplayer.ele.dm_dmk = $c(".dm-dmk")[0];
-    //弹幕开关
     tdplayer.ele.dm_text = $c(".dm-text")[0];
-    //弹幕文本框
     tdplayer.ele.dm_up = $c(".dm-up")[0];
-    
     tdplayer.ele.tp_color_bo = $c(".tp-color-bo")[0];
     tdplayer.ele.video_control_play = $c(".video-control-play")[0];
     tdplayer.ele.dm_oneplay = $c(".dm-oneplay")[0];
@@ -137,10 +134,8 @@ function Tdplayer(Element, src, poster) {
     tdplayer.ele.tp_place = $c(".tp-place")[0];
     tdplayer.ele.dm_send = $c(".dm-send")[0];
     tdplayer.ele.tranger = $c(".tranger")[0];
-    tdplayer.ele.dm_video_warp = $c(".dm-video-warp")[0];
     tdplayer.ele.tp_speend_con = $c(".tp-speend-con")[0];
     tdplayer.ele.tp_speend = $c(".tp-speend")[0];
-    tdplayer.ele.dm_video = $c(".dm-video")[0];
     tdplayer.ele.dm_video_warp = $c(".dm-video-warp")[0];
     tdplayer.ele.dm_rightmenu = $c(".dm-rightmenu")[0];
     tdplayer.ele.end = $c(".video-end")[0];
@@ -606,20 +601,20 @@ function Tdplayer(Element, src, poster) {
     }
     //键盘
     document.onkeydown = function(event) {
-        var e = event || window.event || arguments.callee.caller.arguments[0];
+        var ev = event || window.event || arguments.callee.caller.arguments[0];
         showbar();
-        if (e && e.keyCode == 39) {
+        if (ev && ev.keyCode == 39) {
             // right 键
             var time = tdplayer.Element.currentTime;
             tdplayer.Element.currentTime = time + 5;
         }
-        if (e && e.keyCode == 37) {
+        if (ev && ev.keyCode == 37) {
             // left 键
             var time = tdplayer.Element.currentTime;
             tdplayer.Element.currentTime = time - 5;
             tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
         }
-        if (e && e.keyCode == 32) {
+        if (ev && ev.keyCode == 32) {
             // space 键
             if (tdplayer.Element.paused) {
                 tdplayer.ele.video_control_play.onclick();
@@ -632,7 +627,7 @@ function Tdplayer(Element, src, poster) {
             tdplayer.ele.dm_syk_range.value = parseInt(tdplayer.ele.dm_syk_range.value) + 1;
             tdplayer.ele.dm_syk_range.click();
         }
-        if (e && e.keyCode == 40) {
+        if (ev && ev.keyCode == 40) {
             // down 键
             tdplayer.ele.dm_syk_range.value = parseInt(tdplayer.ele.dm_syk_range.value) - 1;
             tdplayer.ele.dm_syk_range.click();
@@ -708,32 +703,32 @@ function Tdplayer(Element, src, poster) {
     }
     //设置
     //视频速度设置
-    $c(".tp-speend-con")[0].addEventListener("click", function() {
-        var t = $c(".tp-speend")[0];
+     tdplayer.ele.tp_speend_con.addEventListener("click", function() {
+        var t = tdplayer.ele.tp_speend;
         if (t.style.display == "block") {
             t.style.display = "none";
         } else {
             t.style.display = "block";
         }
     });
-    var videospeendele = $c(".tp-speend")[0].childNodes;
+    var videospeendele = tdplayer.ele.tp_speend.childNodes;
     for (i = 0; i < videospeendele.length; i++) {
         var e = videospeendele[i];
         var s = parseFloat(videospeendele[i].innerText).toFixed(2);
         if (s != "NaN") {
             e.onclick = function() {
                 var t = parseFloat(this.innerText).toFixed(2);
-                $c(".dm-video")[i].playbackRate = t;
+                tdplayer.videoelearr[i].playbackRate = t;
             };
         } else {
             e.onclick = function() {
-                $c(".dm-video")[i].playbackRate = 1;
+                tdplayer.videoelearr[i].playbackRate = 1;
             };
         }
     }
     tdplayer.ele.danmu_warp.onmousedown = function(event) {
-        var container = $c(".dm-video-warp")[0];
-        var rightmenu = $c(".dm-rightmenu")[0];
+        var container = tdplayer.ele.dm_video_warp;
+        var rightmenu = tdplayer.ele.dm_rightmenu;
         var ev = event || window.event || arguments.callee.caller.arguments[0];
         if (ev.button == 2) {
         	var target = ev.target || ev.srcElement;
