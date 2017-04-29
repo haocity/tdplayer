@@ -12,6 +12,9 @@ section.crumb .vdown .ico {
     border-radius: 50%;
     margin-right: 10px;
 }
+section.player{
+	min-height:653px;
+}
 #vdown {
 	position: absolute;
 	z-index: 5;

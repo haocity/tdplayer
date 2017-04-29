@@ -287,6 +287,8 @@ function Tdplayer(Element, src, poster) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
         if (e.keyCode == 13) {
             tdplayer.ele.tp_up.click();
+        }else if(e.keyCode == 32){
+        	e.stopPropagation();
         }
     };
     //弹幕发送
