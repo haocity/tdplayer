@@ -9,7 +9,7 @@
      var link = document.createElement('link');
     link.setAttribute('type', 'text/css');
     link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', 'https://app.haotown.cn/td/tdplayer.css');
+    link.setAttribute('href', 'https://app.haotown.cn/td/style.css');
     document.head.appendChild(link);
     loadtd();
 function loadtd(){
