@@ -384,24 +384,28 @@ function Tdplayer(Element, src, poster) {
         }
         return returnvalue;
     }
-    tdplayer.changersound = function() {
+    tdplayer.changersound = function(s) {
+    	for (var i=0;i<tdplayer.videoelearr.length;i++) {
+           tdplayer.videoelearr[i].volume = s;
+        }
         var Days = 7;
         var exp = new Date();
         exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1e3);
-        document.cookie = "tpsound=" + parseInt(tdplayer.ele.tp_syk_range.value) + ";expires=" + exp.toGMTString() + "&path=/";
+        document.cookie = "tpsound=" + parseInt(s) + ";expires=" + exp.toGMTString() + "&path=/";
     };
     tdplayer.soundcookie = getCookie("tpsound");
     if (tdplayer.soundcookie) {
         tdplayer.ele.tp_syk_range.value = tdplayer.soundcookie;
         tdplayer.Element.volume = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
     } else {
-        tdplayer.changersound();
+        tdplayer.changersound(100);
+        
     }
     //音量调节
-    tdplayer.ele.tp_syk_range.addEventListener("click", function() {
-        var i = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
-        tdplayer.Element.volume = i;
-        tdplayer.changersound();
+     tdplayer.ele.tp_syk_range.addEventListener("input", function() {
+        var s = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
+        tdplayer.changersound(s);
+        
     });
     function getnowtime() {
         var videotime = 0;
@@ -457,7 +461,7 @@ function Tdplayer(Element, src, poster) {
     }
     //定时器二 1s执行一次
     setInterval(function() {
-        console.log(videotime);
+    	var videotime=getvideotime(videotime);
         //当前段播放将要结束 缓存下一段
         var temp = tdplayer.videoelearr[tdplayer.nowduan].currentTime;
         if (temp + 10 >= tdplayer.videotimearr[tdplayer.nowduan]) {
@@ -602,7 +606,7 @@ function Tdplayer(Element, src, poster) {
         }
     }
     //键盘
-    document.onkeydown = function(event) {
+    document.addEventListener("keydown", function(event) {
         var ev = event || window.event || arguments.callee.caller.arguments[0];
         showbar();
         if (ev && ev.keyCode == 39) {
@@ -617,6 +621,7 @@ function Tdplayer(Element, src, poster) {
         }
         if (ev && ev.keyCode == 32) {
             // space 键
+              event.preventDefault();
             if (tdplayer.Element.paused) {
                 tdplayer.ele.video_control_play.onclick();
             } else {
@@ -633,7 +638,7 @@ function Tdplayer(Element, src, poster) {
             tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) - 1;
             tdplayer.ele.tp_syk_range.click();
         }
-    };
+    });
     function getvideotime(time) {
         var tm;
         var m = parseInt(time / 60);

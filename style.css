@@ -52,7 +52,7 @@ section.player{
 	height: 100%;
 	width: 100%;
 	z-index: 8;
-	background: #000 url(end.png) no-repeat right 40px bottom 30px;
+	background: #000 url(end.jpg) no-repeat right 40px bottom 30px;
 	display: none;
 }
 .video-end>.replay {
