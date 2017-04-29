@@ -461,7 +461,7 @@ function Tdplayer(Element, src, poster) {
     }
     //定时器二 1s执行一次
     setInterval(function() {
-    	var videotime=getvideotime(videotime);
+    	var videotime=getnowtime(videotime);
         //当前段播放将要结束 缓存下一段
         var temp = tdplayer.videoelearr[tdplayer.nowduan].currentTime;
         if (temp + 10 >= tdplayer.videotimearr[tdplayer.nowduan]) {
@@ -504,6 +504,7 @@ function Tdplayer(Element, src, poster) {
                 }
             }
         }
+        
         tdplayer.ele.nowtime.innerHTML = getvideotime(videotime).m + ":" + getvideotime(videotime).s;
         var t = tdplayer.ele.tp_send.offsetWidth - 280 + "px";
         if (tdplayer.ele.tp_text.style.width != t) {
