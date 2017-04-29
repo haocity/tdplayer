@@ -265,7 +265,8 @@ function Tdplayer(Element, src, poster) {
     };
     //重播
     tdplayer.ele.replay.addEventListener("click", function() {
-        tdplayer.ele.video_control_play.onclick();
+        tiao(0);
+        tdplayer.ele.end.style.display='none';
     });
     //播放完成
     tdplayer.videoelearr[tdplayer.videoelearr.length-1].onended = function() {
