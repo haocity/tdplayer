@@ -59,7 +59,6 @@ function chadown() {
 }
 
 var tdplayer = new Object();
-
 function acplay(ele, acid) {
     var e = document.createElement("div");
     e.className = "tp-loding";
@@ -391,14 +390,14 @@ function Tdplayer(Element, src, poster) {
         var Days = 7;
         var exp = new Date();
         exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1e3);
-        document.cookie = "tpsound=" + parseInt(s) + ";expires=" + exp.toGMTString() + "&path=/";
+        document.cookie = "tpsound=" + s + ";expires=" + exp.toGMTString() + "&path=/";
     };
     tdplayer.soundcookie = getCookie("tpsound");
     if (tdplayer.soundcookie) {
-        tdplayer.ele.tp_syk_range.value = tdplayer.soundcookie;
+        tdplayer.ele.tp_syk_range.value = tdplayer.soundcookie*100;
         tdplayer.Element.volume = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
     } else {
-        tdplayer.changersound(100);
+        tdplayer.changersound(1);
         
     }
     //音量调节
