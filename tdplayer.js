@@ -136,7 +136,7 @@ function Tdplayer(Element, src, poster) {
     tdplayer.ele.tranger = $c(".tp-tranger")[0];
     tdplayer.ele.tp_speend_con = $c(".tp-speend-con")[0];
     tdplayer.ele.tp_speend = $c(".tp-speend")[0];
-    tdplayer.ele.tp_video_warp = $c(".tp-tp-warp")[0];
+    tdplayer.ele.tp_video_warp = $c(".tp-video-warp")[0];
     tdplayer.ele.tp_rightmenu = $c(".tp-rightmenu")[0];
     tdplayer.ele.end = $c(".video-end")[0];
     tdplayer.ele.replay = $c(".replay")[0];
@@ -455,7 +455,6 @@ function Tdplayer(Element, src, poster) {
     }
     //定时器二 1s执行一次
     setInterval(function() {
-        var videotime = getnowtime();
         console.log(videotime);
         //当前段播放将要结束 缓存下一段
         var temp = tdplayer.videoelearr[tdplayer.nowduan].currentTime;
@@ -718,11 +717,15 @@ function Tdplayer(Element, src, poster) {
         if (s != "NaN") {
             e.onclick = function() {
                 var t = parseFloat(this.innerText).toFixed(2);
-                tdplayer.videoelearr[i].playbackRate = t;
+                for (var i=0;i<tdplayer.videoelearr.length;i++) {
+                	tdplayer.videoelearr[i].playbackRate = t;
+                }
             };
         } else {
             e.onclick = function() {
-                tdplayer.videoelearr[i].playbackRate = 1;
+                for (var i=0;i<tdplayer.videoelearr.length;i++) {
+                	tdplayer.videoelearr[i].playbackRate = 1;
+                }
             };
         }
     }
