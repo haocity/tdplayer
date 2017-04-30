@@ -275,7 +275,6 @@ input[type=range]::-webkit-slider-thumb {
 	cursor: pointer;
 	overflow: hidden;
 	margin-top: 18px;
-	padding: 0 5px;
 	margin-left: 80px;
 	margin-right: 170px;
 }
