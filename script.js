@@ -19,7 +19,9 @@
 		    //link.setAttribute('href', 'http://127.0.0.1:8020/tdplayer/style.css');
 		    link.setAttribute('href', 'https://app.haotown.cn/td/style.css');
 		    document.head.appendChild(link);
-		    loadtd(thisac);
+		    script.onload=function(){
+		    	loadtd(thisac);
+		    }
 	   }else{
 	   	alert('暂时不支持的视频');
 	   }
@@ -32,12 +34,7 @@ function loadtd(ac){
 	if(t.indexOf("ac")==0){
 		var id=ac.slice(2);
 		console.log(id);
-		try{
 			acplay(warp,id);
-		}catch(e){
-			console.log(e);
-			setTimeout(loadtd,100,ac)
-		}
 		
 	}else{
 		alert('暂时不支持的视频');
