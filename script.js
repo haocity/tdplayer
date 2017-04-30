@@ -34,8 +34,7 @@ function loadtd(ac){
 	if(t.indexOf("ac")==0){
 		var id=ac.slice(2);
 		console.log(id);
-			acplay(warp,id);
-		
+			Tdplayer(warp,id);
 	}else{
 		alert('暂时不支持的视频');
 	}
