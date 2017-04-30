@@ -268,9 +268,37 @@ function Tdplayer(Element, src, poster) {
         tdplayer.ele.end.style.display = "none";
     });
     //播放完成
-    tdplayer.videoelearr[tdplayer.videoelearr.length - 1].onended = function() {
-        tdplayer.ele.end.style.display = "block";
-    };
+    for (var i=0;i<tdplayer.videoelearr.length;i++) {
+		(function(arg){
+			tdplayer.videoelearr[i].onended=function(){
+				 if(tdplayer.videoelearr[arg+1]){
+				 	tdplayer.nowduan=arg+1;
+				 	var oldele = tdplayer.videoelearr[arg];
+	                var nowele = tdplayer.videoelearr[arg+1];
+				 	for (var i = 0; i < tdplayer.videoelearr.length; i++) {
+	                    if (i != tdplayer.nowduan) {
+	                        var ele = tdplayer.videoelearr[i];
+	                        if (ele.style.display != "none") {
+	                            ele.style.display = "none";
+	                        }
+	                        ele.currentTime = 0;
+	                        ele.pause();
+	                    } else {
+	                        var ele = tdplayer.videoelearr[i];
+	                        tdplayer.Element = ele;
+	                        ele.style.display = "block";
+	                        ele.currentTime = 0;
+	                        ele.play();
+	                    }
+				 	}
+				 }else{
+				 	console.log("播放完毕"+arg);
+				 	tdplayer.ele.end.style.display = "block";
+				 }
+			}
+		})(i)
+    }
+    
     //弹幕开关
     tdplayer.ele.danmu_switch.addEventListener("click", function() {
         if (this.className == "tp-danmu-switch") {
@@ -458,15 +486,16 @@ function Tdplayer(Element, src, poster) {
             }
         }
     }
+    
     //定时器二 1s执行一次
     setInterval(function() {
     	var videotime=getnowtime(videotime);
         //当前段播放将要结束 缓存下一段
         var temp = tdplayer.videoelearr[tdplayer.nowduan].currentTime;
         if (temp + 10 >= tdplayer.videotimearr[tdplayer.nowduan]) {
-            //console.log("当前正在播放第" + tdplayer.nowduan + "段，正在加载下一段");
             if (tdplayer.videoelearr[tdplayer.nowduan + 1]) {
                 tdplayer.videoelearr[tdplayer.nowduan + 1].preload = "load";
+                console.log("当前正在播放第" + tdplayer.nowduan + "段，正在加载下一段");
             }
         }
         //检测是否播放
@@ -478,32 +507,6 @@ function Tdplayer(Element, src, poster) {
         //          }
         // tdplayer.a=temp;
         //播放下一段
-        if (temp == tdplayer.videotimearr[tdplayer.nowduan] && tdplayer.ele.end.style.display == "none") {
-            console.log("正在播放下一段");
-            if (tdplayer.videoelearr[tdplayer.nowduan + 1]) {
-                tdplayer.nowduan++;
-                var oldele = tdplayer.videoelearr[tdplayer.nowduan - 1];
-                var nowele = tdplayer.videoelearr[tdplayer.nowduan];
-                for (var i = 0; i < tdplayer.videoelearr.length; i++) {
-                    if (i != tdplayer.nowduan) {
-                        var ele = tdplayer.videoelearr[i];
-                        if (ele.style.display != "none") {
-                            ele.style.display = "none";
-                        }
-                        ele.currentTime = 0;
-                        ele.pause();
-                    } else {
-                        var ele = tdplayer.videoelearr[i];
-                        tdplayer.Element = ele;
-                        ele.style.display = "block";
-                        ele.play();
-                        tdplayer.ele.tp_syk_range.click();
-                        ele.currentTime = 0;
-                    }
-                }
-            }
-        }
-        
         tdplayer.ele.nowtime.innerHTML = getvideotime(videotime).m + ":" + getvideotime(videotime).s;
         var t = tdplayer.ele.tp_send.offsetWidth - 280 + "px";
         if (tdplayer.ele.tp_text.style.width != t) {
@@ -535,12 +538,12 @@ function Tdplayer(Element, src, poster) {
             }
         }
         tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
-    }
-    //进度条
-    tdplayer.ele.tranger.onmousedown = function(event) {
         if (tdplayer.ele.video_control_play.display != "none") {
             tdplayer.ele.video_control_play.onclick();
         }
+    }
+    //进度条
+    tdplayer.ele.tranger.onmousedown = function(event) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
         var xbl = show_coords(e, this);
         tdplayer.ele.tranger_a.style.width = xbl.xbl * 100 + "%";
