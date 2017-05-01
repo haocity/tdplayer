@@ -536,3 +536,26 @@ input[type=range]::-webkit-slider-thumb {
     cursor: pointer;
     font-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;
 }
+.tp-control-alltime-phone{
+	display: none;
+}
+@media screen and (max-width: 700px) {
+	.tp-tranger{
+		position: absolute;
+	    width: 97%;
+	    bottom: 4px;
+	    margin: 0;
+	}
+	.tp-video-con>.tp-send{
+		bottom: 60px;
+		left: initial;
+		right: 10%;
+    	width: 80%;
+	}
+	.tp-control-alltime{
+		display: none;
+	}
+	.tp-control-alltime-phone{
+		display: inline-block;
+	}
+}

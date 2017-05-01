@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>TDPLAYER</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="renderer" content="webkit">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="tdplayer.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.header{
+				text-align: center;
+			}
+			.header>.titile{
+				color: #fff;
+			}
+			#v-dom{
+				position: relative;
+				height: 517px;
+				width: 922px;
+				margin: 0 auto;
+				z-index: 5;
+			}
+			.introduction{
+				width: 922px;
+				color: #fff;
+				margin: 20px auto 20px auto;
+			}
+			.introduction>a{
+				color: #fff;
+				text-decoration:none;
+			}
+			.tp-video{
+				margin-bottom: -4px;
+			}
+			body {
+			    background-color:#d67e7e;
+			}
+			
+			@media screen and (max-width: 910px) {
+			    body{
+			        background-color:lightblue;
+			    }
+			    #v-dom{
+			    	position: absolute;
+			    	width: 100%;
+			    	
+			    }
+			    .introduction{
+			    	width: auto;
+			    }
+			    
+			}
+		</style>
+	</head>
+	<body>
+		<header class="header"><img src="tdlogo.png"/>
+			<h1 class="titile">A HTML5 VIDEO PLAYER WITH BARRAGE</h1>
+		</header>
+		<div id="v-dom"></div>
+		<div class="introduction">
+		<a href='http://acg.tv/sm29146509'>sm29146509</a> あずにゃん：想做一下这样的琪露诺~
+		</div>
+		<script type="text/javascript">
+			Tdplayer($d('v-dom'),'3654452');
+		</script>
+	</body>
+</html>
