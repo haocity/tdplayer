@@ -26,6 +26,18 @@ function removeClass(elements, cName) {
         elements.className = elements.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
     }
 }
+function getPoint(obj) { //获取某元素以浏览器左上角为原点的坐标  
+    var t = obj.offsetTop; //获取该元素对应父容器的上边距  
+    var l = obj.offsetLeft; //对应父容器的上边距  
+    while (obj = obj.offsetParent) {//等效 obj = obj.offsetParent;while (obj != undefined)  
+        t += obj.offsetTop; //叠加父容器的上边距  
+        l += obj.offsetLeft; //叠加父容器的左边距  
+    }  
+    return {
+    	top:t,
+    	left:l
+    }
+}  
 function Tdplayer(ele, acid) {
 	console.log('acid:'+acid);
     var e = document.createElement("div");
@@ -711,7 +723,7 @@ function tdstart(Element,src,data,poster) {
         }
     }
     tdplayer.ele.danmu_warp.onmousedown = function(event) {
-        var container = tdplayer.ele.tp_video_warp;
+        var container = tdplayer.ele.tdplayer;
         var rightmenu = tdplayer.ele.tp_rightmenu;
         var ev = event || window.event || arguments.callee.caller.arguments[0];
         if (ev.button == 2) {
@@ -739,21 +751,17 @@ function tdstart(Element,src,data,poster) {
                     topedge = danmuheight - rightmenu.offsetHeight;
                 }
             } else {
-                if ($d("main")) {
-                    topedge = ev.clientY + document.body.scrollTop - container.offsetTop - $d("main").offsetTop;
-                } else {
-                    topedge = ev.clientY + document.body.scrollTop - container.offsetTop;
-                }
-                leftedge = ev.clientX - container.offsetLeft;
-                console.log(ev.clientY + "topedge" + topedge + " leftedge" + leftedge);
+            	var arr=getPoint(tdplayer.ele.tdplayer)
+            	topedge = ev.clientY + document.body.scrollTop - arr.top;
+                leftedge = ev.clientX - arr.left;
                 var tweidth = container.offsetWidth;
                 var theigtht = container.offsetHeight;
                 if (leftedge + rightmenu.offsetWidth > tweidth) {
                     leftedge = tweidth - rightmenu.offsetWidth;
                 }
-                if (topedge + rightmenu.offsetHeight > theigtht) {
-                    topedge = theigtht - rightmenu.offsetHeight;
-                }
+              	if (topedge + rightmenu.offsetHeight > theigtht) {
+                  topedge = theigtht - rightmenu.offsetHeight;
+             	}
             }
             if (window.document.all) {
                 this.IContextmenuHander = function() {
