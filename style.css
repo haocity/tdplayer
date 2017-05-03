@@ -540,7 +540,7 @@ input[type=range]::-webkit-slider-thumb {
 	display: none;
 }
 .tp-loding{
-	padding: 20px;
+	padding: 20px 0 0 20px;
 	color: #8B8585;
 	background-color: #C6C6C6;
 	position: absolute;
