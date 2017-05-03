@@ -4,6 +4,8 @@
 // @description  替换HTML5播放器
 // @author       疯狂减肥带
 // @match        http://www.acfun.cn/*
+// @match        http://www.acfun.tv/*
+// @match        http://www.aixifan.com/*
 // @grant        none
 // ==/UserScript==
 (function() {
@@ -12,7 +14,6 @@
     if (warp) {
         tmp = thisurl.split("/");
         thisac = tmp[tmp.length - 1];
-        console.log(thisac);
         warp.innerHTML = null;
         var script = document.createElement("script");
         script.setAttribute("type", "text/javascript");
