@@ -541,11 +541,24 @@ input[type=range]::-webkit-slider-thumb {
 }
 .tp-loding{
 	padding: 20px 0 0 20px;
-	color: #8B8585;
-	background-color: #C6C6C6;
+	color: #FFFFFF;
 	position: absolute;
     width: 100%;
     height: 100%;
+    z-index: 5;
+    box-sizing: border-box;
+}
+.tp-img-back{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -ms-filter: blur(10px);    
+    filter: blur(10px);    
+    z-index: 2;
+    overflow: hidden;
 }
 @media screen and (max-width: 700px) {
 	.tp-tranger{

@@ -40,10 +40,21 @@ function getPoint(obj) {
 }  
 function Tdplayer(ele, acid) {
 	console.log('acid:'+acid);
-    var e = document.createElement("div");
-    e.className = "tp-loding";
-    ele.appendChild(e);
-    e.innerText = "正在加载中...";
+	var e=ele.querySelector(".tp-loding");
+	if(!e){
+		e = document.createElement("div");
+		e.className = "tp-loding";
+		try{
+	    	if(pageInfo.coverImage){
+	    		var backimg = document.createElement("div");
+				backimg.className = "tp-img-back";
+				backimg.style.backgroundImage="url("+pageInfo.coverImage+")";
+	    		ele.appendChild(backimg);
+	    	}
+   		}catch(eero){}
+		ele.appendChild(e);
+		e.innerText = e.innerText+"正在加载中...";
+	}
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -58,7 +69,7 @@ function Tdplayer(ele, acid) {
                         var t = xmlhttp2.responseText;
                         var videosrcarr = JSON.parse(t).video;
                         if (videosrcarr) {
-                            tdstart(ele,videosrcarr,data);
+                            tdstart(ele,videosrcarr,data,null,null);
                         } else {
                             e.innerText = e.innerText + "\n视频解析失败  5秒后将重试";
                             setTimeout(function() {
@@ -78,7 +89,7 @@ function Tdplayer(ele, acid) {
     xmlhttp.send();
 }
 
-function tdstart(Element,src,data,poster) {
+function tdstart(Element,src,data,poster,videotype) {
 	var tdplayer = new Object();
     tdplayer.warp = Element;
     tdplayer.videosrcarr = src;
@@ -137,7 +148,20 @@ function tdstart(Element,src,data,poster) {
             tdplayer.Element = video;
         }
         tdplayer.ele.tdplayer.appendChild(video);
+        if (videotype == "flv") {
+	        try {           
+	                var flvPlayer = flvjs.createPlayer({
+	                    type:"flv",
+	                    url:tdplayer.videosrcarr[i]
+	                });
+	                flvPlayer.attachMediaElement(video);
+	                flvPlayer.load();
+	        } catch (e) {
+	            console.log("flv.js没有加载");
+	        }
+	    } 
     }
+    
     tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video");
     tdplayer.videotimearr = [];
     for (var i = 0; i < tdplayer.videoelearr.length; i++) {
