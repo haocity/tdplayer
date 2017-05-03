@@ -29,7 +29,7 @@
                 var id = thisac.slice(2);
                 Tdplayer(warp, id);
             } else {
-                alert("暂时不支持的视频");
+                $.info("不支持。 /(ㄒoㄒ)/~~");
             }
         };
     }
