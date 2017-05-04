@@ -777,7 +777,7 @@ function tdstart(Element,src,data,poster,videotype) {
         var e = tdplayer.ele.danmu_warp.getElementsByTagName("div");
         for (var i = e.length - 1; i >= 0; i--) {
 	        if (hasClass(e[i], "tp-left")) {
-	            e[i].style.transform = "translateX(-" + tp.width + "px)";
+	            e[i].style.transform = "translateX(-" + tdplayer.width + "px)";
 	        }
         }
     	},1000);
