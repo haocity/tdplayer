@@ -374,6 +374,7 @@ function tdstart(Element,src,data,poster,videotype) {
     });
     //弹幕速度
     function dmspeend(v) {
+    	console.log('弹幕速度调整为'+v);
         tdplayer.ele.css.innerText = ".tp-left {animation: dmleft " + v + "s linear;-webkit-animation: dmleft " + v + "s linear;}";
     }
     //视频播放
@@ -771,15 +772,14 @@ function tdstart(Element,src,data,poster,videotype) {
     }
     function tpeixtfull(){
     	setTimeout(function(){
-    	dmspeend(tp.width / 100);
-    	tp.width = tp.ele.video.offsetWidth;
-        var e = tp.ele.danmu_warp.getElementsByTagName("div");
-        dmspeend(tp.width / 100);
-            for (var i = e.length - 1; i >= 0; i--) {
-	            if (hasClass(e[i], "tp-left")) {
-	                 e[i].style.transform = "translateX(-" + tp.width + "px)";
-	            }
-            }
+    	tdplayer.width = tdplayer.ele.tdplayer.offsetWidth;
+    	dmspeend(tdplayer.width / 100);
+        var e = tdplayer.ele.danmu_warp.getElementsByTagName("div");
+        for (var i = e.length - 1; i >= 0; i--) {
+	        if (hasClass(e[i], "tp-left")) {
+	            e[i].style.transform = "translateX(-" + tp.width + "px)";
+	        }
+        }
     	},1000);
     }
     document.addEventListener('webkitfullscreenchange',function(c){
