@@ -38,6 +38,7 @@ function getPoint(obj) {
     	left:l
     }
 }  
+
 function Tdplayer(ele, acid) {
 	console.log('acid:'+acid);
 	var e=ele.querySelector(".tp-loding");
@@ -61,28 +62,64 @@ function Tdplayer(ele, acid) {
             var data = xmlhttp.responseText;
             e.innerText = e.innerText + "\n获取视频弹幕信息成功..";
             e.innerText = e.innerText + "\n正在解析视频地址";
-            var xmlhttp2;
-            xmlhttp2 = new XMLHttpRequest();
-            xmlhttp2.onreadystatechange = function() {
-                if (xmlhttp2.readyState == 4) {
-                    if (xmlhttp2.status == 200) {
-                        var t = xmlhttp2.responseText;
-                        var videosrcarr = JSON.parse(t).video;
-                        if (videosrcarr) {
-                            tdstart(ele,videosrcarr,data,null,null);
-                        } else {
-                            e.innerText = e.innerText + "\n视频解析失败  5秒后将重试";
-                            setTimeout(function() {
-                               Tdplayer(ele, acid);
-                            }, 5e3);
-                        }
-                    } else {
-                        e.innerText = e.innerText + "\n视频解析失败";
-                    }
-                }
-            };
-            xmlhttp2.open("GET", "https://t5.haotown.cn/td/video.php?ac=" + acid, true);
-            xmlhttp2.send();
+            var vid=JSON.parse(data).info.videoList[0].source_id;
+            console.log(vid);
+            if(!parseInt(vid)) {
+            	console.log('这应该是优酷源的视频');
+            	var xmlhttp2;
+	            xmlhttp2 = new XMLHttpRequest();
+	            xmlhttp2.onreadystatechange = function() {
+	                if (xmlhttp2.readyState == 4) {
+	                    if (xmlhttp2.status == 200) {
+	                        var t = xmlhttp2.responseText;
+	                        var c = JSON.parse(t);
+	                        for (var i=0;i<c.data.length;i++) {
+		                        if(c.data[i].stream_type=='mp4hd'){
+									var arr=new Array;
+									arr.push(c.data[i].segs[0].cdn_url)
+									console.log(arr);
+									tdstart(ele,arr,data,null,null);
+									break
+								}
+		                    }
+	                    } else {
+	                        e.innerText = e.innerText + "\n视频解析失败";
+	                    }
+	                }
+	            };
+	            xmlhttp2.open("GET", "https://t5.haotown.cn/youku/api/?youku=" + vid, true);
+	            xmlhttp2.send();
+            	for (var i=0;i<c.data.length;i++) {
+					if(c.data[i].stream_type=='mp4hd'){
+						console.log(c.data[i].segs[0].cdn_url);
+						tdstart(ele,c.data[i].segs[0].cdn_url,data,null,null);
+						break
+					}
+				}
+            }else{
+	            var xmlhttp2;
+	            xmlhttp2 = new XMLHttpRequest();
+	            xmlhttp2.onreadystatechange = function() {
+	                if (xmlhttp2.readyState == 4) {
+	                    if (xmlhttp2.status == 200) {
+	                        var t = xmlhttp2.responseText;
+	                        var videosrcarr = JSON.parse(t).video;
+	                        if (videosrcarr) {
+	                            tdstart(ele,videosrcarr,data,null,null);
+	                        } else {
+	                            e.innerText = e.innerText + "\n视频解析失败  5秒后将重试";
+	                            setTimeout(function() {
+	                               Tdplayer(ele, acid);
+	                            }, 5e3);
+	                        }
+	                    } else {
+	                        e.innerText = e.innerText + "\n视频解析失败";
+	                    }
+	                }
+	            };
+	            xmlhttp2.open("GET", "https://t5.haotown.cn/td/video.php?ac=" + acid, true);
+	            xmlhttp2.send();
+            }
         }
     };
     xmlhttp.open("GET", "https://t5.haotown.cn/acfun/danmu/?ac=" + acid, true);
