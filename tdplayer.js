@@ -91,13 +91,6 @@ function Tdplayer(ele, acid) {
 	            };
 	            xmlhttp2.open("GET", "https://t5.haotown.cn/youku/api/?youku=" + vid, true);
 	            xmlhttp2.send();
-            	for (var i=0;i<c.data.length;i++) {
-					if(c.data[i].stream_type=='mp4hd'){
-						console.log(c.data[i].segs[0].cdn_url);
-						tdstart(ele,c.data[i].segs[0].cdn_url,data,null,null);
-						break
-					}
-				}
             }else{
 	            var xmlhttp2;
 	            xmlhttp2 = new XMLHttpRequest();
