@@ -37,7 +37,8 @@ function getPoint(obj) {
     	top:t,
     	left:l
     }
-}  
+}
+
 
 function Tdplayer(ele, acid) {
 	console.log('acid:'+acid);
@@ -938,5 +939,20 @@ function tdstart(Element,src,data,poster,videotype) {
     var thisurl=window.location.href;
     if(thisurl.indexOf("acfun.cn") < 0||thisurl.indexOf("acfun.tv") < 0||thisurl.indexOf("aixifan.com") < 0){
     	chadown();
+    	editor32();
     }
+    
+	function editor32(){
+    	if($d('editor')){
+		$d('editor').addEventListener('keydown',function(event){
+			  var e = event || window.event || arguments.callee.caller.arguments[0];
+			  if (e.keyCode == 32) {
+	            e.stopPropagation();
+	          }
+		});
+		}else{
+			setTimeout(editor32,200);
+		}
+    }
+    
 }
