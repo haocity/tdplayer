@@ -76,7 +76,10 @@ function Tdplayer(ele, acid) {
 	                        for (var i=0;i<c.data.length;i++) {
 		                        if(c.data[i].stream_type=='mp4hd'){
 									var arr=new Array;
-									arr.push(c.data[i].segs[0].cdn_url)
+									for(var x=0;x<c.data[i].segs.length;x++)
+									{
+										arr.push(c.data[i].segs[x].cdn_url)
+									}
 									console.log(arr);
 									tdstart(ele,arr,data,null,null);
 									break
