@@ -62,9 +62,8 @@ function Tdplayer(ele, acid) {
             var data = xmlhttp.responseText;
             e.innerText = e.innerText + "\n获取视频弹幕信息成功..";
             e.innerText = e.innerText + "\n正在解析视频地址";
-            var vid=JSON.parse(data).info.videoList[0].source_id;
-            console.log(vid);
-            if(!parseInt(vid)) {
+            if(JSON.parse(data).info.videoList[0].source_type=='youku') {
+            	 var vid=JSON.parse(data).info.videoList[0].source_id;
             	console.log('这应该是优酷源的视频');
             	var xmlhttp2;
 	            xmlhttp2 = new XMLHttpRequest();
