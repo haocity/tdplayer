@@ -55,14 +55,14 @@ function Tdplayer(ele, acid) {
 	    	}
    		}catch(eero){}
 		ele.appendChild(e);
-		e.innerText = e.innerText+"正在加载中...";
+		e.innerText += "正在加载中...";
 	}
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var data = xmlhttp.responseText;
-            e.innerText = e.innerText + "\n获取视频弹幕信息成功..";
-            e.innerText = e.innerText + "\n正在解析视频地址";
+            e.innerText += "\n获取视频弹幕信息成功..";
+            e.innerText +="\n正在解析视频地址";
             if(JSON.parse(data).info.videoList[0].source_type=='youku') {
             	 var vid=JSON.parse(data).info.videoList[0].source_id;
             	console.log('这应该是优酷源的视频');
@@ -86,7 +86,7 @@ function Tdplayer(ele, acid) {
 								}
 		                    }
 	                    } else {
-	                        e.innerText = e.innerText + "\n视频解析失败";
+	                        e.innerText += "\n视频解析失败";
 	                    }
 	                }
 	            };
@@ -103,13 +103,13 @@ function Tdplayer(ele, acid) {
 	                        if (videosrcarr) {
 	                            tdstart(ele,videosrcarr,data,null,null);
 	                        } else {
-	                            e.innerText = e.innerText + "\n视频解析失败  5秒后将重试";
+	                            e.innerText +=  "\n视频解析失败  5秒后将重试";
 	                            setTimeout(function() {
 	                               Tdplayer(ele, acid);
 	                            }, 5e3);
 	                        }
 	                    } else {
-	                        e.innerText = e.innerText + "\n视频解析失败";
+	                        e.innerText += "\n视频解析失败";
 	                    }
 	                }
 	            };
