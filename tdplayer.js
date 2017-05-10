@@ -26,18 +26,7 @@ function removeClass(elements, cName) {
         elements.className = elements.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
     }
 }
-function getPoint(obj) {
-    var t = obj.offsetTop; 
-    var l = obj.offsetLeft; 
-    while (obj = obj.offsetParent) {
-        t += obj.offsetTop;
-        l += obj.offsetLeft; 
-    }  
-    return {
-    	top:t,
-    	left:l
-    }
-}
+
 
 
 function Tdplayer(ele, acid) {
@@ -864,9 +853,8 @@ function tdstart(Element,src,data,poster,videotype) {
 	                    topedge = danmuheight - rightmenu.offsetHeight;
 	                }
 	            } else {
-	            	var arr=getPoint(tdplayer.ele.tdplayer)
-	            	topedge = ev.clientY + document.body.scrollTop - arr.top;
-	                leftedge = ev.clientX - arr.left;
+	            	topedge = ev.clientY + document.body.scrollTop - getTop(tdplayer.ele.tdplayer);
+	                leftedge = ev.clientX - getLeft(tdplayer.ele.tdplayer);
 	                var tweidth = container.offsetWidth;
 	                var theigtht = container.offsetHeight;
 	                if (leftedge + rightmenu.offsetWidth > tweidth) {
