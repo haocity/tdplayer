@@ -1,6 +1,5 @@
 (function() {
     var thisurl = window.location.href;
-    if(thisurl.indexOf("acfun.cn") < 0||thisurl.indexOf("acfun.tv") < 0||thisurl.indexOf("aixifan.com") < 0){
 	    var warp = document.querySelector(".player>#player");
 	    if (warp) {
 	        tmp = thisurl.split("/");
@@ -26,8 +25,7 @@
 	                $.info("不支持。 /(ㄒoㄒ)/~~");
 	            }
 	        };
+	    }else{
+	    	alert('没有找到acfun视频')
 	    }
-    }else{
-    	alert('请进入acfun再说。。');
-    }
 })();
