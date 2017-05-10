@@ -626,16 +626,17 @@ function tdstart(Element,src,data,poster,videotype) {
     }
     function show_coords(event, elem) {
         var x = event.clientX - getLeft(elem);
-        var y = event.clientY - getTop(elem);
-        var xbl = x / elem.offsetWidth;
-        var ybl = y / elem.offsetTop;
-        return {
-            x:x,
-            y:y,
-            w:elem.offsetWidth,
-            xbl:xbl,
-            ybl:ybl
-        };
+	    var y = event.clientY - getTop(elem);
+	    var xbl = x / elem.offsetWidth;
+	    var ybl =1- y / elem.offsetHeight;
+	    return {
+	        x:x,
+	        y:y,
+	        w:elem.offsetWidth,
+	        h:elem.offsetHeight,
+	        xbl:xbl,
+	        ybl:ybl
+	    };
     }
     //视频缓冲事件
     function videohc() {
