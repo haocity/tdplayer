@@ -462,7 +462,8 @@ function tdstart(Element,src,data,poster,videotype) {
         }
         return returnvalue;
     }
-    tdplayer.changersound = function(s) {
+    tdplayer.changersound = function() {
+    	var s = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
     	for (var i=0;i<tdplayer.videoelearr.length;i++) {
            tdplayer.videoelearr[i].volume = s;
         }
@@ -476,14 +477,12 @@ function tdstart(Element,src,data,poster,videotype) {
         tdplayer.ele.tp_syk_range.value = tdplayer.soundcookie*100;
         tdplayer.Element.volume = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
     } else {
-        tdplayer.changersound(1);
+        tdplayer.changersound();
         
     }
     //音量调节
      tdplayer.ele.tp_syk_range.addEventListener("input", function() {
-        var s = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
-        tdplayer.changersound(s);
-        
+        tdplayer.changersound();
     });
     function getnowtime() {
         var videotime = 0;
@@ -599,7 +598,6 @@ function tdstart(Element,src,data,poster,videotype) {
         var xbl = show_coords(e, this);
         tdplayer.ele.tranger_a.style.width = xbl.xbl * 100 + "%";
         tiao(xbl.xbl * tdplayer.alltime);
-        tdplayer.ele.tp_syk_range.click();
     };
     //获取元素的纵坐标（相对于窗口）
     function getTop(e) {
@@ -663,6 +661,7 @@ function tdstart(Element,src,data,poster,videotype) {
     //键盘
     tdplayer.ele.tp_video_warp.addEventListener('click',function(){
          setTimeout(function(){ tdplayer.ele.tp_video_warp.xz=true;},200);
+         console.log('ccc')
     }, false);
     document.addEventListener('click', function(e){
          if (e.target==tdplayer.ele.danmu_warp) {
@@ -694,17 +693,17 @@ function tdstart(Element,src,data,poster,videotype) {
 	                tdplayer.ele.video_control_paused.onclick();
 	            }
 	        }
-	        if (e && e.keyCode == 38) {
+	        if (ev && ev.keyCode == 38) {
 	            // up 键
 	            event.preventDefault();
 	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) + 1;
-	            tdplayer.ele.tp_syk_range.click();
+	            tdplayer.changersound();
 	        }
 	        if (ev && ev.keyCode == 40) {
 	            // down 键
 	            event.preventDefault();
 	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) - 1;
-	            tdplayer.ele.tp_syk_range.click();
+	            tdplayer.changersound();
 	        }
 	    }
     });
