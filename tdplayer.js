@@ -696,11 +696,13 @@ function tdstart(Element,src,data,poster,videotype) {
 	        }
 	        if (e && e.keyCode == 38) {
 	            // up 键
+	            event.preventDefault();
 	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) + 1;
 	            tdplayer.ele.tp_syk_range.click();
 	        }
 	        if (ev && ev.keyCode == 40) {
 	            // down 键
+	            event.preventDefault();
 	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) - 1;
 	            tdplayer.ele.tp_syk_range.click();
 	        }
