@@ -661,38 +661,50 @@ function tdstart(Element,src,data,poster,videotype) {
         }
     }
     //键盘
+    tdplayer.ele.tp_video_warp.addEventListener('click',function(){
+         setTimeout(function(){ tdplayer.ele.tp_video_warp.xz=true;},200);
+    }, false);
+    document.addEventListener('click', function(e){
+         if (e.target==tdplayer.ele.danmu_warp) {
+            tdplayer.ele.tp_video_warp.xz=true
+         }else{
+            tdplayer.ele.tp_video_warp.xz=false
+         }
+    }, false);
     document.addEventListener("keydown", function(event) {
         var ev = event || window.event || arguments.callee.caller.arguments[0];
-        showbar();
-        if (ev && ev.keyCode == 39) {
-            // right 键
-            var videotime = getnowtime();
-            tiao(videotime + 5);
-        }
-        if (ev && ev.keyCode == 37) {
-            // left 键
-            var videotime = getnowtime();
-            tiao(videotime - 5);
-        }
-        if (ev && ev.keyCode == 32) {
-            // space 键
-              event.preventDefault();
-            if (tdplayer.Element.paused) {
-                tdplayer.ele.video_control_play.onclick();
-            } else {
-                tdplayer.ele.video_control_paused.onclick();
-            }
-        }
-        if (e && e.keyCode == 38) {
-            // up 键
-            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) + 1;
-            tdplayer.ele.tp_syk_range.click();
-        }
-        if (ev && ev.keyCode == 40) {
-            // down 键
-            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) - 1;
-            tdplayer.ele.tp_syk_range.click();
-        }
+         if(tdplayer.ele.tp_video_warp.xz==true){
+	        showbar();
+	        if (ev && ev.keyCode == 39) {
+	            // right 键
+	            var videotime = getnowtime();
+	            tiao(videotime + 5);
+	        }
+	        if (ev && ev.keyCode == 37) {
+	            // left 键
+	            var videotime = getnowtime();
+	            tiao(videotime - 5);
+	        }
+	        if (ev && ev.keyCode == 32) {
+	            // space 键
+	              event.preventDefault();
+	            if (tdplayer.Element.paused) {
+	                tdplayer.ele.video_control_play.onclick();
+	            } else {
+	                tdplayer.ele.video_control_paused.onclick();
+	            }
+	        }
+	        if (e && e.keyCode == 38) {
+	            // up 键
+	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) + 1;
+	            tdplayer.ele.tp_syk_range.click();
+	        }
+	        if (ev && ev.keyCode == 40) {
+	            // down 键
+	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) - 1;
+	            tdplayer.ele.tp_syk_range.click();
+	        }
+	    }
     });
     function getvideotime(time) {
         var tm;
