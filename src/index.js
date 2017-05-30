@@ -27,8 +27,66 @@ window.removeClass=(elements, cName)=> {
     }
 }
 
-
-window.Tdplayer=(ele, acid)=>{
+window.tdvidplay=(ele, vid)=>{
+	console.log('vid:'+vid);
+	e = document.createElement("div");
+	e.className = "tp-loding";
+	if (pageInfo) {
+	    if(pageInfo.coverImage){
+	    	var backimg = document.createElement("div");
+			backimg.className = "tp-img-back";
+			backimg.style.backgroundImage="url("+pageInfo.coverImage+")";
+	    	ele.appendChild(backimg);
+	    }
+	}
+	ele.appendChild(e);
+	e.innerText += "正在加载中...";
+	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
+	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
+	let videosrcarr=[],danmudata='';
+	fetch(damuurl).then(response => response.json())
+	  .then(function(json){
+			let v1,v2,v3,vv;
+			for (var i = 0; i < json.stream.length; i++) {
+				if(json.stream[i].stream_type=='mp4hd3'){
+					v1=json.stream[i]
+				}
+				if(json.stream[i].stream_type=='mp4hd2'){
+					v2=json.stream[i]
+				}
+				if(json.stream[i].stream_type=='mp4hd'){
+					v3=json.stream[i]
+				}
+			}
+			if(v1){
+				vv=v1
+			}else if(v2){
+				vv=v2
+			}else if(v3){
+				vv=v3
+			}
+			for (var i = 0; i < vv.segs.length; i++) {
+				videosrcarr.push(vv.segs[i].url)
+			}
+			console.log(videosrcarr);
+			checkend()
+	  	})
+	  .catch(e => console.log(" error", e))
+	fetch(videourl).then(response => response.json())
+	  .then(function(data){ 
+	  	danmudata=data
+	  	console.log(data)
+	  	checkend()
+	  })
+	  .catch(e => console.log(" error", e))
+	checkend=()=>{
+		if (videosrcarr&&danmudata) {
+			console.log('end')
+		}
+		
+	}
+}
+window.tdacplay=(ele, acid)=>{
 	console.log('acid:'+acid);
 	var e=ele.querySelector(".tp-loding");
 	if(!e){
@@ -52,7 +110,7 @@ window.Tdplayer=(ele, acid)=>{
             e.innerText += "\n获取视频弹幕信息成功..";
             e.innerText +="\n正在解析视频地址";
             if(JSON.parse(data).info.videoList[0].source_type=='youku') {
-            	 var vid=JSON.parse(data).info.videoList[0].source_id;
+            	var vid=JSON.parse(data).info.videoList[0].source_id;
             	console.log('这应该是优酷源的视频');
             	var xmlhttp2;
 	            xmlhttp2 = new XMLHttpRequest();
@@ -89,11 +147,11 @@ window.Tdplayer=(ele, acid)=>{
 	                        var t = xmlhttp2.responseText;
 	                        var videosrcarr = JSON.parse(t).video;
 	                        if (videosrcarr) {
-	                            tdstart(ele,videosrcarr,data,null,null);
+	                            tdplayer(ele,videosrcarr,data,null,null);
 	                        } else {
 	                            e.innerText +=  "\n视频解析失败  5秒后将重试";
 	                            setTimeout(function() {
-	                               Tdplayer(ele, acid);
+	                               tdacplay(ele, acid);
 	                            }, 5e3);
 	                        }
 	                    } else {
@@ -110,7 +168,7 @@ window.Tdplayer=(ele, acid)=>{
     xmlhttp.send();
 }
 
-window.tdstart=(Element,src,data,poster,videotype)=> {
+window.tdplayer=(Element,src,data,poster,videotype)=> {
 	var tdplayer = new Object();
     tdplayer.warp = Element;
     tdplayer.videosrcarr = src;
