@@ -122,6 +122,7 @@ if(false) {
  * @author   HaoDong <ureygt@gmail.com> <http://www.haotown.cn>
  * @license  The Star And Thank Author License (SATA)
  */
+//tdvidplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-vid"))
 var html = __webpack_require__(0);
 __webpack_require__(1);
 window.$d = function (e) {
@@ -146,7 +147,74 @@ window.removeClass = function (elements, cName) {
     }
 };
 
-window.Tdplayer = function (ele, acid) {
+window.tdvidplay = function (ele, vid) {
+    console.log('vid:' + vid);
+    var e = document.createElement("div");
+    e.className = "tp-loding";
+    if (pageInfo) {
+        if (pageInfo.coverImage) {
+            var backimg = document.createElement("div");
+            backimg.className = "tp-img-back";
+            backimg.style.backgroundImage = "url(" + pageInfo.coverImage + ")";
+            ele.appendChild(backimg);
+        }
+    }
+    ele.appendChild(e);
+    e.innerText += "正在加载中...";
+    var damuurl = 'https://t5.haotown.cn/acfun/danmu/?vid=' + vid;
+    var videourl = 'https://t5.haotown.cn/pyapi/vid/' + vid;
+    var videosrcarr = [],
+        danmudata = void 0;
+    fetch(damuurl).then(function (response) {
+        return response.json();
+    }).then(function (json) {
+        var v1 = void 0,
+            v2 = void 0,
+            v3 = void 0,
+            vv = void 0;
+        for (var i = 0; i < json.stream.length; i++) {
+            if (json.stream[i].stream_type == 'mp4hd3') {
+                v1 = json.stream[i];
+            }
+            if (json.stream[i].stream_type == 'mp4hd2') {
+                v2 = json.stream[i];
+            }
+            if (json.stream[i].stream_type == 'mp4hd') {
+                v3 = json.stream[i];
+            }
+        }
+        if (v1) {
+            vv = v1;
+        } else if (v2) {
+            vv = v2;
+        } else if (v3) {
+            vv = v3;
+        }
+        for (var i = 0; i < vv.segs.length; i++) {
+            videosrcarr.push(vv.segs[i].url);
+        }
+        console.log(videosrcarr);
+        checkend();
+    }).catch(function (e) {
+        return console.log(" error", e);
+    });
+    fetch(videourl).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        danmudata = data;
+        console.log(data);
+        checkend();
+    }).catch(function (e) {
+        return console.log(" error", e);
+    });
+    function checkend() {
+        if (videosrcarr && danmudata) {
+            console.log('end');
+            tdplayer(ele, videosrcarr, danmudata, null, null);
+        }
+    }
+};
+window.tdacplay = function (ele, acid) {
     console.log('acid:' + acid);
     var e = ele.querySelector(".tp-loding");
     if (!e) {
@@ -206,11 +274,11 @@ window.Tdplayer = function (ele, acid) {
                             var t = xmlhttp2.responseText;
                             var videosrcarr = JSON.parse(t).video;
                             if (videosrcarr) {
-                                tdstart(ele, videosrcarr, data, null, null);
+                                tdplayer(ele, videosrcarr, data, null, null);
                             } else {
                                 e.innerText += "\n视频解析失败  5秒后将重试";
                                 setTimeout(function () {
-                                    Tdplayer(ele, acid);
+                                    tdacplay(ele, acid);
                                 }, 5e3);
                             }
                         } else {
@@ -227,7 +295,7 @@ window.Tdplayer = function (ele, acid) {
     xmlhttp.send();
 };
 
-window.tdstart = function (Element, src, data, poster, videotype) {
+window.tdplayer = function (Element, src, data, poster, videotype) {
     var tdplayer = new Object();
     tdplayer.warp = Element;
     tdplayer.videosrcarr = src;

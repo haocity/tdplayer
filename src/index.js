@@ -3,6 +3,7 @@
  * @author   HaoDong <ureygt@gmail.com> <http://www.haotown.cn>
  * @license  The Star And Thank Author License (SATA)
  */
+//tdvidplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-vid"))
 const html = require('./html.js');
 require('./style.css');
 window.$d=(e)=>{
@@ -29,7 +30,7 @@ window.removeClass=(elements, cName)=> {
 
 window.tdvidplay=(ele, vid)=>{
 	console.log('vid:'+vid);
-	e = document.createElement("div");
+	let e = document.createElement("div");
 	e.className = "tp-loding";
 	if (pageInfo) {
 	    if(pageInfo.coverImage){
@@ -43,7 +44,7 @@ window.tdvidplay=(ele, vid)=>{
 	e.innerText += "正在加载中...";
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
-	let videosrcarr=[],danmudata='';
+	let videosrcarr=[],danmudata;
 	fetch(damuurl).then(response => response.json())
 	  .then(function(json){
 			let v1,v2,v3,vv;
@@ -79,11 +80,11 @@ window.tdvidplay=(ele, vid)=>{
 	  	checkend()
 	  })
 	  .catch(e => console.log(" error", e))
-	checkend=()=>{
+	function checkend(){
 		if (videosrcarr&&danmudata) {
 			console.log('end')
+			tdplayer(ele,videosrcarr,danmudata,null,null);
 		}
-		
 	}
 }
 window.tdacplay=(ele, acid)=>{
