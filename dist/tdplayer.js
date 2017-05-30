@@ -874,7 +874,7 @@ window.tdstart = function (Element, src, data, poster, videotype) {
         }
     }
     //颜色
-    tpcolor = new Object();
+    var tpcolor = new Object();
     tpcolor.arr = new Array("#FFFFFF", "#000000", "#4ab0c6", "#555656", "#09b745", "#f86141", "#FFEB3B", "#4d38d8", "#fe67c1", "#ff9c07");
     for (var r = 255; r >= 0; r -= 25) {
         for (var g = 0; g <= 255; g += 25) {
