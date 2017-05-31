@@ -30,6 +30,9 @@ window.removeClass=(elements, cName)=> {
 
 window.tdvidplay=(ele, vid)=>{
 	console.log('vid:'+vid);
+	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
+	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
+	let videosrcarr=[],danmudata,pimg,f1,f2;
 	let e = document.createElement("div");
 	e.className = "tp-loding";
 	if (pageInfo) {
@@ -38,14 +41,12 @@ window.tdvidplay=(ele, vid)=>{
 			backimg.className = "tp-img-back";
 			backimg.style.backgroundImage="url("+pageInfo.coverImage+")";
 	    	ele.appendChild(backimg);
+	    	pimg=pageInfo.coverImage;
 	    }
 	}
 	ele.appendChild(e);
 	e.innerText += "正在加载中...";
-	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
-	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
-	let videosrcarr=[],danmudata;
-	fetch(damuurl).then(response => response.json())
+	fetch(videourl).then(response => response.json())
 	  .then(function(json){
 			let v1,v2,v3,vv;
 			for (var i = 0; i < json.stream.length; i++) {
@@ -72,22 +73,27 @@ window.tdvidplay=(ele, vid)=>{
 			for (var i = 0; i < vv.segs.length; i++) {
 				videosrcarr.push(vv.segs[i].url)
 			}
+			f1=true;
 			console.log(videosrcarr);
 			checkend()
 	  	})
 	  .catch(e => console.log(" error", e))
-	fetch(videourl).then(response => response.json())
+	fetch(damuurl).then(response => response.json())
 	  .then(function(data){ 
-	  	danmudata=data
+	  	danmudata=JSON.stringify(data)
+	  	f2=true
 	  	console.log(data)
 	  	checkend()
 	  })
 	  .catch(e => console.log(" error", e))
 	function checkend(){
-		if (videosrcarr&&danmudata) {
-			console.log('end')
-			tdplayer(ele,videosrcarr,danmudata,null,null);
-		}
+		if (f1&&f2) {
+		 	console.log('end')
+		 	window.x1=ele;
+            window.x2=videosrcarr;
+            window.x3=danmudata;
+		 	tdplayer(ele,videosrcarr,danmudata,pimg,null);
+		 }
 	}
 }
 window.tdacplay=(ele, acid)=>{
@@ -179,7 +185,12 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.data=data;
     tdplayer.videoinfo = JSON.parse(tdplayer.data).info;
     tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
-    if(poster){tdplayer.vposter =poster}else{poster=tdplayer.videoinfo.coverImage}
+    if(poster){
+    	tdplayer.vposter =poster
+    }
+    else if(tdplayer.videoinfo){
+    	poster=tdplayer.videoinfo.coverImage
+    }
     tdplayer.vposter = poster;
     tdplayer.nowduan = 0;
     tdplayer.v = html.html();
@@ -244,7 +255,6 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	        }
 	    } 
     }
-    
     tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video");
     tdplayer.videotimearr = [];
     for (var i = 0; i < tdplayer.videoelearr.length; i++) {

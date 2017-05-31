@@ -149,6 +149,13 @@ window.removeClass = function (elements, cName) {
 
 window.tdvidplay = function (ele, vid) {
     console.log('vid:' + vid);
+    var damuurl = 'https://t5.haotown.cn/acfun/danmu/?vid=' + vid;
+    var videourl = 'https://t5.haotown.cn/pyapi/vid/' + vid;
+    var videosrcarr = [],
+        danmudata = void 0,
+        pimg = void 0,
+        f1 = void 0,
+        f2 = void 0;
     var e = document.createElement("div");
     e.className = "tp-loding";
     if (pageInfo) {
@@ -157,15 +164,12 @@ window.tdvidplay = function (ele, vid) {
             backimg.className = "tp-img-back";
             backimg.style.backgroundImage = "url(" + pageInfo.coverImage + ")";
             ele.appendChild(backimg);
+            pimg = pageInfo.coverImage;
         }
     }
     ele.appendChild(e);
     e.innerText += "正在加载中...";
-    var damuurl = 'https://t5.haotown.cn/acfun/danmu/?vid=' + vid;
-    var videourl = 'https://t5.haotown.cn/pyapi/vid/' + vid;
-    var videosrcarr = [],
-        danmudata = void 0;
-    fetch(damuurl).then(function (response) {
+    fetch(videourl).then(function (response) {
         return response.json();
     }).then(function (json) {
         var v1 = void 0,
@@ -196,24 +200,29 @@ window.tdvidplay = function (ele, vid) {
         for (var i = 0; i < vv.segs.length; i++) {
             videosrcarr.push(vv.segs[i].url);
         }
+        f1 = true;
         console.log(videosrcarr);
         checkend();
     }).catch(function (e) {
         return console.log(" error", e);
     });
-    fetch(videourl).then(function (response) {
+    fetch(damuurl).then(function (response) {
         return response.json();
     }).then(function (data) {
-        danmudata = data;
+        danmudata = JSON.stringify(data);
+        f2 = true;
         console.log(data);
         checkend();
     }).catch(function (e) {
         return console.log(" error", e);
     });
     function checkend() {
-        if (videosrcarr && danmudata) {
+        if (f1 && f2) {
             console.log('end');
-            tdplayer(ele, videosrcarr, danmudata, null, null);
+            window.x1 = ele;
+            window.x2 = videosrcarr;
+            window.x3 = danmudata;
+            tdplayer(ele, videosrcarr, danmudata, pimg, null);
         }
     }
 };
@@ -307,7 +316,7 @@ window.tdplayer = function (Element, src, data, poster, videotype) {
     tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
     if (poster) {
         tdplayer.vposter = poster;
-    } else {
+    } else if (tdplayer.videoinfo) {
         poster = tdplayer.videoinfo.coverImage;
     }
     tdplayer.vposter = poster;
@@ -374,7 +383,6 @@ window.tdplayer = function (Element, src, data, poster, videotype) {
             }
         }
     }
-
     tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video");
     tdplayer.videotimearr = [];
     for (var i = 0; i < tdplayer.videoelearr.length; i++) {
