@@ -65,7 +65,10 @@ window.tdvidplay=(ele, vid)=>{
 				vv=v2
 			}else if(v3){
 				vv=v3
+			}else{
+				console.log('解析失败')
 			}
+			console.log(vv);
 			for (var i = 0; i < vv.segs.length; i++) {
 				videosrcarr.push(vv.segs[i].url)
 			}
