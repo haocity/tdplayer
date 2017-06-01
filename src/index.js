@@ -12,23 +12,24 @@ window.$d=(e)=>{
 window.$c=(e)=>{
     return document.querySelectorAll(e);
 }
-window.hasClass=(elements, cName)=>{
+let hasClass=(elements, cName)=>{
     return !!elements.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
 }
 
-window.addClass=(elements, cName)=>{
+let addClass=(elements, cName)=>{
     if (!hasClass(elements, cName)) {
         elements.className += " " + cName;
     }
 }
 
-window.removeClass=(elements, cName)=> {
+let removeClass=(elements, cName)=> {
     if (hasClass(elements, cName)) {
         elements.className = elements.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
     }
 }
 
 window.tdvidplay=(ele, vid)=>{
+    ele.innerHTML=null;
 	console.log('vid:'+vid);
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
@@ -97,6 +98,7 @@ window.tdvidplay=(ele, vid)=>{
 	}
 }
 window.tdacplay=(ele, acid)=>{
+    ele.innerHTML = null;
 	console.log('acid:'+acid);
 	var e=ele.querySelector(".tp-loding");
 	if(!e){
@@ -137,7 +139,7 @@ window.tdacplay=(ele, acid)=>{
 										arr.push(c.data[i].segs[x].cdn_url)
 									}
 									console.log(arr);
-									tdstart(ele,arr,data,null,null);
+									tdplayer(ele,arr,data,null,null);
 									break
 								}
 		                    }
@@ -1000,7 +1002,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 		            var div = document.createElement("div");
 		            div.className = "down-btn";
 		            var t = i + 1;
-		            div.innerHTML = '<a href="' + tdplayer.videosrcarr[i] + '" download="[' + t + "]" + tdplayer.videoinfo.title + '.mp4">下载' + t + "段</a>";
+                    div.innerHTML = '<a href="' + tdplayer.videosrcarr[i] + '" download="[' + t + "]" +  document.querySelector('#pageInfo').getAttribute("data-title") + '.mp4">下载' + t + "段</a>";
 		            d.appendChild(div);
 		        }
 		        span.appendChild(d);
