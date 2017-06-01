@@ -8,21 +8,22 @@
 	        var script = document.createElement("script");
 	        script.setAttribute("type", "text/javascript");
 	        script.setAttribute("charset", "UTF-8");
-	       // script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js');
-	        script.setAttribute('src', 'http://127.0.0.1:8020/tdplayer/tdplayer.js');
+	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?time=0610');
+	        //script.setAttribute('src', 'http://127.0.0.1:8020/tdplayer/tdplayer.js');
 	        document.head.appendChild(script);
-	        var link = document.createElement("link");
-	        link.setAttribute("type", "text/css");
-	        link.setAttribute("rel", "stylesheet");
-	        //link.setAttribute('href', 'https://app.haotown.cn/td/style.css');
-	        link.setAttribute('href', 'http://127.0.0.1:8020/tdplayer/style.css');
-	        document.head.appendChild(link);
 	        script.onload = function() {
 	            if (thisac.indexOf("ac") == 0) {
-	                var id = thisac.slice(2);
-	                Tdplayer(warp, id);
+	               	var info=document.querySelector('#pageInfo');
+	                if (info) {
+	                	if (info.getAttribute("data-from")=='zhuzhan') {
+	                		console.log('ac源视频');
+	                		tdvidplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-vid"))
+	                	}else if(info.getAttribute("data-from")=='youku'){
+	                		tdacplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-vid"))
+	                	}
+	                }
 	            } else {
-	                $.info("不支持。 /(ㄒoㄒ)/~~");
+	               console.log("不支持。 /(ㄒoㄒ)/~~");
 	            }
 	        };
 	    }else{
