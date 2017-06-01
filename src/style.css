@@ -295,7 +295,7 @@ input[type=range]::-webkit-slider-thumb {
 	height: 100%;
 	width: 11px;
 	border-radius: 50%;
-	right: 7px;
+	right: 16px;
 }
 .tp-tranger>.tp-tranger-c {
 	position: absolute;
