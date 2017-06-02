@@ -1,6 +1,6 @@
 {
   "name": "tdplayer",
-  "version": "1.0.0",
+  "version": "2.2.01",
   "description": "acfun html5 player",
   "main": "build webpack",
   "dependencies": {
@@ -19,6 +19,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "HAOTOWN",
+  "license": "The Star And Thank Author License(SATA)"
 }
