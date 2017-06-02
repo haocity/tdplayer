@@ -14,7 +14,7 @@
  请拖入书签栏  在ac视频页面点击 
 
 <div>
-<a style="background-color: #ff1c1c;color: #fff;text-decoration: none;padding: 10px;" href="javascript:(function(){var f=document.createElement('script');f.src='https://t5.haotown.cn/td/script.js?time='+new Date().getTime();document.body.appendChild(f);})();">TDPLAYER</a>
+<a style="background-color: #ff1c1c;color: #fff;text-decoration: none;padding:10px;" href="https://t5.haotown.cn/td/">TDPLAYER</a>
 </div>
 
 
