@@ -3,7 +3,6 @@
  * @author   HaoDong <ureygt@gmail.com> <http://www.haotown.cn>
  * @license  The Star And Thank Author License (SATA)
  */
-//tdvidplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-vid"))
 const html = require('./html.js');
 require('./style.css');
 window.$d=(e)=>{
@@ -399,6 +398,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	                        ele.play();
 	                    }
 				 	}
+				 	tdplayer.changersound()
 				 }else{
 				 	console.log("播放完毕"+arg);
 				 	tdplayer.ele.end.style.display = "block";
@@ -664,6 +664,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         if (tdplayer.ele.video_control_play.display != "none") {
             tdplayer.ele.video_control_play.onclick();
         }
+
     }
     //进度条
     tdplayer.ele.tranger.onmousedown = function(event) {
