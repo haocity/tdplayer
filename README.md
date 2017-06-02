@@ -11,8 +11,9 @@
 - 替换播放器
 - 添加视频下载按钮
 ### 食用方法
-1. 书签栏工具  请拖入书签栏  在ac视频页面点击  <a style="background-color: #ff1c1c;color: #fff;text-decoration: none;padding: 10px;" href="javascript:(function(){var f=document.createElement('script');f.src='https://t5.haotown.cn/td/script.js?time='+new Date().getTime();document.body.appendChild(f);})();">TDPLAYER</a>
+1. 书签栏工具  请拖入书签栏  在ac视频页面点击  
 
+<a style="background-color: #ff1c1c;color: #fff;text-decoration: none;padding: 10px;" href="javascript:(function(){var f=document.createElement('script');f.src='https://t5.haotown.cn/td/script.js?time='+new Date().getTime();document.body.appendChild(f);})();">TDPLAYER</a>
 
 2. 油猴脚本  需安装扩展 Tampermonkey    点击后进行添加 [脚本](https://t5.haotown.cn/td/monkey.user.js)
 
