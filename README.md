@@ -11,14 +11,8 @@
 - 替换播放器
 - 添加视频下载按钮
 ### 食用方法
- 请拖入书签栏  在ac视频页面点击 
-
-<div>
-<a style="background-color: #ff1c1c;color: #fff;text-decoration: none;padding:10px;" href="https://t5.haotown.cn/td/">TDPLAYER</a>
-</div>
-
-
-你也可以使用油猴脚本  需安装扩展 Tampermonkey    点击后进行添加 [脚本](https://t5.haotown.cn/td/monkey.user.js)
+1.书签栏工具  进入[此处](https://t5.haotown.cn/td/) 在新页面中拖入书签栏  在你需要替换ac播放器时点击书签
+2.你也可以使用油猴脚本  需安装扩展 Tampermonkey    点击后进行添加 [脚本](https://t5.haotown.cn/td/monkey.user.js)
 
 ## 开源协议
 
