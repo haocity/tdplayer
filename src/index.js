@@ -5,12 +5,7 @@
  */
 const html = require('./html.js');
 require('./style.css');
-window.$d=(e)=>{
-    return document.getElementById(e);
-}
-window.$c=(e)=>{
-    return document.querySelectorAll(e);
-}
+
 let hasClass=(elements, cName)=>{
     return !!elements.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
 }
@@ -28,7 +23,17 @@ let removeClass=(elements, cName)=> {
 }
 
 window.tdvidplay=(ele, vid)=>{
-    ele.innerHTML=null;
+	let isac;
+	$d=(e)=>{
+    return ele.getElementById(e);
+	}
+	$c=(e)=>{
+	    return ele.querySelectorAll(e);
+	}
+	if($c('object')[0]){
+		$c('object')[0].style.display='none'
+		isac=true;
+	}
 	console.log('vid:'+vid);
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
@@ -67,15 +72,23 @@ window.tdvidplay=(ele, vid)=>{
 			}else if(v3){
 				vv=v3
 			}else{
-				console.log('解析失败')
+				if (isac) {
+					$.info.error('替换失败 本视频不支持')
+					$c('object')[0].style.display='block'
+					e.style.display='none'
+				}else{
+					console.log('本视频不支持')
+				}
 			}
 			console.log(vv);
-			for (var i = 0; i < vv.segs.length; i++) {
-				videosrcarr.push(vv.segs[i].url)
+			if (vv) {
+				for (var i = 0; i < vv.segs.length; i++) {
+					videosrcarr.push(vv.segs[i].url)
+				}
+				f1=true;
+				console.log(videosrcarr);
+				checkend()
 			}
-			f1=true;
-			console.log(videosrcarr);
-			checkend()
 	  	})
 	  .catch(e => console.log(" error", e))
 	fetch(damuurl).then(response => response.json())
