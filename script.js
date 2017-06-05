@@ -23,7 +23,12 @@
 	                	}
 	                }
 	            } else {
-	               console.log("不支持。 /(ㄒoㄒ)/~~");
+					try{
+						$.info.error('替换失败')
+					}catch(e){
+						console.log("不支持。 /(ㄒoㄒ)/~~");
+					}
+	               
 	            }
 	        };
 	    }else{
