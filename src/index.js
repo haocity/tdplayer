@@ -24,10 +24,10 @@ let removeClass=(elements, cName)=> {
 
 window.tdvidplay=(ele, vid)=>{
 	let isac;
-	$d=(e)=>{
+	function $d(e){
     return ele.getElementById(e);
 	}
-	$c=(e)=>{
+	function $c(e){
 	    return ele.querySelectorAll(e);
 	}
 	if($c('object')[0]){
@@ -110,10 +110,10 @@ window.tdvidplay=(ele, vid)=>{
 	}
 }
 window.tdacplay=(ele, acid)=>{
-	$d=(e)=>{
+	function $d(e){
     return ele.getElementById(e);
 	}
-	$c=(e)=>{
+	function $c(e){
 	    return ele.querySelectorAll(e);
 	}
     ele.innerHTML = null;
