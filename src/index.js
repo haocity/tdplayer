@@ -21,19 +21,14 @@ let removeClass=(elements, cName)=> {
         elements.className = elements.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
     }
 }
+window.$d=function(e){
+    return document.getElementById(e);
+}
+window.$c=function(e){
+	return document.querySelectorAll(e);
+}
 
 window.tdvidplay=(ele, vid)=>{
-	let isac;
-	function $d(e){
-    return ele.getElementById(e);
-	}
-	function $c(e){
-	    return ele.querySelectorAll(e);
-	}
-	if($c('object')[0]){
-		$c('object')[0].style.display='none'
-		isac=true;
-	}
 	console.log('vid:'+vid);
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
@@ -72,11 +67,11 @@ window.tdvidplay=(ele, vid)=>{
 			}else if(v3){
 				vv=v3
 			}else{
-				if (isac) {
-					$.info.error('替换失败 本视频不支持')
+				try{
 					$c('object')[0].style.display='block'
 					e.style.display='none'
-				}else{
+					$.info.error('替换失败 本视频不支持')
+				}catch(e){
 					console.log('本视频不支持')
 				}
 			}
