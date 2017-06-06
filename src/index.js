@@ -110,6 +110,12 @@ window.tdvidplay=(ele, vid)=>{
 	}
 }
 window.tdacplay=(ele, acid)=>{
+	$d=(e)=>{
+    return ele.getElementById(e);
+	}
+	$c=(e)=>{
+	    return ele.querySelectorAll(e);
+	}
     ele.innerHTML = null;
 	console.log('acid:'+acid);
 	var e=ele.querySelector(".tp-loding");

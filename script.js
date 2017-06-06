@@ -8,7 +8,7 @@
 	        var script = document.createElement("script");
 	        script.setAttribute("type", "text/javascript");
 	        script.setAttribute("charset", "UTF-8");
-	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.2.02');
+	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.2.03');
 	        //script.setAttribute('src', 'http://127.0.0.1:8020/tdplayer/tdplayer.js');
 	        document.head.appendChild(script);
 	        script.onload = function() {
@@ -27,8 +27,7 @@
 						$.info.error('替换失败')
 					}catch(e){
 						console.log("不支持。 /(ㄒoㄒ)/~~");
-					}
-	               
+					}    
 	            }
 	        };
 	    }else{
