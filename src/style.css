@@ -48,7 +48,7 @@ section.player{
 	height: 100%;
 	width: 100%;
 }
-tp-video-warp{
+.tp-video-warp{
 	min-height: 653px;
 }
 .video-end {
