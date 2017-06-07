@@ -29,6 +29,10 @@ window.$c=function(e){
 }
 
 window.tdvidplay=(ele, vid)=>{
+	let acflash=document.querySelector('section.player #player object')
+	if (acflash) {
+		acflash.style.display='none'
+	}
 	console.log('vid:'+vid);
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
@@ -71,6 +75,8 @@ window.tdvidplay=(ele, vid)=>{
 					$c('object')[0].style.display='block'
 					e.style.display='none'
 					$.info.error('替换失败 本视频不支持')
+					backimg.style.display='none'
+					acflash.style.display='block'
 				}catch(e){
 					console.log('本视频不支持')
 				}
