@@ -57,7 +57,10 @@ module.exports = {
           <div class="tp-danmu-switch">弹</div>
           <div class="tp-syk">
             <span class="tp-syk-ico">♫</span>
-            <input class="tp-syk-range" type="range" name="points" min="0" max="100" value="100" /></div>
+            <div class="tp-s-tranger">
+              <div class="tp-s-tranger-a" width="80%"></div>
+            </div>
+          </div>
           <svg class="video-full" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="tp-icon" viewbox="0 0 1024 1024" version="1.1" p-id="1427">
             <path d="M971.862 52.538c-10.964-10.992-25.546-17.044-41.056-17.044L429.616 35.494l0 79.362 479.86 0 0 465.288 79.364 0L988.84 93.524C988.84 78.024 982.802 63.46 971.862 52.538z" p-id="1428" />
             <path d="M115.092 429.62 35.728 429.62l0 500.854c0 15.5 6.038 30.066 16.982 40.994 10.966 10.988 25.544 17.04 41.05 17.04l469.182 0 0-79.364L115.092 909.144 115.092 429.62z" p-id="1429" />

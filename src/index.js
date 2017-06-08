@@ -227,7 +227,8 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	    this.danmu_warp = $c(".danmu-warp")[0];
 	    this.video_con = $c(".tp-video-con")[0];
 	    this.video_control_paused = $c(".tp-control-paused")[0];
-	    this.tp_syk_range = $c(".tp-syk-range")[0];
+	    this.tp_s_w = $c(".tp-s-tranger")[0];
+        this.tp_s = $c(".tp-s-tranger-a")[0];
 	    this.alltime = $c(".tp-control-alltime")[0];
 	    this.tranger_a = $c(".tp-tranger-a")[0];
 	    this.tranger_c = $c(".tp-tranger-c")[0];
@@ -556,27 +557,30 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         return returnvalue;
     }
     tdplayer.changersound = function() {
-    	var s = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
+    	var s = parseInt(tdplayer.ele.tp_s.style.width) * .01;
     	for (var i=0;i<tdplayer.videoelearr.length;i++) {
            tdplayer.videoelearr[i].volume = s;
         }
         var Days = 7;
         var exp = new Date();
         exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1e3);
-        document.cookie = "tpsound=" + s + ";expires=" + exp.toGMTString() + "&path=/";
+        document.cookie = "tpsound=" + s*100 + ";expires=" + exp.toGMTString() + "&path=/";
     };
     tdplayer.soundcookie = getCookie("tpsound");
     if (tdplayer.soundcookie) {
-        tdplayer.ele.tp_syk_range.value = tdplayer.soundcookie*100;
-        tdplayer.Element.volume = parseInt(tdplayer.ele.tp_syk_range.value) * .01;
+        tdplayer.ele.tp_s.style.width = tdplayer.soundcookie+"%";
+        tdplayer.Element.volume = parseInt(tdplayer.ele.tp_s.style.width) * .01;
     } else {
+         tdplayer.ele.tp_s.style.width = "80%";
         tdplayer.changersound();
-        
     }
     //音量调节
-     tdplayer.ele.tp_syk_range.addEventListener("input", function() {
+   tdplayer.ele.tp_s_w.addEventListener("click", function(event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        var xbl = show_coords(e, this).xbl * 100;
+        tdplayer.ele.tp_s.style.width = xbl + "%";
         tdplayer.changersound();
-    });
+    }, false);
     function getnowtime() {
         var videotime = 0;
         for (var i = 0; i <= tdplayer.nowduan - 1; i++) {
@@ -790,14 +794,14 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	        if (ev && ev.keyCode == 38) {
 	            // up 键
 	            event.preventDefault();
-	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) + 1;
-	            tdplayer.changersound();
+	           tdplayer.ele.tp_s.style.width = parseInt(tdplayer.ele.tp_s.style.width) + 1 + "%";
+                tdplayer.changersound();
 	        }
 	        if (ev && ev.keyCode == 40) {
 	            // down 键
 	            event.preventDefault();
-	            tdplayer.ele.tp_syk_range.value = parseInt(tdplayer.ele.tp_syk_range.value) - 1;
-	            tdplayer.changersound();
+	            tdplayer.ele.tp_s.style.width = parseInt(tdplayer.ele.tp_s.style.width) - 1 + "%";
+                tdplayer.changersound();
 	        }
 	    }
     });
