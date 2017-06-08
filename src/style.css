@@ -248,6 +248,7 @@ section.player{
 	position: relative;
 	display: inline-block;
 	color: #fff;
+	top: -7px;
 }
 .tp-s-tranger {
   position: relative;
