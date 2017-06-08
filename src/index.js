@@ -29,7 +29,7 @@ window.$c=function(e){
 }
 
 window.tdvidplay=(ele, vid)=>{
-	let acflash=document.querySelector('section.player #player object')
+	let acflash=document.querySelector('section.player #player object')||document.querySelector('section.player #player #ACFlashPlayer')
 	if (acflash) {
 		acflash.style.display='none'
 	}
