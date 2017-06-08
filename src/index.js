@@ -765,6 +765,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         var ev = event || window.event || arguments.callee.caller.arguments[0];
          if(tdplayer.ele.tp_video_warp.xz==true){
 	        showbar();
+	        if(ev.keyCode==39||37||32){
+	        	console.log(tdplayer.ele.end)
+	        	if(tdplayer.ele.end.style.display=="block"){
+    				tdplayer.ele.end.style.display="none"
+
+    			}
+	        }
 	        if (ev && ev.keyCode == 39) {
 	            // right 键
 	            var videotime = getnowtime();
