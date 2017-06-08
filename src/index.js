@@ -639,21 +639,14 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     	var videotime=getnowtime(videotime);
         //当前段播放将要结束 缓存下一段
         var temp = tdplayer.videoelearr[tdplayer.nowduan].currentTime;
-        if (temp + 10 >= tdplayer.videotimearr[tdplayer.nowduan]) {
+        if (temp + 20 >= tdplayer.videotimearr[tdplayer.nowduan]) {
             if (tdplayer.videoelearr[tdplayer.nowduan + 1]) {
-                tdplayer.videoelearr[tdplayer.nowduan + 1].preload = "load";
-                console.log("当前正在播放第" + tdplayer.nowduan + "段，正在加载下一段");
+            	if (tdplayer.videoelearr[tdplayer.nowduan + 1].preload != "load") {
+	                tdplayer.videoelearr[tdplayer.nowduan + 1].preload = "load";
+	                console.log("当前正在播放第" + tdplayer.nowduan + "段，正在加载下一段");
+	            }
             }
         }
-        //检测是否播放
-        //          if(tdplayer.a){
-        //              if (tdplayer.a>temp-2||tdplayer.a<temp+2) {
-        //              console.log('playyy a:'+tdplayer.a+"  temp: "+temp);
-        //              tdplay();
-        //           }
-        //          }
-        // tdplayer.a=temp;
-        //播放下一段
         tdplayer.ele.nowtime.innerHTML = getvideotime(videotime).m + ":" + getvideotime(videotime).s;
         var t = tdplayer.ele.tp_send.offsetWidth - 280 + "px";
         if (tdplayer.ele.tp_text.style.width != t) {
