@@ -567,6 +567,9 @@ section.player{
     z-index: 2;
     overflow: hidden;
 }
+.noflash-alert{
+	display:none;
+}
 @media screen and (max-width: 700px) {
 	.tp-tranger{
 		position: absolute;

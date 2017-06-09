@@ -28,26 +28,28 @@ window.$c=function(e){
 	return document.querySelectorAll(e);
 }
 
-window.tdvidplay=(ele, vid)=>{
+window.tdvidplay=(ele, vid,coverimage)=>{
 	let acflash=document.querySelector('section.player #player object')||document.querySelector('section.player #player #ACFlashPlayer')
 	if (acflash) {
-		acflash.style.display='none'
+		acflash.style.display='none';
 	}
 	console.log('vid:'+vid);
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
-	let videosrcarr=[],danmudata,pimg,f1,f2;
+	let videosrcarr=[],danmudata,f1,f2;
 	let e = document.createElement("div");
 	e.className = "tp-loding";
-	if (pageInfo) {
-	    if(pageInfo.coverImage){
-	    	var backimg = document.createElement("div");
-			backimg.className = "tp-img-back";
-			backimg.style.backgroundImage="url("+pageInfo.coverImage+")";
-	    	ele.appendChild(backimg);
-	    	pimg=pageInfo.coverImage;
-	    }
-	}
+    if(!coverimage){
+        if (pageInfo) {
+            if(pageInfo.coverImage){
+                coverimage=pageInfo.coverImage
+            }
+        }
+    }
+	let backimg = document.createElement("div");
+    backimg.className = "tp-img-back";
+    backimg.style.backgroundImage="url("+coverimage+")";
+    ele.appendChild(backimg);
 	ele.appendChild(e);
 	e.innerText += "正在加载中...";
 	fetch(videourl).then(response => response.json())
@@ -71,6 +73,9 @@ window.tdvidplay=(ele, vid)=>{
 			}else if(v3){
 				vv=v3
 			}else{
+                if(document.querySelector(".noflash-alert")){
+                    document.querySelector(".noflash-alert").style.display="block";
+                }
 				try{
 					$c('object')[0].style.display='block'
 					e.style.display='none'
@@ -103,10 +108,7 @@ window.tdvidplay=(ele, vid)=>{
 	function checkend(){
 		if (f1&&f2) {
 		 	console.log('end')
-		 	window.x1=ele;
-            window.x2=videosrcarr;
-            window.x3=danmudata;
-		 	tdplayer(ele,videosrcarr,danmudata,pimg,null);
+		 	tdplayer(ele,videosrcarr,danmudata,coverimage,null);
 		 }
 	}
 }
