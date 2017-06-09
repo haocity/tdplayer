@@ -7,8 +7,7 @@
 	        var script = document.createElement("script");
 	        script.setAttribute("type", "text/javascript");
 	        script.setAttribute("charset", "UTF-8");
-	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.3.01');
-	        //script.setAttribute('src', 'http://127.0.0.1:8020/tdplayer/tdplayer.js');
+	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.401');  
 	        document.head.appendChild(script);
 	        script.onload = function() {
 	            if (thisac.indexOf("ac") == 0) {
@@ -16,7 +15,7 @@
 	                if (info) {
 	                	if (info.getAttribute("data-from")=='zhuzhan') {
 	                		console.log('ac源视频');
-	                		tdvidplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-vid"))
+	                		tdvidplay(document.querySelector('#player'),info.getAttribute("data-vid"),info.getAttribute("data-pic"))
 	                	}else if(info.getAttribute("data-from")=='youku'){
 	                		tdacplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-aid"))
 	                	}
