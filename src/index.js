@@ -214,6 +214,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     else if(tdplayer.videoinfo){
     	poster=tdplayer.videoinfo.coverImage
     }
+    tdplayer.vloop=false;
     tdplayer.vposter = poster;
     tdplayer.nowduan = 0;
     tdplayer.v = html.html();
