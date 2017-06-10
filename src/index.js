@@ -253,6 +253,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	    this.copytext = $c(".tp-copy-input")[0];
 	    this.css = $c(".css")[0];
 	    this.alltime_phone= $c(".tp-control-alltime-phone")[0];
+        this.vloop=$c('.tp-vloop')[0];
     }
     tdplayer.ele=new eleload;
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
@@ -424,8 +425,12 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 				 	}
 				 	tdplayer.changersound()
 				 }else{
-				 	console.log("播放完毕"+arg);
-				 	tdplayer.ele.end.style.display = "block";
+				 	console.log("播放完毕"+arg)
+                    if (tdplayer.vloop) {
+                        tiao(0)
+                    }else{
+                        tdplayer.ele.end.style.display = "block";
+                    }
 				 }
 			}
 		})(i)
@@ -576,6 +581,16 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     } else {
          tdplayer.ele.tp_s.style.width = "80%";
         tdplayer.changersound();
+    }
+    //循环按钮
+    tdplayer.ele.vloop.onclick=function(){
+        if (tdplayer.vloop) {
+            tdplayer.vloop=false
+            this.className='tp-vloop tp-vloop1'
+        }else{
+            tdplayer.vloop=true
+            this.className='tp-vloop tp-vloop2'
+        }
     }
     //音量调节
    tdplayer.ele.tp_s_w.addEventListener("click", function(event) {
