@@ -270,6 +270,31 @@ section.player{
 .tp-vloop2{
 	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABsElEQVRYR+1W0U0CURCcqUA7UDrACtQKtASsQK1A7QArUCoQK1ArECuQErSCMZMsl+M47r3DAzRhv0h4u2/ezuzsEVsObvl+7AD8rw5IOiQ57VI3WR3wxQAeAJDkyUYBSLoFcAlgH8DbxgBI8oUvAPorvPgLwCuAMclRU34jBZLGAM5KBb4BTDIAGfRenDOQi2XaSWpAkjl/BHDQhoLIM33HANyRU5IL4OcARNsttnuSRl5EaKFP8jyjA+W8YWhoQvKomlsFYMQ3AK5JOrGTKFF5R9J3FFEF4FY5PO+z378GEWP8CWBKslcLQJKF8w7guW2bcxBKMqXWQ68syKIDIRqP3UKbci5InQkNmV6LsdDXnwQwIjlIvajt/0kKXFCShafgqTMRRu0ru2r1ccvG0D7ghLVHnRF53dpGbZ92wOyISXqK3DkjW1ZkwYqjiJMNwrvAU5Hj/6bQtu1Jchi8Da2RytpdECB8uf3f4SI5ILxBy9vTee6ka9VGaht6Guz95Y2YTUkcbKQyuQ3b3Fah4APAIEXfOgC43cPq0lmJgjavn51t++HaaQdWAbwDsOvAD/6OsiHZLcDYAAAAAElFTkSuQmCC");
 }
+.tp-btn{
+	user-select: none;
+	-webkit-user-select: none;
+}
+.tp-btn:after{
+	content: '开关测试';
+	position: absolute;
+	padding: 2px 8px;
+	text-align: center;
+ 	transform: translateX(-100%) translateY(-60%);
+	background-color: rgba(246, 129, 129, 0.53);
+	color: #fff;
+	border-radius: 5px;
+	opacity: 0;
+}
+.tp-btn:hover:after{
+	opacity: 1;
+	transform: translateX(-100%) translateY(-100%);opacity: 1;
+	animation: tpshowbox 2s;
+}
+@keyframes tpshowbox{
+	60%{opacity: 0}
+	61%{transform: translateX(-100%) translateY(-60%);}
+	100%{transform: translateX(-100%) translateY(-100%);opacity: 1;}
+}
 .tp-syk {
 	padding: 10px 10px;
 	position: relative;
