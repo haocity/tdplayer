@@ -19,7 +19,12 @@ module.exports = {
 				loader: 'style-loader!css-loader',
 				include: /src/,
                 exclude: /node_modules/
-			}
+			},{
+                test: /\.(png|jpg)$/, 
+                loader: 'url-loader',
+                include: /src/,
+                exclude: /node_modules/
+            }
 
         ]
     }
