@@ -440,62 +440,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.ele.danmu_switch.addEventListener("click", function() {
         if (this.className == "tp-danmu-switch") {
             this.className = "tp-danmu-switch tp-danmu-switch-c";
-            tdplayer.ele.danmu_warp.style.opacity = "0";
+            tdplayer.ele.danmu_warp.style.opacity=0;
         } else {
             this.className = "tp-danmu-switch";
-            tdplayer.ele.danmu_warp.style.opacity = "1";
+            tdplayer.ele.danmu_warp.style.opacity=1;
         }
     });
-    //弹幕回车按下
-    tdplayer.ele.tp_text.onkeydown = function(event) {
-        var e = event || window.event || arguments.callee.caller.arguments[0];
-        if (e.keyCode == 13) {
-            tdplayer.ele.tp_up.click();
-        }else if(e.keyCode == 32){
-        	e.stopPropagation();
-        }
-    };
-    //弹幕发送
-    tdplayer.ele.tp_up.addEventListener("click", function() {
-        tdplayer.send(tdplayer.ele.tp_text.value, tdplayer.ele.tp_color_bo.style.backgroundColor, tdplayer.dmplace, 1);
-        tdplayer.ele.tp_text.readonly = "readonly";
-        //$("tp-text").style.background = "#f4f4f4";
-        tdplayer.ele.tp_up.disabled = "true";
-        tdplayer.ele.tp_up.style.background = "#777479";
-        setTimeout(function() {
-            tdplayer.ele.tp_text.value = "";
-            //$("tp-text").style.background = "#fff";
-            tdplayer.ele.tp_up.disabled = "";
-            tdplayer.ele.tp_up.style.background = "#8715EF";
-        }, 500);
-        var postData = {
-            id:tdplayer.videoid,
-            text:tdplayer.ele.tp_text.value,
-            color:tdplayer.ele.tp_color_bo.style.backgroundColor,
-            time:parseInt(tdplayer.Element.currentTime * 10),
-            place:tdplayer.dmplace
-        };
-        postData = function(obj) {
-            // 转成post需要的字符串.
-            var str = "";
-            for (var prop in obj) {
-                str += prop + "=" + obj[prop] + "&";
-            }
-            return str;
-        }(postData);
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", tdplayer.sendurl, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            var XMLHttpReq = xhr;
-            if (XMLHttpReq.readyState == 4) {
-                if (XMLHttpReq.status == 200) {
-                    var text = XMLHttpReq.responseText;
-                    console.log(text);
-                }
-            }
-        };
-    });
+
     //弹幕速度
     function dmspeend(v) {
     	console.log('弹幕速度调整为'+v);
@@ -503,7 +454,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     }
     //视频播放
     tdplayer.ele.video_control_play.onclick = function() {
-        tdplayer.ele.tp_oneplay.style.display = "none";
+        addClass(tdplayer.ele.tp_oneplay,'tp-zoomoutdown');
         if (tdplayer.dsq == 0) {
             tdplayer.Interval = setInterval(danmutime, 100);
             tdplayer.dsq = 1;
@@ -519,22 +470,26 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             removeClass(e[i], "tp-suspend");
         }
     };
+    tdplayer.ele.tp_oneplay.addEventListener("animationend", function(){
+            removeClass(this,'tp-zoomoutdown')
+            this.style.display='none'
+    }, false)
     //视频暂停
     tdplayer.ele.video_control_paused.onclick = function() {
         clearInterval(tdplayer.Interval);
         tdplayer.dsq = 0;
         var e = tdplayer.ele.danmu_warp.getElementsByTagName("div");
-        this.style.display = "none";
-        tdplayer.ele.video_control_play.style.display = "inline-block";
+        this.style.display = "none"
+        tdplayer.ele.video_control_play.style.display = "inline-block"
         tdplayer.Element.pause();
         for (var i = e.length - 1; i >= 0; i--) {
-            addClass(e[i], "tp-suspend");
+            addClass(e[i], "tp-suspend")
         }
         tdplayer.ele.tp_spinner.style.display = "none";
     };
     tdplayer.ele.tp_oneplay.addEventListener("click", function() {
-        this.style.display = "none";
-        tdplayer.ele.video_control_play.onclick();
+        addClass(this,'tp-zoomoutdown')
+        tdplayer.ele.video_control_play.onclick()
     });
     //控件显示
     if (tdplayer.phone) {
