@@ -474,6 +474,10 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             removeClass(this,'tp-zoomoutdown')
             this.style.display='none'
     }, false)
+    tdplayer.ele.tp_oneplay.addEventListener("webkitAnimationEnd", function(){
+            removeClass(this,'tp-zoomoutdown')
+            this.style.display='none'
+    }, false)
     //视频暂停
     tdplayer.ele.video_control_paused.onclick = function() {
         clearInterval(tdplayer.Interval);
