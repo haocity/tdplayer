@@ -339,6 +339,7 @@ section.player{
 	top: 22px;
 	left:12px;
 	font-size: 1.6em;
+	cursor:default;
 }
 
 /*loding*/
