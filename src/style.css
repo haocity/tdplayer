@@ -273,6 +273,12 @@ section.player{
 }
 .tp-set{
 	background-image: url(img/set.png);
+	display: inline-block;
+    height: 25px;
+    width: 25px;
+    background-size: cover;
+    transform: translateY(8px);
+    cursor: pointer;
 }
 .tp-syk {
 	padding: 10px 10px;
