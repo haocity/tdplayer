@@ -55,8 +55,8 @@ module.exports = {
         <div style="float:right;">
           <span class="tp-control-alltime" style="padding:0 6px 0 12px">0:00</span>
           <div class="tp-danmu-switch">弹</div>
-          <div class="tp-vloop tp-vloop1"></div>
           <div class="tp-set"></div>
+          <div class="tp-vloop tp-vloop1"></div>
           <div class="tp-syk">
             <span class="tp-syk-ico">♫</span>
             <div class="tp-s-tranger">
