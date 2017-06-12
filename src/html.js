@@ -39,6 +39,9 @@ module.exports = {
       <div class="rect4"></div>
       <div class="rect5"></div>
     </div>
+    <div class="tp-video-set">
+      
+    </div>
     <div class="tp-video-con">
       <div class="tp-send">
         <div class="tp-logo-small"></div>
