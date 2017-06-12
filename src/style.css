@@ -276,7 +276,7 @@ section.player{
 	display: inline-block;
     height: 24px;
     width: 24px;
-    margin-right: 6px;
+    margin: 0 14px;
     background-size: cover;
     transform: translateY(8px);
     cursor: pointer;
