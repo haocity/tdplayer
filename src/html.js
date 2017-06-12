@@ -40,7 +40,10 @@ module.exports = {
       <div class="rect5"></div>
     </div>
     <div class="tp-video-set">
-      
+      <h4>设置</h4>
+      <li>弹幕透明度</li>
+      <li>弹幕字体</li>
+      <li>弹幕加粗</li>
     </div>
     <div class="tp-video-con">
       <div class="tp-send">
