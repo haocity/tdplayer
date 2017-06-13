@@ -219,6 +219,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.nowduan = 0;
     tdplayer.v = html.html();
     tdplayer.warp.innerHTML = tdplayer.v;
+    tdplayer.css=new Object();
     function eleload(){
 	    this.tdplayer = $c(".tdplayer")[0];
 	    this.danmu_switch = $c(".tp-danmu-switch")[0];
@@ -254,6 +255,9 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	    this.css = $c(".css")[0];
 	    this.alltime_phone= $c(".tp-control-alltime-phone")[0];
         this.vloop=$c('.tp-vloop')[0];
+        this.setbox=$c('.tp-video-set')[0];
+        this.setclose=$c('.tp-closeset')[0];
+        this.setbtn=$c('.tp-set')[0];
     }
     tdplayer.ele=new eleload;
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
@@ -440,18 +444,37 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.ele.danmu_switch.addEventListener("click", function() {
         if (this.className == "tp-danmu-switch") {
             this.className = "tp-danmu-switch tp-danmu-switch-c";
-            tdplayer.ele.danmu_warp.style.opacity=0;
+            tdplayer.css.danmuo=0;
         } else {
             this.className = "tp-danmu-switch";
-            tdplayer.ele.danmu_warp.style.opacity=1;
+            tdplayer.css.danmuo=1;
         }
+        changercss();
     });
 
     //弹幕速度
     function dmspeend(v) {
     	console.log('弹幕速度调整为'+v);
-        tdplayer.ele.css.innerText = ".tp-left {animation: dmleft " + v + "s linear;-webkit-animation: dmleft " + v + "s linear;}";
+        tdplayer.css.v=v;
+        changercss();
     }
+    function changercss(){
+        tdplayer.css.v=tdplayer.css.v||1;
+        tdplayer.css.danmusize=tdplayer.css.danmusize||1;
+        if ( tdplayer.css.danmuo!=0) {
+            tdplayer.css.danmuo=tdplayer.css.danmuo||1
+        }
+        tdplayer.ele.css.innerText = `
+        .tp-left {animation: dmleft  ${tdplayer.css.v} s linear;-webkit-animation: dmleft ${tdplayer.css.v} s linear;}
+        .danmu-warp{zoom:${tdplayer.css.danmuo};opacity:${tdplayer.css.danmuo}}
+        `;
+    }
+    tdplayer.ele.setclose.addEventListener('click',function(){
+        tdplayer.ele.setbox.style.display='none';
+    },false);
+    tdplayer.ele.setbtn.addEventListener('click',function(){
+        tdplayer.ele.setbox.style.display='block';
+    },false)
     //视频播放
     tdplayer.ele.video_control_play.onclick = function() {
         addClass(tdplayer.ele.tp_oneplay,'tp-zoomoutdown');
