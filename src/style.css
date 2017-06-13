@@ -316,7 +316,7 @@ section.player{
 	cursor:default;
 }
 .tp-video-set>h4{
-	margin: 0;
+	margin: 0 0 0 8px;
 	padding: 10px 20px;
     background-color: rgb(243, 93, 93);
     color: #fff;
