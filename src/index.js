@@ -344,7 +344,11 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             dm.style.top = dtop * tdplayer.dmheight + "px";
             tdplayer.leftarr[dtop] = 1;
             dm.className = "danmu tp-left";
-            dm.style.transform = "translateX(-" + tdplayer.width + "px)";
+            if(tdplayer.css.danmusize){
+               dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.css.danmusize + "px)"; 
+            }else{
+                dm.style.transform = "translateX(-" + tdplayer.width + "px)";
+            }
             var e = tdplayer.ele.danmu_warp.appendChild(dm);
             var s1 = e.offsetWidth;
             var s2 = s1 + tdplayer.width;
@@ -474,6 +478,10 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         .danmu-warp{font-weight:${tdplayer.css.dmweight};zoom:${tdplayer.css.danmusize};opacity:${tdplayer.css.danmuo}}
         .danmu{text-shadow: #000 0 ${tdplayer.css.dmshadow}px 0;}
         `;
+        var earr= $c('.tp-left');
+        for (var i = 0; i < earr.length; i++) {
+            earr[i].style.transform = "translateX(-" + tdplayer.width/tdplayer.css.danmusize + "px)";
+        }
     }
     tdplayer.ele.setr1.onchange=changerset;
     tdplayer.ele.setr2.onchange=changerset;
@@ -555,11 +563,9 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.ele.danmu_warp.addEventListener("click", function() {
             var e = tdplayer.ele.video_con;
             if (e.style.display == "block") {
-                console.log("隐藏");
                 e.style.display = "none"
             } else {
                 e.style.display = "block";
-                console.log("显示");
             }
         });
     } else {
@@ -784,7 +790,6 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     //键盘
     tdplayer.ele.tp_video_warp.addEventListener('click',function(){
          setTimeout(function(){ tdplayer.ele.tp_video_warp.xz=true;},200);
-         console.log('ccc')
     }, false);
     document.addEventListener('click', function(e){
          if (e.target==tdplayer.ele.danmu_warp) {
@@ -798,7 +803,6 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
          if(tdplayer.ele.tp_video_warp.xz==true){
 	        showbar();
 	        if(ev.keyCode==39||37||32){
-	        	console.log(tdplayer.ele.end)
 	        	if(tdplayer.ele.end.style.display=="block"){
     				tdplayer.ele.end.style.display="none"
 
