@@ -190,6 +190,7 @@ section.player{
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	user-select: none;
+	overflow:hidden;
 }
 .tp-video {
 	background-color: #000;
