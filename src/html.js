@@ -45,12 +45,12 @@ module.exports = {
       <table class="tp-settable" width="300" border="0">
       <tr>
         <td>弹幕透明度</td>
-        <td><input type="range" min="1" max="100" value="100"/></td>
+        <td><input type="range" class="tp-s-r1" min="20" max="100" value="100"/></td>
       
       </tr>
       <tr>
         <td>弹幕缩放</td>
-        <td><input type="range" min="1" max="100" value="50"/></td>
+        <td><input type="range" class="tp-s-r2" min="20" max="100" value="50"/></td>
       </tr>
       <tr>
         <td colspan="2"><input type="checkbox"/>弹幕加粗</td>
