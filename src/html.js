@@ -41,9 +41,21 @@ module.exports = {
     </div>
     <div class="tp-video-set">
       <h4>设置</h4>
-      <li>弹幕透明度</li>
-      <li>弹幕字体</li>
-      <li>弹幕加粗</li>
+      <span class='tp-closeset'>×</span>
+      <table class="tp-settable" width="300" border="0">
+      <tr>
+        <td>弹幕透明度</td>
+        <td><input type="range" min="1" max="100" value="100"/></td>
+      
+      </tr>
+      <tr>
+        <td>弹幕缩放</td>
+        <td><input type="range" min="1" max="100" value="50"/></td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="checkbox"/>弹幕加粗</td>
+      </tr>
+    </table>
     </div>
     <div class="tp-video-con">
       <div class="tp-send">
