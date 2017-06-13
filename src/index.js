@@ -219,7 +219,6 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.nowduan = 0;
     tdplayer.v = html.html();
     tdplayer.warp.innerHTML = tdplayer.v;
-    tdplayer.css=new Object();
     function eleload(){
 	    this.tdplayer = $c(".tdplayer")[0];
 	    this.danmu_switch = $c(".tp-danmu-switch")[0];
@@ -264,6 +263,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr4=$c(".tp-s-r4")[0];
     }
     tdplayer.ele=new eleload;
+    if (localStorage.getItem('tdcss')) {
+       tdplayer.css=JSON.parse(localStorage.getItem('tdcss'))
+       console.log('加载设置成功')
+    }else{
+        tdplayer.css=new Object();
+    }
+    changercss();
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
         var video = document.createElement("video");
         video.src = tdplayer.videosrcarr[i];
@@ -482,6 +488,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         for (var i = 0; i < earr.length; i++) {
             earr[i].style.transform = "translateX(-" + tdplayer.width/tdplayer.css.danmusize + "px)";
         }
+        localStorage.setItem('tdcss', JSON.stringify(tdplayer.css))
     }
     tdplayer.ele.setr1.onchange=changerset;
     tdplayer.ele.setr2.onchange=changerset;
