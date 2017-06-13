@@ -260,7 +260,8 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setbtn=$c('.tp-set')[0];
         this.setr1=$c(".tp-s-r1")[0];
         this.setr2=$c(".tp-s-r2")[0];
-        this.setr2=$c(".tp-s-r3")[0];
+        this.setr3=$c(".tp-s-r3")[0];
+        this.setr4=$c(".tp-s-r4")[0];
     }
     tdplayer.ele=new eleload;
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
@@ -464,10 +465,14 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.css.v=tdplayer.css.v||tdplayer.width / 100;
         tdplayer.css.danmusize=tdplayer.css.danmusize||1;
         tdplayer.css.danmuo=tdplayer.css.danmuo||1
-        tdplayer.css.danmchu=tdplayer.css.danmchu||400;
+        tdplayer.css.dmweight=tdplayer.css.dmweight||400;
+        if (tdplayer.css.dmshadow!=0) {
+           tdplayer.css.dmshadow=2; 
+        }
         tdplayer.ele.css.innerText = `
         .tp-left {animation: dmleft  ${tdplayer.css.v}s linear;-webkit-animation: dmleft ${tdplayer.css.v}s linear;}
-        .danmu-warp{font-weight:${tdplayer.css.danmchu};zoom:${tdplayer.css.danmusize};opacity:${tdplayer.css.danmuo}}
+        .danmu-warp{font-weight:${tdplayer.css.dmweight};zoom:${tdplayer.css.danmusize};opacity:${tdplayer.css.danmuo}}
+        .danmu{text-shadow: #000 0 ${tdplayer.css.dmshadow}px 0;}
         `;
     }
     tdplayer.ele.setr1.onchange=changerset;
@@ -479,11 +484,19 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.ele.setbtn.addEventListener('click',function(){
         tdplayer.ele.setbox.style.display='block';
     },false);
-    tdplayer.ele.setr2.onclick=function(){
+    tdplayer.ele.setr3.onclick=function(){
         if (this.checked) {
-            tdplayer.css.danmchu=600
+            tdplayer.css.dmweight=600
         }else{
-            tdplayer.css.danmchu=400
+            tdplayer.css.dmweight=400
+        }
+        changercss();
+    }
+    tdplayer.ele.setr4.onclick=function(){
+        if (this.checked) {
+            tdplayer.css.dmshadow=0;
+        }else{
+             tdplayer.css.dmshadow=2
         }
         changercss();
     }
