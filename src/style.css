@@ -281,6 +281,42 @@ section.player{
     transform: translateY(8px);
     cursor: pointer;
 }
+.tp-video-set{
+	display: none;
+	position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    height: 300px;
+    margin: auto;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 5px;
+    overflow:hidden
+}
+.tp-closeset{
+	position:absolute;
+	top: 0;
+	right:0;
+	padding:4px;
+	cursor:pointer;
+	color:#000;
+	font-weight: 600;
+
+}
+
+.tp-settable{
+	margin:0 auto;
+	cursor:default;
+}
+.tp-video-set>h4{
+	margin: 0;
+	padding: 10px 20px;
+    background-color: rgba(232, 123, 123, 0.71);
+    color: #fff;
+}
 .tp-syk {
 	padding: 10px 10px;
 	position: relative;
