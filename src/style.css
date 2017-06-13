@@ -136,6 +136,9 @@ section.player{
 	height: 100%;
 	left: 0px;
 	overflow: hidden;
+	transform-origin: top left;
+	-moz-transform-origin:top left;
+	-webkit-transform-origin:top left;
 }
 .tp-send {
 	display: none;

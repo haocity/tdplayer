@@ -475,7 +475,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         }
         tdplayer.ele.css.innerText = `
         .tp-left {animation: dmleft  ${tdplayer.css.v}s linear;-webkit-animation: dmleft ${tdplayer.css.v}s linear;}
-        .danmu-warp{font-weight:${tdplayer.css.dmweight};zoom:${tdplayer.css.danmusize};opacity:${tdplayer.css.danmuo}}
+        .danmu-warp{font-weight:${tdplayer.css.dmweight};transform:scale(${tdplayer.css.danmusize});-webkit-transform:scale(${tdplayer.css.danmusize});-moz-transform:scale(${tdplayer.css.danmusize});width:${100/tdplayer.css.danmusize}%;height:${100/tdplayer.css.danmusize}%;opacity:${tdplayer.css.danmuo}}
         .danmu{text-shadow: #000 0 ${tdplayer.css.dmshadow}px 0;}
         `;
         var earr= $c('.tp-left');
