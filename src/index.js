@@ -486,8 +486,12 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.ele.setr1.onchange=changerset;
     tdplayer.ele.setr2.onchange=changerset;
     tdplayer.ele.setclose.addEventListener('click',function(){
-        tdplayer.ele.setbox.style.display='none';
         changerset();
+        addClass(tdplayer.ele.setbox,'tp-zoomoutdown');
+        setTimeout(function(){
+            tdplayer.ele.setbox.style.display='none'
+            removeClass(tdplayer.ele.setbox,'tp-zoomoutdown')
+        },500);
     },false);
     tdplayer.ele.setbtn.addEventListener('click',function(){
         tdplayer.ele.setbox.style.display='block';
