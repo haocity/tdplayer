@@ -260,6 +260,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setbtn=$c('.tp-set')[0];
         this.setr1=$c(".tp-s-r1")[0];
         this.setr2=$c(".tp-s-r2")[0];
+        this.setr2=$c(".tp-s-r3")[0];
     }
     tdplayer.ele=new eleload;
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
@@ -462,21 +463,30 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     function changercss(){
         tdplayer.css.v=tdplayer.css.v||tdplayer.width / 100;
         tdplayer.css.danmusize=tdplayer.css.danmusize||1;
-        if ( tdplayer.css.danmuo!=0) {
-            tdplayer.css.danmuo=tdplayer.css.danmuo||1
-        }
+        tdplayer.css.danmuo=tdplayer.css.danmuo||1
+        tdplayer.css.danmchu=tdplayer.css.danmchu||400;
         tdplayer.ele.css.innerText = `
         .tp-left {animation: dmleft  ${tdplayer.css.v}s linear;-webkit-animation: dmleft ${tdplayer.css.v}s linear;}
-        .danmu-warp{zoom:${tdplayer.css.danmusize};opacity:${tdplayer.css.danmuo}}
+        .danmu-warp{font-weight:${tdplayer.css.danmchu};zoom:${tdplayer.css.danmusize};opacity:${tdplayer.css.danmuo}}
         `;
     }
+    tdplayer.ele.setr1.onchange=changerset;
+    tdplayer.ele.setr2.onchange=changerset;
     tdplayer.ele.setclose.addEventListener('click',function(){
         tdplayer.ele.setbox.style.display='none';
         changerset();
     },false);
     tdplayer.ele.setbtn.addEventListener('click',function(){
         tdplayer.ele.setbox.style.display='block';
-    },false)
+    },false);
+    tdplayer.ele.setr2.onclick=function(){
+        if (this.checked) {
+            tdplayer.css.danmchu=600
+        }else{
+            tdplayer.css.danmchu=400
+        }
+        changercss();
+    }
     function changerset(){
         let e=tdplayer.ele;
         tdplayer.css.danmuo=parseInt(e.setr1.value)/100;

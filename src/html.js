@@ -53,7 +53,7 @@ module.exports = {
         <td><input type="range" class="tp-s-r2" min="20" max="100" value="50"/></td>
       </tr>
       <tr>
-        <td colspan="2"><input type="checkbox"/>弹幕加粗</td>
+        <td colspan="2"><input class="tp-s-r3" type="checkbox"/>弹幕加粗</td>
       </tr>
     </table>
     </div>
