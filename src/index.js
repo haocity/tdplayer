@@ -498,10 +498,16 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         setTimeout(function(){
             tdplayer.ele.setbox.style.display='none'
             removeClass(tdplayer.ele.setbox,'tp-zoomoutdown')
-        },500);
+        },480);
     },false);
     tdplayer.ele.setbtn.addEventListener('click',function(){
-        tdplayer.ele.setbox.style.display='block';
+        if (tdplayer.ele.setbox.style.display!='block') {
+            tdplayer.ele.setbox.style.display='block'
+            addClass(tdplayer.ele.setbox,'tp-zoomoutup');
+            setTimeout(function(){
+                removeClass(tdplayer.ele.setbox,'tp-zoomoutup')
+            },480);
+        }
     },false);
     tdplayer.ele.setr3.onclick=function(){
         if (this.checked) {
