@@ -132,7 +132,7 @@ window.tdacplay=(ele, acid)=>{
 				backimg.style.backgroundImage="url("+pageInfo.coverImage+")";
 	    		ele.appendChild(backimg);
 	    	}
-   		}catch(eero){}
+   		}catch(error){}
 		ele.appendChild(e);
 		e.innerText += "正在加载中...";
 	}
