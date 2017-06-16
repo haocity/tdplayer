@@ -87,7 +87,7 @@ section.player{
 	-webkit-transform: rotate(360deg);
 	-moz-transform: rotate(360deg);
 }
-.tp-video-main>.danmu {
+.tp-video-main>.danmu-warp>.danmu {
 	color: #fff;
 	line-height: 31px;
 	z-index: 6;

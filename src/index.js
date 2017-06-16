@@ -536,7 +536,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.ele.css.innerText = `
         .tp-left {animation: dmleft  ${tdplayer.config.v}s linear;-webkit-animation: dmleft ${tdplayer.config.v}s linear;}
         .danmu-warp{font-weight:${tdplayer.config.dmweight};transform:scale(${tdplayer.config.danmusize});-webkit-transform:scale(${tdplayer.config.danmusize});-moz-transform:scale(${tdplayer.config.danmusize});width:${100/tdplayer.config.danmusize}%;height:${100/tdplayer.config.danmusize}%;opacity:${tdplayer.config.danmuo}}
-        .tp-video-main>.danmu{text-shadow: #000 0 ${tdplayer.config.dmshadow}px 0;}
+        .tp-video-main>.danmu-warp>.danmu{text-shadow: #000 0 ${tdplayer.config.dmshadow}px 0;}
         `;
         var earr= $c('.tp-left');
         for (var i = 0; i < earr.length; i++) {
