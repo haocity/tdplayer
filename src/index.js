@@ -264,13 +264,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr5=$c(".tp-s-r5")[0];
     }
     tdplayer.ele=new eleload;
-    if (localStorage.getItem('tdcss')) {
-       tdplayer.css=JSON.parse(localStorage.getItem('tdcss'))
+    if (localStorage.getItem('tdconfig')) {
+       tdplayer.config=JSON.parse(localStorage.getItem('tdconfig'))
        console.log('加载设置成功')
     }else{
-        tdplayer.css=new Object();
+        tdplayer.config=new Object();
     }
-    changercss();
+    changerconfig();
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
         var video = document.createElement("video");
         video.src = tdplayer.videosrcarr[i];
@@ -351,8 +351,8 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             dm.style.top = dtop * tdplayer.dmheight + "px";
             tdplayer.leftarr[dtop] = 1;
             dm.className = "danmu tp-left";
-            if(tdplayer.css.danmusize){
-               dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.css.danmusize + "px)"; 
+            if(tdplayer.config.danmusize){
+               dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)"; 
             }else{
                 dm.style.transform = "translateX(-" + tdplayer.width + "px)";
             }
@@ -493,34 +493,55 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             }else{
                 removaldanmu()
             }
+            tdplayer.config.qc=true
         }else{
             tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
+            tdplayer.config.qc=false
         }
+        localStorage.setItem('tdconfig', JSON.stringify(tdplayer.config))
+    }
+    if (tdplayer.config.qc) {
+        tdplayer.ele.setr5.click()
+    }
+    if (tdplayer.config.danmuo) {
+        tdplayer.ele.setr1.value=tdplayer.config.danmuo*100;
+    }
+    if (tdplayer.config.danmusize) {
+        tdplayer.ele.setr2.value=tdplayer.config.danmusize*50;
+    }
+    if (tdplayer.config.dmweight!=400) {
+        tdplayer.ele.setr3.checked=true
+    }
+    if (tdplayer.config.dmshadow==0) {
+        tdplayer.ele.setr4.checked=true
     }
     //弹幕速度
     function dmspeend(v) {
     	console.log('弹幕速度调整为'+v);
-        tdplayer.css.v=v;
-        changercss();
+        tdplayer.config.v=v;
+        changerconfig();
     }
-    function changercss(){
-        tdplayer.css.v=tdplayer.css.v||tdplayer.width / 100;
-        tdplayer.css.danmusize=tdplayer.css.danmusize||1;
-        tdplayer.css.danmuo=tdplayer.css.danmuo||1
-        tdplayer.css.dmweight=tdplayer.css.dmweight||400;
-        if (tdplayer.css.dmshadow!=0) {
-           tdplayer.css.dmshadow=2; 
+    function changerconfig(){
+        tdplayer.config.v=tdplayer.config.v||tdplayer.width / 100;
+        tdplayer.config.danmusize=tdplayer.config.danmusize||1;
+        tdplayer.config.danmuo=tdplayer.config.danmuo||1
+        tdplayer.config.dmweight=tdplayer.config.dmweight||400;
+        if (tdplayer.config.qc!=true) {
+            tdplayer.config.qc=false
+        }
+        if (tdplayer.config.dmshadow!=0) {
+           tdplayer.config.dmshadow=2; 
         }
         tdplayer.ele.css.innerText = `
-        .tp-left {animation: dmleft  ${tdplayer.css.v}s linear;-webkit-animation: dmleft ${tdplayer.css.v}s linear;}
-        .danmu-warp{font-weight:${tdplayer.css.dmweight};transform:scale(${tdplayer.css.danmusize});-webkit-transform:scale(${tdplayer.css.danmusize});-moz-transform:scale(${tdplayer.css.danmusize});width:${100/tdplayer.css.danmusize}%;height:${100/tdplayer.css.danmusize}%;opacity:${tdplayer.css.danmuo}}
-        .danmu{text-shadow: #000 0 ${tdplayer.css.dmshadow}px 0;}
+        .tp-left {animation: dmleft  ${tdplayer.config.v}s linear;-webkit-animation: dmleft ${tdplayer.config.v}s linear;}
+        .danmu-warp{font-weight:${tdplayer.config.dmweight};transform:scale(${tdplayer.config.danmusize});-webkit-transform:scale(${tdplayer.config.danmusize});-moz-transform:scale(${tdplayer.config.danmusize});width:${100/tdplayer.config.danmusize}%;height:${100/tdplayer.config.danmusize}%;opacity:${tdplayer.config.danmuo}}
+        .danmu{text-shadow: #000 0 ${tdplayer.config.dmshadow}px 0;}
         `;
         var earr= $c('.tp-left');
         for (var i = 0; i < earr.length; i++) {
-            earr[i].style.transform = "translateX(-" + tdplayer.width/tdplayer.css.danmusize + "px)";
+            earr[i].style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)";
         }
-        localStorage.setItem('tdcss', JSON.stringify(tdplayer.css))
+        localStorage.setItem('tdconfig', JSON.stringify(tdplayer.config))      
     }
     tdplayer.ele.setr1.onchange=changerset;
     tdplayer.ele.setr2.onchange=changerset;
@@ -543,25 +564,25 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     },false);
     tdplayer.ele.setr3.onclick=function(){
         if (this.checked) {
-            tdplayer.css.dmweight=600
+            tdplayer.config.dmweight=600
         }else{
-            tdplayer.css.dmweight=400
+            tdplayer.config.dmweight=400
         }
-        changercss();
+        changerconfig();
     }
     tdplayer.ele.setr4.onclick=function(){
         if (this.checked) {
-            tdplayer.css.dmshadow=0;
+            tdplayer.config.dmshadow=0;
         }else{
-             tdplayer.css.dmshadow=2
+             tdplayer.config.dmshadow=2
         }
-        changercss();
+        changerconfig();
     }
     function changerset(){
         let e=tdplayer.ele;
-        tdplayer.css.danmuo=parseInt(e.setr1.value)/100;
-        tdplayer.css.danmusize=parseInt(e.setr2.value)/50;
-        changercss();
+        tdplayer.config.danmuo=parseInt(e.setr1.value)/100;
+        tdplayer.config.danmusize=parseInt(e.setr2.value)/50;
+        changerconfig();
     }
 
     //视频播放
