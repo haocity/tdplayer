@@ -261,6 +261,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr2=$c(".tp-s-r2")[0];
         this.setr3=$c(".tp-s-r3")[0];
         this.setr4=$c(".tp-s-r4")[0];
+        this.setr5=$c(".tp-s-r5")[0];
     }
     tdplayer.ele=new eleload;
     if (localStorage.getItem('tdcss')) {
@@ -464,7 +465,35 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             tdplayer.ele.danmu_warp.style.opacity=null;
         }
     });
-
+    //合并重复弹幕
+    function removaldanmu(){
+        if (tdplayer.nowdata) {
+            let cache=JSON.parse(tdplayer.data).danmu;
+            for (var i = cache.length - 1; i >= 0; i--) {
+                for (var a = cache.length - 1; a >= 0; a--) {
+                    if (cache[i]&&cache[a]) {
+                        if (cache[i].text==cache[a].text) {
+                            delete cache[a];
+                        }
+                    }
+                }
+            }
+            tdplayer.removaldata=cache
+            tdplayer.nowdata=tdplayer.removaldata
+            console.log("弹幕去重")
+        }   
+    }
+    tdplayer.ele.setr5.onclick=function(){
+        if (this.checked) {
+            if(tdplayer.removaldata){
+                tdplayer.nowdata=tdplayer.removaldata
+            }else{
+                removaldanmu()
+            }
+        }else{
+            tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
+        }
+    }
     //弹幕速度
     function dmspeend(v) {
     	console.log('弹幕速度调整为'+v);

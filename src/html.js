@@ -57,6 +57,10 @@ module.exports = {
         <td><input class="tp-s-r4" type="checkbox"/>关闭阴影</td>
       </tr>
       <tr>
+        <td><input class="tp-s-r5" type="checkbox"/>合并重复弹幕</td>
+        <td></td>
+      </tr>
+      <tr>
         <td colspan="2">
           <p>意见反馈&&协助开发&&指导 请联系QQ 1051667334</p>
           <p>技术水平有限 感谢你的使用</p>
