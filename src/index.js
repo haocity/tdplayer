@@ -469,18 +469,21 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     function removaldanmu(){
         if (tdplayer.nowdata) {
             let cache=JSON.parse(tdplayer.data).danmu;
+            let b=0;
             for (var i = cache.length - 1; i >= 0; i--) {
                 for (var a = cache.length - 1; a >= 0; a--) {
+                    if (a==i) {break}
                     if (cache[i]&&cache[a]) {
                         if (cache[i].text==cache[a].text) {
                             delete cache[a];
+                            b++
                         }
                     }
                 }
             }
             tdplayer.removaldata=cache
             tdplayer.nowdata=tdplayer.removaldata
-            console.log("弹幕去重")
+            console.log(`弹幕去重  去除${b}个重复弹幕`)
         }   
     }
     tdplayer.ele.setr5.onclick=function(){
