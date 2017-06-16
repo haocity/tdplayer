@@ -125,11 +125,11 @@ window.tdacplay=(ele, acid)=>{
 	if(!e){
 		e = document.createElement("div");
 		e.className = "tp-loding";
-		if (pageInfo) {
-	    	if(pageInfo.coverImage){
+		if (Window.pageInfo) {
+	    	if(Window.pageInfo.coverImage){
 	    		var backimg = document.createElement("div");
 				backimg.className = "tp-img-back";
-				backimg.style.backgroundImage="url("+pageInfo.coverImage+")";
+				backimg.style.backgroundImage="url("+Window.pageInfo.coverImage+")";
 	    		ele.appendChild(backimg);
 	    	}
    		}
