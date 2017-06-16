@@ -125,14 +125,14 @@ window.tdacplay=(ele, acid)=>{
 	if(!e){
 		e = document.createElement("div");
 		e.className = "tp-loding";
-		try{
+		if (pageInfo) {
 	    	if(pageInfo.coverImage){
 	    		var backimg = document.createElement("div");
 				backimg.className = "tp-img-back";
 				backimg.style.backgroundImage="url("+pageInfo.coverImage+")";
 	    		ele.appendChild(backimg);
 	    	}
-   		}catch(error){}
+   		}
 		ele.appendChild(e);
 		e.innerText += "正在加载中...";
 	}
