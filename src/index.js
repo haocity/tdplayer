@@ -522,10 +522,11 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         changerconfig();
     }
     function changerconfig(){
-        tdplayer.config.v=tdplayer.config.v||tdplayer.width / 100;
-        tdplayer.config.danmusize=tdplayer.config.danmusize||1;
+        tdplayer.config.v=tdplayer.config.v||tdplayer.width / 100
+        tdplayer.config.danmusize=tdplayer.config.danmusize||1
         tdplayer.config.danmuo=tdplayer.config.danmuo||1
-        tdplayer.config.dmweight=tdplayer.config.dmweight||400;
+        tdplayer.config.dmweight=tdplayer.config.dmweight||400
+        tdplayer.config.sound=tdplayer.config.sound||80
         if (tdplayer.config.qc!=true) {
             tdplayer.config.qc=false
         }
@@ -643,30 +644,18 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             showbar();
         };
     }
-    function getCookie(Name) {
-        var cookieName = encodeURIComponent(Name) + "=", returnvalue = "", cookieStart = document.cookie.indexOf(cookieName), cookieEnd = null;
-        if (cookieStart > -1) {
-            cookieEnd = document.cookie.indexOf(";", cookieStart);
-            if (cookieEnd == -1) {
-                cookieEnd = document.cookie.length;
-            }
-            returnvalue = decodeURIComponent(document.cookie.substring(cookieStart + cookieName.length, cookieEnd));
-        }
-        return returnvalue;
-    }
+
     tdplayer.changersound = function() {
     	var s = parseInt(tdplayer.ele.tp_s.style.width) * .01;
     	for (var i=0;i<tdplayer.videoelearr.length;i++) {
            tdplayer.videoelearr[i].volume = s;
         }
-        var Days = 7;
-        var exp = new Date();
-        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1e3);
-        document.cookie = "tpsound=" + s*100 + ";expires=" + exp.toGMTString() + "&path=/";
+        tdplayer.config.sound=s*100;
+        localStorage.setItem('tdconfig', JSON.stringify(tdplayer.config))
     };
-    tdplayer.soundcookie = getCookie("tpsound");
-    if (tdplayer.soundcookie) {
-        tdplayer.ele.tp_s.style.width = tdplayer.soundcookie+"%";
+    tdplayer.sound = tdplayer.config.sound;
+    if (tdplayer.sound) {
+        tdplayer.ele.tp_s.style.width = tdplayer.sound+"%";
         tdplayer.Element.volume = parseInt(tdplayer.ele.tp_s.style.width) * .01;
     } else {
          tdplayer.ele.tp_s.style.width = "80%";
