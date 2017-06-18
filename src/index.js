@@ -263,6 +263,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr4=$c(".tp-s-r4")[0];
         this.setr5=$c(".tp-s-r5")[0];
         this.setr6=$c(".tp-s-r6")[0];
+        this.setr7=$c(".tp-s-r7")[0];
     }
     tdplayer.ele=new eleload;
     if (localStorage.getItem('tdconfig')) {
@@ -487,6 +488,48 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             console.log(`弹幕去重  去除${b}个重复弹幕`)
         }   
     }
+    //屏蔽关键词弹幕
+    function shielddanmu(){
+       let shieldarr=tdplayer.ele.setr7.value.split(",");
+       let cache;
+       let b=0;
+       if (tdplayer.ele.setr5.checked) {
+            if (!tdplayer.removaldata) {
+               removaldanmu()
+            }
+            let t=JSON.parse(JSON.stringify(tdplayer.removaldata))
+            cache=t
+       }else{
+            let t=JSON.parse(tdplayer.data).danmu
+            cache=t;
+       }
+       
+       for (var i = cache.length - 1; i >= 0; i--) {
+        if (cache[i]) {
+           if (cache[i].text) {
+               for (var x = shieldarr.length - 1; x >= 0; x--) {
+                if (cache[i]) {
+                    if (cache[i].text.indexOf(shieldarr[x])>-1) {
+                        delete cache[i]
+                        b++
+                    }
+                 }  
+               }
+           }
+        }  
+       }
+       tdplayer.nowdata=cache
+       let elearr=$c('.danmu-warp>.danmu')
+       for (var x = 0; x < elearr.length; x++) {
+           for (let y = 0; y < shieldarr.length; y++) {
+               if (elearr[x].innerText.indexOf(shieldarr[y])>-1) {
+                    elearr[x].innerText=null;
+               }
+           }
+       }
+       console.log(shieldarr)
+       console.log(`弹幕屏蔽  屏蔽${b}个弹幕`)
+    }
     tdplayer.ele.setr5.onclick=function(){
         if (this.checked) {
             if(tdplayer.removaldata){
@@ -501,15 +544,34 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         }
         localStorage.setItem('tdconfig', JSON.stringify(tdplayer.config))
     }
-    tdplayer.ele.setr6.addEventListener('keydown',function(event){
+    tdplayer.ele.setr6.onclick=function(){
+        if (this.checked) {
+            shielddanmu()
+            tdplayer.config.pb=true
+        }else{
+            tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
+             tdplayer.config.pb=false
+        }
+        tdplayer.config.pbs=tdplayer.ele.setr7.value
+        localStorage.setItem('tdconfig', JSON.stringify(tdplayer.config))
+    }
+    tdplayer.ele.setr7.addEventListener('keydown',function(event){
         var e = event || window.event || arguments.callee.caller.arguments[0];
         if (e.keyCode) {
             e.stopPropagation();
         }
     });
-    
+    tdplayer.ele.setr7.onchange=function(){
+        if (tdplayer.ele.setr6.checked) {
+            shielddanmu()   
+        }
+    }
+    tdplayer.ele.setr7.value=tdplayer.config.pbs
     if (tdplayer.config.qc) {
         tdplayer.ele.setr5.click()
+    } 
+    if (tdplayer.config.pb) {
+        tdplayer.ele.setr6.click()
     }
     if (tdplayer.config.danmuo) {
         tdplayer.ele.setr1.value=tdplayer.config.danmuo*100;
@@ -535,8 +597,12 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.config.danmuo=tdplayer.config.danmuo||1
         tdplayer.config.dmweight=tdplayer.config.dmweight||400
         tdplayer.config.sound=tdplayer.config.sound||80
+        tdplayer.config.pbs=tdplayer.config.pbs||'笑容我来守护,隔壁难民'
         if (tdplayer.config.qc!=true) {
             tdplayer.config.qc=false
+        }
+        if (tdplayer.config.pb!=true) {
+            tdplayer.config.pb=false
         }
         if (tdplayer.config.dmshadow!=0) {
            tdplayer.config.dmshadow=2; 
@@ -782,7 +848,14 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
                 tdplayer.ele.tp_spinner.style.display = "none";
             }
         }
-        tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
+       if(tdplayer.removaldata&&tdplayer.config.qc){
+          tdplayer.nowdata=tdplayer.removaldata
+          if (tdplayer.config.pb) {
+            shielddanmu()
+          }
+        }else{
+           tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
+        }
         if (tdplayer.ele.video_control_play.display != "none") {
             tdplayer.ele.video_control_play.onclick();
         }

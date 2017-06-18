@@ -60,8 +60,8 @@ module.exports = {
         <td colspan="2"><input class="tp-s-r5" type="checkbox"/>合并重复弹幕</td>
       </tr>
       <tr>
-        <td>屏蔽关键字</td>
-        <td><input class="tp-s-r6" type="text" value="隔壁难民,这个微笑由我守护"/></td>
+        <td><input class="tp-s-r6" type="checkbox"/>屏蔽弹幕</td>
+        <td><input class="tp-s-r7" type="text" value=""/></td>
       </tr>
       <tr>
         <td colspan="2">
