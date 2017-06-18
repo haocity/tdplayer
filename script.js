@@ -7,7 +7,7 @@
 	        var script = document.createElement("script");
 	        script.setAttribute("type", "text/javascript");
 	        script.setAttribute("charset", "UTF-8");
-	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.6.1');  
+	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.7.1');  
 	        document.head.appendChild(script);
 	        script.onload = function() {
 	            if (thisac.indexOf("ac") == 0) {
