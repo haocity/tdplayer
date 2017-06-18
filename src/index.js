@@ -262,6 +262,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr3=$c(".tp-s-r3")[0];
         this.setr4=$c(".tp-s-r4")[0];
         this.setr5=$c(".tp-s-r5")[0];
+        this.setr6=$c(".tp-s-r6")[0];
     }
     tdplayer.ele=new eleload;
     if (localStorage.getItem('tdconfig')) {
@@ -500,6 +501,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         }
         localStorage.setItem('tdconfig', JSON.stringify(tdplayer.config))
     }
+    tdplayer.ele.setr6.addEventListener('keydown',function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e.keyCode) {
+            e.stopPropagation();
+        }
+    });
+    
     if (tdplayer.config.qc) {
         tdplayer.ele.setr5.click()
     }
