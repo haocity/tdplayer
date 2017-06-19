@@ -54,17 +54,23 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 	e.innerText += "正在加载中...";
 	fetch(videourl).then(response => response.json())
 	  .then(function(json){
-			let v1,v2,v3,vv;
+			let v1,v2,v3,v4,vv;
 			for (var i = 0; i < json.stream.length; i++) {
 				if(json.stream[i].stream_type=='mp4hd3'){
 					v1=json.stream[i]
-				}
-				if(json.stream[i].stream_type=='mp4hd2'){
+				}else if(json.stream[i].stream_type=='mp4hd2'){
 					v2=json.stream[i]
-				}
-				if(json.stream[i].stream_type=='mp4hd'){
+				}else if(json.stream[i].stream_type=='mp4hd'){
 					v3=json.stream[i]
-				}
+				}else if(json.stream[i].stream_type=='flvhd'){
+                    if (json.stream[i].segs[0].url) {
+                       if (json.stream[i].segs[0].url.indexOf('.mp4')>-1) {
+                            v4=json.stream[i] 
+                        } 
+                    }
+                    
+                }
+
 			}
 			if(v1){
 				vv=v1
@@ -72,7 +78,9 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 				vv=v2
 			}else if(v3){
 				vv=v3
-			}else{
+			}else if (v4) {
+                vv=v4
+            }else{
                 if(document.querySelector(".noflash-alert")){
                     document.querySelector(".noflash-alert").style.display="block";
                 }
@@ -171,29 +179,6 @@ window.tdacplay=(ele, acid)=>{
 	            };
 	            xmlhttp2.open("GET", "https://t5.haotown.cn/youku/api/?youku=" + vid, true);
 	            xmlhttp2.send();
-            }else{
-	            var xmlhttp2;
-	            xmlhttp2 = new XMLHttpRequest();
-	            xmlhttp2.onreadystatechange = function() {
-	                if (xmlhttp2.readyState == 4) {
-	                    if (xmlhttp2.status == 200) {
-	                        var t = xmlhttp2.responseText;
-	                        var videosrcarr = JSON.parse(t).video;
-	                        if (videosrcarr) {
-	                            tdplayer(ele,videosrcarr,data,null,null);
-	                        } else {
-	                            e.innerText +=  "\n视频解析失败  5秒后将重试";
-	                            setTimeout(function() {
-	                               tdacplay(ele, acid);
-	                            }, 5e3);
-	                        }
-	                    } else {
-	                        e.innerText += "\n视频解析失败";
-	                    }
-	                }
-	            };
-	            xmlhttp2.open("GET", "https://t5.haotown.cn/td/video.php?ac=" + acid, true);
-	            xmlhttp2.send();
             }
         }
     };
@@ -281,7 +266,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             video.style.display = "none";
             video.preload = "meta";
         } else {
-            video.preload = "load";
+            video.preload = "auto";
             tdplayer.Element = video;
         }
         tdplayer.ele.tdplayer.appendChild(video);
@@ -812,8 +797,8 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         var temp = tdplayer.videoelearr[tdplayer.nowduan].currentTime;
         if (temp + 20 >= tdplayer.videotimearr[tdplayer.nowduan]) {
             if (tdplayer.videoelearr[tdplayer.nowduan + 1]) {
-            	if (tdplayer.videoelearr[tdplayer.nowduan + 1].preload != "load") {
-	                tdplayer.videoelearr[tdplayer.nowduan + 1].preload = "load";
+            	if (tdplayer.videoelearr[tdplayer.nowduan + 1].preload != "auto") {
+	                tdplayer.videoelearr[tdplayer.nowduan + 1].preload = "auto";
 	                console.log("当前正在播放第" + tdplayer.nowduan + "段，正在加载下一段");
 	            }
             }
