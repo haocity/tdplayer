@@ -232,6 +232,9 @@ section.player{
 	user-select: none;
 	z-index: 888;
 }
+.tp-control-nowtime,.tp-control-alltime{
+	cursor: default;
+}
 .tp-icon {
 	position: relative;
 	top: 6px;
