@@ -85,8 +85,7 @@ module.exports = {
         <input class="tp-up" type="submit" value="发送" /></div>
       <div class="tp-control">
         <div style="float:right;">
-          <span class="tp-control-alltime" style="padding:0 6px 0 12px">0:00</span>
-          <div class="tp-danmu-switch">弹</div>
+          <span class="tp-control-alltime" style="padding:0 6px 0 12px">0:00</span><div class="tp-danmu-switch">弹</div>
           <div class="tp-set"></div>
           <div class="tp-vloop tp-vloop1"></div>
           <div class="tp-syk">
