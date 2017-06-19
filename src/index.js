@@ -120,7 +120,7 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 		 }
 	}
 }
-window.tdacplay=(ele, acid)=>{
+window.tdyoukuplay=(ele, acid)=>{
 	function $d(e){
     return ele.getElementById(e);
 	}
