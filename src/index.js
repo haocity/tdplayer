@@ -842,9 +842,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             } else {
                 var ele = tdplayer.videoelearr[i];
                 tdplayer.Element = ele;
-                ele.style.display = "block";
-                ele.play();
+                if (ele.style.display!= "block") {
+                    ele.style.display = "block"
+                }
                 ele.currentTime = duantime;
+                if(ele.paused){
+                    ele.play() 
+                }
                 tdplayer.ele.tp_spinner.style.display = "none";
             }
         }
