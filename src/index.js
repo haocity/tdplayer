@@ -310,7 +310,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.danmuelement = tdplayer.ele.danmu_warp;
     tdplayer.sjc = 0;
     tdplayer.dsq = 0;
-    tdplayer.leftarr = [];
+    tdplayer.leftarr = {t:[],v:[],out:[],w:[]};
     tdplayer.toparr = [];
     tdplayer.dmheight = 31;
     tdplayer.dmplace = 1;
@@ -334,23 +334,21 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         }
         if (wz == 1) {
             //left 弹幕
-            var dtop = tdplayer.getlefttop();
-            dm.style.top = dtop * tdplayer.dmheight + "px";
-            tdplayer.leftarr[dtop] = 1;
             dm.className = "danmu tp-left";
             if(tdplayer.config.danmusize){
                dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)"; 
             }else{
                 dm.style.transform = "translateX(-" + tdplayer.width + "px)";
             }
-            var e = tdplayer.ele.danmu_warp.appendChild(dm);
-            var s1 = e.offsetWidth;
-            var s2 = s1 + tdplayer.width;
-            var v = s2 / 10;
-            var t = s1 / v;
-            setTimeout(function() {
-                tdplayer.leftarr[dtop] = 0;
-            }, t * 1e3 + 500);
+            tdplayer.ele.danmu_warp.appendChild(dm);
+            var time = tdplayer.width / 100;
+            var v=(dm.offsetWidth+tdplayer.width)/time;
+            var outt=dm.offsetWidth/v;
+            dtop=tdplayer.getlefttop(v,dm.offsetWidth);
+            setTimeout(function(){
+                tdplayer.leftarr.out[dtop]=false
+            },outt*1000)
+            dm.style.top = dtop * tdplayer.dmheight + "px";
             dm.addEventListener("webkitAnimationEnd", tdplayer.dmend);
             dm.addEventListener("animationend", tdplayer.dmend);
         } else if (wz == 2) {
@@ -378,15 +376,38 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             tdplayer.toparr[topid] = 0;
         }
     };
-    tdplayer.getlefttop = function() {
+    tdplayer.getlefttop = function(v,ww) {
         var h;
-        for (var i = 0; i <= tdplayer.leftarr.length; i++) {
-            if (!tdplayer.leftarr[i]) {
-                //console.log('第'+i+'可以发射弹幕');
-                h = i;
-                break;
+        let t=getnowtime();
+        let allt=tdplayer.width/100;
+        for (var i = 0; i <= tdplayer.leftarr.t.length; i++) {
+            if (!tdplayer.leftarr.out[i]) {
+                 if (tdplayer.leftarr.v[i]>=v) {
+                       h = i;
+                       break;
+                    }else {
+                       if (!tdplayer.leftarr.t[i]) {break}
+                       //追上的时间和距离
+                       let tt=tdplayer.width/100-t+tdplayer.leftarr.t[i];
+                       let sz= tt*(v-tdplayer.leftarr.v[i]);
+                       //间隔距离 这里-20是为了防止跟太紧
+                       let so=(t-tdplayer.leftarr.t[i])*tdplayer.leftarr.v[i]-tdplayer.leftarr.w[i]-20;
+                       //console.log(`${i}弹幕会在上一弹幕尾部飞行${tt}秒 速度差${v-tdplayer.leftarr.v[i]} 会追上路程 ${sz}  判断时距离 ${so}`)
+                       if (sz<so) {
+                            h = i;
+                            break;
+                       }
+                    }
             }
         }
+        if (typeof(h)=='undefined') {
+            h=tdplayer.leftarr.t.length;
+            //console.log('开辟新通道');
+        }
+        tdplayer.leftarr.t[h]=t;
+        tdplayer.leftarr.v[h]=v;
+        tdplayer.leftarr.out[h]=true;
+        tdplayer.leftarr.w[h]=ww;
         return h;
     };
     tdplayer.gettoptop = function() {
