@@ -249,6 +249,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr5=$c(".tp-s-r5")[0];
         this.setr6=$c(".tp-s-r6")[0];
         this.setr7=$c(".tp-s-r7")[0];
+        this.video_ratio=$c(".tp-ratio")[0];
     }
     tdplayer.ele=new eleload;
     if (localStorage.getItem('tdconfig')) {
@@ -604,20 +605,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.config.dmweight=tdplayer.config.dmweight||400
         tdplayer.config.sound=tdplayer.config.sound||80
         tdplayer.config.pbs=tdplayer.config.pbs||'笑容我来守护,隔壁难民'
-        if (tdplayer.config.qc!=true) {
-            tdplayer.config.qc=false
-        }
-        if (tdplayer.config.pb!=true) {
-            tdplayer.config.pb=false
-        }
-        if (tdplayer.config.dmshadow!=0) {
-           tdplayer.config.dmshadow=2; 
-        }
+        1!=tdplayer.config.qc&&(tdplayer.config.qc=!1);
+        1!=tdplayer.config.pb&&(tdplayer.config.pb=!1);
+        0!=tdplayer.config.dmshadow&&(tdplayer.config.dmshadow=2);
         tdplayer.ele.css.innerText = `
         .tp-left {animation: dmleft  ${tdplayer.config.v}s linear;-webkit-animation: dmleft ${tdplayer.config.v}s linear;}
         .danmu-warp{font-weight:${tdplayer.config.dmweight};transform:scale(${tdplayer.config.danmusize});-webkit-transform:scale(${tdplayer.config.danmusize});-moz-transform:scale(${tdplayer.config.danmusize});width:${100/tdplayer.config.danmusize}%;height:${100/tdplayer.config.danmusize}%;opacity:${tdplayer.config.danmuo}}
-        .tp-video-main>.danmu-warp>.danmu{text-shadow: #000 0 ${tdplayer.config.dmshadow}px 0;}
-        `;
+        .tp-video-main>.danmu-warp>.danmu{text-shadow: #000 0 ${tdplayer.config.dmshadow}px 0;}`;
         var earr= $c('.tp-left');
         for (var i = 0; i < earr.length; i++) {
             earr[i].style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)";
@@ -639,8 +633,10 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             tdplayer.ele.setbox.style.display='block'
             addClass(tdplayer.ele.setbox,'tp-zoomoutup');
             setTimeout(function(){
-                removeClass(tdplayer.ele.setbox,'tp-zoomoutup')
+               tdplayer.ele.setbox.className='tp-video-set';
             },480);
+        }else if(tdplayer.ele.setbox.className=='tp-video-set'){
+            tdplayer.ele.setclose.click();
         }
     },false);
     tdplayer.ele.setr3.onclick=function(){
@@ -1090,6 +1086,29 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             };
         }
     }
+    //视频比例设置
+    console.log(tdplayer.ele.video_ratio);
+    tdplayer.ele.video_ratio.ratio=1;
+    tdplayer.ele.video_ratio.addEventListener('click',function(){
+        if(this.ratio==1){
+            this.ratio=2
+            tdplayer.ele.tdplayer.style.transform=`scale(1,0.892)`
+            tdplayer.ele.tdplayer.style.webkitTransform=`scale(1,0.892)`
+            this.innerText=`视频比例 4:3`
+        }else if(this.ratio==2){
+            this.ratio=3
+            tdplayer.ele.tdplayer.style.transform=`scale(0.841,1)`
+            tdplayer.ele.tdplayer.style.webkitTransform=`scale(0.841,1)`
+            this.innerText=`视频比例 16:9`
+        }else {
+            this.ratio=1
+            this.innerText=`视频比例 全屏`
+            tdplayer.ele.tdplayer.style.transform=`none`
+            tdplayer.ele.tdplayer.style.webkitTransform=`none`
+        }
+        
+
+    })
     function tpeixtfull(){
     	setTimeout(function(){
     	tdplayer.width = tdplayer.ele.tdplayer.offsetWidth;
@@ -1240,5 +1259,5 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 			setTimeout(editor32,200);
 		}
     }
-    
+    dmspeend(tdplayer.width / 100);
 }
