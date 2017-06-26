@@ -599,7 +599,7 @@ section.player{
 	margin: 4px 0 4px 30px;
 }
 .tp-copy-input{
-    display: inline-block;
+    display: block;
     width: 100%;
     height: 19px;
     overflow: hidden;
@@ -609,8 +609,10 @@ section.player{
     border: 0px;
     color: #fff;
     resize: none;
-    font-size: 1em;
     cursor: pointer;
+    font-size: 15px;
+    line-height: 21px;
+    overflow:hidden;
     font-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;
 }
 .tp-control-alltime-phone{
