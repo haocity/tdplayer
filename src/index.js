@@ -250,6 +250,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr6=$c(".tp-s-r6")[0];
         this.setr7=$c(".tp-s-r7")[0];
         this.video_ratio=$c(".tp-ratio")[0];
+        this.searchuser=$c(".tp-search-user")[0];
     }
     tdplayer.ele=new eleload;
     if (localStorage.getItem('tdconfig')) {
@@ -324,11 +325,12 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.width = tdplayer.Element.offsetWidth;
     tdplayer.height = tdplayer.Element.offsetHeight;
     //样式
-    tdplayer.send = function(text, color, wz, me) {
+    tdplayer.send = function(text, color, wz, me,user) {
         tdplayer.width = tdplayer.Element.offsetWidth;
         tdplayer.height = tdplayer.Element.offsetHeight;
         var dm = document.createElement("div");
         dm.appendChild(document.createTextNode(text));
+        dm.user=user;
         dm.style.color = color;
         if (me) {
             dm.style.border = "1px solid #fff";
@@ -788,7 +790,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
                 if (tdplayer.nowdata[i]) {
                     //console.log('nowtime:'+inttime);
                     if (tdplayer.nowdata[i].time == inttime) {
-                        tdplayer.send(unescape(tdplayer.nowdata[i].text), tdplayer.nowdata[i].color, tdplayer.nowdata[i].place);
+                        tdplayer.send(unescape(tdplayer.nowdata[i].text), tdplayer.nowdata[i].color, tdplayer.nowdata[i].place,false,tdplayer.nowdata[i].user);
                         delete tdplayer.nowdata[i];
                     }
                 }
@@ -1147,7 +1149,11 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	        if (ev.button == 2) {
 	            var target = ev.target || ev.srcElement;
 	            if (hasClass(target, "danmu")) {
-	                tdplayer.ele.copytext.innerHTML = target.innerHTML;
+                    if(target.user){
+                        tdplayer.ele.searchuser.style.display='block';
+                        tdplayer.ele.searchuser.innerHTML=`<a href="http://www.acfun.cn/u/${target.user}.aspx#" target="_blank">查询发送者</a>`
+                    }
+                    tdplayer.ele.copytext.innerHTML = target.innerHTML;
 	                tdplayer.ele.copy.style.display = "block";
 	                tdplayer.ele.copy.onclick = function() {
 	                    tdplayer.ele.copytext.select();
@@ -1156,6 +1162,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	                };
 	            } else {
 	                tdplayer.ele.copy.style.display = "none";
+                    tdplayer.ele.searchuser.style.display= "none";
 	            }
 	            rightmenu.style.display = "block";
 	            var leftedge, topedge, danmuheight = tdplayer.ele.danmu_warp.offsetHeight, danmuwidth = tdplayer.ele.danmu_warp.offsetWidth;

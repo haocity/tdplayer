@@ -2,9 +2,11 @@ module.exports = {
     html: () => {
         return `<div class="tp-video-warp">
   <div class="tp-video-main">
-    <ul class="tp-rightmenu">
+    <ul class="tp-rightmenu">  
       <li class="tp-copy-warp">
-        <textarea rows="1" class="tp-copy-input">复制弹幕</textarea></li>
+        <textarea rows="1" class="tp-copy-input">复制弹幕</textarea>
+      </li>
+      <li class="tp-search-user"></li>
       <li class="tp-speend-con">播放速度
         <ul class="tp-speend">
           <li>0.5</li>
