@@ -722,7 +722,14 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             showbar();
         };
     }
-
+    // 因视频跨域搁浅
+    // tdplayer.screenshot=function(){
+    //     let c = document.createElement('canvas');
+    //     c.width = tdplayer.ele.tdplayer.offsetWidth
+    //     c.height = tdplayer.ele.tdplayer.offsetHeight
+    //     c.getContext('2d').drawImage(tdplayer.ele.tdplayer, 0, 0, c.width, c.height);
+    //     console.log(c.toDataURL())
+    // }
     tdplayer.changersound = function() {
     	var s = parseInt(tdplayer.ele.tp_s.style.width) * .01;
     	for (var i=0;i<tdplayer.videoelearr.length;i++) {
