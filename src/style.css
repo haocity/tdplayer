@@ -193,21 +193,14 @@ section.player{
 	overflow:hidden;
 }
 .tp-video {
-	background-color: #000;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    min-width: 0px;
-    max-width: none;
-    min-height: 0px;
-    max-height: none;
+position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
     width: 100%;
-    height: 100%;
-    display: block;
-    transform: none;
-    margin: 0px !important;
-    flex: 1 1 0% !important;
-
+    height: auto;
+    margin: auto;
 }
 .tp-video-con {
 	opacity: 0;

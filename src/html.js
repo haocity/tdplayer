@@ -16,7 +16,7 @@ module.exports = {
           <li>1.5</li>
           <li>2</li></ul>
       </li>
-      <li class="tp-ratio">视频比例 全屏</li>
+      <li class="tp-ratio">视频比例 默认</li>
       <a href="https://github.com/haocity/tdplayer/issues" target="_blank">
         <li>意见反馈</li></a>
       <a href="https://www.haotown.cn/about.html" target="_blank">

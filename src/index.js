@@ -1102,9 +1102,22 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             tdplayer.ele.tdplayer.style.transform=`scale(0.841,1)`
             tdplayer.ele.tdplayer.style.webkitTransform=`scale(0.841,1)`
             this.innerText=`视频比例 16:9`
-        }else {
-            this.ratio=1
+        }else if(this.ratio==3){
+            this.ratio=4
             this.innerText=`视频比例 全屏`
+            tdplayer.ele.tdplayer.style.transform=`none`
+            tdplayer.ele.tdplayer.style.webkitTransform=`none`
+            setTimeout(function(){
+                let w1= tdplayer.ele.tdplayer.offsetWidth
+                let w2= tdplayer.videoelearr[0].offsetWidth
+                let h1= tdplayer.ele.tdplayer.offsetHeight
+                let h2= tdplayer.videoelearr[0].offsetHeight
+                tdplayer.ele.tdplayer.style.transform=`scale(${w1/w2},${h1/h2})`
+                tdplayer.ele.tdplayer.style.webkitTransform=`scale(${w1/w2},${h1/h2})`
+            },100);
+        }else{
+            this.ratio=1
+            this.innerText=`视频比例 默认`
             tdplayer.ele.tdplayer.style.transform=`none`
             tdplayer.ele.tdplayer.style.webkitTransform=`none`
         }
