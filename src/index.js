@@ -206,6 +206,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.warp.innerHTML = tdplayer.v;
     function eleload(){
 	    this.tdplayer = $c(".tdplayer")[0]
+        this.tdplayer_main=$c(".tp-video-main")[0]
 	    this.danmu_switch = $c(".tp-danmu-switch")[0]
 	    this.tp_text = $c(".tp-text")[0]
 	    this.tp_up = $c(".tp-up")[0]
@@ -326,12 +327,12 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.ele.video_con.style.display='none';
     }
     //弹幕行高
-    tdplayer.width = tdplayer.Element.offsetWidth;
-    tdplayer.height = tdplayer.Element.offsetHeight;
+    tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth;
+    tdplayer.height =tdplayer.ele.tdplayer_main.offsetHeight;
     //样式
     tdplayer.send = function(text, color, wz, me,user) {
-        tdplayer.width = tdplayer.Element.offsetWidth;
-        tdplayer.height = tdplayer.Element.offsetHeight;
+        tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth;
+        tdplayer.height = tdplayer.ele.tdplayer_main.offsetHeight;
         var dm = document.createElement("div");
         dm.appendChild(document.createTextNode(text));
         dm.user=user;
@@ -1039,7 +1040,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         var e = tdplayer.ele.tp_video_warp;
         document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement ? document.cancelFullScreen ? document.cancelFullScreen() :document.mozCancelFullScreen ? document.mozCancelFullScreen() :document.webkitCancelFullScreen && document.webkitCancelFullScreen() :e.requestFullscreen ? e.requestFullscreen() :e.mozRequestFullScreen ? e.mozRequestFullScreen() :e.webkitRequestFullscreen && e.webkitRequestFullscreen();
         setTimeout(function() {
-            tdplayer.width = tdplayer.ele.danmu_warp.offsetWidth;
+            tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth;
             var e = tdplayer.ele.danmu_warp.getElementsByTagName("div");
             dmspeend(tdplayer.width / 100);
             for (var i = 0; i < e.length; i++) {
