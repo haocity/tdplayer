@@ -193,13 +193,13 @@ section.player{
 	overflow:hidden;
 }
 .tp-video {
-position: absolute;
+	position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     margin: auto;
 }
 .tp-video-con {
@@ -320,7 +320,7 @@ position: absolute;
 .tp-alert-container{
 	padding: 20px
 }
-.tp-alert-container>.tp-screenshot{
+.tp-alert-container .tp-screenshot-canvas{
 	height: auto;
 	width: 300px
 }

@@ -1140,6 +1140,11 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             this.innerText=`视频比例 全屏`
             tdplayer.ele.tdplayer.style.transform=`none`
             tdplayer.ele.tdplayer.style.webkitTransform=`none`
+            for (var i = 0; i < tdplayer.videoelearr.length; i++) {
+                tdplayer.videoelearr[i].style.height='auto';
+                tdplayer.videoelearr[i].style.width='auto';
+                tdplayer.videoelearr[i].className="";
+            }
             setTimeout(function(){
                 let w1= tdplayer.ele.tdplayer.offsetWidth
                 let w2= tdplayer.videoelearr[0].offsetWidth
@@ -1147,8 +1152,16 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
                 let h2= tdplayer.videoelearr[0].offsetHeight
                 tdplayer.ele.tdplayer.style.transform=`scale(${w1/w2},${h1/h2})`
                 tdplayer.ele.tdplayer.style.webkitTransform=`scale(${w1/w2},${h1/h2})`
-            },100);
+                tdplayer.ele.tdplayer.style.transformOrigin= 'left top'
+                tdplayer.ele.tdplayer.style.webkitTransformOrigin='left top'
+            },0);
         }else{
+            for (var i = 0; i < tdplayer.videoelearr.length; i++) {
+                tdplayer.videoelearr[i].style.height='100%';
+                tdplayer.videoelearr[i].style.width='100%';
+                tdplayer.videoelearr[i].className=".tp-video";
+                tdplayer.ele.tdplayer.style.webkitTransformOrigin='center'
+            }
             this.ratio=1
             this.innerText=`视频比例 默认`
             tdplayer.ele.tdplayer.style.transform=`none`
@@ -1167,26 +1180,35 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	            e[i].style.transform = "translateX(-" + tdplayer.width + "px)";
 	        }
         }
+        tdplayer.ele.video_ratio.ratio=4;
+        tdplayer.ele.video_ratio.click();
     	},1000);
+
     }
     document.addEventListener('webkitfullscreenchange',function(c){
     	if(document.webkitFullscreenElement){
-    		console.log('进入全屏');
-    		}else{
-    		console.log('退出全屏');
-			tpeixtfull();
+    		console.log('进入全屏')
+            joinfull()
+    	}else{
+    		console.log('退出全屏')
+			tpeixtfull()
     	}
     	
     });
     document.addEventListener('mozfullscreenchange',function(c){
     	if(document.mozFullscreenElement){
     		console.log('进入全屏')
-    		}else{
-    		console.log('退出全屏');
-    		tpeixtfull();
+            joinfull()
+    	}else{
+    		  console.log('退出全屏')
+    		  tpeixtfull()
     	}
     	
     });
+    function joinfull(){
+        tdplayer.ele.video_ratio.ratio=4;
+        tdplayer.ele.video_ratio.click();
+    }
     tdplayer.ele.danmu_warp.onmousedown = function(event) {
         var container = tdplayer.ele.tdplayer;
         var rightmenu = tdplayer.ele.tp_rightmenu;
