@@ -741,13 +741,20 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.ele.alert_ok.addEventListener('click',function(){
         tdplayer.ele.alert.style.display='none'
     },false)
+    tdplayer.ele.screenshot.addEventListener('click',function(){
+        tdplayer.ele.tp_rightmenu.style.display='none'
+        tdplayer.screenshot()
+    },false)
     tdplayer.screenshot=function(){
         let c = document.createElement('canvas');
         c.width = tdplayer.ele.tdplayer.offsetWidth
         c.height = tdplayer.ele.tdplayer.offsetHeight
         c.getContext('2d').drawImage(tdplayer.videoelearr[tdplayer.nowduan], 0, 0, c.width, c.height);
-        c.className='tp-screenshot'
-        tdplayer.alert(null,null,c)
+        c.className='tp-screenshot-canvas'
+        let warp=document.createElement("div");
+        warp.innerHTML='<p>请右键保存截图</p>'
+        warp.appendChild(c)
+        tdplayer.alert(null,null,warp)
     }
     tdplayer.changersound = function() {
     	var s = parseInt(tdplayer.ele.tp_s.style.width) * .01;
