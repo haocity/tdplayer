@@ -254,7 +254,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.alert=$c(".tp-alert")[0]
         this.alert_container=$c(".tp-alert-container")[0]
         this.alert_ok=$c(".tp-alert-ok")[0]
-        
+        this.screenshot=$c(".tp-screenshot")[0]
     }
     tdplayer.ele=new eleload;
     if (localStorage.getItem('tdconfig')) {
