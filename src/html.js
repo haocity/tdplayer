@@ -42,6 +42,10 @@ module.exports = {
       <div class="rect4"></div>
       <div class="rect5"></div>
     </div>
+    <div class="tp-alert">
+       <div class="tp-alert-container"></div>
+       <div class="tp-alert-ok">确定</div>
+    </div>
     <div class="tp-video-set">
       <h4>设置</h4>
       <span class='tp-closeset'>×</span>

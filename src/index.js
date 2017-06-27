@@ -185,9 +185,9 @@ window.tdyoukuplay=(ele, acid)=>{
     xmlhttp.open("GET", "https://t5.haotown.cn/acfun/danmu/?ac=" + acid, true);
     xmlhttp.send();
 }
-
+window.tdplayer = new Object();
 window.tdplayer=(Element,src,data,poster,videotype)=> {
-	var tdplayer = new Object();
+	 
     tdplayer.warp = Element;
     tdplayer.videosrcarr = src;
     tdplayer.data=data;
@@ -205,52 +205,56 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.v = html.html();
     tdplayer.warp.innerHTML = tdplayer.v;
     function eleload(){
-	    this.tdplayer = $c(".tdplayer")[0];
-	    this.danmu_switch = $c(".tp-danmu-switch")[0];
-	    this.tp_text = $c(".tp-text")[0];
-	    this.tp_up = $c(".tp-up")[0];
-	    this.tp_color_bo = $c(".tp-color-bo")[0];
-	    this.video_control_play = $c(".tp-control-play")[0];
-	    this.tp_oneplay = $c(".tp-oneplay")[0];
-	    this.danmu_warp = $c(".danmu-warp")[0];
-	    this.video_con = $c(".tp-video-con")[0];
-	    this.video_control_paused = $c(".tp-control-paused")[0];
-	    this.tp_s_w = $c(".tp-s-tranger")[0];
-        this.tp_s = $c(".tp-s-tranger-a")[0];
-	    this.alltime = $c(".tp-control-alltime")[0];
-	    this.tranger_a = $c(".tp-tranger-a")[0];
-	    this.tranger_c = $c(".tp-tranger-c")[0];
-	    this.nowtime = $c(".tp-control-nowtime")[0];
-	    this.tp_spinner = $c(".tp-spinner")[0];
-	    this.full = $c(".video-full")[0];
-	    this.tp_con = $c(".tp-con")[0];
-	    this.tp_color_warp = $c(".tp-color-warp")[0];
-	    this.tp_place = $c(".tp-place")[0];
-	    this.tp_send = $c(".tp-send")[0];
-	    this.tranger = $c(".tp-tranger")[0];
-	    this.tp_speend_con = $c(".tp-speend-con")[0];
-	    this.tp_speend = $c(".tp-speend")[0];
-	    this.tp_video_warp = $c(".tp-video-warp")[0];
-	    this.tp_rightmenu = $c(".tp-rightmenu")[0];
-	    this.end = $c(".video-end")[0];
-	    this.replay = $c(".replay")[0];
-	    this.copy = $c(".tp-copy-warp")[0];
-	    this.copytext = $c(".tp-copy-input")[0];
-	    this.css = $c(".css")[0];
-	    this.alltime_phone= $c(".tp-control-alltime-phone")[0];
-        this.vloop=$c('.tp-vloop')[0];
-        this.setbox=$c('.tp-video-set')[0];
-        this.setclose=$c('.tp-closeset')[0];
-        this.setbtn=$c('.tp-set')[0];
-        this.setr1=$c(".tp-s-r1")[0];
-        this.setr2=$c(".tp-s-r2")[0];
-        this.setr3=$c(".tp-s-r3")[0];
-        this.setr4=$c(".tp-s-r4")[0];
-        this.setr5=$c(".tp-s-r5")[0];
-        this.setr6=$c(".tp-s-r6")[0];
-        this.setr7=$c(".tp-s-r7")[0];
-        this.video_ratio=$c(".tp-ratio")[0];
-        this.searchuser=$c(".tp-search-user")[0];
+	    this.tdplayer = $c(".tdplayer")[0]
+	    this.danmu_switch = $c(".tp-danmu-switch")[0]
+	    this.tp_text = $c(".tp-text")[0]
+	    this.tp_up = $c(".tp-up")[0]
+	    this.tp_color_bo = $c(".tp-color-bo")[0]
+	    this.video_control_play = $c(".tp-control-play")[0]
+	    this.tp_oneplay = $c(".tp-oneplay")[0]
+	    this.danmu_warp = $c(".danmu-warp")[0]
+	    this.video_con = $c(".tp-video-con")[0]
+	    this.video_control_paused = $c(".tp-control-paused")[0]
+	    this.tp_s_w = $c(".tp-s-tranger")[0]
+        this.tp_s = $c(".tp-s-tranger-a")[0]
+	    this.alltime = $c(".tp-control-alltime")[0]
+	    this.tranger_a = $c(".tp-tranger-a")[0]
+	    this.tranger_c = $c(".tp-tranger-c")[0]
+	    this.nowtime = $c(".tp-control-nowtime")[0]
+	    this.tp_spinner = $c(".tp-spinner")[0]
+	    this.full = $c(".video-full")[0]
+	    this.tp_con = $c(".tp-con")[0]
+	    this.tp_color_warp = $c(".tp-color-warp")[0]
+	    this.tp_place = $c(".tp-place")[0]
+	    this.tp_send = $c(".tp-send")[0]
+	    this.tranger = $c(".tp-tranger")[0]
+	    this.tp_speend_con = $c(".tp-speend-con")[0]
+	    this.tp_speend = $c(".tp-speend")[0]
+	    this.tp_video_warp = $c(".tp-video-warp")[0]
+	    this.tp_rightmenu = $c(".tp-rightmenu")[0]
+	    this.end = $c(".video-end")[0]
+	    this.replay = $c(".replay")[0]
+	    this.copy = $c(".tp-copy-warp")[0]
+	    this.copytext = $c(".tp-copy-input")[0]
+	    this.css = $c(".css")[0]
+	    this.alltime_phone= $c(".tp-control-alltime-phone")[0]
+        this.vloop=$c('.tp-vloop')[0]
+        this.setbox=$c('.tp-video-set')[0]
+        this.setclose=$c('.tp-closeset')[0]
+        this.setbtn=$c('.tp-set')[0]
+        this.setr1=$c(".tp-s-r1")[0]
+        this.setr2=$c(".tp-s-r2")[0]
+        this.setr3=$c(".tp-s-r3")[0]
+        this.setr4=$c(".tp-s-r4")[0]
+        this.setr5=$c(".tp-s-r5")[0]
+        this.setr6=$c(".tp-s-r6")[0]
+        this.setr7=$c(".tp-s-r7")[0]
+        this.video_ratio=$c(".tp-ratio")[0]
+        this.searchuser=$c(".tp-search-user")[0]
+        this.alert=$c(".tp-alert")[0]
+        this.alert_container=$c(".tp-alert-container")[0]
+        this.alert_ok=$c(".tp-alert-ok")[0]
+        
     }
     tdplayer.ele=new eleload;
     if (localStorage.getItem('tdconfig')) {
@@ -722,6 +726,15 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             showbar();
         };
     }
+    tdplayer.alert=function(w,h,t){
+        w=w||'auto'
+        h=h||'auto'
+        tdplayer.ele.alert_container.innerHTML=t
+        tdplayer.ele.alert.style.display='block'
+    }
+    tdplayer.ele.alert_ok.addEventListener('click',function(){
+        tdplayer.ele.alert.style.display='none'
+    },false)
     // 因视频跨域搁浅
     // tdplayer.screenshot=function(){
     //     let c = document.createElement('canvas');
