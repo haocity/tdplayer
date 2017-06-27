@@ -320,6 +320,10 @@ position: absolute;
 .tp-alert-container{
 	padding: 20px
 }
+.tp-alert-container>.tp-screenshot{
+	height: auto;
+	width: 300px
+}
 .tp-settable{
 	margin:0 auto;
 	cursor:default;

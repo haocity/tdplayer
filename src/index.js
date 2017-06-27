@@ -729,20 +729,26 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.alert=function(w,h,t){
         w=w||'auto'
         h=h||'auto'
-        tdplayer.ele.alert_container.innerHTML=t
+        if (typeof t=='object') {
+             tdplayer.ele.alert_container.innerHTML=null
+             tdplayer.ele.alert_container.appendChild(t)
+        }else{
+            tdplayer.ele.alert_container.innerHTML=t 
+        }
         tdplayer.ele.alert.style.display='block'
+        
     }
     tdplayer.ele.alert_ok.addEventListener('click',function(){
         tdplayer.ele.alert.style.display='none'
     },false)
-    // 因视频跨域搁浅
-    // tdplayer.screenshot=function(){
-    //     let c = document.createElement('canvas');
-    //     c.width = tdplayer.ele.tdplayer.offsetWidth
-    //     c.height = tdplayer.ele.tdplayer.offsetHeight
-    //     c.getContext('2d').drawImage(tdplayer.ele.tdplayer, 0, 0, c.width, c.height);
-    //     console.log(c.toDataURL())
-    // }
+    tdplayer.screenshot=function(){
+        let c = document.createElement('canvas');
+        c.width = tdplayer.ele.tdplayer.offsetWidth
+        c.height = tdplayer.ele.tdplayer.offsetHeight
+        c.getContext('2d').drawImage(tdplayer.videoelearr[tdplayer.nowduan], 0, 0, c.width, c.height);
+        c.className='tp-screenshot'
+        tdplayer.alert(null,null,c)
+    }
     tdplayer.changersound = function() {
     	var s = parseInt(tdplayer.ele.tp_s.style.width) * .01;
     	for (var i=0;i<tdplayer.videoelearr.length;i++) {
