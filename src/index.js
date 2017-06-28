@@ -1217,80 +1217,82 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.ele.video_ratio.ratio=4;
         tdplayer.ele.video_ratio.click();
     }
-    tdplayer.ele.danmu_warp.onmousedown = function(event) {
+    tdplayer.ele.danmu_warp.onmousedown=function(event){
+         var ev = event || window.event || arguments.callee.caller.arguments[0];
+            if (ev.button == 0) {
+                //如果左按键
+                if (tdplayer.ele.tp_rightmenu.style.display == "block") {
+                    tdplayer.ele.tp_rightmenu.style.display = "none";
+                } else {
+                    //视频暂停
+                    if (tdplayer.Element.paused) {
+                        tdplayer.ele.video_control_play.onclick();
+                    } else {
+                        tdplayer.ele.video_control_paused.onclick();
+                    }
+                }
+            }
+    }
+   
+    //
+    tdplayer.ele.danmu_warp.oncontextmenu = function(){
+        tp_menu()
+        return false
+    }
+    tdplayer.ele.danmu_warp.contextmenu=function(){
+        tp_menu()
+        return false
+    }
+    function tp_menu(event) {
         var container = tdplayer.ele.tdplayer;
         var rightmenu = tdplayer.ele.tp_rightmenu;
         var ev = event || window.event || arguments.callee.caller.arguments[0];
         if (!tdplayer.phone){
-	        if (ev.button == 2) {
-	            var target = ev.target || ev.srcElement;
-	            if (hasClass(target, "danmu")) {
+                var target = ev.target || ev.srcElement;
+                if (hasClass(target, "danmu")) {
                     if(target.user){
                         tdplayer.ele.searchuser.style.display='block';
                         tdplayer.ele.searchuser.innerHTML=`<a href="http://www.acfun.cn/u/${target.user}.aspx#" target="_blank">查询发送者</a>`
                     }
                     tdplayer.ele.copytext.innerHTML = target.innerHTML;
-	                tdplayer.ele.copy.style.display = "block";
-	                tdplayer.ele.copy.onclick = function() {
-	                    tdplayer.ele.copytext.select();
-	                    document.execCommand("Copy");
-	                    rightmenu.style.display = "none";
-	                };
-	            } else {
-	                tdplayer.ele.copy.style.display = "none";
+                    tdplayer.ele.copy.style.display = "block";
+                    tdplayer.ele.copy.onclick = function() {
+                        tdplayer.ele.copytext.select();
+                        document.execCommand("Copy");
+                        rightmenu.style.display = "none";
+                    };
+                } else {
+                    tdplayer.ele.copy.style.display = "none";
                     tdplayer.ele.searchuser.style.display= "none";
-	            }
-	            rightmenu.style.display = "block";
-	            var leftedge, topedge, danmuheight = tdplayer.ele.danmu_warp.offsetHeight, danmuwidth = tdplayer.ele.danmu_warp.offsetWidth;
-	            if (danmuheight == document.documentElement.clientHeight) {
-	                topedge = ev.clientY;
-	                leftedge = ev.clientX;
-	                if (leftedge + rightmenu.offsetWidth > danmuwidth) {
-	                    leftedge = danmuwidth - rightmenu.offsetWidth;
-	                }
-	                if (topedge + rightmenu.offsetWidth > danmuheight) {
-	                    topedge = danmuheight - rightmenu.offsetHeight;
-	                }
-	            } else {
-	            	topedge = ev.clientY + document.body.scrollTop - getTop(tdplayer.ele.tdplayer);
-	                leftedge = ev.clientX - getLeft(tdplayer.ele.tdplayer);
-	                var tweidth = container.offsetWidth;
-	                var theigtht = container.offsetHeight;
-	                if (leftedge + rightmenu.offsetWidth > tweidth) {
-	                    leftedge = tweidth - rightmenu.offsetWidth;
-	                }
-	              	if (topedge + rightmenu.offsetHeight > theigtht) {
-	                  topedge = theigtht - rightmenu.offsetHeight;
-	             	}
-	            }
-	            if (window.document.all) {
-	                this.IContextmenuHander = function() {
-	                    return false;
-	                };
-	                document.attachEvent("oncontextmenu", this.IContextmenuHander);
-	            } else {
-	                this.IContextmenuHander = document.oncontextmenu;
-	                document.oncontextmenu = function() {
-	                    return false;
-	                };
-	            }
-	            rightmenu.style.top = topedge + "px";
-	            rightmenu.style.left = leftedge + "px";
-	        } else if (ev.button == 0) {
-	            //如果左按键
-	            if (rightmenu.style.display == "block") {
-	                rightmenu.style.display = "none";
-	            } else {
-	                //视频暂停
-	                if (tdplayer.Element.paused) {
-	                    tdplayer.ele.video_control_play.onclick();
-	                } else {
-	                    tdplayer.ele.video_control_paused.onclick();
-	                }
-	            }
-	        }
-	    }
-    };
+                }
+                rightmenu.style.display = "block";
+                var leftedge, topedge, danmuheight = tdplayer.ele.danmu_warp.offsetHeight, danmuwidth = tdplayer.ele.danmu_warp.offsetWidth;
+                if (danmuheight == document.documentElement.clientHeight) {
+                    topedge = ev.clientY;
+                    leftedge = ev.clientX;
+                    if (leftedge + rightmenu.offsetWidth > danmuwidth) {
+                        leftedge = danmuwidth - rightmenu.offsetWidth;
+                    }
+                    if (topedge + rightmenu.offsetWidth > danmuheight) {
+                        topedge = danmuheight - rightmenu.offsetHeight;
+                    }
+                } else {
+                    topedge = ev.clientY + document.body.scrollTop - getTop(tdplayer.ele.tdplayer);
+                    leftedge = ev.clientX - getLeft(tdplayer.ele.tdplayer);
+                    var tweidth = container.offsetWidth;
+                    var theigtht = container.offsetHeight;
+                    if (leftedge + rightmenu.offsetWidth > tweidth) {
+                        leftedge = tweidth - rightmenu.offsetWidth;
+                    }
+                    if (topedge + rightmenu.offsetHeight > theigtht) {
+                      topedge = theigtht - rightmenu.offsetHeight;
+                    }
+                }
+                rightmenu.style.top = topedge + "px";
+                rightmenu.style.left = leftedge + "px";
+            
+        } 
+    }
     tdplayer.ele.tp_place.addEventListener("click", function() {
         if (tdplayer.dmplace == 1) {
             tdplayer.dmplace = 2;
