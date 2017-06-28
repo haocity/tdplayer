@@ -1,13 +1,12 @@
 (function() {
     var thisurl = window.location.href;
-	    var warp = document.querySelector(".player>#player");
-	    if (warp) {
-	        tmp = thisurl.split("/");
+    var tmp = thisurl.split("/");
+    if (tmp[2].indexOf('acfun')||tmp[2].indexOf('aixifan')) {
 	        thisac = tmp[tmp.length - 1];
 	        var script = document.createElement("script");
 	        script.setAttribute("type", "text/javascript");
 	        script.setAttribute("charset", "UTF-8");
-	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.7.3');  
+	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.8.0');  
 	        document.head.appendChild(script);
 	        script.onload = function() {
 	            if (thisac.indexOf("ac") == 0) {
@@ -20,15 +19,23 @@
 	                		tdyoukuplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-aid"))
 	                	}
 	                }
-	            } else {
+	            } else if(thisac.indexOf('ab')==0){
+	            	var e=document.querySelector('.primary');
+	            	if (e.getAttribute("data-from")=='ac') {
+	            		document.querySelector('.ui-draggable').innerHTML=null;
+	            		tdvidplay(document.querySelector('.ui-draggable'),e.getAttribute("data-vid"))
+	            	}else{
+	            		console.log("不支持。 /(ㄒoㄒ)/~~");
+	            	}
+	            }else{
 					try{
-						$.info.error('替换失败')
+						$.info.error('酷似没有支持的视频唉')
 					}catch(e){
 						console.log("不支持。 /(ㄒoㄒ)/~~");
 					}    
 	            }
 	        };
 	    }else{
-	    	alert('没有找到acfun视频')
+	    	alert('请进入acfun再说..')
 	    }
 })();

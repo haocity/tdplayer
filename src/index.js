@@ -40,11 +40,12 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 	let e = document.createElement("div");
 	e.className = "tp-loding";
     if(!coverimage){
-        if (pageInfo) {
+        try{
             if(pageInfo.coverImage){
                 coverimage=pageInfo.coverImage
             }
         }
+        catch(e){coverimage='https://ooo.0o0.ooo/2017/06/28/5953b4aecd49a.png'}    
     }
 	let backimg = document.createElement("div");
     backimg.className = "tp-img-back";
