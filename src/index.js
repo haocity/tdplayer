@@ -431,8 +431,8 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     };
     //重播
     tdplayer.ele.replay.addEventListener("click", function() {
-        tiao(0);
-        tdplayer.ele.end.style.display = "none";
+        tiao(0)
+        tdplayer.ele.end.style.display = "none"
     });
     //播放完成
     for (var i=0;i<tdplayer.videoelearr.length;i++) {
@@ -464,7 +464,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
                     if (tdplayer.vloop) {
                         tiao(0)
                     }else{
-                        tdplayer.ele.end.style.display = "block";
+                        tdplayer.ele.end.style.display = 'block'
+                        tdplayer.leftarr={t:[],v:[],out:[],w:[]}
+                        tdplayer.toparr = []
+                        let arr=$c('.danmu')
+                        for (var i = arr.length - 1; i >= 0; i--) {
+                            arr[i].remove()
+                        }
                     }
 				 }
 			}
@@ -984,10 +990,9 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         var ev = event || window.event || arguments.callee.caller.arguments[0];
          if(tdplayer.ele.tp_video_warp.xz==true){
 	        showbar();
-	        if(ev.keyCode==39||37||32){
+	        if(ev.keyCode==39||37){
 	        	if(tdplayer.ele.end.style.display=="block"){
     				tdplayer.ele.end.style.display="none"
-
     			}
 	        }
 	        if (ev && ev.keyCode == 39) {
@@ -1003,7 +1008,10 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 	        if (ev && ev.keyCode == 32) {
 	            // space 键
 	              event.preventDefault();
-	            if (tdplayer.Element.paused) {
+                if(tdplayer.ele.end.style.display=="block"){
+                    tdplayer.ele.end.style.display="none"
+                    tiao(0)
+                }else if (tdplayer.Element.paused) {
 	                tdplayer.ele.video_control_play.onclick();
 	            } else {
 	                tdplayer.ele.video_control_paused.onclick();
