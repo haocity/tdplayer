@@ -188,22 +188,22 @@ window.tdyoukuplay=(ele, acid)=>{
 window.tdplayer = new Object();
 window.tdplayer=(Element,src,data,poster,videotype)=> {
 	 
-    tdplayer.warp = Element;
-    tdplayer.videosrcarr = src;
-    tdplayer.data=data;
-    tdplayer.videoinfo = JSON.parse(tdplayer.data).info;
-    tdplayer.nowdata = JSON.parse(tdplayer.data).danmu;
+    tdplayer.warp = Element
+    tdplayer.videosrcarr = src
+    tdplayer.data=data
+    tdplayer.videoinfo = JSON.parse(tdplayer.data).info
+    tdplayer.nowdata = JSON.parse(tdplayer.data).danmu
     if(poster){
     	tdplayer.vposter =poster
     }
     else if(tdplayer.videoinfo){
     	poster=tdplayer.videoinfo.coverImage
     }
-    tdplayer.vloop=false;
-    tdplayer.vposter = poster;
-    tdplayer.nowduan = 0;
-    tdplayer.v = html.html();
-    tdplayer.warp.innerHTML = tdplayer.v;
+    tdplayer.vloop=false
+    tdplayer.vposter = poster
+    tdplayer.nowduan = 0
+    tdplayer.v = html.html()
+    tdplayer.warp.innerHTML = tdplayer.v
     function eleload(){
 	    this.tdplayer = $c(".tdplayer")[0]
         this.tdplayer_main=$c(".tp-video-main")[0]
@@ -257,137 +257,137 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.alert_ok=$c(".tp-alert-ok")[0]
         this.screenshot=$c(".tp-screenshot")[0]
     }
-    tdplayer.ele=new eleload;
+    tdplayer.ele=new eleload
     if (localStorage.getItem('tdconfig')) {
        tdplayer.config=JSON.parse(localStorage.getItem('tdconfig'))
        console.log('加载设置成功')
     }else{
-        tdplayer.config=new Object();
+        tdplayer.config=new Object()
     }
-    changerconfig();
+    changerconfig()
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
-        var video = document.createElement("video");
-        video.src = tdplayer.videosrcarr[i];
-        video.className = "tp-video";
+        var video = document.createElement("video")
+        video.src = tdplayer.videosrcarr[i]
+        video.className = "tp-video"
         if (i != 0) {
-            video.style.display = "none";
-            video.preload = "meta";
+            video.style.display = "none"
+            video.preload = "meta"
         } else {
-            video.preload = "auto";
-            tdplayer.Element = video;
+            video.preload = "auto"
+            tdplayer.Element = video
         }
-        tdplayer.ele.tdplayer.appendChild(video);
+        tdplayer.ele.tdplayer.appendChild(video)
         if (videotype == "flv") {
 	        try {           
 	                var flvPlayer = flvjs.createPlayer({
 	                    type:"flv",
 	                    url:tdplayer.videosrcarr[i]
-	                });
-	                flvPlayer.attachMediaElement(video);
-	                flvPlayer.load();
+	                })
+	                flvPlayer.attachMediaElement(video)
+	                flvPlayer.load()
 	        } catch (e) {
-	            console.log("flv.js没有加载");
+	            console.log("flv.js没有加载")
 	        }
 	    } 
     }
-    tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video");
-    tdplayer.videotimearr = [];
+    tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video")
+    tdplayer.videotimearr = []
     for (var i = 0; i < tdplayer.videoelearr.length; i++) {
-        getallvideotime(tdplayer.videoelearr[i], i);
+        getallvideotime(tdplayer.videoelearr[i], i)
     }
     function getallvideotime(ele, i) {
-        var time = ele.duration;
+        var time = ele.duration
         if (!time) {
             setTimeout(function() {
-                getallvideotime(ele, i);
-            }, 500);
+                getallvideotime(ele, i)
+            }, 500)
         } else {
-            tdplayer.videotimearr[i] = time;
+            tdplayer.videotimearr[i] = time
             if (tdplayer.videotimearr[0] && tdplayer.videotimearr[tdplayer.videotimearr.length - 1]) {
-                tdplayer.alltime = 0;
+                tdplayer.alltime = 0
                 for (var i = 0; i < tdplayer.videotimearr.length; i++) {
-                    tdplayer.alltime += tdplayer.videotimearr[i];
+                    tdplayer.alltime += tdplayer.videotimearr[i]
                 }
-                tdplayer.ele.alltime.innerHTML = getvideotime(tdplayer.alltime).m + ":" + getvideotime(tdplayer.alltime).s;
-                tdplayer.ele.alltime_phone.innerHTML ='&nbsp;/&nbsp;'+tdplayer.ele.alltime.innerHTML;
+                tdplayer.ele.alltime.innerHTML = getvideotime(tdplayer.alltime).m + ":" + getvideotime(tdplayer.alltime).s
+                tdplayer.ele.alltime_phone.innerHTML ='&nbsp;/&nbsp;'+tdplayer.ele.alltime.innerHTML
             }
         }
     }
-    tdplayer.Element.poster = tdplayer.vposter;
-    tdplayer.danmuelement = tdplayer.ele.danmu_warp;
-    tdplayer.sjc = 0;
-    tdplayer.dsq = 0;
-    tdplayer.leftarr = {t:[],v:[],out:[],w:[]};
-    tdplayer.toparr = [];
-    tdplayer.dmheight = 31;
-    tdplayer.dmplace = 1;
+    tdplayer.Element.poster = tdplayer.vposter
+    tdplayer.danmuelement = tdplayer.ele.danmu_warp
+    tdplayer.sjc = 0
+    tdplayer.dsq = 0
+    tdplayer.leftarr = {t:[],v:[],out:[],w:[]}
+    tdplayer.toparr = []
+    tdplayer.dmheight = 31
+    tdplayer.dmplace = 1
    	if (/android/i.test(navigator.userAgent) || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-        tdplayer.phone = true;
-        tdplayer.ele.video_con.style.opacity='1';
-        tdplayer.ele.video_con.style.display='none';
+        tdplayer.phone = true
+        tdplayer.ele.video_con.style.opacity='1'
+        tdplayer.ele.video_con.style.display='none'
     }
     //弹幕行高
-    tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth;
-    tdplayer.height =tdplayer.ele.tdplayer_main.offsetHeight;
+    tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth
+    tdplayer.height =tdplayer.ele.tdplayer_main.offsetHeight
     //样式
     tdplayer.send = function(text, color, wz, me,user) {
-        tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth;
-        tdplayer.height = tdplayer.ele.tdplayer_main.offsetHeight;
-        var dm = document.createElement("div");
-        dm.appendChild(document.createTextNode(text));
-        dm.user=user;
-        dm.style.color = color;
+        tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth
+        tdplayer.height = tdplayer.ele.tdplayer_main.offsetHeight
+        var dm = document.createElement("div")
+        dm.appendChild(document.createTextNode(text))
+        dm.user=user
+        dm.style.color = color
         if (me) {
-            dm.style.border = "1px solid #fff";
+            dm.style.border = "1px solid #fff"
         }
         if (wz == 1) {
             //left 弹幕
-            dm.className = "danmu tp-left";
+            dm.className = "danmu tp-left"
             if(tdplayer.config.danmusize){
-               dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)"; 
+               dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)" 
             }else{
-                dm.style.transform = "translateX(-" + tdplayer.width + "px)";
+                dm.style.transform = "translateX(-" + tdplayer.width + "px)"
             }
-            tdplayer.ele.danmu_warp.appendChild(dm);
-            var time = tdplayer.width / 100;
-            var v=(dm.offsetWidth+tdplayer.width)/time;
-            var outt=dm.offsetWidth/v;
-            dtop=tdplayer.getlefttop(v,dm.offsetWidth);
+            tdplayer.ele.danmu_warp.appendChild(dm)
+            var time = tdplayer.width / 100
+            var v=(dm.offsetWidth+tdplayer.width)/time
+            var outt=dm.offsetWidth/v
+            dtop=tdplayer.getlefttop(v,dm.offsetWidth)
             setTimeout(function(){
                 tdplayer.leftarr.out[dtop]=false
             },outt*1000)
-            dm.style.top = dtop * tdplayer.dmheight + "px";
-            dm.addEventListener("webkitAnimationEnd", tdplayer.dmend);
-            dm.addEventListener("animationend", tdplayer.dmend);
+            dm.style.top = dtop * tdplayer.dmheight + "px"
+            dm.addEventListener("webkitAnimationEnd", tdplayer.dmend)
+            dm.addEventListener("animationend", tdplayer.dmend)
         } else if (wz == 2) {
             //顶部弹幕
-            dm.className = "danmu tp-top";
-            var dtop = tdplayer.gettoptop();
-            dm.style.top = dtop * tdplayer.dmheight + "px";
-            tdplayer.toparr[dtop] = 1;
-            var e = tdplayer.ele.danmu_warp.appendChild(dm);
+            dm.className = "danmu tp-top"
+            var dtop = tdplayer.gettoptop()
+            dm.style.top = dtop * tdplayer.dmheight + "px"
+            tdplayer.toparr[dtop] = 1
+            var e = tdplayer.ele.danmu_warp.appendChild(dm)
             setTimeout(function() {
-                tdplayer.danmuhide(e, dtop);
-            }, 5e3);
+                tdplayer.danmuhide(e, dtop)
+            }, 5e3)
         }
-    };
+    }
     tdplayer.dmend = function() {
-        tdplayer.danmuelement.removeChild(this);
-    };
+        tdplayer.danmuelement.removeChild(this)
+    }
     tdplayer.danmuhide = function(e, topid) {
         if (tdplayer.Element.paused) {
             setTimeout(function() {
-                tdplayer.danmuhide(e, topid);
-            }, tdplayer.width * 10 + 1e3);
+                tdplayer.danmuhide(e, topid)
+            }, tdplayer.width * 10 + 1e3)
         } else {
-            e.remove();
-            tdplayer.toparr[topid] = 0;
+            e.remove()
+            tdplayer.toparr[topid] = 0
         }
-    };
+    }
     tdplayer.getlefttop = function(v,ww) {
-        var h;
-        let t=getnowtime();
-        let allt=tdplayer.width/100;
+        var h
+        let t=getnowtime()
+        let allt=tdplayer.width/100
         for (var i = 0; i <= tdplayer.leftarr.t.length; i++) {
             if (!tdplayer.leftarr.out[i]) {
                  if (tdplayer.leftarr.v[i]>=v) {
@@ -1131,7 +1131,6 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         }
     }
     //视频比例设置
-    console.log(tdplayer.ele.video_ratio);
     tdplayer.ele.video_ratio.ratio=1;
     tdplayer.ele.video_ratio.addEventListener('click',function(){
         if(this.ratio==1){
