@@ -1236,18 +1236,19 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     }
    
     //
-    tdplayer.ele.danmu_warp.oncontextmenu = function(){
-        tp_menu()
+    tdplayer.ele.danmu_warp.oncontextmenu = function(event){
+        var ev = event || window.event || arguments.callee.caller.arguments[0];
+        tp_menu(ev)
         return false
     }
-    tdplayer.ele.danmu_warp.contextmenu=function(){
-        tp_menu()
+    tdplayer.ele.danmu_warp.contextmenu=function(event){
+        var ev = event || window.event || arguments.callee.caller.arguments[0];
+        tp_menu(ev)
         return false
     }
-    function tp_menu(event) {
+    function tp_menu(ev) {
         var container = tdplayer.ele.tdplayer;
         var rightmenu = tdplayer.ele.tp_rightmenu;
-        var ev = event || window.event || arguments.callee.caller.arguments[0];
         if (!tdplayer.phone){
                 var target = ev.target || ev.srcElement;
                 if (hasClass(target, "danmu")) {
