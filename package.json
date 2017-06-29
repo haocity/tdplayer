@@ -1,6 +1,6 @@
 {
   "name": "tdplayer",
-  "version": "2.7.8",
+  "version": "2.8.1",
   "description": "acfun html5 player",
   "main": "build webpack",
   "dependencies": {
