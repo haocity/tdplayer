@@ -1254,7 +1254,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
                 if (hasClass(target, "danmu")) {
                     if(target.user){
                         tdplayer.ele.searchuser.style.display='block';
-                        tdplayer.ele.searchuser.innerHTML=`<a href="http://www.acfun.cn/u/${target.user}.aspx#" target="_blank">查询发送者</a>`
+                        tdplayer.ele.searchuser.innerHTML=`<a href="http://www.acfun.cn/u/${target.user}.aspx#page=1" target="_blank">查询发送者</a>`
                     }
                     tdplayer.ele.copytext.innerHTML = target.innerHTML;
                     tdplayer.ele.copy.style.display = "block";
