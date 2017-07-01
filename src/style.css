@@ -352,7 +352,10 @@ section.player{
   cursor: pointer;
   overflow:hidden;
 }
-.tp-s-tranger-a {
+.tp-s-tranger>.tp-s-tranger-a {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 10%;
   height: 100%;
   background-color: #e33d3d;
