@@ -644,7 +644,16 @@ section.player{
 		left: 0;
 		margin: auto;
 		z-index: 20;
-		overflow:hidden;
+		animation:lodingborder 1s infinite alternate;
+		-webkit-animation:lodingborder 1s infinite alternate;
+	}
+	@keyframes lodingborder
+	{
+		to { border: 14px solid rgba(200, 200, 200, 0.63);}
+	}
+	@-webkit-keyframes lodingborder
+	{
+		to { border: 14px solid rgba(200, 200, 200, 0.63);}
 	}
 	.tp-loding-img{
 		background-image: url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac3/02.gif);
@@ -655,7 +664,7 @@ section.player{
 	    background-size: 100px;
 	}
 	.tp-loding-text{
-		margin-top: 10px;
+		margin-top: 20px;
 		color: #ffffff;
 		text-align: center;
 	}
