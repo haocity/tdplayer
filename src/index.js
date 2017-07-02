@@ -55,7 +55,7 @@ window.tdvidplay=(ele, vid,coverimage)=>{
     let lodingimg=document.createElement("div")
     let imgid=Math.round(Math.random()*55)
     if (imgid<10) {imgid='0'+imgid}
-    lodingimg.style.backgroundImage=`http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac2/${imgid}.gif`
+    lodingimg.style.backgroundImage=`url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac2/${imgid}.gif)`
     lodingimg.className='tp-loding-img'
     let lodingtext=document.createElement("div")
     lodingtext.className='tp-loding-text'

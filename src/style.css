@@ -644,6 +644,7 @@ section.player{
 		left: 0;
 		margin: auto;
 		z-index: 20;
+		overflow:hidden;
 	}
 	.tp-loding-img{
 		background-image: url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac3/02.gif);
@@ -651,6 +652,7 @@ section.player{
 	   	height: 120px;
 	    background-repeat: no-repeat;
 	    background-position: center;
+	    background-size: 100px;
 	}
 	.tp-loding-text{
 		margin-top: 10px;
