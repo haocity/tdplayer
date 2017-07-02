@@ -125,8 +125,7 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 	  .catch(e => console.log(" error", e))
 	function checkend(){
 		if (f1&&f2) {
-		 	console.log('end')
-		 	//tdplayer(ele,videosrcarr,danmudata,coverimage,null);
+		 	tdplayer(ele,videosrcarr,danmudata,coverimage,null);
 		 }
 	}
 }
