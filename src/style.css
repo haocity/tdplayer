@@ -631,15 +631,32 @@ section.player{
 .tp-control-alltime-phone{
 	display: none;
 }
-.tp-loding{
-	padding: 20px 0 0 20px;
-	color: #FFFFFF;
-	position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    box-sizing: border-box;
-}
+	.tp-loding{
+		position: absolute;
+		height: 120px;
+	    width: 120px;
+	    border-radius: 50%;
+	    background-color: rgb(255, 255, 255);
+	    border: 8px solid rgba(200, 200, 200, 0.63);
+	    top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;
+		z-index: 20;
+	}
+	.tp-loding-img{
+		background-image: url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac3/02.gif);
+	   	width: 120px;
+	   	height: 120px;
+	    background-repeat: no-repeat;
+	    background-position: center;
+	}
+	.tp-loding-text{
+		margin-top: 10px;
+		color: #ffffff;
+		text-align: center;
+	}
 .tp-img-back{
 	position: absolute;
     width: 100%;

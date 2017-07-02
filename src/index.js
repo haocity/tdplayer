@@ -47,12 +47,21 @@ window.tdvidplay=(ele, vid,coverimage)=>{
         }
         catch(e){coverimage='https://ooo.0o0.ooo/2017/06/28/5953b4aecd49a.png'}    
     }
-	let backimg = document.createElement("div");
-    backimg.className = "tp-img-back";
-    backimg.style.backgroundImage="url("+coverimage+")";
-    ele.appendChild(backimg);
-	ele.appendChild(e);
-	e.innerText += "正在加载中...";
+	let backimg = document.createElement("div")
+    backimg.className = "tp-img-back"
+    backimg.style.backgroundImage="url("+coverimage+")"
+    ele.appendChild(backimg)
+	ele.appendChild(e)
+    let lodingimg=document.createElement("div")
+    let imgid=Math.round(Math.random()*55)
+    if (imgid<10) {imgid='0'+imgid}
+    lodingimg.style.backgroundImage=`http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac2/${imgid}.gif`
+    lodingimg.className='tp-loding-img'
+    let lodingtext=document.createElement("div")
+    lodingtext.className='tp-loding-text'
+    lodingtext.innerText = "正在加载中..."
+    e.appendChild(lodingimg)
+    e.appendChild(lodingtext)
 	fetch(videourl).then(response => response.json())
 	  .then(function(json){
 			let v1,v2,v3,v4,vv;
