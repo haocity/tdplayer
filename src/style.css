@@ -649,6 +649,7 @@ section.player{
 		bottom: 0;
 		left: 0;
 		margin: auto;
+		box-sizing: content-box;
 		border: 8px solid rgba(200, 200, 200, 0.63);
 		border-radius: 50%;
 	    animation:lodingborder 1s infinite alternate;
