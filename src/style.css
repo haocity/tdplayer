@@ -633,19 +633,27 @@ section.player{
 }
 	.tp-loding{
 		position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    top: 0;
+		left: 0;
+		z-index: 20;
+		
+	}
+	.tp-loding-img-warp{
+		position: absolute;
 		height: 120px;
 	    width: 120px;
-	    border-radius: 50%;
-	    background-color: rgb(255, 255, 255);
-	    border: 8px solid rgba(200, 200, 200, 0.63);
-	    top: 0;
+	   	top: 0;
 		right: 0;
 		bottom: 0;
 		left: 0;
 		margin: auto;
-		z-index: 20;
-		animation:lodingborder 1s infinite alternate;
+		border: 8px solid rgba(200, 200, 200, 0.63);
+		border-radius: 50%;
+	    animation:lodingborder 1s infinite alternate;
 		-webkit-animation:lodingborder 1s infinite alternate;
+		overflow: hidden;
 	}
 	@keyframes lodingborder
 	{
@@ -662,11 +670,14 @@ section.player{
 	    background-repeat: no-repeat;
 	    background-position: center;
 	    background-size: 100px;
+	    background-color: rgb(255, 255, 255);
 	}
 	.tp-loding-text{
-		margin-top: 20px;
 		color: #ffffff;
 		text-align: center;
+		position: absolute;
+		bottom: 30%;
+		width: 100%
 	}
 .tp-img-back{
 	position: absolute;

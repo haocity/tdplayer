@@ -53,14 +53,17 @@ window.tdvidplay=(ele, vid,coverimage)=>{
     ele.appendChild(backimg)
 	ele.appendChild(e)
     let lodingimg=document.createElement("div")
+    let lodingimgwarp=document.createElement("div")
+    lodingimgwarp.className='tp-loding-img-warp'
     let imgid=Math.round(Math.random()*55)
-    if (imgid<10) {imgid='0'+imgid}
+    if (imgid==0) {imgid='01'}else if (imgid<10) {imgid='0'+imgid}
     lodingimg.style.backgroundImage=`url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac2/${imgid}.gif)`
     lodingimg.className='tp-loding-img'
     let lodingtext=document.createElement("div")
     lodingtext.className='tp-loding-text'
     lodingtext.innerText = "正在加载中..."
-    e.appendChild(lodingimg)
+    lodingimgwarp.appendChild(lodingimg)
+    e.appendChild(lodingimgwarp)
     e.appendChild(lodingtext)
 	fetch(videourl).then(response => response.json())
 	  .then(function(json){
