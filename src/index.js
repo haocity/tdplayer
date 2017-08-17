@@ -29,7 +29,7 @@ window.$c=function(e){
 	return document.querySelectorAll(e);
 }
 
-window.tdvidplay=(ele, vid,coverimage)=>{
+window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 	let acflash=document.querySelector('section.player #player object')||document.querySelector('section.player #player #ACFlashPlayer')
 	if (acflash) {
 		acflash.style.display='none';
@@ -117,7 +117,7 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 	  .catch(e => console.log(" error", e))
 	function checkend(){
 		if (f1&&f2) {
-		 	tdplayer(ele,videosrcarr,danmudata,coverimage,'hls');
+		 	tdplayer(ele,videosrcarr,danmudata,coverimage,'hls',autoplay);
 		 }
 	}
 }
@@ -187,7 +187,7 @@ window.tdyoukuplay=(ele, acid)=>{
     xmlhttp.send();
 }
 window.tdplayer = new Object();
-window.tdplayer=(Element,src,data,poster,videotype)=> {
+window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
 	 
     tdplayer.warp = Element
     tdplayer.videosrcarr = src
@@ -274,8 +274,12 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
 			hls.loadSource(tdplayer.videosrcarr[i]);
 			hls.attachMedia(video);
 			hls.on(Hls.Events.MANIFEST_PARSED,function() {
-		     	console.log('可以播放')
+		     	console.log('可以播放');
 		     	tdplayer.Element.poster=tdplayer.vposter;
+		     	if(autoplay){
+		     		console.log('自动播放')
+		     		tdplayer.ele.video_control_play.onclick();
+		     	}
 		  	});
         }else{
         	video.src = tdplayer.videosrcarr[i]
@@ -471,6 +475,24 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
                         for (var i = arr.length - 1; i >= 0; i--) {
                             arr[i].remove()
                         }
+                        try{
+                        	console.log('验证是否存在下一段');
+                        	let nowi;
+                        	for (var i = 0; i < pageInfo.videoList.length; i++) {
+                        		if(pageInfo.videoList[i].id==pageInfo.videoId){
+                        			nowi=i;
+                        			continue;
+                        		}
+                        	}
+                    		if(pageInfo.videoList[nowi+1]){
+                    			console.log('将尝试播放下一段')
+                    			let info=document.querySelector('#pageInfo');
+                    			let e=$c('.scroll-div .active')[0];
+                    			addClass($c('.scroll-div .active+a')[0],'active');
+                    			removeClass(e,'active')
+                    			tdvidplay(document.querySelector('#player'),pageInfo.videoList[nowi+1].id,info.getAttribute("data-pic"),true)
+                    		}
+                        }catch(e){console.log(e)}
                     }
 				 }
 			}
