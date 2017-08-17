@@ -6,11 +6,15 @@
 - AC在 炸一直在
 - 忍受不了flash播放器 就写了这个项目 （虽然也够烂得）
 > 目前仅支持含有MP4的AC源（新）和 优酷源（普清） 不支持发送弹幕
+
 ![GIF.gif](https://ooo.0o0.ooo/2017/06/02/5930db2918fcf.gif)
 
 
->**(重要)**因为AC视频cdn屏蔽了浏览器UA及跨域 故需要安装插件进行跨域修改ua等操作 请安装[Boomfun](https://boomfun.work "Boomfun")开发的浏览器插件   真诚的感谢每一个为ac付出的人
- [chrome](http://static.boomfun.work/acplayer/ext_chrome.crx) || [firfox](http://static.boomfun.work/acplayer/ext_firefox.xpi)
+------------
+
+
+- **(重要)**因为AC视频cdn屏蔽了浏览器UA及跨域 故需要安装插件进行跨域修改ua等操作 请安装[Boomfun](https://boomfun.work "Boomfun")开发的浏览器插件   真诚的感谢每一个为ac付出的人
+ [chrome](http://static.boomfun.work/acplayer/ext_chrome.crx) ||   [firfox](http://static.boomfun.work/acplayer/ext_firefox.xpi)
 
 ### 功能
 - 替换播放器
