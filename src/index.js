@@ -4,6 +4,7 @@
  * @license  The Star And Thank Author License (SATA)
  */
 const html = require('./html.js');
+let Hls=require('hls.js');
 require('./style.css');
 
 let hasClass=(elements, cName)=>{
@@ -67,23 +68,15 @@ window.tdvidplay=(ele, vid,coverimage)=>{
     e.appendChild(lodingtext)
 	fetch(videourl).then(response => response.json())
 	  .then(function(json){
-			let v1,v2,v3,v4,vv;
+			let v1,v2,v3,vv;
 			for (var i = 0; i < json.stream.length; i++) {
-				if(json.stream[i].stream_type=='mp4hd3'){
-					v1=json.stream[i]
-				}else if(json.stream[i].stream_type=='mp4hd2'){
+				if(json.stream[i].stream_type=='m3u8_hd'){
+					v1=json.stream[i];
+               }else if(json.stream[i].stream_type=='m3u8_mp4'){
 					v2=json.stream[i]
-				}else if(json.stream[i].stream_type=='mp4hd'){
+				}else  if(json.stream[i].stream_type=='m3u8_fly'){
 					v3=json.stream[i]
-				}else if(json.stream[i].stream_type=='flvhd'){
-                    if (json.stream[i].segs[0].url) {
-                       if (json.stream[i].segs[0].url.indexOf('.mp4')>-1) {
-                            v4=json.stream[i] 
-                        } 
-                    }
-                    
-                }
-
+				}
 			}
 			if(v1){
 				vv=v1
@@ -91,9 +84,7 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 				vv=v2
 			}else if(v3){
 				vv=v3
-			}else if (v4) {
-                vv=v4
-            }else{
+			}else{
                 if(document.querySelector(".noflash-alert")){
                     document.querySelector(".noflash-alert").style.display="block";
                 }
@@ -109,12 +100,10 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 			}
 			console.log(vv);
 			if (vv) {
-				for (var i = 0; i < vv.segs.length; i++) {
-					videosrcarr.push(vv.segs[i].url)
-				}
+				videosrcarr.push(vv.m3u8)
 				f1=true;
 				console.log(videosrcarr);
-				checkend()
+				checkend();
 			}
 	  	})
 	  .catch(e => console.log(" error", e))
@@ -128,7 +117,7 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 	  .catch(e => console.log(" error", e))
 	function checkend(){
 		if (f1&&f2) {
-		 	tdplayer(ele,videosrcarr,danmudata,coverimage,null);
+		 	tdplayer(ele,videosrcarr,danmudata,coverimage,'hls');
 		 }
 	}
 }
@@ -279,7 +268,18 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     changerconfig()
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
         var video = document.createElement("video")
-        video.src = tdplayer.videosrcarr[i]
+         if (videotype == "hls") {
+         	console.log('这是hls视频 启动加载');
+         	var hls = new Hls();
+			hls.loadSource(tdplayer.videosrcarr[i]);
+			hls.attachMedia(video);
+			hls.on(Hls.Events.MANIFEST_PARSED,function() {
+		     	console.log('可以播放')
+		     	tdplayer.Element.poster=tdplayer.vposter;
+		  	});
+        }else{
+        	video.src = tdplayer.videosrcarr[i]
+        }
         video.className = "tp-video"
         if (i != 0) {
             video.style.display = "none"
@@ -289,18 +289,6 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             tdplayer.Element = video
         }
         tdplayer.ele.tdplayer.appendChild(video)
-        if (videotype == "flv") {
-	        try {           
-	                var flvPlayer = flvjs.createPlayer({
-	                    type:"flv",
-	                    url:tdplayer.videosrcarr[i]
-	                })
-	                flvPlayer.attachMediaElement(video)
-	                flvPlayer.load()
-	        } catch (e) {
-	            console.log("flv.js没有加载")
-	        }
-	    } 
     }
     tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video")
     tdplayer.videotimearr = []
