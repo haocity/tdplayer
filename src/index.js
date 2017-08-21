@@ -74,7 +74,7 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 					v1=json.stream[i];
                }else if(json.stream[i].stream_type=='m3u8_mp4'){
 					v2=json.stream[i]
-				}else  if(json.stream[i].stream_type=='m3u8_fly'){
+				}else  if(json.stream[i].stream_type=='m3u8_flv'){
 					v3=json.stream[i]
 				}
 			}
