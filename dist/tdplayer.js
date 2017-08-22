@@ -16578,7 +16578,7 @@ window.tdvidplay = function (ele, vid, coverimage, autoplay) {
     });
     function checkend() {
         if (f1 && f2) {
-            tdplayer(ele, videosrcarr, danmudata, coverimage, 'hls', autoplay);
+            Tdplayer(ele, videosrcarr, danmudata, coverimage, 'hls', autoplay);
         }
     }
 };
@@ -16629,7 +16629,7 @@ window.tdyoukuplay = function (ele, acid) {
                                         arr.push(c.data[i].segs[x].cdn_url);
                                     }
                                     console.log(arr);
-                                    tdplayer(ele, arr, data, null, null);
+                                    Tdplayer(ele, arr, data, null, null);
                                     break;
                                 }
                             }
@@ -16647,8 +16647,16 @@ window.tdyoukuplay = function (ele, acid) {
     xmlhttp.send();
 };
 window.tdplayer = new Object();
-window.tdplayer = function (Element, src, data, poster, videotype, autoplay) {
+window.Tdplayer = function (Element, src, data, poster, videotype, autoplay) {
 
+    //判断是否为番
+    if (hasClass(Element, "ui-draggable")) {
+        var t = document.getElementById('area-player');
+        if (t) {
+            tdplayer.ab = true;
+            t.style.height = t.offsetWidth / 1.77 + 'px';
+        }
+    }
     tdplayer.warp = Element;
     tdplayer.videosrcarr = src;
     tdplayer.data = data;
@@ -16976,29 +16984,44 @@ window.tdplayer = function (Element, src, data, poster, videotype, autoplay) {
                         for (var i = arr.length - 1; i >= 0; i--) {
                             arr[i].remove();
                         }
-                        try {
-                            console.log('验证是否存在下一段');
-                            var nowi = void 0;
-                            for (var i = 0; i < pageInfo.videoList.length; i++) {
-                                if (pageInfo.videoList[i].id == pageInfo.videoId) {
-                                    nowi = i;
-                                    continue;
+                        if (tdplayer.ab) {
+                            var _t = document.querySelectorAll('#area-part-view .l a');
+                            for (var i = 0; i < _t.length; i++) {
+                                if (hasClass(_t[i], 'active')) {
+                                    if (_t[i + 1]) {
+                                        _t[i + 1].className = _t[i].className;
+                                        _t[i].className = 'btn';
+                                        document.querySelector('.ui-draggable').innerHTML = '';
+                                        tdvidplay(document.querySelector('.ui-draggable'), _t[i + 1].getAttribute("data-vid"), null, 1);
+                                        continue;
+                                    }
                                 }
                             }
-                            if (pageInfo.videoList[nowi + 1]) {
-                                console.log('将尝试播放下一段');
-                                var info = document.querySelector('#pageInfo');
-                                var _e = $c('.scroll-div .active')[0];
-                                addClass($c('.scroll-div .active+a')[0], 'active');
-                                removeClass(_e, 'active');
-                                var full = 1;
-                                if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) {
-                                    full = 2;
+                        } else {
+                            try {
+                                console.log('验证是否存在下一段');
+                                var nowi = void 0;
+                                for (var i = 0; i < pageInfo.videoList.length; i++) {
+                                    if (pageInfo.videoList[i].id == pageInfo.videoId) {
+                                        nowi = i;
+                                        continue;
+                                    }
                                 }
-                                tdvidplay(document.querySelector('#player'), pageInfo.videoList[nowi + 1].id, info.getAttribute("data-pic"), full);
+                                if (pageInfo.videoList[nowi + 1]) {
+                                    console.log('将尝试播放下一段');
+                                    var info = document.querySelector('#pageInfo');
+                                    var _e = $c('.scroll-div .active')[0];
+                                    addClass($c('.scroll-div .active+a')[0], 'active');
+                                    removeClass(_e, 'active');
+                                    var full = 1;
+                                    if (document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) {
+                                        full = 2;
+                                    }
+                                    tdvidplay(document.querySelector('#player'), pageInfo.videoList[nowi + 1].id, info.getAttribute("data-pic"), full);
+                                }
+                            } catch (e) {
+                                console.log(e);
                             }
-                        } catch (e) {
-                            console.log(e);
                         }
                     }
                 }
@@ -17021,19 +17044,22 @@ window.tdplayer = function (Element, src, data, poster, videotype, autoplay) {
         if (tdplayer.nowdata) {
             var cache = JSON.parse(tdplayer.data).danmu;
             var _b = 0;
-            for (var i = cache.length - 1; i >= 0; i--) {
-                for (var a = cache.length - 1; a >= 0; a--) {
-                    if (a == i) {
-                        break;
-                    }
-                    if (cache[i] && cache[a]) {
-                        if (cache[i].text == cache[a].text) {
-                            delete cache[a];
-                            _b++;
+            if (cache) {
+                for (var i = cache.length - 1; i >= 0; i--) {
+                    for (var a = cache.length - 1; a >= 0; a--) {
+                        if (a == i) {
+                            break;
+                        }
+                        if (cache[i] && cache[a]) {
+                            if (cache[i].text == cache[a].text) {
+                                delete cache[a];
+                                _b++;
+                            }
                         }
                     }
                 }
             }
+
             tdplayer.removaldata = cache;
             tdplayer.nowdata = tdplayer.removaldata;
             console.log('\u5F39\u5E55\u53BB\u91CD  \u53BB\u9664' + _b + '\u4E2A\u91CD\u590D\u5F39\u5E55');
@@ -17048,11 +17074,11 @@ window.tdplayer = function (Element, src, data, poster, videotype, autoplay) {
             if (!tdplayer.removaldata) {
                 removaldanmu();
             }
-            var t = JSON.parse(JSON.stringify(tdplayer.removaldata));
-            cache = t;
+            var _t2 = JSON.parse(JSON.stringify(tdplayer.removaldata));
+            cache = _t2;
         } else {
-            var _t = JSON.parse(tdplayer.data).danmu;
-            cache = _t;
+            var _t3 = JSON.parse(tdplayer.data).danmu;
+            cache = _t3;
         }
 
         for (var i = cache.length - 1; i >= 0; i--) {
