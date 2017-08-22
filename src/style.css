@@ -89,7 +89,7 @@ section.player{
 }
 .tp-video-main>.danmu-warp>.danmu {
 	color: #fff;
-	line-height: 31px;
+	line-height: 37px;
 	z-index: 6;
 	padding: 0 4px;
 	font-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;
@@ -115,6 +115,9 @@ section.player{
 	white-space: nowrap;
 	text-shadow: #000 0 2px 0;
 	font-size: 22px;
+}
+.danmu-ad{
+	position: absolute;
 }
 @keyframes dmleft {
 	0% {

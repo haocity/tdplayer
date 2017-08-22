@@ -277,8 +277,11 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
 		     	console.log('可以播放');
 		     	tdplayer.Element.poster=tdplayer.vposter;
 		     	if(autoplay){
-		     		console.log('自动播放')
+		     		console.log('自动播放'+autoplay)
 		     		tdplayer.ele.video_control_play.onclick();
+		     		if(autoplay==2){
+		     			tdplayer.ele.full.click();
+		     		}
 		     	}
 		  	});
         }else{
@@ -323,7 +326,7 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
     tdplayer.dsq = 0
     tdplayer.leftarr = {t:[],v:[],out:[],w:[]}
     tdplayer.toparr = []
-    tdplayer.dmheight = 31
+    tdplayer.dmheight = 37
     tdplayer.dmplace = 1
    	if (/android/i.test(navigator.userAgent) || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
         tdplayer.phone = true
@@ -334,18 +337,19 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
     tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth
     tdplayer.height =tdplayer.ele.tdplayer_main.offsetHeight
     //样式
-    tdplayer.send = function(text, color, wz, me,user) {
+    tdplayer.send = function(text, color, wz, me,user,size) {
         tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth
         tdplayer.height = tdplayer.ele.tdplayer_main.offsetHeight
         var dm = document.createElement("div")
-        dm.appendChild(document.createTextNode(text))
         dm.user=user
-        dm.style.color = color
+	    dm.style.color = color
+	    dm.style.fontSize=size+'px'
         if (me) {
             dm.style.border = "1px solid #fff"
         }
         if (wz == 1) {
             //left 弹幕
+            dm.appendChild(document.createTextNode(text))
             dm.className = "danmu tp-left"
             if(tdplayer.config.danmusize){
                dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)" 
@@ -365,6 +369,8 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
             dm.addEventListener("animationend", tdplayer.dmend)
         } else if (wz == 2) {
             //顶部弹幕
+            dm.appendChild(document.createTextNode(text))
+	        
             dm.className = "danmu tp-top"
             var dtop = tdplayer.gettoptop()
             dm.style.top = dtop * tdplayer.dmheight + "px"
@@ -373,6 +379,40 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
             setTimeout(function() {
                 tdplayer.danmuhide(e, dtop)
             }, 5e3)
+        }else if(wz==7){
+        	console.log('高级弹幕');
+        	let tj=JSON.parse(text);
+        	console.log(tj)
+        	//高级弹幕 test 
+        	//{"e":0.52,"w":{"b":false,"l":[[1,16777215,1,2.7,2.7,5,3,false,false],[2,0,0,16777215,0.5,32,32,2,2,false,false,false]],"f":"黑体"},"l":5.551115123125783e-17,"f":0.52,"z":[{"t":0,"g":0.8,"l":0.2,"y":930,"f":0.8},{"t":1,"g":0.52,"l":0.2,"y":940,"f":0.52},{"l":1.3099999999999998},{"c":16776960,"x":-2,"t":0,"l":0.3,"v":2}],"t":0,"a":0,"n":"但是那样不行哦","ver":2,"b":false,"c":3,"p":{"x":35,"y":950},"ovph":false}
+        	 dm.className = "danmu danmu-ad";
+        	 if(tj.w){
+        	 	dm.style.fontFamily=tj.w.f;
+        	 }
+        	 if(tj.n){
+        	 	dm.appendChild(document.createTextNode(tj.n))
+        	 }
+        	 if(tj.p){
+        	 	dm.style.right=(1000-tj.p.x)/10+'%';
+        	 	dm.style.bottom=(1000-tj.p.y)/10+'%';
+        	 }
+        	 if(tj.a){
+        	 	dm.style.opacity=tj.a;
+        	 }
+        	 var e = tdplayer.ele.danmu_warp.appendChild(dm);
+        	 
+        	 if(!tj.l||tj.l.toFixed(2)==0){
+        	 	//时间如果为0
+        	 	if(tj.z){
+        	 		
+        	 	}
+        	 	tj.l=2;
+        	 	console.log('22222222')
+        	 }
+        	
+        	 setTimeout(function(){
+        	 	 tdplayer.danmuhide(e)
+        	 },tj.l*1000)
         }
     }
     tdplayer.dmend = function() {
@@ -385,7 +425,9 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
             }, tdplayer.width * 10 + 1e3)
         } else {
             e.remove()
-            tdplayer.toparr[topid] = 0
+            if(topid!==undefined){
+            	tdplayer.toparr[topid] = 0
+            }
         }
     }
     tdplayer.getlefttop = function(v,ww) {
@@ -490,7 +532,11 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
                     			let e=$c('.scroll-div .active')[0];
                     			addClass($c('.scroll-div .active+a')[0],'active');
                     			removeClass(e,'active')
-                    			tdvidplay(document.querySelector('#player'),pageInfo.videoList[nowi+1].id,info.getAttribute("data-pic"),true)
+                    			let full=1;
+                    			if( document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement){
+                    				full=2
+                    			}
+                    			tdvidplay(document.querySelector('#player'),pageInfo.videoList[nowi+1].id,info.getAttribute("data-pic"),full)
                     		}
                         }catch(e){console.log(e)}
                     }
@@ -852,7 +898,7 @@ window.tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
                 if (tdplayer.nowdata[i]) {
                     //console.log('nowtime:'+inttime);
                     if (tdplayer.nowdata[i].time == inttime) {
-                        tdplayer.send(unescape(tdplayer.nowdata[i].text), tdplayer.nowdata[i].color, tdplayer.nowdata[i].place,false,tdplayer.nowdata[i].user);
+                        tdplayer.send(unescape(tdplayer.nowdata[i].text), tdplayer.nowdata[i].color, tdplayer.nowdata[i].place,false,tdplayer.nowdata[i].user,tdplayer.nowdata[i].size);
                         delete tdplayer.nowdata[i];
                     }
                 }

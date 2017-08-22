@@ -6,7 +6,7 @@
 	        var script = document.createElement("script");
 	        script.setAttribute("type", "text/javascript");
 	        script.setAttribute("charset", "UTF-8");
-	        script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=2.8.0');  
+	        script.setAttribute('src', 'http://127.0.0.1:8020/tdplayer/dist/tdplayer.js');  
 	        document.head.appendChild(script);
 	        script.onload = function() {
 	            if (thisac.indexOf("ac") == 0) {
