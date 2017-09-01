@@ -103,7 +103,6 @@ section.player{
 	-webkit-animation: dmleft 10s linear;
 	cursor: pointer;
 	white-space: nowrap;
-	text-shadow: #000 0px 0px 3px;
 }
 .tp-top {
 	position: absolute;
@@ -113,7 +112,6 @@ section.player{
 	text-align: center;
 	display: inline-block;
 	white-space: nowrap;
-	text-shadow: #000 0px 0px 3px;
 	font-size: 22px;
 }
 .danmu-ad{

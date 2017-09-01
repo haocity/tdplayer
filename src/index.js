@@ -716,10 +716,14 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
         1!=tdplayer.config.qc&&(tdplayer.config.qc=!1);
         1!=tdplayer.config.pb&&(tdplayer.config.pb=!1);
         0!=tdplayer.config.dmshadow&&(tdplayer.config.dmshadow=3);
+        let shadow='';
+        if(tdplayer.config.dmshadow){
+        	shadow=`text-shadow: rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;`
+        }
         tdplayer.ele.css.innerText = `
         .tp-left {animation: dmleft  ${tdplayer.config.v}s linear;-webkit-animation: dmleft ${tdplayer.config.v}s linear;}
         .danmu-warp{font-weight:${tdplayer.config.dmweight};transform:scale(${tdplayer.config.danmusize});-webkit-transform:scale(${tdplayer.config.danmusize});-moz-transform:scale(${tdplayer.config.danmusize});width:${100/tdplayer.config.danmusize}%;height:${100/tdplayer.config.danmusize}%;opacity:${tdplayer.config.danmuo}}
-        .tp-video-main>.danmu-warp>.danmu{text-shadow: #000 0 0 ${tdplayer.config.dmshadow};}`;
+        .tp-video-main>.danmu-warp>.danmu{${shadow}}`;
         var earr= $c('.tp-left');
         for (var i = 0; i < earr.length; i++) {
             earr[i].style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)";
