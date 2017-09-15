@@ -68,22 +68,26 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
     e.appendChild(lodingtext)
 	fetch(videourl).then(response => response.json())
 	  .then(function(json){
-			let v1,v2,v3,vv;
+			let vobj,vv;
 			for (var i = 0; i < json.stream.length; i++) {
-				if(json.stream[i].stream_type=='m3u8_hd'){
-					v1=json.stream[i];
-               }else if(json.stream[i].stream_type=='m3u8_mp4'){
-					v2=json.stream[i]
+				if(json.stream[i].stream_type=='m3u8_hd3'){
+					vobj.v1=json.stream[i]
+					vobj.v1.v=1;
+                }else if(json.stream[i].stream_type=='m3u8_hd'){
+					obj.v2=json.stream[i]
+					vobj.v1.v=2;
+				}else if(json.stream[i].stream_type=='m3u8_mp4'){
+					vobj.v3=json.stream[i]
+					vobj.v1.v=3;
 				}else  if(json.stream[i].stream_type=='m3u8_flv'){
-					v3=json.stream[i]
+					vobj.v4=json.stream[i]
+					vobj.v1.v=4;
 				}
 			}
-			if(v1){
-				vv=v1
-			}else if(v2){
-				vv=v2
-			}else if(v3){
-				vv=v3
+			if(vobj.v1||vobj.v2||vobj.v3||vobj.v4){
+				videosrcarr.push(vobj)
+				f1=true;
+				checkend();
 			}else{
                 if(document.querySelector(".noflash-alert")){
                     document.querySelector(".noflash-alert").style.display="block";
@@ -97,13 +101,6 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 				}catch(e){
 					console.log('本视频不支持')
 				}
-			}
-			console.log(vv);
-			if (vv) {
-				videosrcarr.push(vv.m3u8)
-				f1=true;
-				console.log(videosrcarr);
-				checkend();
 			}
 	  	})
 	  .catch(e => console.log(" error", e))
@@ -188,7 +185,6 @@ window.tdyoukuplay=(ele, acid)=>{
 }
 window.tdplayer = new Object();
 window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
-	
 	 //判断是否为番
 	 if(hasClass(Element, "ui-draggable")){
     	let t=document.getElementById('area-player');
@@ -198,7 +194,6 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
     	}
     }
     tdplayer.warp = Element
-    tdplayer.videosrcarr = src
     tdplayer.data=data
     tdplayer.videoinfo = JSON.parse(tdplayer.data).info
     tdplayer.nowdata = JSON.parse(tdplayer.data).danmu
@@ -274,6 +269,30 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
         tdplayer.config=new Object()
     }
     changerconfig()
+    //判断地址类型
+    if(typeof src==object){
+    	let t=tdplayer.config.definition;
+    	let vv;
+   		for(i in src){ 
+   			if(src[i].v==t){
+   				console.log(`视频清晰度`+t)
+   				vv=src[i]
+   			}
+		}
+   		if(!vv){
+   			if(src.v1){
+   				vv=src.v1
+   			}else if(src.v2){
+   				vv=src.v2
+   			}else if(src.v3){
+   				vv=src.v3
+   			}else if(src.v4){
+   				vv=src.v4
+   			}
+   		}
+    }else{
+    	tdplayer.videosrcarr = src
+    }
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
         var video = document.createElement("video")
          if (videotype == "hls") {
@@ -707,6 +726,8 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
         changerconfig();
     }
     function changerconfig(){
+    	//默认清晰度
+    	tdplayer.config.definition=tdplayer.config.definition||1
         tdplayer.config.v=tdplayer.config.v||tdplayer.width / 100
         tdplayer.config.danmusize=tdplayer.config.danmusize||1
         tdplayer.config.danmuo=tdplayer.config.danmuo||1
