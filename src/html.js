@@ -16,7 +16,7 @@ module.exports = {
           <li>1.5</li>
           <li>2</li></ul>
       </li>
-      <li class="tp-definition">清晰度 超清</li>
+      <li class="tp-definition">清晰度  <span></span></li>
       <li class="tp-ratio">视频比例 默认</li>
       <li class="tp-screenshot">截图</li>
       <a href="https://github.com/haocity/tdplayer/issues" target="_blank">

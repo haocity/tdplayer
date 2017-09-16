@@ -239,6 +239,9 @@ section.player{
 	cursor: pointer;
 	fill: #fff;
 }
+.tp-definition{
+	display: none;
+}
 .tp-danmu-switch {
 	position: relative;
 	display: inline-block;

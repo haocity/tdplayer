@@ -68,20 +68,21 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
     e.appendChild(lodingtext)
 	fetch(videourl).then(response => response.json())
 	  .then(function(json){
-			let vobj,vv;
+			let vobj=new Object
+			let vv
 			for (var i = 0; i < json.stream.length; i++) {
 				if(json.stream[i].stream_type=='m3u8_hd3'){
 					vobj.v1=json.stream[i]
 					vobj.v1.v=1;
-                }else if(json.stream[i].stream_type=='m3u8_hd'){
-					obj.v2=json.stream[i]
-					vobj.v1.v=2;
+               }else if(json.stream[i].stream_type=='m3u8_hd'){
+					vobj.v2=json.stream[i]
+					vobj.v2.v=2;
 				}else if(json.stream[i].stream_type=='m3u8_mp4'){
 					vobj.v3=json.stream[i]
-					vobj.v1.v=3;
+					vobj.v3.v=3;
 				}else  if(json.stream[i].stream_type=='m3u8_flv'){
 					vobj.v4=json.stream[i]
-					vobj.v1.v=4;
+					vobj.v4.v=4;
 				}
 			}
 			if(vobj.v1||vobj.v2||vobj.v3||vobj.v4){
@@ -260,6 +261,7 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
         this.alert_container=$c(".tp-alert-container")[0]
         this.alert_ok=$c(".tp-alert-ok")[0]
         this.screenshot=$c(".tp-screenshot")[0]
+        this.definition=$c(".tp-definition")[0]
     }
     tdplayer.ele=new eleload
     if (localStorage.getItem('tdconfig')) {
@@ -270,28 +272,71 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
     }
     changerconfig()
     //判断地址类型
-    if(typeof src==object){
+    if(typeof src[0]=='object'){
+    	console.log('多清晰度视频');
     	let t=tdplayer.config.definition;
-    	let vv;
-   		for(i in src){ 
-   			if(src[i].v==t){
-   				console.log(`视频清晰度`+t)
-   				vv=src[i]
+    	let vv,ele;
+    	ele=document.createElement('ul')
+   		for(i in src[0]){ 
+   			if(src[0][i].v==t){
+   				vv=src[0][i]
    			}
+   			let li=document.createElement('li')
+   			li.v=src[0][i].v
+   			li.vsrc=src[0][i].m3u8
+   			li.addEventListener('click',function(){
+   				console.log('清晰度切换'+this.v);
+   				tdplayer.ele.definition.querySelector('span').innerHTML=Definition(this.v)
+   				let time=tdplayer.Element.currentTime
+   				var hls = new Hls();
+				hls.loadSource(this.vsrc);
+				hls.attachMedia(tdplayer.Element);
+				hls.on(Hls.Events.MANIFEST_PARSED,function() {
+				   	tiao(time);
+				   	tdplayer.Element.style.display='block'
+				})
+   			},false);
+   			li.innerHTML=Definition(li.v)
+   			ele.appendChild(li);
 		}
    		if(!vv){
-   			if(src.v1){
-   				vv=src.v1
-   			}else if(src.v2){
-   				vv=src.v2
-   			}else if(src.v3){
-   				vv=src.v3
-   			}else if(src.v4){
-   				vv=src.v4
+   			if(src[0].v1){
+   				vv=src[0].v1
+   			}else if(src[0].v2){
+   				vv=src[0].v2
+   			}else if(src[0].v3){
+   				vv=src[0].v3
+   			}else if(src[0].v4){
+   				vv=src[0].v4
    			}
    		}
+   		tdplayer.videosrcarr=[vv.m3u8]
+   		//创建清晰度菜单
+   		tdplayer.ele.definition.querySelector('span').innerHTML=Definition(vv.v)
+   		tdplayer.ele.definition.appendChild(ele);
+   		tdplayer.ele.definition.style.display='block';
+    	tdplayer.ele.definition.ul=tdplayer.ele.definition.querySelector('ul')
+    	tdplayer.ele.definition.ul.style.display='none'
+    	tdplayer.ele.definition.addEventListener('click',function(){
+    		if(this.ul.style.display=='block'){
+    			this.ul.style.display='none'
+    		}else{
+    			this.ul.style.display='block'
+    		}
+    	})
     }else{
     	tdplayer.videosrcarr = src
+    }
+    function Definition(i){
+    	if(i==1){
+    		return '超清'
+    	}else if(i==2){
+    		return '高清'
+    	}else if(i==3){
+    		return '普通'
+    	}else if(i==4){
+    		return '流畅'
+    	}
     }
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
         var video = document.createElement("video")
@@ -924,9 +969,9 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
         videotime += tdplayer.videoelearr[tdplayer.nowduan].currentTime;
         return videotime;
     }
-    //定时器
-    function danmutime() {
-        var videotime = getnowtime();
+    //行走器
+    tdplayer.Element.addEventListener('timeupdate',function(){
+    	var videotime = getnowtime();
         var smalltime = tdplayer.Element.currentTime;
         tdplayer.ele.tranger_a.style.width = videotime / tdplayer.alltime * 100 + "%";
         var buff = tdplayer.Element.buffered;
@@ -944,6 +989,10 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
         if (tdplayer.ele.tranger_c.style.width != width) {
             tdplayer.ele.tranger_c.style.width = width;
         }
+    },false)
+    //定时器
+    function danmutime() {
+    	var videotime = getnowtime();
         if (tdplayer.nowdata) {
             var inttime = parseInt(videotime * 10);
             for (var i = 0; i < tdplayer.nowdata.length; i++) {
