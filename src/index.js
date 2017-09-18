@@ -157,14 +157,16 @@ window.tdyoukuplay=(ele, acid)=>{
 	            xmlhttp2.onreadystatechange = function() {
 	                if (xmlhttp2.readyState == 4) {
 	                    if (xmlhttp2.status == 200) {
+	                    	console.log('优酷视频地址解析成功');
 	                        var t = xmlhttp2.responseText;
-	                        var c = JSON.parse(t);
-	                        for (var i=0;i<c.data.length;i++) {
-		                        if(c.data[i].stream_type=='mp4hd'){
+	                        var c = JSON.parse(t).data;
+	                        console.log(c)
+	                        for (var i=0;i<c.data.stream.length;i++) {
+		                        if(c.data.stream[i].stream_type=='mp4hd'){
 									var arr=new Array;
-									for(var x=0;x<c.data[i].segs.length;x++)
+									for(var x=0;x<c.data.stream[i].segs.length;x++)
 									{
-										arr.push(c.data[i].segs[x].cdn_url)
+										arr.push(c.data.stream[i].segs[x].cdn_url)
 									}
 									console.log(arr);
 									Tdplayer(ele,arr,data,null,null);
