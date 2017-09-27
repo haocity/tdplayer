@@ -33,11 +33,11 @@ module.exports = {
     </div>
     <div class="tdplayer"></div>
     <div class="danmu-warp"></div>
-    <div class="tp-oneplay">
-      <svg style="width: 200px;height:200px;" class="tp-icon" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <div class="tp-oneplay tp-acenter">
+      <svg class="tp-acenter" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <path fill="#fff" d="M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z" /></svg>
     </div>
-    <div class="tp-spinner">
+    <div class="tp-spinner tp-acenter">
       <div class="rect1"></div>
       <div class="rect2"></div>
       <div class="rect3"></div>

@@ -55,7 +55,7 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 	ele.appendChild(e)
     let lodingimg=document.createElement("div")
     let lodingimgwarp=document.createElement("div")
-    lodingimgwarp.className='tp-loding-img-warp'
+    lodingimgwarp.className='tp-loding-img-warp tp-acenter'
     let imgid=Math.round(Math.random()*55)
     if (imgid==0) {imgid='01'}else if (imgid<10) {imgid='0'+imgid}
     lodingimg.style.backgroundImage=`url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac2/${imgid}.gif)`

@@ -131,11 +131,10 @@ section.player{
 }
 .danmu-warp {
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
-	left: 0px;
 	overflow: hidden;
 	transform-origin: top left;
 	-moz-transform-origin:top left;
@@ -173,7 +172,7 @@ section.player{
 	left: 20px;
 	background-color: #8715EF;
 	color: #fff;
-	border: 0px solid #000;
+	border: 0 solid #000;
 	line-height: 20px;
 	border-radius: 4px;
 	padding: 3px 20px;
@@ -218,11 +217,11 @@ section.player{
 	position: absolute;
 	bottom: 0;
 	padding-bottom: 10px;
-	left: 0px;
+	left: 0;
 	width: 100%;
 	height: 45px;
 	color: #fff;
-	line-height: 0px;
+	line-height: 0;
 	user-select: none;
 	z-index: 888;
 }
@@ -397,7 +396,7 @@ section.player{
 }
 .tp-tranger>.tp-tranger-c {
 	position: absolute;
-	top: 0px;
+	top: 0;
 	width: 0%;
 	height: 100%;
 	background-color: rgba(207, 198, 198, 0.47);
@@ -414,26 +413,31 @@ section.player{
 }
 
 /*loding*/
-.tp-oneplay {
-	margin: auto;
+.tp-oneplay{
+	width: 120px;
+    height: 111px;
+    z-index: 999;
+    background-color: rgb(234, 62, 73);
+    cursor: pointer;
+    border-radius: 10px;
+}
+.tp-oneplay>svg{
+	width: 100px;
+    height: 100px;
+    fill: #fff;
+    margin-left: 10px;
+}
+.tp-acenter{
 	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	width: 200px;
-	height: 200px;
-	z-index: 999;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 .tp-spinner {
 	width: 70px;
 	height: 40px;
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left:0;
-	right: 0;
-	margin: auto;
 	z-index: 7;
 	display: none;
 }
@@ -553,7 +557,7 @@ section.player{
 	top: -90px;
 	display: none;
 	width: 150px;
-	margin: 0px auto;
+	margin: 0 auto;
 	padding: 6px;
 	background-color: rgba(255, 255, 255, 0.75);
 	border-radius: 6px;
@@ -624,7 +628,7 @@ section.player{
     padding: 0;
     margin: 0;
     background-color: transparent;
-    border: 0px;
+    border: 0;
     color: #fff;
     resize: none;
     cursor: pointer;
@@ -636,7 +640,7 @@ section.player{
 .tp-control-alltime-phone{
 	display: none;
 }
-	.tp-loding{
+.tp-loding{
 		position: absolute;
 	    width: 100%;
 	    height: 100%;
@@ -644,23 +648,17 @@ section.player{
 		left: 0;
 		z-index: 20;
 		
-	}
-	.tp-loding-img-warp{
-		position: absolute;
-		height: 120px;
-	    width: 120px;
-	   	top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		margin: auto;
-		box-sizing: content-box;
-		border: 8px solid rgba(200, 200, 200, 0.63);
-		border-radius: 50%;
-	    animation:lodingborder 1s infinite alternate;
-		-webkit-animation:lodingborder 1s infinite alternate;
-		overflow: hidden;
-	}
+}
+.tp-loding-img-warp{
+	height: 120px;
+	width: 120px;
+	box-sizing: content-box;
+	border: 8px solid rgba(200, 200, 200, 0.63);
+	border-radius: 50%;
+	animation:lodingborder 1s infinite alternate;
+	-webkit-animation:lodingborder 1s infinite alternate;
+	overflow: hidden;
+}
 	@keyframes lodingborder
 	{
 		to { border: 14px solid rgba(200, 200, 200, 0.63);}
