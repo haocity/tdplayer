@@ -304,15 +304,21 @@ window.Tdplayer=(options)=> {
    			li.vsrc=src[0][i].m3u8
    			li.addEventListener('click',function(){
    				console.log('清晰度切换'+this.v);
+   				tdplayer.ele.video_control_paused.onclick()
    				tdplayer.ele.definition.querySelector('span').innerHTML=Definition(this.v)
    				let time=tdplayer.Element.currentTime
    				var hls = new Hls();
 				hls.loadSource(this.vsrc);
 				hls.attachMedia(tdplayer.Element);
 				hls.on(Hls.Events.MANIFEST_PARSED,function() {
+					let i=true;
 					tdplayer.Element.addEventListener("canplay", function()
 					  {
-					    tiao(time);
+					  	if(i){
+					  		i=false
+					  		tiao(time)
+					  	}
+					    
 					  }
 					);	   	
 				   	tdplayer.Element.style.display='block'
@@ -370,7 +376,6 @@ window.Tdplayer=(options)=> {
 			hls.attachMedia(video);
 			hls.on(Hls.Events.MANIFEST_PARSED,function() {
 		     	console.log('可以开始加载');
-		     	video.oncanplaythrough=alert("可以开始播放");
 		     	if(tdplayer.options.video.autoplay){
 		     		tdplayer.ele.video_control_play.onclick();
 //		     		if(tdplayer.options.autoplay==2){
@@ -391,6 +396,12 @@ window.Tdplayer=(options)=> {
         }
         tdplayer.ele.tdplayer.appendChild(video)
     }
+    
+    tdplayer.Element.addEventListener("canplaythrough", function()
+		{
+			console.log('加载完成 可以进行播放');
+		}
+	);
     tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video")
     tdplayer.videotimearr = []
     for (var i = 0; i < tdplayer.videoelearr.length; i++) {
@@ -1437,6 +1448,7 @@ window.Tdplayer=(options)=> {
         tp_menu(ev)
         return false
     }
+    
     //菜单
     function tp_menu(ev) {
         var container = tdplayer.ele.tdplayer;
