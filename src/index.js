@@ -310,7 +310,11 @@ window.Tdplayer=(options)=> {
 				hls.loadSource(this.vsrc);
 				hls.attachMedia(tdplayer.Element);
 				hls.on(Hls.Events.MANIFEST_PARSED,function() {
-				   	tiao(time);
+					tdplayer.Element.addEventListener("canplay", function()
+					  {
+					    tiao(time);
+					  }
+					);	   	
 				   	tdplayer.Element.style.display='block'
 				})
    			},false);
@@ -365,7 +369,8 @@ window.Tdplayer=(options)=> {
 			hls.loadSource(tdplayer.videosrcarr[i]);
 			hls.attachMedia(video);
 			hls.on(Hls.Events.MANIFEST_PARSED,function() {
-		     	console.log('可以播放');
+		     	console.log('可以开始加载');
+		     	video.oncanplaythrough=alert("可以开始播放");
 		     	if(tdplayer.options.video.autoplay){
 		     		tdplayer.ele.video_control_play.onclick();
 //		     		if(tdplayer.options.autoplay==2){
@@ -1432,6 +1437,7 @@ window.Tdplayer=(options)=> {
         tp_menu(ev)
         return false
     }
+    //菜单
     function tp_menu(ev) {
         var container = tdplayer.ele.tdplayer;
         var rightmenu = tdplayer.ele.tp_rightmenu;
@@ -1490,6 +1496,7 @@ window.Tdplayer=(options)=> {
             this.innerText = "◀滚动弹幕";
         }
     });
+ 
     function chadown() {
 	    var w = $c(".crumb")[0];
 	    if(w){
