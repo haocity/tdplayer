@@ -115,7 +115,18 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 	  .catch(e => console.log(" error", e))
 	function checkend(){
 		if (f1&&f2) {
-		 	Tdplayer(ele,videosrcarr,danmudata,coverimage,'hls',autoplay);
+			//Element,src,,poster,videotype,autoplay)
+			//ele,,danmudata,coverimage,,autoplay
+		 	Tdplayer({
+		 		Element:ele,
+		 		video:{
+		 			url:videosrcarr,
+		 			pic:coverimage,
+		 			type:'hls',
+		 			autoplay:autoplay
+		 		},
+		 		danmaku:danmudata
+		 	});
 		 }
 	}
 }
@@ -169,7 +180,13 @@ window.tdyoukuplay=(ele, acid)=>{
 										arr.push(c.data.stream[i].segs[x].cdn_url)
 									}
 									console.log(arr);
-									Tdplayer(ele,arr,data,null,null);
+									Tdplayer({
+								 		Element:ele,
+								 		video:{
+								 			url:videosrcarr
+								 		},
+								 		danmaku:data
+								 	});
 									break
 								}
 		                    }
@@ -187,27 +204,25 @@ window.tdyoukuplay=(ele, acid)=>{
     xmlhttp.send();
 }
 window.tdplayer = new Object();
-window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
+
+
+window.Tdplayer=(options)=> {
+	 tdplayer.options=options;
 	 //判断是否为番
-	 if(hasClass(Element, "ui-draggable")){
+	 if(hasClass(tdplayer.options.Element, "ui-draggable")){
     	let t=document.getElementById('area-player');
     	if(t){
-    		tdplayer.ab=true;
+    		tdplayer.options.ab=true;
     		t.style.height=t.offsetWidth/1.77+'px';
     	}
     }
-    tdplayer.warp = Element
-    tdplayer.data=data
-    tdplayer.videoinfo = JSON.parse(tdplayer.data).info
+	 
+    tdplayer.warp = tdplayer.options.Element
+    tdplayer.data=tdplayer.options.danmaku
+    
     tdplayer.nowdata = JSON.parse(tdplayer.data).danmu
-    if(poster){
-    	tdplayer.vposter =poster
-    }
-    else if(tdplayer.videoinfo){
-    	poster=tdplayer.videoinfo.coverImage
-    }
+    
     tdplayer.vloop=false
-    tdplayer.vposter = poster
     tdplayer.nowduan = 0
     tdplayer.v = html.html()
     tdplayer.warp.innerHTML = tdplayer.v
@@ -274,7 +289,8 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
     }
     changerconfig()
     //判断地址类型
-    if(typeof src[0]=='object'){
+    if(typeof tdplayer.options.video.url[0]=='object'){
+    	let src=tdplayer.options.video.url
     	console.log('多清晰度视频');
     	let t=tdplayer.config.definition;
     	let vv,ele;
@@ -327,8 +343,9 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
     		}
     	})
     }else{
-    	tdplayer.videosrcarr = src
+    	tdplayer.videosrcarr = tdplayer.options.video.url
     }
+    
     function Definition(i){
     	if(i==1){
     		return '超清'
@@ -342,20 +359,18 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
     }
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
         var video = document.createElement("video")
-         if (videotype == "hls") {
+         if (tdplayer.options.video.type == "hls") {
          	console.log('这是hls视频 启动加载');
          	var hls = new Hls();
 			hls.loadSource(tdplayer.videosrcarr[i]);
 			hls.attachMedia(video);
 			hls.on(Hls.Events.MANIFEST_PARSED,function() {
 		     	console.log('可以播放');
-		     	tdplayer.Element.poster=tdplayer.vposter;
-		     	if(autoplay){
-		     		console.log('自动播放'+autoplay)
+		     	if(tdplayer.options.video.autoplay){
 		     		tdplayer.ele.video_control_play.onclick();
-		     		if(autoplay==2){
-		     			tdplayer.ele.full.click();
-		     		}
+//		     		if(tdplayer.options.autoplay==2){
+//		     			tdplayer.ele.full.click();
+//		     		}
 		     	}
 		  	});
         }else{
@@ -394,7 +409,10 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
             }
         }
     }
-    tdplayer.Element.poster = tdplayer.vposter
+    //封面
+    if(tdplayer.options.video.pic){
+    	tdplayer.Element.poster=tdplayer.options.video.pic
+    }
     tdplayer.danmuelement = tdplayer.ele.danmu_warp
     tdplayer.sjc = 0
     tdplayer.dsq = 0
@@ -591,7 +609,7 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
                         for (var i = arr.length - 1; i >= 0; i--) {
                             arr[i].remove()
                         }
-                        if(tdplayer.ab){
+                        if(tdplayer.options.ab){
                         	let t=document.querySelectorAll('#area-part-view .l a');
                         	for (var i = 0; i < t.length; i++) {
                         		if(hasClass(t[i],'active')){
@@ -982,10 +1000,8 @@ window.Tdplayer=(Element,src,data,poster,videotype,autoplay)=> {
         for (var i = 0; i <= oldduan; i++) {
             oldtime += tdplayer.videotimearr[i];
         }
-        try {
-            time2 = oldtime + buff.end(buff.length - 1);
-        } catch (e) {
-            console.log(e);
+        if(buff.length){
+        	time2 = oldtime + buff.end(buff.length - 1);
         }
         var width = time2 / tdplayer.alltime * 100 + "%";
         if (tdplayer.ele.tranger_c.style.width != width) {
