@@ -588,6 +588,14 @@ window.Tdplayer=(options)=> {
         tiao(0)
         tdplayer.ele.end.style.display = "none"
     });
+	//下一段提示
+	function nextvideo(){
+		console.log('视频存在下一段')
+		let e=document.createElement('div')
+		e.className='tp-msg'
+		e.innerHTML='5秒后将播放下一段'
+		tdplayer.ele.tdplayer_main.appendChild(e)
+	}
     //播放完成
     for (var i=0;i<tdplayer.videoelearr.length;i++) {
 		(function(arg){
@@ -640,7 +648,7 @@ window.Tdplayer=(options)=> {
                         	}
                         }else{
                         	try{
-	                        	console.log('验证是否存在下一段');
+	                        
 	                        	let nowi;
 	                        	for (var i = 0; i < pageInfo.videoList.length; i++) {
 	                        		if(pageInfo.videoList[i].id==pageInfo.videoId){
@@ -649,7 +657,6 @@ window.Tdplayer=(options)=> {
 	                        		}
 	                        	}
 	                    		if(pageInfo.videoList[nowi+1]){
-	                    			console.log('将尝试播放下一段')
 	                    			let info=document.querySelector('#pageInfo');
 	                    			let e=$c('.scroll-div .active')[0];
 	                    			addClass($c('.scroll-div .active+a')[0],'active');
