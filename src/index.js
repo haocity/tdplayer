@@ -588,13 +588,46 @@ window.Tdplayer=(options)=> {
         tiao(0)
         tdplayer.ele.end.style.display = "none"
     });
+    
 	//下一段提示
-	function nextvideo(){
+	function nextvideo(callback){
 		console.log('视频存在下一段')
 		let e=document.createElement('div')
 		e.className='tp-msg'
-		e.innerHTML='5秒后将播放下一段'
+		
+		let text=document.createElement('span')
+		text.i=5;
+		text.innerHTML=text.i+'秒后将播放下一段'
+		
+		let btn=document.createElement('span')
+		btn.innerHTML='×'
+		btn.className='tp-msg-close'
+		btn.addEventListener('click',function(){
+			btn.parentNode.parentNode.removeChild(btn.parentNode)
+			if(time){clearInterval(time)}
+		})
+		e.appendChild(btn)
+		e.appendChild(text)
 		tdplayer.ele.tdplayer_main.appendChild(e)
+		let time=setInterval(function(){
+			if(text.i>0){
+				text.i--
+				text.innerHTML=text.i+'秒后将播放下一段'
+			}else{
+				clearInterval(time)
+				console.log('播放下一段')
+				let t=tdplayer.options.Element.childNodes
+				for (var i = 0; i < t.length; i++) {
+					tdplayer.options.Element.removeChild(t[i])
+				}
+				if (typeof callback === "function"){
+		            callback()
+		        }else{
+		        	console.log('eero')
+		        	console.log(callback)
+		        }
+			}
+		},1000)
 	}
     //播放完成
     for (var i=0;i<tdplayer.videoelearr.length;i++) {
@@ -638,11 +671,14 @@ window.Tdplayer=(options)=> {
                         	for (var i = 0; i < t.length; i++) {
                         		if(hasClass(t[i],'active')){
                         			if(t[i+1]){
-                        				t[i+1].className=t[i].className;
-                        				t[i].className='btn';
-                        				document.querySelector('.ui-draggable').innerHTML='';
-                        				tdvidplay(document.querySelector('.ui-draggable'),t[i+1].getAttribute("data-vid"),null,1);
                         				continue;
+                        				nextvideo(function(){
+                        					t[i+1].className=t[i].className
+	                        				t[i].className='btn'
+	                        				document.querySelector('.ui-draggable').innerHTML=''
+	                        				tdvidplay(document.querySelector('.ui-draggable'),t[i+1].getAttribute("data-vid"),null,true)
+	                        				
+                        				})	
                         			}
                         		}
                         	}
@@ -657,15 +693,13 @@ window.Tdplayer=(options)=> {
 	                        		}
 	                        	}
 	                    		if(pageInfo.videoList[nowi+1]){
+	                    			nextvideo(function(){
 	                    			let info=document.querySelector('#pageInfo');
 	                    			let e=$c('.scroll-div .active')[0];
 	                    			addClass($c('.scroll-div .active+a')[0],'active');
 	                    			removeClass(e,'active')
-	                    			let full=1;
-	                    			if( document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement){
-	                    				full=2
-	                    			}
-	                    			tdvidplay(document.querySelector('#player'),pageInfo.videoList[nowi+1].id,info.getAttribute("data-pic"),full)
+	                    			tdvidplay(document.querySelector('#player'),pageInfo.videoList[nowi+1].id,info.getAttribute("data-pic"),true)
+	                    			})
 	                    		}
                         	}catch(e){console.log(e)}
                         }

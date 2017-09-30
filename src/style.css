@@ -50,6 +50,7 @@ section.player{
 }
 .tp-video-warp{
 	min-height: 653px;
+	font-size: 14px;
 }
 .video-end {
 	position: absolute;
@@ -185,11 +186,20 @@ section.player{
 .tp-msg{
 	position: absolute;
     bottom: 60px;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.77);
+    right: 6px;
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 6px 10px;
     z-index: 999;
-    border-radius: 6px 0 0 6px;
+    border-radius: 6px;
+}
+.tp-msg>.tp-msg-close{
+	cursor: pointer;
+    color: #000;
+    font-weight: 600;
+    font-size: 1.4em;
+    line-height: 18px;
+    padding-right: 8px;
+   	font-size: 15px;
 }
 .tp-video-main {
 	position: absolute;
@@ -445,7 +455,7 @@ section.player{
     margin: auto;
 }
 .tp-spinner {
-	width: 70px;
+	width: 76px;
 	height: 40px;
 	z-index: 7;
 	display: none;
