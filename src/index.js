@@ -1551,7 +1551,12 @@ window.Tdplayer=(options)=> {
     });
  
     function chadown() {
-	    var w = $c(".crumb")[0];
+    	if($c('.vdown').length){
+    		for (var i = 0; i < $c('.vdown').length; i++) {
+    			$c('.vdown')[i].remove()
+    		}
+    	}
+	    let w = $c(".crumb")[0];
 	    if(w){
 	    	var span = document.createElement("span");
 		    span.className = "vdown fl";
