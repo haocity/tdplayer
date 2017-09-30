@@ -686,10 +686,10 @@ window.Tdplayer=(options)=> {
 
                         }else{
                         	try{
-	                        
+	                        	let t=$c('.part-wrap>.scroll-div>a');
 	                        	let nowi;
-	                        	for (var i = 0; i < pageInfo.videoList.length; i++) {
-	                        		if(pageInfo.videoList[i].id==pageInfo.videoId){
+	                        	for (var i = 0; i <t.length; i++) {
+	                        		if(hasClass(t[i],'active')){
 	                        			nowi=i;
 	                        			continue;
 	                        		}
