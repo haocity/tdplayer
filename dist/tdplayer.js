@@ -16664,14 +16664,6 @@ window.tdplayer = new Object();
 
 window.Tdplayer = function (options) {
     tdplayer.options = options;
-    //判断是否为番
-    if (hasClass(tdplayer.options.Element, "ui-draggable")) {
-        var t = document.getElementById('area-player');
-        if (t) {
-            tdplayer.options.ab = true;
-            t.style.height = t.offsetWidth / 1.77 + 'px';
-        }
-    }
 
     tdplayer.warp = tdplayer.options.Element;
     tdplayer.data = tdplayer.options.danmaku;
@@ -16744,8 +16736,17 @@ window.Tdplayer = function (options) {
         tdplayer.config = new Object();
     }
     changerconfig
+    //判断是否为番
+    ();if (hasClass(tdplayer.options.Element, "ui-draggable")) {
+        var t = document.getElementById('area-player');
+        if (t) {
+            tdplayer.options.ab = true;
+            t.style.height = t.offsetWidth / 1.77 + 'px';
+            tdplayer.ele.tp_video_warp.width = t.offsetWidth;
+        }
+    }
     //判断地址类型
-    ();if (_typeof(tdplayer.options.video.url[0]) == 'object') {
+    if (_typeof(tdplayer.options.video.url[0]) == 'object') {
         var src = tdplayer.options.video.url;
         console.log('多清晰度视频');
         var _t = tdplayer.config.definition;
@@ -17042,7 +17043,7 @@ window.Tdplayer = function (options) {
     });
 
     //下一段提示
-    function nextvideo(callback) {
+    tdplayer.nextvideo = function (callback) {
         console.log('视频存在下一段');
         var e = document.createElement('div');
         e.className = 'tp-msg';
@@ -17082,7 +17083,7 @@ window.Tdplayer = function (options) {
                 }
             }
         }, 1000);
-    }
+    };
     //播放完成
     for (var i = 0; i < tdplayer.videoelearr.length; i++) {
         (function (arg) {
@@ -17121,41 +17122,38 @@ window.Tdplayer = function (options) {
                             arr[i].remove();
                         }
                         if (tdplayer.options.ab) {
-                            var i;
-
-                            (function () {
-                                var t = document.querySelectorAll('#area-part-view .l a');
-                                for (i = 0; i < t.length; i++) {
-                                    if (hasClass(t[i], 'active')) {
-                                        if (t[i + 1]) {
-                                            continue;
-                                            nextvideo(function () {
-                                                t[i + 1].className = t[i].className;
-                                                t[i].className = 'btn';
-                                                document.querySelector('.ui-draggable').innerHTML = '';
-                                                tdvidplay(document.querySelector('.ui-draggable'), t[i + 1].getAttribute("data-vid"), null, true);
-                                            });
-                                        }
-                                    }
+                            var nowi = void 0;
+                            var _t3 = document.querySelectorAll('#area-part-view .l a');
+                            for (var i = 0; i < _t3.length; i++) {
+                                if (hasClass(_t3[i], 'active')) {
+                                    nowi = i;
+                                    continue;
                                 }
-                            })();
+                            }
+                            if (_t3[nowi + 1]) {
+                                tdplayer.nextvideo(function () {
+                                    _t3[nowi].className = 'btn';
+                                    _t3[nowi + 1].className = 'btn active primary';
+                                    tdvidplay(document.querySelector('.ui-draggable'), _t3[nowi + 1].getAttribute("data-vid"), null, true);
+                                });
+                            }
                         } else {
                             try {
 
-                                var nowi = void 0;
+                                var _nowi = void 0;
                                 for (var i = 0; i < pageInfo.videoList.length; i++) {
                                     if (pageInfo.videoList[i].id == pageInfo.videoId) {
-                                        nowi = i;
+                                        _nowi = i;
                                         continue;
                                     }
                                 }
-                                if (pageInfo.videoList[nowi + 1]) {
-                                    nextvideo(function () {
+                                if (pageInfo.videoList[_nowi + 1]) {
+                                    tdplayer.nextvideo(function () {
                                         var info = document.querySelector('#pageInfo');
                                         var e = $c('.scroll-div .active')[0];
                                         addClass($c('.scroll-div .active+a')[0], 'active');
                                         removeClass(e, 'active');
-                                        tdvidplay(document.querySelector('#player'), pageInfo.videoList[nowi + 1].id, info.getAttribute("data-pic"), true);
+                                        tdvidplay(document.querySelector('#player'), pageInfo.videoList[_nowi + 1].id, info.getAttribute("data-pic"), true);
                                     });
                                 }
                             } catch (e) {
@@ -17213,11 +17211,11 @@ window.Tdplayer = function (options) {
             if (!tdplayer.removaldata) {
                 removaldanmu();
             }
-            var _t3 = JSON.parse(JSON.stringify(tdplayer.removaldata));
-            cache = _t3;
-        } else {
-            var _t4 = JSON.parse(tdplayer.data).danmu;
+            var _t4 = JSON.parse(JSON.stringify(tdplayer.removaldata));
             cache = _t4;
+        } else {
+            var _t5 = JSON.parse(tdplayer.data).danmu;
+            cache = _t5;
         }
 
         for (var i = cache.length - 1; i >= 0; i--) {
