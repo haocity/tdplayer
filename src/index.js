@@ -264,6 +264,7 @@ window.Tdplayer=(options)=> {
         this.setr5=$c(".tp-s-r5")[0]
         this.setr6=$c(".tp-s-r6")[0]
         this.setr7=$c(".tp-s-r7")[0]
+        this.setr8=$c(".tp-s-r8")[0]
         this.video_ratio=$c(".tp-ratio")[0]
         this.searchuser=$c(".tp-search-user")[0]
         this.alert=$c(".tp-alert")[0]
@@ -824,6 +825,10 @@ window.Tdplayer=(options)=> {
             shielddanmu()   
         }
     }
+    tdplayer.ele.setr8.onchange=function(){
+    	const t=this.selectedIndex+1
+    	tdplayer.config.definition=t
+    }
     tdplayer.ele.setr7.value=tdplayer.config.pbs
     if (tdplayer.config.qc) {
         tdplayer.ele.setr5.click()
@@ -843,6 +848,11 @@ window.Tdplayer=(options)=> {
     if (tdplayer.config.dmshadow==0) {
         tdplayer.ele.setr4.checked=true
     }
+    if(tdplayer.config.definition){
+    	tdplayer.ele.setr8.value=Definition(tdplayer.config.definition)
+    }
+    
+
     //弹幕速度
     function dmspeend(v) {
     	console.log('弹幕速度调整为'+v);
