@@ -16,6 +16,7 @@ module.exports = {
           <li>1.5</li>
           <li>2</li></ul>
       </li>
+      <li class="tp-definition">清晰度  <span></span></li>
       <li class="tp-ratio">视频比例 默认</li>
       <li class="tp-screenshot">截图</li>
       <a href="https://github.com/haocity/tdplayer/issues" target="_blank">
@@ -32,11 +33,11 @@ module.exports = {
     </div>
     <div class="tdplayer"></div>
     <div class="danmu-warp"></div>
-    <div class="tp-oneplay">
-      <svg style="width: 200px;height:200px;" class="tp-icon" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <div class="tp-oneplay tp-acenter">
+      <svg class="tp-acenter" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <path fill="#fff" d="M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z" /></svg>
     </div>
-    <div class="tp-spinner">
+    <div class="tp-spinner tp-acenter">
       <div class="rect1"></div>
       <div class="rect2"></div>
       <div class="rect3"></div>
@@ -71,6 +72,17 @@ module.exports = {
         <td><input class="tp-s-r6" type="checkbox"/>屏蔽弹幕</td>
         <td><input class="tp-s-r7" type="text" value=""/></td>
       </tr>
+      <tr>
+	    <td style='padding: 6px 0'>优先画质</td>
+	    <td>
+	      	<select style=" width: 146px;padding: 2px 10px; border-radius: 3px;" class="tp-s-r8">
+	      		<option>超清</option>
+	      		<option>高清</option>
+	      		<option>普清</option>
+	      		<option>流畅</option>
+	      	</select>
+	    </td>
+	  </tr>
       <tr>
         <td colspan="2">
           <p>意见反馈&&协助开发&&指导 请联系QQ 1051667334</p>
