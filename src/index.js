@@ -4,6 +4,7 @@
  * @license  The Star And Thank Author License (SATA)
  */
 const html = require('./html.js');
+let Hls=require('hls.js');
 require('./style.css');
 
 let hasClass=(elements, cName)=>{
@@ -28,7 +29,7 @@ window.$c=function(e){
 	return document.querySelectorAll(e);
 }
 
-window.tdvidplay=(ele, vid,coverimage)=>{
+window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 	let acflash=document.querySelector('section.player #player object')||document.querySelector('section.player #player #ACFlashPlayer')
 	if (acflash) {
 		acflash.style.display='none';
@@ -54,7 +55,7 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 	ele.appendChild(e)
     let lodingimg=document.createElement("div")
     let lodingimgwarp=document.createElement("div")
-    lodingimgwarp.className='tp-loding-img-warp'
+    lodingimgwarp.className='tp-loding-img-warp tp-acenter'
     let imgid=Math.round(Math.random()*55)
     if (imgid==0) {imgid='01'}else if (imgid<10) {imgid='0'+imgid}
     lodingimg.style.backgroundImage=`url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac2/${imgid}.gif)`
@@ -67,6 +68,9 @@ window.tdvidplay=(ele, vid,coverimage)=>{
     e.appendChild(lodingtext)
 	fetch(videourl).then(response => response.json())
 	  .then(function(json){
+	  		//mp4规则
+	  		//偷工减料  只允许切换清晰度后刷新
+	  		let a=JSON.parse(localStorage.getItem('tdconfig'));
 			let v1,v2,v3,v4,vv;
 			for (var i = 0; i < json.stream.length; i++) {
 				if(json.stream[i].stream_type=='mp4hd3'){
@@ -81,32 +85,42 @@ window.tdvidplay=(ele, vid,coverimage)=>{
                             v4=json.stream[i] 
                         } 
                     }
-                    
-                }
-
+               }
 			}
-			if(v1){
-				vv=v1
-			}else if(v2){
-				vv=v2
-			}else if(v3){
-				vv=v3
-			}else if (v4) {
-                vv=v4
-            }else{
-                if(document.querySelector(".noflash-alert")){
-                    document.querySelector(".noflash-alert").style.display="block";
-                }
-				try{
-					$c('object')[0].style.display='block'
-					e.style.display='none'
-					$.info.error('替换失败 本视频不支持')
-					backimg.style.display='none'
-					acflash.style.display='block'
-				}catch(e){
-					console.log('本视频不支持')
-				}
-			}
+			if(a.definition){
+	  			if(a.definition==1&&v1){
+	  				vv=v1
+	  			}else if(a.definition==2&&v2){
+	  				vv=v2
+	  			}else if(a.definition==3&&v3){
+	  				vv=v3
+	  			}else if(a.definition==4&&v4){
+	  				vv=v4
+	  			}else{
+	  				if(v1){
+						vv=v1
+					}else if(v2){
+						vv=v2
+					}else if(v3){
+						vv=v3
+					}else if (v4) {
+		                vv=v4
+		            }else{
+		                if(document.querySelector(".noflash-alert")){
+		                    document.querySelector(".noflash-alert").style.display="block";
+		                }
+						try{
+							$c('object')[0].style.display='block'
+							e.style.display='none'
+							$.info.error('替换失败 本视频不支持')
+							backimg.style.display='none'
+							acflash.style.display='block'
+						}catch(e){
+							console.log('本视频不支持')
+						}
+					}
+	  			}
+	  		}
 			console.log(vv);
 			if (vv) {
 				for (var i = 0; i < vv.segs.length; i++) {
@@ -128,7 +142,18 @@ window.tdvidplay=(ele, vid,coverimage)=>{
 	  .catch(e => console.log(" error", e))
 	function checkend(){
 		if (f1&&f2) {
-		 	tdplayer(ele,videosrcarr,danmudata,coverimage,null);
+			//Element,src,,poster,videotype,autoplay)
+			//ele,,danmudata,coverimage,,autoplay
+		 	Tdplayer({
+		 		Element:ele,
+		 		video:{
+		 			url:videosrcarr,
+		 			pic:coverimage,
+		 			//type:'hls',
+		 			autoplay:autoplay
+		 		},
+		 		danmaku:danmudata
+		 	});
 		 }
 	}
 }
@@ -170,17 +195,25 @@ window.tdyoukuplay=(ele, acid)=>{
 	            xmlhttp2.onreadystatechange = function() {
 	                if (xmlhttp2.readyState == 4) {
 	                    if (xmlhttp2.status == 200) {
+	                    	console.log('优酷视频地址解析成功');
 	                        var t = xmlhttp2.responseText;
-	                        var c = JSON.parse(t);
-	                        for (var i=0;i<c.data.length;i++) {
-		                        if(c.data[i].stream_type=='mp4hd'){
+	                        var c = JSON.parse(t).data;
+	                        console.log(c)
+	                        for (var i=0;i<c.data.stream.length;i++) {
+		                        if(c.data.stream[i].stream_type=='mp4hd'){
 									var arr=new Array;
-									for(var x=0;x<c.data[i].segs.length;x++)
+									for(var x=0;x<c.data.stream[i].segs.length;x++)
 									{
-										arr.push(c.data[i].segs[x].cdn_url)
+										arr.push(c.data.stream[i].segs[x].cdn_url)
 									}
 									console.log(arr);
-									tdplayer(ele,arr,data,null,null);
+									Tdplayer({
+								 		Element:ele,
+								 		video:{
+								 			url:videosrcarr
+								 		},
+								 		danmaku:data
+								 	});
 									break
 								}
 		                    }
@@ -198,21 +231,17 @@ window.tdyoukuplay=(ele, acid)=>{
     xmlhttp.send();
 }
 window.tdplayer = new Object();
-window.tdplayer=(Element,src,data,poster,videotype)=> {
-	 
-    tdplayer.warp = Element
-    tdplayer.videosrcarr = src
-    tdplayer.data=data
-    tdplayer.videoinfo = JSON.parse(tdplayer.data).info
+
+
+window.Tdplayer=(options)=> {
+	 tdplayer.options=options;
+
+    tdplayer.warp = tdplayer.options.Element
+    tdplayer.data=tdplayer.options.danmaku
+    
     tdplayer.nowdata = JSON.parse(tdplayer.data).danmu
-    if(poster){
-    	tdplayer.vposter =poster
-    }
-    else if(tdplayer.videoinfo){
-    	poster=tdplayer.videoinfo.coverImage
-    }
+    
     tdplayer.vloop=false
-    tdplayer.vposter = poster
     tdplayer.nowduan = 0
     tdplayer.v = html.html()
     tdplayer.warp.innerHTML = tdplayer.v
@@ -262,12 +291,14 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         this.setr5=$c(".tp-s-r5")[0]
         this.setr6=$c(".tp-s-r6")[0]
         this.setr7=$c(".tp-s-r7")[0]
+        this.setr8=$c(".tp-s-r8")[0]
         this.video_ratio=$c(".tp-ratio")[0]
         this.searchuser=$c(".tp-search-user")[0]
         this.alert=$c(".tp-alert")[0]
         this.alert_container=$c(".tp-alert-container")[0]
         this.alert_ok=$c(".tp-alert-ok")[0]
         this.screenshot=$c(".tp-screenshot")[0]
+        this.definition=$c(".tp-definition")[0]
     }
     tdplayer.ele=new eleload
     if (localStorage.getItem('tdconfig')) {
@@ -277,9 +308,113 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tdplayer.config=new Object()
     }
     changerconfig()
+    //判断是否为番
+	 if(hasClass(tdplayer.options.Element, "ui-draggable")){
+    	let t=document.getElementById('area-player');
+    	if(t){
+    		tdplayer.options.ab=true;
+    		t.style.height=t.offsetWidth/1.77+'px';
+    		tdplayer.ele.tp_video_warp.width=t.offsetWidth;
+    	}
+    }
+    //判断地址类型
+    if(typeof tdplayer.options.video.url[0]=='object'){
+    	let src=tdplayer.options.video.url
+    	console.log('多清晰度视频');
+    	let t=tdplayer.config.definition;
+    	let vv,ele;
+    	ele=document.createElement('ul')
+   		for(i in src[0]){ 
+   			if(src[0][i].v==t){
+   				vv=src[0][i]
+   			}
+   			let li=document.createElement('li')
+   			li.v=src[0][i].v
+   			li.vsrc=src[0][i].m3u8
+   			li.addEventListener('click',function(){
+   				console.log('清晰度切换'+this.v);
+   				tdplayer.ele.video_control_paused.onclick()
+   				tdplayer.ele.definition.querySelector('span').innerHTML=Definition(this.v)
+   				let time=tdplayer.Element.currentTime
+   				var hls = new Hls();
+				hls.loadSource(this.vsrc);
+				hls.attachMedia(tdplayer.Element);
+				hls.on(Hls.Events.MANIFEST_PARSED,function() {
+					let i=true;
+					tdplayer.Element.addEventListener("canplay", function()
+					  {
+					  	if(i){
+					  		i=false
+					  		tiao(time)
+					  	}
+					    
+					  }
+					);	   	
+				   	tdplayer.Element.style.display='block'
+				})
+   			},false);
+   			li.innerHTML=Definition(li.v)
+   			ele.appendChild(li);
+		}
+   		if(!vv){
+   			if(src[0].v1){
+   				vv=src[0].v1
+   			}else if(src[0].v2){
+   				vv=src[0].v2
+   			}else if(src[0].v3){
+   				vv=src[0].v3
+   			}else if(src[0].v4){
+   				vv=src[0].v4
+   			}
+   		}
+   		tdplayer.videosrcarr=[vv.m3u8]
+   		//创建清晰度菜单
+   		tdplayer.ele.definition.querySelector('span').innerHTML=Definition(vv.v)
+   		tdplayer.ele.definition.appendChild(ele);
+   		tdplayer.ele.definition.style.display='block';
+    	tdplayer.ele.definition.ul=tdplayer.ele.definition.querySelector('ul')
+    	tdplayer.ele.definition.ul.style.display='none'
+    	tdplayer.ele.definition.addEventListener('click',function(){
+    		if(this.ul.style.display=='block'){
+    			this.ul.style.display='none'
+    		}else{
+    			this.ul.style.display='block'
+    		}
+    	})
+    }else{
+    	tdplayer.videosrcarr = tdplayer.options.video.url
+    }
+    
+    function Definition(i){
+    	if(i==1){
+    		return '超清'
+    	}else if(i==2){
+    		return '高清'
+    	}else if(i==3){
+    		return '普通'
+    	}else if(i==4){
+    		return '流畅'
+    	}
+    }
     for (var i = 0; i < tdplayer.videosrcarr.length; i++) {
         var video = document.createElement("video")
-        video.src = tdplayer.videosrcarr[i]
+         if (tdplayer.options.video.type == "hls") {
+         	console.log('这是hls视频 启动加载');
+         	var hls = new Hls();
+			hls.loadSource(tdplayer.videosrcarr[i]);
+			hls.attachMedia(video);
+			hls.on(Hls.Events.MANIFEST_PARSED,function() {
+		     	console.log('可以开始加载');
+		     	if(tdplayer.options.video.autoplay){
+		     		tdplayer.ele.video_control_play.onclick();
+//		     		if(tdplayer.options.autoplay==2){
+//		     			tdplayer.ele.full.click();
+//		     		}
+		     	}
+		  	});
+        }else{
+        	video.src = tdplayer.videosrcarr[i]
+        }
         video.className = "tp-video"
         if (i != 0) {
             video.style.display = "none"
@@ -289,19 +424,13 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             tdplayer.Element = video
         }
         tdplayer.ele.tdplayer.appendChild(video)
-        if (videotype == "flv") {
-	        try {           
-	                var flvPlayer = flvjs.createPlayer({
-	                    type:"flv",
-	                    url:tdplayer.videosrcarr[i]
-	                })
-	                flvPlayer.attachMediaElement(video)
-	                flvPlayer.load()
-	        } catch (e) {
-	            console.log("flv.js没有加载")
-	        }
-	    } 
     }
+    
+    tdplayer.Element.addEventListener("canplaythrough", function()
+		{
+			console.log('加载完成 可以进行播放');
+		}
+	);
     tdplayer.videoelearr = tdplayer.ele.tdplayer.getElementsByTagName("video")
     tdplayer.videotimearr = []
     for (var i = 0; i < tdplayer.videoelearr.length; i++) {
@@ -325,13 +454,16 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             }
         }
     }
-    tdplayer.Element.poster = tdplayer.vposter
+    //封面
+    if(tdplayer.options.video.pic){
+    	tdplayer.Element.poster=tdplayer.options.video.pic
+    }
     tdplayer.danmuelement = tdplayer.ele.danmu_warp
     tdplayer.sjc = 0
     tdplayer.dsq = 0
     tdplayer.leftarr = {t:[],v:[],out:[],w:[]}
     tdplayer.toparr = []
-    tdplayer.dmheight = 31
+    tdplayer.dmheight = 37
     tdplayer.dmplace = 1
    	if (/android/i.test(navigator.userAgent) || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
         tdplayer.phone = true
@@ -342,18 +474,19 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth
     tdplayer.height =tdplayer.ele.tdplayer_main.offsetHeight
     //样式
-    tdplayer.send = function(text, color, wz, me,user) {
+    tdplayer.send = function(text, color, wz, me,user,size) {
         tdplayer.width = tdplayer.ele.tdplayer_main.offsetWidth
         tdplayer.height = tdplayer.ele.tdplayer_main.offsetHeight
         var dm = document.createElement("div")
-        dm.appendChild(document.createTextNode(text))
         dm.user=user
-        dm.style.color = color
+	    dm.style.color = color
+	    dm.style.fontSize=size+'px'
         if (me) {
             dm.style.border = "1px solid #fff"
         }
         if (wz == 1) {
             //left 弹幕
+            dm.appendChild(document.createTextNode(text))
             dm.className = "danmu tp-left"
             if(tdplayer.config.danmusize){
                dm.style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)" 
@@ -373,6 +506,8 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             dm.addEventListener("animationend", tdplayer.dmend)
         } else if (wz == 2) {
             //顶部弹幕
+            dm.appendChild(document.createTextNode(text))
+	        
             dm.className = "danmu tp-top"
             var dtop = tdplayer.gettoptop()
             dm.style.top = dtop * tdplayer.dmheight + "px"
@@ -381,6 +516,40 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             setTimeout(function() {
                 tdplayer.danmuhide(e, dtop)
             }, 5e3)
+        }else if(wz==7){
+        	console.log('高级弹幕');
+        	let tj=JSON.parse(text);
+        	console.log(tj)
+        	//高级弹幕 test 
+        	//{"e":0.52,"w":{"b":false,"l":[[1,16777215,1,2.7,2.7,5,3,false,false],[2,0,0,16777215,0.5,32,32,2,2,false,false,false]],"f":"黑体"},"l":5.551115123125783e-17,"f":0.52,"z":[{"t":0,"g":0.8,"l":0.2,"y":930,"f":0.8},{"t":1,"g":0.52,"l":0.2,"y":940,"f":0.52},{"l":1.3099999999999998},{"c":16776960,"x":-2,"t":0,"l":0.3,"v":2}],"t":0,"a":0,"n":"但是那样不行哦","ver":2,"b":false,"c":3,"p":{"x":35,"y":950},"ovph":false}
+        	 dm.className = "danmu danmu-ad";
+        	 if(tj.w){
+        	 	dm.style.fontFamily=tj.w.f;
+        	 }
+        	 if(tj.n){
+        	 	dm.appendChild(document.createTextNode(tj.n))
+        	 }
+        	 if(tj.p){
+        	 	dm.style.right=(1000-tj.p.x)/10+'%';
+        	 	dm.style.bottom=(1000-tj.p.y)/10+'%';
+        	 }
+        	 if(tj.a){
+        	 	dm.style.opacity=tj.a;
+        	 }
+        	 var e = tdplayer.ele.danmu_warp.appendChild(dm);
+        	 
+        	 if(!tj.l||tj.l.toFixed(2)==0){
+        	 	//时间如果为0
+        	 	if(tj.z){
+        	 		
+        	 	}
+        	 	tj.l=2;
+        	 	console.log('22222222')
+        	 }
+        	
+        	 setTimeout(function(){
+        	 	 tdplayer.danmuhide(e)
+        	 },tj.l*1000)
         }
     }
     tdplayer.dmend = function() {
@@ -393,7 +562,9 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             }, tdplayer.width * 10 + 1e3)
         } else {
             e.remove()
-            tdplayer.toparr[topid] = 0
+            if(topid!==undefined){
+            	tdplayer.toparr[topid] = 0
+            }
         }
     }
     tdplayer.getlefttop = function(v,ww) {
@@ -446,6 +617,47 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tiao(0)
         tdplayer.ele.end.style.display = "none"
     });
+    
+	//下一段提示
+	tdplayer.nextvideo=function(callback){
+		console.log('视频存在下一段')
+		let e=document.createElement('div')
+		e.className='tp-msg'
+		
+		let text=document.createElement('span')
+		text.i=5;
+		text.innerHTML=text.i+'秒后将播放下一段'
+		
+		let btn=document.createElement('span')
+		btn.innerHTML='×'
+		btn.className='tp-msg-close'
+		btn.addEventListener('click',function(){
+			btn.parentNode.parentNode.removeChild(btn.parentNode)
+			if(time){clearInterval(time)}
+		})
+		e.appendChild(btn)
+		e.appendChild(text)
+		tdplayer.ele.tdplayer_main.appendChild(e)
+		let time=setInterval(function(){
+			if(text.i>0){
+				text.i--
+				text.innerHTML=text.i+'秒后将播放下一段'
+			}else{
+				clearInterval(time)
+				console.log('播放下一段')
+				let t=tdplayer.options.Element.childNodes
+				for (var i = 0; i < t.length; i++) {
+					tdplayer.options.Element.removeChild(t[i])
+				}
+				if (typeof callback === "function"){
+		            callback()
+		        }else{
+		        	console.log('eero')
+		        	console.log(callback)
+		        }
+			}
+		},1000)
+	}
     //播放完成
     for (var i=0;i<tdplayer.videoelearr.length;i++) {
 		(function(arg){
@@ -483,6 +695,45 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
                         for (var i = arr.length - 1; i >= 0; i--) {
                             arr[i].remove()
                         }
+                        if(tdplayer.options.ab){
+                        	let nowi;
+                        	let t=document.querySelectorAll('#area-part-view .l a');
+                        	for (var i = 0; i < t.length; i++) {
+                        		if(hasClass(t[i],'active')){
+                        			nowi=i;
+                        			continue;
+                        		}
+                        	}
+                        	if(t[nowi+1]){
+								tdplayer.nextvideo(function(){
+									t[nowi].className='btn'
+									t[nowi+1].className='btn active primary'
+								    tdvidplay(document.querySelector('.ui-draggable'),t[nowi+1].getAttribute("data-vid"),null,true)			
+								 })
+                        	}
+
+                        }else{
+                        	try{
+	                        	let t=$c('.part-wrap>.scroll-div>a');
+	                        	let nowi;
+	                        	for (var i = 0; i <t.length; i++) {
+	                        		if(hasClass(t[i],'active')){
+	                        			nowi=i;
+	                        			continue;
+	                        		}
+	                        	}
+	                    		if(pageInfo.videoList[nowi+1]){
+	                    			tdplayer.nextvideo(function(){
+	                    			let info=document.querySelector('#pageInfo');
+	                    			let e=$c('.scroll-div .active')[0];
+	                    			addClass($c('.scroll-div .active+a')[0],'active');
+	                    			removeClass(e,'active')
+	                    			tdvidplay(document.querySelector('#player'),pageInfo.videoList[nowi+1].id,info.getAttribute("data-pic"),true)
+	                    			})
+	                    		}
+                        	}catch(e){console.log(e)}
+                        }
+                        
                     }
 				 }
 			}
@@ -504,17 +755,20 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         if (tdplayer.nowdata) {
             let cache=JSON.parse(tdplayer.data).danmu;
             let b=0;
-            for (var i = cache.length - 1; i >= 0; i--) {
-                for (var a = cache.length - 1; a >= 0; a--) {
-                    if (a==i) {break}
-                    if (cache[i]&&cache[a]) {
-                        if (cache[i].text==cache[a].text) {
-                            delete cache[a];
-                            b++
-                        }
-                    }
-                }
+            if(cache){
+            	 for (var i = cache.length - 1; i >= 0; i--) {
+	                for (var a = cache.length - 1; a >= 0; a--) {
+	                    if (a==i) {break}
+	                    if (cache[i]&&cache[a]) {
+	                        if (cache[i].text==cache[a].text) {
+	                            delete cache[a];
+	                            b++
+	                        }
+	                    }
+	                }
+            	}
             }
+           
             tdplayer.removaldata=cache
             tdplayer.nowdata=tdplayer.removaldata
             console.log(`弹幕去重  去除${b}个重复弹幕`)
@@ -598,6 +852,10 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             shielddanmu()   
         }
     }
+    tdplayer.ele.setr8.onchange=function(){
+    	const t=this.selectedIndex+1
+    	tdplayer.config.definition=t
+    }
     tdplayer.ele.setr7.value=tdplayer.config.pbs
     if (tdplayer.config.qc) {
         tdplayer.ele.setr5.click()
@@ -617,6 +875,11 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     if (tdplayer.config.dmshadow==0) {
         tdplayer.ele.setr4.checked=true
     }
+    if(tdplayer.config.definition){
+    	tdplayer.ele.setr8.value=Definition(tdplayer.config.definition)
+    }
+    
+
     //弹幕速度
     function dmspeend(v) {
     	console.log('弹幕速度调整为'+v);
@@ -624,19 +887,25 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         changerconfig();
     }
     function changerconfig(){
+    	//默认清晰度
+    	tdplayer.config.definition=tdplayer.config.definition||1
         tdplayer.config.v=tdplayer.config.v||tdplayer.width / 100
         tdplayer.config.danmusize=tdplayer.config.danmusize||1
         tdplayer.config.danmuo=tdplayer.config.danmuo||1
-        tdplayer.config.dmweight=tdplayer.config.dmweight||400
+        tdplayer.config.dmweight=tdplayer.config.dmweight||600
         tdplayer.config.sound=tdplayer.config.sound||80
         tdplayer.config.pbs=tdplayer.config.pbs||'笑容我来守护,隔壁难民'
         1!=tdplayer.config.qc&&(tdplayer.config.qc=!1);
         1!=tdplayer.config.pb&&(tdplayer.config.pb=!1);
-        0!=tdplayer.config.dmshadow&&(tdplayer.config.dmshadow=2);
+        0!=tdplayer.config.dmshadow&&(tdplayer.config.dmshadow=3);
+        let shadow='';
+        if(tdplayer.config.dmshadow){
+        	shadow=`text-shadow: rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;`
+        }
         tdplayer.ele.css.innerText = `
         .tp-left {animation: dmleft  ${tdplayer.config.v}s linear;-webkit-animation: dmleft ${tdplayer.config.v}s linear;}
         .danmu-warp{font-weight:${tdplayer.config.dmweight};transform:scale(${tdplayer.config.danmusize});-webkit-transform:scale(${tdplayer.config.danmusize});-moz-transform:scale(${tdplayer.config.danmusize});width:${100/tdplayer.config.danmusize}%;height:${100/tdplayer.config.danmusize}%;opacity:${tdplayer.config.danmuo}}
-        .tp-video-main>.danmu-warp>.danmu{text-shadow: #000 0 ${tdplayer.config.dmshadow}px 0;}`;
+        .tp-video-main>.danmu-warp>.danmu{${shadow}}`;
         var earr= $c('.tp-left');
         for (var i = 0; i < earr.length; i++) {
             earr[i].style.transform = "translateX(-" + tdplayer.width/tdplayer.config.danmusize + "px)";
@@ -816,9 +1085,9 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         videotime += tdplayer.videoelearr[tdplayer.nowduan].currentTime;
         return videotime;
     }
-    //定时器
-    function danmutime() {
-        var videotime = getnowtime();
+    //行走器
+    tdplayer.Element.addEventListener('timeupdate',function(){
+    	var videotime = getnowtime();
         var smalltime = tdplayer.Element.currentTime;
         tdplayer.ele.tranger_a.style.width = videotime / tdplayer.alltime * 100 + "%";
         var buff = tdplayer.Element.buffered;
@@ -827,22 +1096,24 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         for (var i = 0; i <= oldduan; i++) {
             oldtime += tdplayer.videotimearr[i];
         }
-        try {
-            time2 = oldtime + buff.end(buff.length - 1);
-        } catch (e) {
-            console.log(e);
+        if(buff.length){
+        	time2 = oldtime + buff.end(buff.length - 1);
         }
         var width = time2 / tdplayer.alltime * 100 + "%";
         if (tdplayer.ele.tranger_c.style.width != width) {
             tdplayer.ele.tranger_c.style.width = width;
         }
+    },false)
+    //定时器
+    function danmutime() {
+    	var videotime = getnowtime();
         if (tdplayer.nowdata) {
             var inttime = parseInt(videotime * 10);
             for (var i = 0; i < tdplayer.nowdata.length; i++) {
                 if (tdplayer.nowdata[i]) {
                     //console.log('nowtime:'+inttime);
                     if (tdplayer.nowdata[i].time == inttime) {
-                        tdplayer.send(unescape(tdplayer.nowdata[i].text), tdplayer.nowdata[i].color, tdplayer.nowdata[i].place,false,tdplayer.nowdata[i].user);
+                        tdplayer.send(unescape(tdplayer.nowdata[i].text), tdplayer.nowdata[i].color, tdplayer.nowdata[i].place,false,tdplayer.nowdata[i].user,tdplayer.nowdata[i].size);
                         delete tdplayer.nowdata[i];
                     }
                 }
@@ -1257,6 +1528,8 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
         tp_menu(ev)
         return false
     }
+    
+    //菜单
     function tp_menu(ev) {
         var container = tdplayer.ele.tdplayer;
         var rightmenu = tdplayer.ele.tp_rightmenu;
@@ -1315,8 +1588,14 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
             this.innerText = "◀滚动弹幕";
         }
     });
+ 
     function chadown() {
-	    var w = $c(".crumb")[0];
+    	if($c('.vdown').length){
+    		for (var i = 0; i < $c('.vdown').length; i++) {
+    			$c('.vdown')[i].remove()
+    		}
+    	}
+	    let w = $c(".crumb")[0];
 	    if(w){
 	    	var span = document.createElement("span");
 		    span.className = "vdown fl";
@@ -1343,6 +1622,7 @@ window.tdplayer=(Element,src,data,poster,videotype)=> {
     if(thisurl.indexOf("acfun.cn") < 0||thisurl.indexOf("acfun.tv") < 0||thisurl.indexOf("aixifan.com") < 0){
     	chadown();
     	editor32();
+    	tdplayer.ac=true;
     }
     
 	function editor32(){
