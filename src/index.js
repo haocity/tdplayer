@@ -87,7 +87,7 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
                     }
                }
 			}
-			if(a.definition){
+			if(a){
 	  			if(a.definition==1&&v1){
 	  				vv=v1
 	  			}else if(a.definition==2&&v2){
