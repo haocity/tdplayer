@@ -71,6 +71,7 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 	  		//mp4规则
 	  		//偷工减料  只允许切换清晰度后刷新
 	  		let a=JSON.parse(localStorage.getItem('tdconfig'));
+			if(!a){a={definition:1}}
 			let v1,v2,v3,v4,vv;
 			for (var i = 0; i < json.stream.length; i++) {
 				if(json.stream[i].stream_type=='mp4hd3'){
