@@ -30,15 +30,17 @@ window.$c=function(e){
 }
 
 window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
-	let acflash=document.querySelector('section.player #player object')||document.querySelector('section.player #player #ACFlashPlayer')
-	if (acflash) {
-		acflash.style.display='none';
-	}
 	console.log('vid:'+vid);
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
 	let videosrcarr=[],danmudata,f1,f2;
 	let e = document.createElement("div");
+	let acflash=document.querySelector('section.player #player object')||document.querySelector('section.player #player #ACFlashPlayer')
+	if (acflash) {
+		acflash.style.display='none';
+		e.style.height=acflash.style.height;
+		e.style.backgroundColor="#000000"
+	}
 	e.className = "tp-loding";
     if(!coverimage){
         try{
