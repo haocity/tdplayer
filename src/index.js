@@ -22,10 +22,7 @@ let removeClass=(elements, cName)=> {
         elements.className = elements.className.replace(new RegExp("(\\s|^)" + cName + "(\\s|$)"), " ");
     }
 }
-window.$d=function(e){
-    return document.getElementById(e);
-}
-window.$c=function(e){
+let $c=function(e){
 	return document.querySelectorAll(e);
 }
 
@@ -133,9 +130,6 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 	}
 }
 window.tdyoukuplay=(ele, acid)=>{
-	function $d(e){
-    return ele.getElementById(e);
-	}
 	function $c(e){
 	    return ele.querySelectorAll(e);
 	}
@@ -1600,8 +1594,8 @@ window.Tdplayer=(options)=> {
     }
     
 	function editor32(){
-    	if($d('editor')){
-		$d('editor').addEventListener('keydown',function(event){
+    	if($c('#editor')[0]){
+		$c('#editor')[0].addEventListener('keydown',function(event){
 			  var e = event || window.event || arguments.callee.caller.arguments[0];
 			  if (e.keyCode == 32) {
 	            e.stopPropagation();
