@@ -16671,6 +16671,8 @@ window.tdyoukuplay = function (ele, acid) {
 
 var Tdplayer = function () {
     function Tdplayer(options) {
+        var _this2 = this;
+
         _classCallCheck(this, Tdplayer);
 
         this.options = options;
@@ -16905,8 +16907,8 @@ var Tdplayer = function () {
                 var outt = dm.offsetWidth / v;
                 var dtop = this.getlefttop(v, dm.offsetWidth);
                 setTimeout(function () {
-                    this.leftarr.out[dtop] = false;
-                }.bind(this), outt * 1000);
+                    _this.leftarr.out[dtop] = false;
+                }, outt * 1000);
                 dm.style.top = dtop * this.dmheight + "px";
                 dm.addEventListener("webkitAnimationEnd", function () {
                     _this.dmend(dm);
@@ -16924,7 +16926,7 @@ var Tdplayer = function () {
                 this.toparr[_dtop] = 1;
                 var e = this.ele.danmu_warp.appendChild(dm);
                 setTimeout(function () {
-                    this.danmuhide(e, _dtop);
+                    _this.danmuhide(e, _dtop);
                 }, 5e3);
             } else if (wz == 7) {
                 console.log('高级弹幕');
@@ -16956,7 +16958,7 @@ var Tdplayer = function () {
                 }
 
                 setTimeout(function () {
-                    this.danmuhide(_e);
+                    _this.danmuhide(_e);
                 }, tj.l * 1000);
             }
         };
@@ -16968,52 +16970,53 @@ var Tdplayer = function () {
         });
 
         //播放完成
-        for (var _i5 = 0; _i5 < this.videoelearr.length; _i5++) {
-            this.videoelearr[_i5].onended = function () {
-                if (this.videoelearr[arg + 1]) {
-                    this.nowduan = arg + 1;
-                    var oldele = this.videoelearr[arg];
-                    var nowele = this.videoelearr[arg + 1];
-                    for (var _i6 = 0; _i6 < this.videoelearr.length; _i6++) {
-                        if (_i6 != this.nowduan) {
-                            var _ele = this.videoelearr[_i6];
+
+        var _loop = function _loop(arg) {
+            _this2.videoelearr[arg].onended = function () {
+                if (_this.videoelearr[arg + 1]) {
+                    _this.nowduan = arg + 1;
+                    var oldele = _this.videoelearr[arg];
+                    var nowele = _this.videoelearr[arg + 1];
+                    for (var _i15 = 0; _i15 < _this.videoelearr.length; _i15++) {
+                        if (_i15 != _this.nowduan) {
+                            var _ele = _this.videoelearr[_i15];
                             if (_ele.style.display != "none") {
                                 _ele.style.display = "none";
                             }
                             _ele.currentTime = 0;
                             _ele.pause();
                         } else {
-                            var _ele2 = this.videoelearr[_i6];
-                            this.Element = _ele2;
+                            var _ele2 = _this.videoelearr[_i15];
+                            _this.Element = _ele2;
                             _ele2.style.display = "block";
                             _ele2.currentTime = 0;
                             _ele2.play();
                         }
                     }
-                    this.changersound();
+                    _this.changersound();
                 } else {
                     console.log("播放完毕" + arg);
-                    if (this.vloop) {
-                        _this.tiao(0);
+                    if (_this.vloop) {
+                        __this.tiao(0);
                     } else {
-                        this.ele.end.style.display = 'block';
-                        this.leftarr = { t: [], v: [], out: [], w: [] };
-                        this.toparr = [];
+                        _this.ele.end.style.display = 'block';
+                        _this.leftarr = { t: [], v: [], out: [], w: [] };
+                        _this.toparr = [];
                         var arr = $c('.danmu');
-                        for (var _i7 = arr.length - 1; _i7 >= 0; _i7--) {
-                            arr[_i7].remove();
+                        for (var _i16 = arr.length - 1; _i16 >= 0; _i16--) {
+                            arr[_i16].remove();
                         }
-                        if (this.options.ab) {
+                        if (_this.options.ab) {
                             var nowi = void 0;
                             var _t2 = document.querySelectorAll('#area-part-view .l a');
-                            for (var _i8 = 0; _i8 < _t2.length; _i8++) {
-                                if (hasClass(_t2[_i8], 'active')) {
-                                    nowi = _i8;
+                            for (var _i17 = 0; _i17 < _t2.length; _i17++) {
+                                if (hasClass(_t2[_i17], 'active')) {
+                                    nowi = _i17;
                                     continue;
                                 }
                             }
                             if (_t2[nowi + 1]) {
-                                this.nextvideo(function () {
+                                _this.nextvideo(function () {
                                     _t2[nowi].className = 'btn';
                                     _t2[nowi + 1].className = 'btn active primary';
                                     tdvidplay(document.querySelector('.ui-draggable'), _t2[nowi + 1].getAttribute("data-vid"), null, true);
@@ -17023,14 +17026,14 @@ var Tdplayer = function () {
                             try {
                                 var _t3 = $c('.part-wrap>.scroll-div>a');
                                 var _nowi = void 0;
-                                for (var _i9 = 0; _i9 < _t3.length; _i9++) {
-                                    if (hasClass(_t3[_i9], 'active')) {
-                                        _nowi = _i9;
+                                for (var _i18 = 0; _i18 < _t3.length; _i18++) {
+                                    if (hasClass(_t3[_i18], 'active')) {
+                                        _nowi = _i18;
                                         continue;
                                     }
                                 }
                                 if (pageInfo.videoList[_nowi + 1]) {
-                                    this.nextvideo(function () {
+                                    _this.nextvideo(function () {
                                         var info = document.querySelector('#pageInfo');
                                         var e = $c('.scroll-div .active')[0];
                                         addClass($c('.scroll-div .active+a')[0], 'active');
@@ -17045,6 +17048,10 @@ var Tdplayer = function () {
                     }
                 }
             };
+        };
+
+        for (var arg = 0; arg < this.videoelearr.length; arg++) {
+            _loop(arg);
         }
 
         //弹幕开关
@@ -17175,8 +17182,8 @@ var Tdplayer = function () {
             this.style.display = "none";
             _this.ele.video_control_paused.style.display = "inline-block";
             _this.Element.play();
-            for (var _i10 = e.length - 1; _i10 >= 0; _i10--) {
-                removeClass(e[_i10], "tp-suspend");
+            for (var _i5 = e.length - 1; _i5 >= 0; _i5--) {
+                removeClass(e[_i5], "tp-suspend");
             }
         };
         this.ele.tp_oneplay.addEventListener("animationend", function () {
@@ -17195,8 +17202,8 @@ var Tdplayer = function () {
             this.style.display = "none";
             _this.ele.video_control_play.style.display = "inline-block";
             _this.Element.pause();
-            for (var _i11 = e.length - 1; _i11 >= 0; _i11--) {
-                addClass(e[_i11], "tp-suspend");
+            for (var _i6 = e.length - 1; _i6 >= 0; _i6--) {
+                addClass(e[_i6], "tp-suspend");
             }
             _this.ele.tp_spinner.style.display = "none";
         };
@@ -17258,14 +17265,14 @@ var Tdplayer = function () {
         this.Element.addEventListener('timeupdate', function () {
             var videotime = _this.getnowtime();
             var smalltime = _this.Element.currentTime;
-            _this.ele.tranger_a.style.width = videotime / this.alltime * 100 + "%";
+            _this.ele.tranger_a.style.width = videotime / _this.alltime * 100 + "%";
             var buff = _this.Element.buffered;
             //判断缓存段
             var oldduan = _this.nowduan - 1,
                 oldtime = 0,
                 time2 = 0;
-            for (var _i12 = 0; _i12 <= oldduan; _i12++) {
-                oldtime += _this.videotimearr[_i12];
+            for (var _i7 = 0; _i7 <= oldduan; _i7++) {
+                oldtime += _this.videotimearr[_i7];
             }
             if (buff.length) {
                 time2 = oldtime + buff.end(buff.length - 1);
@@ -17304,11 +17311,11 @@ var Tdplayer = function () {
             _this.tiao(xbl.xbl * _this.alltime);
         };
 
-        for (var _i13 = 0; _i13 < this.videoelearr.length; _i13++) {
-            this.videoelearr[_i13].addEventListener("waiting", function () {
+        for (var _i8 = 0; _i8 < this.videoelearr.length; _i8++) {
+            this.videoelearr[_i8].addEventListener("waiting", function () {
                 _this.videohc();
             });
-            this.videoelearr[_i13].addEventListener("playing", function () {
+            this.videoelearr[_i8].addEventListener("playing", function () {
                 _this.tdplay();
             });
         }
@@ -17379,9 +17386,9 @@ var Tdplayer = function () {
                 _this.width = _this.ele.tdplayer_main.offsetWidth;
                 var e = _this.ele.danmu_warp.getElementsByTagName("div");
                 _this.dmspeend(_this.width / 100);
-                for (var _i14 = 0; _i14 < e.length; _i14++) {
-                    if (hasClass(e[_i14], "tp-left")) {
-                        e[_i14].style.transform = "translateX(-" + _this.width + "px)";
+                for (var _i9 = 0; _i9 < e.length; _i9++) {
+                    if (hasClass(e[_i9], "tp-left")) {
+                        e[_i9].style.transform = "translateX(-" + _this.width + "px)";
                     }
                 }
             }, 1e3);
@@ -17429,20 +17436,20 @@ var Tdplayer = function () {
             }
         });
         var videospeendele = this.ele.tp_speend.childNodes;
-        for (var _i15 = 0; _i15 < videospeendele.length; _i15++) {
-            var e = videospeendele[_i15];
-            var s = parseFloat(videospeendele[_i15].innerText).toFixed(2);
+        for (var _i10 = 0; _i10 < videospeendele.length; _i10++) {
+            var e = videospeendele[_i10];
+            var s = parseFloat(videospeendele[_i10].innerText).toFixed(2);
             if (s != "NaN") {
                 e.onclick = function () {
                     var t = parseFloat(this.innerText).toFixed(2);
-                    for (var _i16 = 0; _i16 < this.videoelearr.length; _i16++) {
-                        _this.videoelearr[_i16].playbackRate = t;
+                    for (var _i11 = 0; _i11 < _this.videoelearr.length; _i11++) {
+                        _this.videoelearr[_i11].playbackRate = t;
                     }
                 };
             } else {
                 e.onclick = function () {
-                    for (var _i17 = 0; _i17 < this.videoelearr.length; _i17++) {
-                        _this.videoelearr[_i17].playbackRate = 1;
+                    for (var _i12 = 0; _i12 < _this.videoelearr.length; _i12++) {
+                        _this.videoelearr[_i12].playbackRate = 1;
                     }
                 };
             }
@@ -17450,25 +17457,25 @@ var Tdplayer = function () {
         //视频比例设置
         this.ele.video_ratio.ratio = 1;
         this.ele.video_ratio.addEventListener('click', function () {
-            if (_this.ratio == 1) {
-                _this.ratio = 2;
+            if (this.ratio == 1) {
+                this.ratio = 2;
                 _this.ele.tdplayer.style.transform = 'scale(1,0.892)';
                 _this.ele.tdplayer.style.webkitTransform = 'scale(1,0.892)';
-                _this.innerText = '\u89C6\u9891\u6BD4\u4F8B 4:3';
-            } else if (_this.ratio == 2) {
-                _this.ratio = 3;
+                this.innerText = '\u89C6\u9891\u6BD4\u4F8B 4:3';
+            } else if (this.ratio == 2) {
+                this.ratio = 3;
                 _this.ele.tdplayer.style.transform = 'scale(0.841,1)';
                 _this.ele.tdplayer.style.webkitTransform = 'scale(0.841,1)';
-                _this.innerText = '\u89C6\u9891\u6BD4\u4F8B 16:9';
-            } else if (_this.ratio == 3) {
-                _this.ratio = 4;
-                _this.innerText = '\u89C6\u9891\u6BD4\u4F8B \u5168\u5C4F';
+                this.innerText = '\u89C6\u9891\u6BD4\u4F8B 16:9';
+            } else if (this.ratio == 3) {
+                this.ratio = 4;
+                this.innerText = '\u89C6\u9891\u6BD4\u4F8B \u5168\u5C4F';
                 _this.ele.tdplayer.style.transform = 'none';
                 _this.ele.tdplayer.style.webkitTransform = 'none';
-                for (var _i18 = 0; _i18 < this.videoelearr.length; _i18++) {
-                    _this.videoelearr[_i18].style.height = 'auto';
-                    _this.videoelearr[_i18].style.width = 'auto';
-                    _this.videoelearr[_i18].className = "";
+                for (var _i13 = 0; _i13 < _this.videoelearr.length; _i13++) {
+                    _this.videoelearr[_i13].style.height = 'auto';
+                    _this.videoelearr[_i13].style.width = 'auto';
+                    _this.videoelearr[_i13].className = "";
                 }
                 setTimeout(function () {
                     var w1 = _this.ele.tdplayer.offsetWidth;
@@ -17481,16 +17488,16 @@ var Tdplayer = function () {
                     _this.ele.tdplayer.style.webkitTransformOrigin = 'left top';
                 }, 0);
             } else {
-                for (var _i19 = 0; _i19 < this.videoelearr.length; _i19++) {
-                    this.videoelearr[_i19].style.height = '100%';
-                    this.videoelearr[_i19].style.width = '100%';
-                    this.videoelearr[_i19].className = ".tp-video";
-                    this.ele.tdplayer.style.webkitTransformOrigin = 'center';
+                for (var _i14 = 0; _i14 < _this.videoelearr.length; _i14++) {
+                    _this.videoelearr[_i14].style.height = '100%';
+                    _this.videoelearr[_i14].style.width = '100%';
+                    _this.videoelearr[_i14].className = ".tp-video";
+                    _this.ele.tdplayer.style.webkitTransformOrigin = 'center';
                 }
                 this.ratio = 1;
                 this.innerText = '\u89C6\u9891\u6BD4\u4F8B \u9ED8\u8BA4';
-                this.ele.tdplayer.style.transform = 'none';
-                this.ele.tdplayer.style.webkitTransform = 'none';
+                _this.ele.tdplayer.style.transform = 'none';
+                _this.ele.tdplayer.style.webkitTransform = 'none';
             }
         });
 
@@ -17597,8 +17604,8 @@ var Tdplayer = function () {
             }
             this.ele.css.innerText = '\n        .tp-left {animation: dmleft  ' + this.config.v + 's linear;-webkit-animation: dmleft ' + this.config.v + 's linear;}\n        .danmu-warp{font-weight:' + this.config.dmweight + ';transform:scale(' + this.config.danmusize + ');-webkit-transform:scale(' + this.config.danmusize + ');-moz-transform:scale(' + this.config.danmusize + ');width:' + 100 / this.config.danmusize + '%;height:' + 100 / this.config.danmusize + '%;opacity:' + this.config.danmuo + '}\n        .tp-video-main>.danmu-warp>.danmu{' + shadow + '}';
             var earr = $c('.tp-left');
-            for (var _i20 = 0; _i20 < earr.length; _i20++) {
-                earr[_i20].style.transform = "translateX(-" + this.width / this.config.danmusize + "px)";
+            for (var _i19 = 0; _i19 < earr.length; _i19++) {
+                earr[_i19].style.transform = "translateX(-" + this.width / this.config.danmusize + "px)";
             }
             localStorage.setItem('tdconfig', JSON.stringify(this.config));
         }
@@ -17635,8 +17642,8 @@ var Tdplayer = function () {
                     clearInterval(time);
                     console.log('播放下一段');
                     var t = this.options.Element.childNodes;
-                    for (var _i21 = 0; _i21 < t.length; _i21++) {
-                        this.options.Element.removeChild(t[_i21]);
+                    for (var _i20 = 0; _i20 < t.length; _i20++) {
+                        this.options.Element.removeChild(t[_i20]);
                     }
                     if (typeof callback === "function") {
                         callback();
@@ -17651,8 +17658,8 @@ var Tdplayer = function () {
         key: 'chadown',
         value: function chadown() {
             if ($c('.vdown').length) {
-                for (var _i22 = 0; _i22 < $c('.vdown').length; _i22++) {
-                    $c('.vdown')[_i22].remove();
+                for (var _i21 = 0; _i21 < $c('.vdown').length; _i21++) {
+                    $c('.vdown')[_i21].remove();
                 }
             }
             var w = $c(".crumb")[0];
@@ -17665,11 +17672,11 @@ var Tdplayer = function () {
                 d.id = "vdown";
                 d.style.display = "none";
                 if (this.videosrcarr) {
-                    for (var _i23 = 0; _i23 < this.videosrcarr.length; _i23++) {
+                    for (var _i22 = 0; _i22 < this.videosrcarr.length; _i22++) {
                         var div = document.createElement("div");
                         div.className = "down-btn";
-                        var t = _i23 + 1;
-                        div.innerHTML = '<a href="' + this.videosrcarr[_i23] + '" download="[' + t + "]" + document.querySelector('#pageInfo').getAttribute("data-title") + '.mp4">下载' + t + "段</a>";
+                        var t = _i22 + 1;
+                        div.innerHTML = '<a href="' + this.videosrcarr[_i22] + '" download="[' + t + "]" + document.querySelector('#pageInfo').getAttribute("data-title") + '.mp4">下载' + t + "段</a>";
                         d.appendChild(div);
                     }
                     span.appendChild(d);
@@ -17704,8 +17711,8 @@ var Tdplayer = function () {
         key: 'getnowtime',
         value: function getnowtime() {
             var videotime = 0;
-            for (var _i24 = 0; _i24 <= this.nowduan - 1; _i24++) {
-                videotime += this.videotimearr[_i24];
+            for (var _i23 = 0; _i23 <= this.nowduan - 1; _i23++) {
+                videotime += this.videotimearr[_i23];
             }
             //      console.log(videotime)
             //      console.log(this.nowduan)
@@ -17725,8 +17732,8 @@ var Tdplayer = function () {
                 this.videotimearr[i] = time;
                 if (this.videotimearr[0] && this.videotimearr[this.videotimearr.length - 1]) {
                     this.alltime = 0;
-                    for (var _i25 = 0; _i25 < this.videotimearr.length; _i25++) {
-                        this.alltime += this.videotimearr[_i25];
+                    for (var _i24 = 0; _i24 < this.videotimearr.length; _i24++) {
+                        this.alltime += this.videotimearr[_i24];
                     }
                     this.ele.alltime.innerHTML = this.getvideotime(this.alltime).m + ":" + this.getvideotime(this.alltime).s;
                     this.ele.alltime_phone.innerHTML = '&nbsp;/&nbsp;' + this.ele.alltime.innerHTML;
@@ -17740,9 +17747,9 @@ var Tdplayer = function () {
                 this.width = this.ele.tdplayer.offsetWidth;
                 this.dmspeend(this.width / 100);
                 var e = this.ele.danmu_warp.getElementsByTagName("div");
-                for (var _i26 = e.length - 1; _i26 >= 0; _i26--) {
-                    if (hasClass(e[_i26], "tp-left")) {
-                        e[_i26].style.transform = "translateX(-" + this.width + "px)";
+                for (var _i25 = e.length - 1; _i25 >= 0; _i25--) {
+                    if (hasClass(e[_i25], "tp-left")) {
+                        e[_i25].style.transform = "translateX(-" + this.width + "px)";
                     }
                 }
                 this.ele.video_ratio.ratio = 4;
@@ -17796,13 +17803,13 @@ var Tdplayer = function () {
                 cache = _t4;
             }
 
-            for (var _i27 = cache.length - 1; _i27 >= 0; _i27--) {
-                if (cache[_i27]) {
-                    if (cache[_i27].text) {
+            for (var _i26 = cache.length - 1; _i26 >= 0; _i26--) {
+                if (cache[_i26]) {
+                    if (cache[_i26].text) {
                         for (var x = shieldarr.length - 1; x >= 0; x--) {
-                            if (cache[_i27]) {
-                                if (cache[_i27].text.indexOf(shieldarr[x]) > -1) {
-                                    delete cache[_i27];
+                            if (cache[_i26]) {
+                                if (cache[_i26].text.indexOf(shieldarr[x]) > -1) {
+                                    delete cache[_i26];
                                     b++;
                                 }
                             }
@@ -17825,12 +17832,13 @@ var Tdplayer = function () {
     }, {
         key: 'danmuhide',
         value: function danmuhide(e, topid) {
+            var _this = this;
             if (this.Element.paused) {
                 setTimeout(function () {
-                    this.danmuhide(e, topid);
-                }.bind(this), this.width * 10 + 1e3);
+                    _this.danmuhide(e, topid);
+                }, this.width * 10 + 1e3);
             } else {
-                e.remove();
+                e.parentNode.removeChild(e);
                 if (topid !== undefined) {
                     this.toparr[topid] = 0;
                 }
@@ -17842,23 +17850,23 @@ var Tdplayer = function () {
             var h = void 0;
             var t = this.getnowtime();
             var allt = this.width / 100;
-            for (var _i28 = 0; _i28 <= this.leftarr.t.length; _i28++) {
-                if (!this.leftarr.out[_i28]) {
-                    if (this.leftarr.v[_i28] >= v) {
-                        h = _i28;
+            for (var _i27 = 0; _i27 <= this.leftarr.t.length; _i27++) {
+                if (!this.leftarr.out[_i27]) {
+                    if (this.leftarr.v[_i27] >= v) {
+                        h = _i27;
                         break;
                     } else {
-                        if (!this.leftarr.t[_i28]) {
+                        if (!this.leftarr.t[_i27]) {
                             break;
                         }
                         //追上的时间和距离
-                        var tt = this.width / 100 - t + this.leftarr.t[_i28];
-                        var sz = tt * (v - this.leftarr.v[_i28]);
+                        var tt = this.width / 100 - t + this.leftarr.t[_i27];
+                        var sz = tt * (v - this.leftarr.v[_i27]);
                         //间隔距离 这里-20是为了防止跟太紧
-                        var so = (t - this.leftarr.t[_i28]) * this.leftarr.v[_i28] - this.leftarr.w[_i28] - 20;
+                        var so = (t - this.leftarr.t[_i27]) * this.leftarr.v[_i27] - this.leftarr.w[_i27] - 20;
                         //console.log(`${i}弹幕会在上一弹幕尾部飞行${tt}秒 速度差${v-this.leftarr.v[i]} 会追上路程 ${sz}  判断时距离 ${so}`)
                         if (sz < so) {
-                            h = _i28;
+                            h = _i27;
                             break;
                         }
                     }
@@ -17878,10 +17886,10 @@ var Tdplayer = function () {
         key: 'gettoptop',
         value: function gettoptop() {
             var h = void 0;
-            for (var _i29 = 0; _i29 <= this.toparr.length; _i29++) {
-                if (!this.toparr[_i29]) {
+            for (var _i28 = 0; _i28 <= this.toparr.length; _i28++) {
+                if (!this.toparr[_i28]) {
                     //console.log('第'+i+'可以发射弹幕');
-                    h = _i29;
+                    h = _i28;
                     break;
                 }
             }
@@ -17902,13 +17910,13 @@ var Tdplayer = function () {
                 var cache = JSON.parse(this.data).danmu;
                 var b = 0;
                 if (cache) {
-                    for (var _i30 = cache.length - 1; _i30 >= 0; _i30--) {
+                    for (var _i29 = cache.length - 1; _i29 >= 0; _i29--) {
                         for (var a = cache.length - 1; a >= 0; a--) {
-                            if (a == _i30) {
+                            if (a == _i29) {
                                 break;
                             }
-                            if (cache[_i30] && cache[a]) {
-                                if (cache[_i30].text == cache[a].text) {
+                            if (cache[_i29] && cache[a]) {
+                                if (cache[_i29].text == cache[a].text) {
                                     delete cache[a];
                                     b++;
                                 }
@@ -17925,7 +17933,6 @@ var Tdplayer = function () {
     }, {
         key: 'changerset',
         value: function changerset() {
-            console.log(this);
             var e = this.ele;
             this.config.danmuo = parseInt(e.setr1.value) / 100;
             this.config.danmusize = parseInt(e.setr2.value) / 50;
@@ -17957,12 +17964,12 @@ var Tdplayer = function () {
             var videotime = this.getnowtime();
             if (this.nowdata) {
                 var inttime = parseInt(videotime * 10);
-                for (var _i31 = 0; _i31 < this.nowdata.length; _i31++) {
-                    if (this.nowdata[_i31]) {
+                for (var _i30 = 0; _i30 < this.nowdata.length; _i30++) {
+                    if (this.nowdata[_i30]) {
                         //console.log('nowtime:'+inttime);
-                        if (this.nowdata[_i31].time == inttime) {
-                            this.send(unescape(this.nowdata[_i31].text), this.nowdata[_i31].color, this.nowdata[_i31].place, false, this.nowdata[_i31].user, this.nowdata[_i31].size);
-                            delete this.nowdata[_i31];
+                        if (this.nowdata[_i30].time == inttime) {
+                            this.send(unescape(this.nowdata[_i30].text), this.nowdata[_i30].color, this.nowdata[_i30].place, false, this.nowdata[_i30].user, this.nowdata[_i30].size);
+                            delete this.nowdata[_i30];
                         }
                     }
                 }
@@ -17974,10 +17981,10 @@ var Tdplayer = function () {
         key: 'getduan',
         value: function getduan(time) {
             var mun = 0;
-            for (var _i32 = 0; _i32 < this.videotimearr.length; _i32++) {
-                mun += this.videotimearr[_i32];
+            for (var _i31 = 0; _i31 < this.videotimearr.length; _i31++) {
+                mun += this.videotimearr[_i31];
                 if (mun >= time) {
-                    return _i32;
+                    return _i31;
                     break;
                 }
             }
@@ -17995,8 +18002,8 @@ var Tdplayer = function () {
                 var e = this.ele.danmu_warp.getElementsByTagName("div");
                 this.ele.tp_spinner.style.display = "none";
                 this.ele.alltime.innerHTML = this.getvideotime(this.alltime).m + ":" + this.getvideotime(this.alltime).s;
-                for (var _i33 = e.length - 1; _i33 >= 0; _i33--) {
-                    removeClass(e[_i33], "tp-suspend");
+                for (var _i32 = e.length - 1; _i32 >= 0; _i32--) {
+                    removeClass(e[_i32], "tp-suspend");
                 }
             }
         }
@@ -18044,8 +18051,8 @@ var Tdplayer = function () {
             this.dsq = 0;
             this.ele.tp_spinner.style.display = "block";
             var e = this.ele.danmu_warp.getElementsByTagName("div");
-            for (var _i34 = e.length - 1; _i34 >= 0; _i34--) {
-                addClass(e[_i34], "tp-suspend");
+            for (var _i33 = e.length - 1; _i33 >= 0; _i33--) {
+                addClass(e[_i33], "tp-suspend");
             }
         }
     }, {
@@ -18078,8 +18085,8 @@ var Tdplayer = function () {
         key: 'changersound',
         value: function changersound() {
             var s = parseInt(this.ele.tp_s.style.width) * .01;
-            for (var _i35 = 0; _i35 < this.videoelearr.length; _i35++) {
-                this.videoelearr[_i35].volume = s;
+            for (var _i34 = 0; _i34 < this.videoelearr.length; _i34++) {
+                this.videoelearr[_i34].volume = s;
             }
             this.config.sound = s * 100;
             localStorage.setItem('tdconfig', JSON.stringify(this.config));
@@ -18145,20 +18152,20 @@ var Tdplayer = function () {
 
             var oldduan = this.getduan(time) - 1,
                 oldtime = 0;
-            for (var _i36 = 0; _i36 <= oldduan; _i36++) {
-                oldtime += this.videotimearr[_i36];
+            for (var _i35 = 0; _i35 <= oldduan; _i35++) {
+                oldtime += this.videotimearr[_i35];
             }
             var duantime = time - oldtime;
             this.nowduan = this.getduan(time);
             //video id
-            for (var _i37 = 0; _i37 < this.videoelearr.length; _i37++) {
-                if (_i37 != this.nowduan) {
-                    var ele = this.videoelearr[_i37];
+            for (var _i36 = 0; _i36 < this.videoelearr.length; _i36++) {
+                if (_i36 != this.nowduan) {
+                    var ele = this.videoelearr[_i36];
                     ele.style.display = "none";
                     ele.currentTime = 0;
                     ele.pause();
                 } else {
-                    var _ele3 = this.videoelearr[_i37];
+                    var _ele3 = this.videoelearr[_i36];
                     this.Element = _ele3;
                     if (_ele3.style.display != "block") {
                         _ele3.style.display = "block";

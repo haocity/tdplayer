@@ -449,8 +449,8 @@ class Tdplayer{
             let outt=dm.offsetWidth/v
             let dtop=this.getlefttop(v,dm.offsetWidth)
             setTimeout(function(){
-                this.leftarr.out[dtop]=false
-            }.bind(this),outt*1000)
+                _this.leftarr.out[dtop]=false
+            },outt*1000)
             dm.style.top = dtop * this.dmheight + "px"
             dm.addEventListener("webkitAnimationEnd",function(){_this.dmend(dm)})
             dm.addEventListener("animationend",function(){_this.dmend(dm)})
@@ -464,7 +464,7 @@ class Tdplayer{
             this.toparr[dtop] = 1
             let e = this.ele.danmu_warp.appendChild(dm)
             setTimeout(function() {
-                this.danmuhide(e, dtop)
+                _this.danmuhide(e, dtop)
             }, 5e3)
         }else if(wz==7){
         	console.log('高级弹幕');
@@ -498,7 +498,7 @@ class Tdplayer{
         	 }
         	
         	 setTimeout(function(){
-        	 	 this.danmuhide(e)
+        	 	 _this.danmuhide(e)
         	 },tj.l*1000)
         }
     }
@@ -512,42 +512,42 @@ class Tdplayer{
     
 
     //播放完成
-    for (let i=0;i<this.videoelearr.length;i++) {
-			this.videoelearr[i].onended=function(){
-				 if(this.videoelearr[arg+1]){
-				 	this.nowduan=arg+1;
-				 	let oldele = this.videoelearr[arg];
-	                let nowele = this.videoelearr[arg+1];
-				 	for (let i = 0; i < this.videoelearr.length; i++) {
-	                    if (i != this.nowduan) {
-	                        let ele = this.videoelearr[i];
+    for (let arg=0;arg<this.videoelearr.length;arg++) {
+			this.videoelearr[arg].onended=function(){
+				 if(_this.videoelearr[arg+1]){
+				 	_this.nowduan=arg+1;
+				 	let oldele = _this.videoelearr[arg];
+	                let nowele = _this.videoelearr[arg+1];
+				 	for (let i = 0; i < _this.videoelearr.length; i++) {
+	                    if (i != _this.nowduan) {
+	                        let ele = _this.videoelearr[i];
 	                        if (ele.style.display != "none") {
 	                            ele.style.display = "none";
 	                        }
 	                        ele.currentTime = 0;
 	                        ele.pause();
 	                    } else {
-	                        let ele = this.videoelearr[i];
-	                        this.Element = ele;
+	                        let ele = _this.videoelearr[i];
+	                        _this.Element = ele;
 	                        ele.style.display = "block";
 	                        ele.currentTime = 0;
 	                        ele.play();
 	                    }
 				 	}
-				 	this.changersound()
+				 	_this.changersound()
 				 }else{
 				 	console.log("播放完毕"+arg)
-                    if (this.vloop) {
-                        _this.tiao(0)
+                    if (_this.vloop) {
+                        __this.tiao(0)
                     }else{
-                        this.ele.end.style.display = 'block'
-                        this.leftarr={t:[],v:[],out:[],w:[]}
-                        this.toparr = []
+                        _this.ele.end.style.display = 'block'
+                        _this.leftarr={t:[],v:[],out:[],w:[]}
+                        _this.toparr = []
                         let arr=$c('.danmu')
                         for (let i = arr.length - 1; i >= 0; i--) {
                             arr[i].remove()
                         }
-                        if(this.options.ab){
+                        if(_this.options.ab){
                         	let nowi;
                         	let t=document.querySelectorAll('#area-part-view .l a');
                         	for (let i = 0; i < t.length; i++) {
@@ -557,7 +557,7 @@ class Tdplayer{
                         		}
                         	}
                         	if(t[nowi+1]){
-								this.nextvideo(function(){
+								_this.nextvideo(function(){
 									t[nowi].className='btn'
 									t[nowi+1].className='btn active primary'
 								    tdvidplay(document.querySelector('.ui-draggable'),t[nowi+1].getAttribute("data-vid"),null,true)			
@@ -575,7 +575,7 @@ class Tdplayer{
 	                        		}
 	                        	}
 	                    		if(pageInfo.videoList[nowi+1]){
-	                    			this.nextvideo(function(){
+	                    			_this.nextvideo(function(){
 	                    			let info=document.querySelector('#pageInfo');
 	                    			let e=$c('.scroll-div .active')[0];
 	                    			addClass($c('.scroll-div .active+a')[0],'active');
@@ -807,7 +807,7 @@ class Tdplayer{
     this.Element.addEventListener('timeupdate',function(){
     	let videotime = _this.getnowtime();
         let smalltime = _this.Element.currentTime;
-        _this.ele.tranger_a.style.width = videotime / this.alltime * 100 + "%";
+        _this.ele.tranger_a.style.width = videotime / _this.alltime * 100 + "%";
         let buff = _this.Element.buffered;
         //判断缓存段
         let oldduan = _this.nowduan - 1, oldtime = 0, time2 = 0;
@@ -982,13 +982,13 @@ class Tdplayer{
         if (s != "NaN") {
             e.onclick = function() {
                 let t = parseFloat(this.innerText).toFixed(2);
-                for (let i=0;i<this.videoelearr.length;i++) {
+                for (let i=0;i<_this.videoelearr.length;i++) {
                 	_this.videoelearr[i].playbackRate = t;
                 }
             };
         } else {
             e.onclick = function() {
-                for (let i=0;i<this.videoelearr.length;i++) {
+                for (let i=0;i<_this.videoelearr.length;i++) {
                 	_this.videoelearr[i].playbackRate = 1;
                 }
             };
@@ -997,22 +997,22 @@ class Tdplayer{
     //视频比例设置
     this.ele.video_ratio.ratio=1;
     this.ele.video_ratio.addEventListener('click',function(){
-        if(_this.ratio==1){
-            _this.ratio=2
+        if(this.ratio==1){
+            this.ratio=2
             _this.ele.tdplayer.style.transform=`scale(1,0.892)`
             _this.ele.tdplayer.style.webkitTransform=`scale(1,0.892)`
-            _this.innerText=`视频比例 4:3`
-        }else if(_this.ratio==2){
-            _this.ratio=3
+            this.innerText=`视频比例 4:3`
+        }else if(this.ratio==2){
+            this.ratio=3
             _this.ele.tdplayer.style.transform=`scale(0.841,1)`
             _this.ele.tdplayer.style.webkitTransform=`scale(0.841,1)`
-            _this.innerText=`视频比例 16:9`
-        }else if(_this.ratio==3){
-            _this.ratio=4
-            _this.innerText=`视频比例 全屏`
+            this.innerText=`视频比例 16:9`
+        }else if(this.ratio==3){
+            this.ratio=4
+            this.innerText=`视频比例 全屏`
             _this.ele.tdplayer.style.transform=`none`
             _this.ele.tdplayer.style.webkitTransform=`none`
-            for (let i = 0; i < this.videoelearr.length; i++) {
+            for (let i = 0; i < _this.videoelearr.length; i++) {
                 _this.videoelearr[i].style.height='auto';
                 _this.videoelearr[i].style.width='auto';
                 _this.videoelearr[i].className="";
@@ -1028,16 +1028,16 @@ class Tdplayer{
                 _this.ele.tdplayer.style.webkitTransformOrigin='left top'
             },0);
         }else{
-            for (let i = 0; i < this.videoelearr.length; i++) {
-                this.videoelearr[i].style.height='100%';
-                this.videoelearr[i].style.width='100%';
-                this.videoelearr[i].className=".tp-video";
-                this.ele.tdplayer.style.webkitTransformOrigin='center'
+            for (let i = 0; i < _this.videoelearr.length; i++) {
+                _this.videoelearr[i].style.height='100%';
+                _this.videoelearr[i].style.width='100%';
+                _this.videoelearr[i].className=".tp-video";
+                _this.ele.tdplayer.style.webkitTransformOrigin='center'
             }
             this.ratio=1
             this.innerText=`视频比例 默认`
-            this.ele.tdplayer.style.transform=`none`
-            this.ele.tdplayer.style.webkitTransform=`none`
+            _this.ele.tdplayer.style.transform=`none`
+            _this.ele.tdplayer.style.webkitTransform=`none`
         }
         
 
@@ -1277,8 +1277,7 @@ class Tdplayer{
         }
         this.ele.video_ratio.ratio=4;
         this.ele.video_ratio.click();
-    	}.bind(this),1000);
-
+    	}.bind(this),1000)
     }
 	
 	Definition(i){
@@ -1349,17 +1348,19 @@ class Tdplayer{
     }
 	
 	danmuhide(e, topid) {
+		let _this=this;
         if (this.Element.paused) {
             setTimeout(function() {
-                this.danmuhide(e, topid)
-            }.bind(this), this.width * 10 + 1e3)
+                _this.danmuhide(e, topid)
+            }, this.width * 10 + 1e3)
         } else {
-            e.remove()
+            e.parentNode.removeChild(e);
             if(topid!==undefined){
             	this.toparr[topid] = 0
             }
         }
     }
+	
     getlefttop(v,ww) {
         let h
         let t=this.getnowtime()
@@ -1435,7 +1436,6 @@ class Tdplayer{
         }   
     }
 	changerset(){
-		console.log(this)
         let e=this.ele;
         this.config.danmuo=parseInt(e.setr1.value)/100;
         this.config.danmusize=parseInt(e.setr2.value)/50;
