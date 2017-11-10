@@ -82,11 +82,19 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
     lodingimgwarp.appendChild(lodingimg)
     e.appendChild(lodingimgwarp)
     e.appendChild(lodingtext)
-	xhr(videourl).then(t=>JSON.parse(t))
-	  .then(function(json){
+    getvideourl(videourl);
+    function getvideourl(u){
+    	xhr(u).then(t=>JSON.parse(t))
+	  .then(function(t){getvideourl2(t)})
+	  .catch(e => console.log(" error", e))
+    }
+	function getvideourl2(json){
 			let vobj=new Object
 			let vv
-			for (let i = 0; i < json.stream.length; i++) {
+			if(!json.stream){
+				 urleero()
+			}else{
+			  for (let i = 0; i < json.stream.length; i++) {
 				if(json.stream[i].stream_type=='m3u8_hd3'){
 					vobj.v1=json.stream[i]
 					vobj.v1.v=1;
@@ -119,8 +127,14 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 					console.log('本视频不支持')
 				}
 			}
-	  	})
-	  .catch(e => console.log(" error", e))
+		}
+
+	}
+	function urleero(){
+		console.log("失败 API超时 ")
+		lodingtext.innerText = "解析失败... 等待重试"
+		setTimeout(function(){getvideourl(videourl)},5000)
+	}
 	xhr(damuurl).then(t=>JSON.parse(t))
 	  .then(function(data){ 
 	  	danmudata=JSON.stringify(data)
@@ -133,7 +147,7 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 		if (f1&&f2) {
 			//Element,src,,poster,videotype,autoplay)
 			//ele,,danmudata,coverimage,,autoplay
-		 	Tdplayer({
+		 	new Tdplayer({
 		 		Element:ele,
 		 		video:{
 		 			url:videosrcarr,
@@ -300,7 +314,7 @@ class Tdplayer{
     	let t=this.config.definition;
     	let vv,ele;
     	ele=document.createElement('ul')
-   		for(i in src[0]){ 
+   		for(let i in src[0]){ 
    			if(src[0][i].v==t){
    				vv=src[0][i]
    			}
