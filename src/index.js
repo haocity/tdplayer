@@ -160,10 +160,11 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 		 }
 	}
 }
-window.tdyoukuplay=(ele, acid)=>{
+window.tdyoukuplay=(ele,acid,youkuid)=>{
 	function $c(e){
 	    return ele.querySelectorAll(e);
 	}
+	
     ele.innerHTML = null;
 	console.log('acid:'+acid);
 	let e=ele.querySelector(".tp-loding");
@@ -181,15 +182,24 @@ window.tdyoukuplay=(ele, acid)=>{
 		ele.appendChild(e);
 		e.innerText += "正在加载中...";
 	}
-	xhr("https://t5.haotown.cn/acfun/danmu/?ac=" + acid).then(t=>JSON.parse(t)).then(
+	let url,vid;
+	if(youkuid){
+		url="https://t5.haotown.cn/acfun/danmu/?vid="+acid;
+	}else{
+		url="https://t5.haotown.cn/acfun/danmu/?ac="+acid;
+	}
+	xhr(url).then(t=>JSON.parse(t)).then(
 		function(json){
 			e.innerText += "\n获取视频弹幕信息成功..";
             e.innerText +="\n正在解析视频地址";
-            if(json.info.videoList[0].source_type=='youku'){
-            	let vid=json.info.videoList[0].source_id;
-            	console.log('这应该是优酷源的视频');
-            	let data=json;
-            	xhr("https://t5.haotown.cn/youku/api/?youku=" + vid).then(t=>JSON.parse(t)).then(
+            if(youkuid){
+            	vid=youkuid;
+            }else if(json.info&&json.info.videoList[0].source_type=='youku'){
+            	vid=json.info.videoList[0].source_id;
+            }
+            console.log('这应该是优酷源的视频');
+            let data=json;
+            xhr("https://t5.haotown.cn/youku/api/?youku=" + vid).then(t=>JSON.parse(t)).then(
             		function(t){
             			console.log('优酷视频地址解析成功');
             			let c = t.data;
@@ -216,7 +226,7 @@ window.tdyoukuplay=(ele, acid)=>{
             		}
             		
             	)	
-            }
+            
 		}
 	)     
 }
@@ -912,7 +922,7 @@ class Tdplayer{
                 if(_this.ele.end.style.display=="block"){
                     _this.ele.end.style.display="none"
                     _this.tiao(0)
-                }else if (this.Element.paused) {
+                }else if (_this.Element.paused) {
 	                _this.ele.video_control_play.onclick();
 	            } else {
 	                _this.ele.video_control_paused.onclick();
@@ -921,13 +931,13 @@ class Tdplayer{
 	        if (ev && ev.keyCode == 38) {
 	            // up 键
 	            event.preventDefault();
-	            _this.ele.tp_s.style.width = parseInt(this.ele.tp_s.style.width) + 1 + "%";
+	            _this.ele.tp_s.style.width = parseInt(_this.ele.tp_s.style.width) + 1 + "%";
                 _this.changersound();
 	        }
 	        if (ev && ev.keyCode == 40) {
 	            // down 键
 	            event.preventDefault();
-	            _this.ele.tp_s.style.width = parseInt(this.ele.tp_s.style.width) - 1 + "%";
+	            _this.ele.tp_s.style.width = parseInt(_this.ele.tp_s.style.width) - 1 + "%";
                 _this.changersound();
 	        }
 	    }
@@ -1196,9 +1206,9 @@ class Tdplayer{
 			}else{
 				clearInterval(time)
 				console.log('播放下一段')
-				let t=this.options.Element.childNodes
+				let t=_this.options.Element.childNodes
 				for (let i = 0; i < t.length; i++) {
-					this.options.Element.removeChild(t[i])
+					_this.options.Element.removeChild(t[i])
 				}
 				if (typeof callback === "function"){
 		            callback()
@@ -1571,11 +1581,11 @@ class Tdplayer{
         this.alert(null,null,warp)
     }
     changersound() {
-    	let s = parseInt(this.ele.tp_s.style.width) * .01;
-    	for (let i=0;i<this.videoelearr.length;i++) {
-           this.videoelearr[i].volume = s;
+    	let s = parseInt(_this.ele.tp_s.style.width) * .01;
+    	for (let i=0;i<_this.videoelearr.length;i++) {
+           _this.videoelearr[i].volume = s;
         }
-        this.config.sound=s*100;
+        _this.config.sound=s*100;
         localStorage.setItem('tdconfig', JSON.stringify(this.config))
     }
    //菜单
