@@ -86,7 +86,7 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
     function getvideourl(u){
     	xhr(u).then(t=>JSON.parse(t))
 	  .then(function(t){getvideourl2(t)})
-	  .catch(e => console.log(" error", e))
+	  .catch(function(e){console.log(e);urleero()})
     }
 	function getvideourl2(json){
 			let vobj=new Object
@@ -332,12 +332,12 @@ class Tdplayer{
    			li.v=src[0][i].v
    			li.vsrc=src[0][i].m3u8
    			li.addEventListener('click',function(){
-   				console.log('清晰度切换'+_this.v);
+   				console.log('清晰度切换'+this.v);
    				_this.ele.video_control_paused.onclick()
-   				_this.ele.definition.querySelector('span').innerHTML=_this.Definition(_this.v)
+   				_this.ele.definition.querySelector('span').innerHTML=_this.Definition(this.v)
    				let time=_this.Element.currentTime
    				let hls = new Hls();
-				hls.loadSource(_this.vsrc);
+				hls.loadSource(this.vsrc);
 				hls.attachMedia(_this.Element);
 				hls.on(Hls.Events.MANIFEST_PARSED,function() {
 					let i=true;
@@ -375,10 +375,10 @@ class Tdplayer{
     	this.ele.definition.ul=this.ele.definition.querySelector('ul')
     	this.ele.definition.ul.style.display='none'
     	this.ele.definition.addEventListener('click',function(){
-    		if(_this.ul.style.display=='block'){
-    			_this.ul.style.display='none'
+    		if(_this.ele.definition.ul.style.display=='block'){
+    			_this.ele.definition.ul.style.display='none'
     		}else{
-    			_this.ul.style.display='block'
+    			_this.ele.definition.ul.style.display='block'
     		}
     	})
     }else{
