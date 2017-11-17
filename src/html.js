@@ -1,6 +1,5 @@
-module.exports = {
-    html: () => {
-        return `<div class="tp-video-warp">
+const html = {
+    main: () => `<div class="tp-video-warp">
   <div class="tp-video-main">
     <ul class="tp-rightmenu">  
       <li class="tp-copy-warp">
@@ -73,16 +72,16 @@ module.exports = {
         <td><input class="tp-s-r7" type="text" value=""/></td>
       </tr>
       <tr>
-	    <td style='padding: 6px 0'>优先画质</td>
-	    <td>
-	      	<select style=" width: 146px;padding: 2px 10px; border-radius: 3px;" class="tp-s-r8">
-	      		<option>超清</option>
-	      		<option>高清</option>
-	      		<option>普清</option>
-	      		<option>流畅</option>
-	      	</select>
-	    </td>
-	  </tr>
+      <td style='padding: 6px 0'>优先画质</td>
+      <td>
+          <select style=" width: 146px;padding: 2px 10px; border-radius: 3px;" class="tp-s-r8">
+            <option>超清</option>
+            <option>高清</option>
+            <option>普清</option>
+            <option>流畅</option>
+          </select>
+      </td>
+    </tr>
       <tr>
         <td colspan="2">
           <p>意见反馈&&协助开发&&指导 请联系QQ 1051667334</p>
@@ -136,8 +135,7 @@ module.exports = {
     </div>
   </div>
 </div>
-<style class="css" type="text/css"></style>
-
-        `
-    }
+<style class="css" type="text/css"></style>`,
+  test:()=>console.log("ok")
 }
+module.exports = html

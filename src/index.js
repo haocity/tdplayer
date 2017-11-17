@@ -3,10 +3,10 @@
  * @author   HaoDong <ureygt@gmail.com> <http://www.haotown.cn>
  * @license  The Star And Thank Author License (SATA)
  */
-const html = require('./html.js');
+import html from './html';
 let Hls=require('hls.js');
 require('./style.css');
-
+html.test();
 let hasClass=(elements, cName)=>{
     return !!elements.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
 }
@@ -241,7 +241,7 @@ class Tdplayer{
     this.nowdata = JSON.parse(this.data).danmu
     this.vloop=false
     this.nowduan = 0
-    this.v = html.html()
+    this.v = html.main()
   	this.warp.innerHTML=this.v
 	this.ele={
 		"tdplayer":$c(".tdplayer")[0],
