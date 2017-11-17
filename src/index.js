@@ -4,9 +4,10 @@
  * @license  The Star And Thank Author License (SATA)
  */
 import html from './html';
-let Hls=require('hls.js');
-require('./style.css');
+import Hls  from 'hls.js';
+import './style.css';
 html.test();
+
 let hasClass=(elements, cName)=>{
     return !!elements.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
 }

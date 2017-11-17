@@ -16459,13 +16459,18 @@ var _html = __webpack_require__(0);
 
 var _html2 = _interopRequireDefault(_html);
 
+var _hls = __webpack_require__(1);
+
+var _hls2 = _interopRequireDefault(_hls);
+
+__webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Hls = __webpack_require__(1);
-__webpack_require__(2);
 _html2.default.test();
+
 var hasClass = function hasClass(elements, cName) {
     return !!elements.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
 };
@@ -16812,10 +16817,10 @@ var Tdplayer = function () {
                     _this.ele.video_control_paused.onclick();
                     _this.ele.definition.querySelector('span').innerHTML = _this.Definition(this.v);
                     var time = _this.Element.currentTime;
-                    var hls = new Hls();
+                    var hls = new _hls2.default();
                     hls.loadSource(this.vsrc);
                     hls.attachMedia(_this.Element);
-                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                    hls.on(_hls2.default.Events.MANIFEST_PARSED, function () {
                         var i = true;
                         _this.Element.addEventListener("canplay", function () {
                             if (i) {
@@ -16862,10 +16867,10 @@ var Tdplayer = function () {
             var video = document.createElement("video");
             if (this.options.video.type == "hls") {
                 console.log('这是hls视频 启动加载');
-                var hls = new Hls();
+                var hls = new _hls2.default();
                 hls.loadSource(this.videosrcarr[_i]);
                 hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                hls.on(_hls2.default.Events.MANIFEST_PARSED, function () {
                     console.log('可以开始加载');
                     if (this.options.video.autoplay) {
                         this.ele.video_control_play.onclick();
