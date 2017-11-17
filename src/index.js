@@ -244,6 +244,7 @@ class Tdplayer{
     this.nowduan = 0
     this.v = html.main()
   	this.warp.innerHTML=this.v
+  	this.bar=false;
 	this.ele={
 		"tdplayer":$c(".tdplayer")[0],
 		"tdplayer_main":$c(".tp-video-main")[0],
@@ -616,7 +617,7 @@ class Tdplayer{
 			}
 		
     }
-    
+  
     //弹幕开关
     this.ele.danmu_switch.addEventListener("click", function() {
         if (this.className == "tp-danmu-switch") {
@@ -778,6 +779,14 @@ class Tdplayer{
         addClass(this,'tp-zoomoutdown')
         _this.ele.video_control_play.onclick()
     });
+    //鼠标隐藏
+	this.ele.danmu_warp.addEventListener('mousemove',function(){
+		if(this.time){clearTimeout(this.time)}
+		_this.ele.danmu_warp.style.cursor='auto';
+		this.time=setTimeout(function(){
+			_this.ele.danmu_warp.style.cursor='none';
+		},3000)
+	})
     //控件显示
     if (this.phone) {
         this.ele.danmu_warp.addEventListener("click", function() {
@@ -1199,6 +1208,7 @@ class Tdplayer{
 		})
 		e.appendChild(btn)
 		e.appendChild(text)
+		let _this=this;
 		this.ele.tdplayer_main.appendChild(e)
 		let time=setInterval(function(){
 			if(text.i>0){
@@ -1469,17 +1479,17 @@ class Tdplayer{
 	showbar() {
     	if(!this.phone){
 	        this.ele.video_con.style.opacity = "1";
-	        this.sjc++;
-	        let time = setTimeout(function(){
-	        	this.sjcf(this.sjc)
-	        }.bind(this), 2e3,);
-       }
-    }
-    sjcf(time) {
-        if (time >= this.sjc) {
-            this.ele.video_con.style.opacity = "0";
+	        let _this=this;
+	    	if(this.bar){
+	    		clearTimeout(_this.bar)
+	    	}
+	    	setTimeout(function(){
+	    		_this.ele.video_con.style.opacity = "0";
+	    	},3000);
         }
+    	
     }
+
 	 //定时器
     danmutime() {
     	let videotime = this.getnowtime();
@@ -1582,11 +1592,11 @@ class Tdplayer{
         this.alert(null,null,warp)
     }
     changersound() {
-    	let s = parseInt(_this.ele.tp_s.style.width) * .01;
-    	for (let i=0;i<_this.videoelearr.length;i++) {
-           _this.videoelearr[i].volume = s;
+    	let s = parseInt(this.ele.tp_s.style.width) * .01;
+    	for (let i=0;i<this.videoelearr.length;i++) {
+           this.videoelearr[i].volume = s;
         }
-        _this.config.sound=s*100;
+        this.config.sound=s*100;
         localStorage.setItem('tdconfig', JSON.stringify(this.config))
     }
    //菜单

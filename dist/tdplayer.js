@@ -16725,6 +16725,7 @@ var Tdplayer = function () {
         this.nowduan = 0;
         this.v = _html2.default.main();
         this.warp.innerHTML = this.v;
+        this.bar = false;
         this.ele = {
             "tdplayer": $c(".tdplayer")[0],
             "tdplayer_main": $c(".tp-video-main")[0],
@@ -17252,6 +17253,16 @@ var Tdplayer = function () {
             addClass(this, 'tp-zoomoutdown');
             _this.ele.video_control_play.onclick();
         });
+        //鼠标隐藏
+        this.ele.danmu_warp.addEventListener('mousemove', function () {
+            if (this.time) {
+                clearTimeout(this.time);
+            }
+            _this.ele.danmu_warp.style.cursor = 'auto';
+            this.time = setTimeout(function () {
+                _this.ele.danmu_warp.style.cursor = 'none';
+            }, 3000);
+        });
         //控件显示
         if (this.phone) {
             this.ele.danmu_warp.addEventListener("click", function () {
@@ -17674,6 +17685,7 @@ var Tdplayer = function () {
             });
             e.appendChild(btn);
             e.appendChild(text);
+            var _this = this;
             this.ele.tdplayer_main.appendChild(e);
             var time = setInterval(function () {
                 if (text.i > 0) {
@@ -17984,19 +17996,16 @@ var Tdplayer = function () {
         value: function showbar() {
             if (!this.phone) {
                 this.ele.video_con.style.opacity = "1";
-                this.sjc++;
-                var _time2 = setTimeout(function () {
-                    this.sjcf(this.sjc);
-                }.bind(this), 2e3);
+                var _this3 = this;
+                if (this.bar) {
+                    clearTimeout(_this3.bar);
+                }
+                setTimeout(function () {
+                    _this3.ele.video_con.style.opacity = "0";
+                }, 3000);
             }
         }
-    }, {
-        key: 'sjcf',
-        value: function sjcf(time) {
-            if (time >= this.sjc) {
-                this.ele.video_con.style.opacity = "0";
-            }
-        }
+
         //定时器
 
     }, {
@@ -18125,11 +18134,11 @@ var Tdplayer = function () {
     }, {
         key: 'changersound',
         value: function changersound() {
-            var s = parseInt(_this.ele.tp_s.style.width) * .01;
-            for (var i = 0; i < _this.videoelearr.length; i++) {
-                _this.videoelearr[i].volume = s;
+            var s = parseInt(this.ele.tp_s.style.width) * .01;
+            for (var i = 0; i < this.videoelearr.length; i++) {
+                this.videoelearr[i].volume = s;
             }
-            _this.config.sound = s * 100;
+            this.config.sound = s * 100;
             localStorage.setItem('tdconfig', JSON.stringify(this.config));
         }
         //菜单
