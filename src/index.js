@@ -87,7 +87,6 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
     function getvideourl(u){
     	xhr(u).then(t=>JSON.parse(t))
 	  .then(function(t){getvideourl2(t)})
-	  .catch(function(e){console.log(e);urleero()})
     }
 	function getvideourl2(json){
 			let vobj=new Object
@@ -136,14 +135,25 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 		lodingtext.innerText = "解析失败... 等待重试"
 		setTimeout(function(){getvideourl(videourl)},5000)
 	}
-	xhr(damuurl).then(t=>JSON.parse(t))
-	  .then(function(data){ 
-	  	danmudata=JSON.stringify(data)
-	  	f2=true
-	  	console.log(data)
-	  	checkend()
-	  })
-	  .catch(e => console.log(" error", e))
+	function getdanmu(){
+		xhr(damuurl).then(t=>JSON.parse(t))
+		  .then(function(data){ 
+		  	danmudata=JSON.stringify(data)
+		  	f2=true
+		  	console.log(data)
+		  	checkend()
+		 })
+	}
+	
+	 try{
+	 	getdanmu()
+	 }catch(e){
+	 	if(e.code==500||e==500){
+	 		setTimeout(function(){getdanmu()},5000)
+	 	}
+	 }
+	  	
+	
 	function checkend(){
 		if (f1&&f2) {
 			//Element,src,,poster,videotype,autoplay)
@@ -571,7 +581,7 @@ class Tdplayer{
                         _this.toparr = []
                         let arr=$c('.danmu')
                         for (let i = arr.length - 1; i >= 0; i--) {
-                            arr[i].remove()
+                            arr[i].parentNode.removeChild(arr[i])
                         }
                         if(_this.options.ab){
                         	let nowi;
@@ -798,9 +808,16 @@ class Tdplayer{
             }
         });
     } else {
-        this.ele.video_con.onmousemove = function() {
-            _this.showbar();
-        };
+    	let ele=this.ele.video_con.childNodes;
+    	for (var i = 0; i < ele.length; i++) {
+    		ele[i].addEventListener('mousemove',function(){
+	        	_this.showbar();
+        	})
+    	}
+    	this.ele.video_con.addEventListener('mousemove',function(){
+	        _this.showbar();
+        })
+        
     }
     
     this.ele.alert_ok.addEventListener('click',function(){
@@ -1233,7 +1250,7 @@ class Tdplayer{
 	chadown() {
     	if($c('.vdown').length){
     		for (let i = 0; i < $c('.vdown').length; i++) {
-    			$c('.vdown')[i].remove()
+    			$c('.vdown')[i].parentNode.removeChild($c('.vdown')[i])
     		}
     	}
 	    let w = $c(".crumb")[0];
@@ -1478,11 +1495,13 @@ class Tdplayer{
     }
 	showbar() {
     	if(!this.phone){
-	        this.ele.video_con.style.opacity = "1";
-	        let _this=this;
-	    	if(this.bar){
+    		if(this.bar){
 	    		clearTimeout(_this.bar)
 	    	}
+    		if(this.ele.video_con.style.opacity!='1'){
+    			this.ele.video_con.style.opacity = "1";
+    		}
+	        let _this=this;
 	    	setTimeout(function(){
 	    		_this.ele.video_con.style.opacity = "0";
 	    	},3000);
