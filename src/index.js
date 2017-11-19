@@ -44,7 +44,7 @@ function xhr(url, method='GET', data=null) {
     })
 }
 
-window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
+window.tdvidplay=(ele,vid,coverimage,autoplay,ab)=>{
 	console.log('vid:'+vid);
 	ele.style.backgroundColor="#000000";
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
@@ -167,7 +167,8 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 		 			type:'hls',
 		 			autoplay:autoplay
 		 		},
-		 		danmaku:danmudata
+		 		danmaku:danmudata,
+		 		ab:ab
 		 	});
 		 }
 	}
@@ -239,6 +240,10 @@ window.tdyoukuplay=(option)=>{
 
 class Tdplayer{
   constructor(options){
+  	
+  	if(options.ab){
+		console.log("番剧")
+	}
   	this.options=options;
   	let _this=this;
   	this.warp = this.options.Element
@@ -565,8 +570,9 @@ class Tdplayer{
                         for (let i = arr.length - 1; i >= 0; i--) {
                             arr[i].parentNode.removeChild(arr[i])
                         }
-                        
+                       
                         if(_this.options.ab){
+                        	console.log("番剧下一段")
                         	let nowi;
                         	let t=document.querySelectorAll('.digitized>li');
                         	let nowt=document.querySelector('.digitized>li.play');
@@ -576,13 +582,25 @@ class Tdplayer{
                         			continue;
                         		}
                         	}
-                        	if(t[nowi+1]){
+                        	console.log("当前段"+nowi)
+                        	let data;
+                        	xhr("http://www.acfun.cn/album/abm/bangumis/video?albumId="+pageInfo.album.id)
+                        	.then(tt=>JSON.parse(tt))
+	  						.then(function(tt){
+	  							console.log("解析所有段完成")
+	  							data=tt
+	  							console.log(data)
+	  							console.log(t[nowi+1])
+	  							if(t[nowi+1]){
 								_this.nextvideo(function(){
 									t[nowi].className=''
 									t[nowi+1].className='play'
-								    tdvidplay(document.querySelector('#player'),t[nowi+1].getAttribute("data-vid"),null,true)			
+									console.log("播放下一段")
+								    tdvidplay(document.querySelector('#player'),data.data.content[nowi+1].videos[0].danmakuId,null,true,_this.options.ab)			
 								 })
-                        	}
+                        		}
+	  						
+	  						})
 
                         }else{
                         	try{

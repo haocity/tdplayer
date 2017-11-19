@@ -31,7 +31,7 @@
 	            	var e=pageInfo.video.videos[0];
 	            	if (e.sourceType=='zhuzhan') {
 	            		document.querySelector('#player').innerHTML=null;
-	            		tdvidplay(document.querySelector('#player'),e.videoId,e.danmakuId);
+	            		tdvidplay(document.querySelector('#player'),e.danmakuId,pageInfo.album.coverImageH,false,true);
 	            	}else if(e.sourceType=='youku'){
 	            		//优酷规则
 	            		$.info.show("解析番剧区优酷中 ");
