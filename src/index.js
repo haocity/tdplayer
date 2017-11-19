@@ -171,46 +171,36 @@ window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 		 }
 	}
 }
-window.tdyoukuplay=(ele,acid,youkuid)=>{
+window.tdyoukuplay=(option)=>{
 	function $c(e){
 	    return ele.querySelectorAll(e);
 	}
+	//ele 元素
+	//ab 是否为番剧
+	//option.danmakuid 弹幕id
+	//youkuid 优酷视频id
+	//pic 图片
+    option.ele.innerHTML = null;
+	console.log('danmakuid:'+option.danmakuid+' youkuid:'+option.youkuid);
 	
-    ele.innerHTML = null;
-	console.log('acid:'+acid);
-	let e=ele.querySelector(".tp-loding");
+	let e=option.ele.querySelector(".tp-loding");
 	if(!e){
 		e = document.createElement("div");
 		e.className = "tp-loding";
-		if (Window.pageInfo) {
-	    	if(Window.pageInfo.coverImage){
-	    		let backimg = document.createElement("div");
-				backimg.className = "tp-img-back";
-				backimg.style.backgroundImage="url("+Window.pageInfo.coverImage+")";
-	    		ele.appendChild(backimg);
-	    	}
-   		}
-		ele.appendChild(e);
+		let backimg = document.createElement("div");
+		backimg.className = "tp-img-back";
+		backimg.style.backgroundImage="url("+option.pic+")";
+	    option.ele.appendChild(backimg);
+		option.ele.appendChild(e);
 		e.innerText += "正在加载中...";
 	}
-	let url,vid;
-	if(youkuid){
-		url="https://t5.haotown.cn/acfun/danmu/?vid="+acid;
-	}else{
-		url="https://t5.haotown.cn/acfun/danmu/?ac="+acid;
-	}
-	xhr(url).then(t=>JSON.parse(t)).then(
+	xhr("https://t5.haotown.cn/acfun/danmu/?vid="+option.danmakuid).then(t=>JSON.parse(t)).then(
 		function(json){
 			e.innerText += "\n获取视频弹幕信息成功..";
             e.innerText +="\n正在解析视频地址";
-            if(youkuid){
-            	vid=youkuid;
-            }else if(json.info&&json.info.videoList[0].source_type=='youku'){
-            	vid=json.info.videoList[0].source_id;
-            }
             console.log('这应该是优酷源的视频');
             let data=json;
-            xhr("https://t5.haotown.cn/youku/api/?youku=" + vid).then(t=>JSON.parse(t)).then(
+            xhr("https://t5.haotown.cn/youku/api/?youku=" + option.youkuid).then(t=>JSON.parse(t)).then(
             		function(t){
             			console.log('优酷视频地址解析成功');
             			let c = t.data;
@@ -224,11 +214,13 @@ window.tdyoukuplay=(ele,acid,youkuid)=>{
 									console.log(arr)
 									console.log(data)
 									new Tdplayer({
-								 		Element:ele,
+								 		Element:option.ele,
 								 		video:{
-								 			url:arr
+								 			url:arr,
+								 			pic:option.pic
 								 		},
-								 		danmaku:JSON.stringify(data)
+								 		danmaku:JSON.stringify(data),
+								 		ab:option.ab
 								 	});
 									break
 								}
@@ -317,18 +309,6 @@ class Tdplayer{
         this.config=new Object()
     }
     this.changerconfig()
-     //判断是否为番
-	 if(hasClass(this.options.Element, "ui-draggable")){
-    	let t=document.getElementById('area-player');
-    	if(t){
-    		this.options.ab=true;
-    		t.style.height=t.offsetWidth/1.77+'px';
-    		this.ele.tp_video_warp.width=t.offsetWidth;
-    	}
-    }
-	 
-	 
-	
     //判断地址类型
     if(typeof this.options.video.url[0]=='object'){
     	let src=this.options.video.url
@@ -1158,7 +1138,10 @@ class Tdplayer{
 
     let thisurl=window.location.href;
     if(thisurl.indexOf("acfun.cn") < 0||thisurl.indexOf("acfun.tv") < 0||thisurl.indexOf("aixifan.com") < 0){
-    	this.chadown();
+    	//if(!this.options.ab){
+    		this.chadown();
+    	//}
+
     	this.editor32();
     }
     
@@ -1267,7 +1250,7 @@ class Tdplayer{
 		            let div = document.createElement("div");
 		            div.className = "down-btn";
 		            let t = i + 1;
-                    div.innerHTML = '<a href="' + this.videosrcarr[i] + '" download="[' + t + "]" +  document.querySelector('#pageInfo').getAttribute("data-title") + '.mp4">下载' + t + "段</a>";
+                    div.innerHTML = '<a href="' + this.videosrcarr[i] + '" download="[' + t + "]" + document.title + '.mp4">下载' + t + "段</a>";
 		            d.appendChild(div);
 		        }
 		        span.appendChild(d);
@@ -1715,5 +1698,20 @@ class Tdplayer{
 
 
 window.Tdplayer=Tdplayer;
-	
-    
+
+window.getvideop=function(){
+	var p;
+	var parr=document.querySelectorAll('.scroll-div>a')
+	if(parr.length>0){
+	   var e=document.querySelector('.scroll-div>a.active');
+	   for (var i = 0; i < parr.length; i++) {
+		   if(e==parr[i]){
+		   	p=i;
+		   	break
+		   }
+	   }
+	}else{
+	    p=0;
+	}
+	return p;
+}

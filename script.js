@@ -12,11 +12,19 @@
 	            if (thisac.indexOf("ac") == 0) {
 	               	var info=document.querySelector('#pageInfo');
 	                if (info) {
-	                	if (info.getAttribute("data-from")=='zhuzhan') {
-	                		console.log('ac源视频');
-	                		tdvidplay(document.querySelector('#player'),info.getAttribute("data-vid"),info.getAttribute("data-pic"))
+	                	var p=getvideop();
+	                	console.log("这是第"+p+"p");
+	                	if (pageInfo.videoList[p].source_type=='zhuzhan') {
+	                		tdvidplay(document.querySelector('#player'),pageInfo.videoList[p].id,pageInfo.coverImage)
 	                	}else if(info.getAttribute("data-from")=='youku'){
-	                		tdyoukuplay(document.querySelector('#player'),document.querySelector('#pageInfo').getAttribute("data-aid"))
+	                		tdyoukuplay({
+	                			ele:document.querySelector('#player'),
+	                			ab:false,
+	                			danmakuid:pageInfo.videoList[p].id,
+	                			youkuid:pageInfo.videoList[p].source_id,
+	                			pic:pageInfo.coverImage
+	                		});
+	                			
 	                	}
 	                }
 	            } else if(thisac.indexOf('ab')==0){
@@ -28,7 +36,13 @@
 	            		//优酷规则
 	            		$.info.show("解析番剧区优酷中 ");
 	            		document.querySelector('#player').innerHTML=null;
-	            		tdyoukuplay(document.querySelector('#player'),e.danmakuId,e.sourceId);
+	            		tdyoukuplay({
+	            			ele:document.querySelector('#player'),
+	            			ab:true,
+	            			danmakuid:e.danmakuId,
+	            			youkuid:e.sourceId,
+	            			pic:pageInfo.album.coverImageH
+	            		});
 	            	}else{
 	            		$.info.show("不支持。 /(ㄒoㄒ)/~~" );
 	            	}
