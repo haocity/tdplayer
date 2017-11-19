@@ -20,19 +20,17 @@
 	                	}
 	                }
 	            } else if(thisac.indexOf('ab')==0){
-	            	var e=document.querySelector('.primary');
-	            	if (e.getAttribute("data-from")=='ac') {
-	            		document.querySelector('.ui-draggable').innerHTML=null;
-	            		tdvidplay(document.querySelector('.ui-draggable'),e.getAttribute("data-vid"))
-	            	}else if(e.getAttribute("data-from")=='youku2'){
+	            	var e=pageInfo.video.videos[0];
+	            	if (e.sourceType=='zhuzhan') {
+	            		document.querySelector('#player').innerHTML=null;
+	            		tdvidplay(document.querySelector('#player'),e.videoId,e.danmakuId);
+	            	}else if(e.sourceType=='youku'){
 	            		//优酷规则
-	            		$.info("info::解析番剧区优酷中 ");
-	            		var e=document.querySelector('.l>.btn.active.primary');
-	            		var youkuid=e.getAttribute("data-sid");
-	            		youkuid=youkuid.replace(".html","");
-	            		tdyoukuplay(document.querySelector('.ui-draggable'),e.getAttribute("data-vid"),youkuid);
+	            		$.info.show("解析番剧区优酷中 ");
+	            		document.querySelector('#player').innerHTML=null;
+	            		tdyoukuplay(document.querySelector('#player'),e.danmakuId,e.sourceId);
 	            	}else{
-	            		$.info("info::不支持。 /(ㄒoㄒ)/~~" );
+	            		$.info.show("不支持。 /(ㄒoㄒ)/~~" );
 	            	}
 	            }else{
 					try{
