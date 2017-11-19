@@ -568,18 +568,19 @@ class Tdplayer{
                         
                         if(_this.options.ab){
                         	let nowi;
-                        	let t=document.querySelectorAll('#area-part-view .l a');
+                        	let t=document.querySelectorAll('.digitized>li');
+                        	let nowt=document.querySelector('.digitized>li.play');
                         	for (let i = 0; i < t.length; i++) {
-                        		if(hasClass(t[i],'active')){
+                        		if(t[i]==nowt){
                         			nowi=i;
                         			continue;
                         		}
                         	}
                         	if(t[nowi+1]){
 								_this.nextvideo(function(){
-									t[nowi].className='btn'
-									t[nowi+1].className='btn active primary'
-								    tdvidplay(document.querySelector('.ui-draggable'),t[nowi+1].getAttribute("data-vid"),null,true)			
+									t[nowi].className=''
+									t[nowi+1].className='play'
+								    tdvidplay(document.querySelector('#player'),t[nowi+1].getAttribute("data-vid"),null,true)			
 								 })
                         	}
 
