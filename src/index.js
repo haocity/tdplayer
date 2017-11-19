@@ -1161,7 +1161,12 @@ class Tdplayer{
     let thisurl=window.location.href;
     if(thisurl.indexOf("acfun.cn") < 0||thisurl.indexOf("acfun.tv") < 0||thisurl.indexOf("aixifan.com") < 0){
     	//if(!this.options.ab){
+    	try{
     		this.chadown();
+    	}catch(e){
+    		
+    	}
+    	
     	//}
 
     	this.editor32();

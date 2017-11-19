@@ -17630,7 +17630,10 @@ var Tdplayer = function () {
         var thisurl = window.location.href;
         if (thisurl.indexOf("acfun.cn") < 0 || thisurl.indexOf("acfun.tv") < 0 || thisurl.indexOf("aixifan.com") < 0) {
             //if(!this.options.ab){
-            this.chadown();
+            try {
+                this.chadown();
+            } catch (e) {}
+
             //}
 
             this.editor32();
