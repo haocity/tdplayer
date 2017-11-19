@@ -46,6 +46,7 @@ function xhr(url, method='GET', data=null) {
 
 window.tdvidplay=(ele, vid,coverimage,autoplay)=>{
 	console.log('vid:'+vid);
+	ele.style.backgroundColor="#000000";
 	let damuurl=`https://t5.haotown.cn/acfun/danmu/?vid=${vid}`;
 	let videourl=`https://t5.haotown.cn/pyapi/vid/${vid}`;
 	let videosrcarr=[],danmudata,f1,f2;
@@ -181,6 +182,7 @@ window.tdyoukuplay=(option)=>{
 	//youkuid 优酷视频id
 	//pic 图片
     option.ele.innerHTML = null;
+    option.ele.style.backgroundColor="#000000";
 	console.log('danmakuid:'+option.danmakuid+' youkuid:'+option.youkuid);
 	
 	let e=option.ele.querySelector(".tp-loding");
@@ -563,6 +565,7 @@ class Tdplayer{
                         for (let i = arr.length - 1; i >= 0; i--) {
                             arr[i].parentNode.removeChild(arr[i])
                         }
+                        
                         if(_this.options.ab){
                         	let nowi;
                         	let t=document.querySelectorAll('#area-part-view .l a');
