@@ -561,7 +561,7 @@ class Tdplayer{
 				 }else{
 				 	console.log("播放完毕"+arg)
                     if (_this.vloop) {
-                        __this.tiao(0)
+                        _this.tiao(0)
                     }else{
                         _this.ele.end.style.display = 'block'
                         _this.leftarr={t:[],v:[],out:[],w:[]}
