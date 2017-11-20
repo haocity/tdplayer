@@ -530,7 +530,7 @@ class Tdplayer{
     //重播
     this.ele.replay.addEventListener("click", function() {
         _this.tiao(0)
-        this.ele.end.style.display = "none"
+        _this.ele.end.style.display = "none"
     });
     
 
