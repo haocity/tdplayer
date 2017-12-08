@@ -654,7 +654,7 @@ class Tdplayer{
             _this.nowdata = JSON.parse(_this.data).danmu;
             _this.config.qc=false
         }
-        localStorage.setItem('tdconfig', JSON.stringify(this.config))
+        localStorage.setItem('tdconfig', JSON.stringify(_this.config))
     }
     this.ele.setr6.onclick=function(){
         if (this.checked) {
@@ -701,8 +701,9 @@ class Tdplayer{
     if (this.config.dmshadow==0) {
         this.ele.setr4.checked=true
     }
+  
     if(this.config.definition){
-    	this.ele.setr8.value=_this.Definition(this.config.definition)
+    	this.ele.setr8.selectedIndex=this.config.definition-1;
     }
     
 
@@ -710,8 +711,10 @@ class Tdplayer{
     this.ele.setr1.onchange=_this.changerset.bind(_this);
     this.ele.setr2.onchange=_this.changerset.bind(_this);
     this.ele.setclose.addEventListener('click',function(){
+    	_this.config.pbs=_this.ele.setr7.value
+    	localStorage.setItem('tdconfig', JSON.stringify(_this.config))
         _this.changerset.bind(_this)
-        addClass(_this.ele.setbox,'tp-zoomoutdown');
+        addClass(_this.ele.setbox,'tp-zoomoutdown')
         setTimeout(function(){
             _this.ele.setbox.style.display='none'
             removeClass(_this.ele.setbox,'tp-zoomoutdown')
@@ -1501,6 +1504,7 @@ class Tdplayer{
         let e=this.ele;
         this.config.danmuo=parseInt(e.setr1.value)/100;
         this.config.danmusize=parseInt(e.setr2.value)/50;
+        
         this.changerconfig();
     }
 	showbar() {
