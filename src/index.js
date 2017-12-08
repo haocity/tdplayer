@@ -674,7 +674,7 @@ class Tdplayer{
         }
     });
     this.ele.setr7.onchange=function(){
-        if (this.ele.setr6.checked) {
+        if (_this.ele.setr6.checked) {
             _this.shielddanmu()   
         }
     }
@@ -1630,6 +1630,7 @@ class Tdplayer{
     }
    //菜单
     tp_menu(ev) {
+    	let _thsi=this;
         let container = this.ele.tdplayer;
         let rightmenu = this.ele.tp_rightmenu;
         if (!this.phone){
@@ -1642,7 +1643,7 @@ class Tdplayer{
                     this.ele.copytext.innerHTML = target.innerHTML;
                     this.ele.copy.style.display = "block";
                     this.ele.copy.onclick = function() {
-                        this.ele.copytext.select();
+                        _this.ele.copytext.select();
                         document.execCommand("Copy");
                         rightmenu.style.display = "none";
                     };
