@@ -2,3 +2,7 @@ node_modules/
 .project
 src/ncss.css
 
+src/test.js
+ws.js
+ws2.js
+test.js

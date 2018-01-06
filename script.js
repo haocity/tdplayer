@@ -1,3 +1,14 @@
+function getvideop(){
+	if(pageInfo&&pageInfo.videoId){
+		for (var i = 0; i < pageInfo.videoList.length; i++) {
+			if(pageInfo.videoList[i].id==pageInfo.videoId){
+				return i;
+				break;
+			}
+		}
+	}
+}
+
 (function() {
     var thisurl = window.location.href;
     var tmp = thisurl.split("/");
@@ -15,15 +26,21 @@
 	                	var p=getvideop();
 	                	console.log("这是第"+p+"p");
 	                	if (pageInfo.videoList[p].source_type=='zhuzhan') {
-	                		tdvidplay(document.querySelector('#player'),pageInfo.videoList[p].id,pageInfo.coverImage)
-	                	}else if(info.getAttribute("data-from")=='youku'){
-	                		tdyoukuplay({
+	                		tdvidplay({
 	                			ele:document.querySelector('#player'),
-	                			ab:false,
-	                			danmakuid:pageInfo.videoList[p].id,
-	                			youkuid:pageInfo.videoList[p].source_id,
-	                			pic:pageInfo.coverImage
-	                		});
+	                			vid:pageInfo.videoList[p].id,
+	                			pic:pageInfo.coverImage,
+	                			ab:false
+	                			})
+	                	}else if(info.getAttribute("data-from")=='youku'){
+	                		$.info.show("优酷等待修复中 ");
+//	                		tdyoukuplay({
+//	                			ele:document.querySelector('#player'),
+//	                			ab:false,
+//	                			danmakuid:pageInfo.videoList[p].id,
+//	                			youkuid:pageInfo.videoList[p].source_id,
+//	                			pic:pageInfo.coverImage
+//	                		});
 	                			
 	                	}
 	                }
@@ -31,18 +48,24 @@
 	            	var e=pageInfo.video.videos[0];
 	            	if (e.sourceType=='zhuzhan') {
 	            		document.querySelector('#player').innerHTML=null;
-	            		tdvidplay(document.querySelector('#player'),e.danmakuId,pageInfo.album.coverImageH,false,true);
-	            	}else if(e.sourceType=='youku'){
+	            		tdvidplay({
+	                			ele:document.querySelector('#player'),
+	                			vid:e.danmakuId,
+	                			pic:pageInfo.album.coverImageH,
+	                			ab:true
+	                	})
+	            }else if(e.sourceType=='youku'){
 	            		//优酷规则
-	            		$.info.show("解析番剧区优酷中 ");
-	            		document.querySelector('#player').innerHTML=null;
-	            		tdyoukuplay({
-	            			ele:document.querySelector('#player'),
-	            			ab:true,
-	            			danmakuid:e.danmakuId,
-	            			youkuid:e.sourceId,
-	            			pic:pageInfo.album.coverImageH
-	            		});
+	            		$.info.show("优酷等待修复中 ");
+	            		//$.info.show("解析番剧区优酷中 ");
+//	            		document.querySelector('#player').innerHTML=null;
+//	            		tdyoukuplay({
+//	            			ele:document.querySelector('#player'),
+//	            			ab:true,
+//	            			danmakuid:e.danmakuId,
+//	            			youkuid:e.sourceId,
+//	            			pic:pageInfo.album.coverImageH
+//	            		});
 	            	}else{
 	            		$.info.show("不支持。 /(ㄒoㄒ)/~~" );
 	            	}

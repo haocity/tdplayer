@@ -44,7 +44,7 @@ function xhr(url, method='GET', data=null) {
     })
 }
 
-window.tdvidplay=(options){
+window.tdvidplay = function(options) {
 	//ele 元素
 	//vid 视频编号
 	//pic 封面图片
@@ -55,9 +55,10 @@ window.tdvidplay=(options){
 	let acflash=document.querySelector('section.player #player object')||document.querySelector('section.player #player #ACFlashPlayer')
 	if (acflash) {
 		acflash.style.display='none';
-		e.style.height=acflash.style.height;
-		e.style.backgroundColor="#000000"
+		options.ele.style.height=acflash.style.height;
+		options.ele.style.backgroundColor="#000000"
 	}
+	let e=document.createElement('div')
 	e.className = "tp-loding";
 	if(!options.pic){
        if(pageInfo&&pageInfo.coverImage){
@@ -87,7 +88,7 @@ window.tdvidplay=(options){
     e.appendChild(lodingtext)
     
     
-	xhr("https://t5.haotown.cn/pyapi/vid/"+options.vid).then(t=>JSON.parse(t)).then(function(t){
+	xhr("https://t5.haotown.cn/pyapi/vid/"+options.vid).then(t=>JSON.parse(t)).then(function(json){
 			let vobj=new Object
 			let vv
 			if(!json.stream){
@@ -114,8 +115,8 @@ window.tdvidplay=(options){
 			}
 			if(vobj.v1||vobj.v2||vobj.v3||vobj.v4){
 				videosrcarr.push(vobj)
-				new Tdplayer({
-		 		Element:ele,
+				new Tplayer({
+		 		Element:options.ele,
 		 		video:{
 		 			url:videosrcarr,
 		 			pic:options.pic,
@@ -165,7 +166,7 @@ class Tplayer{
   		this.geturl = this.options.danmakuapi + "get/?id=" + this.options.danmakuid;
     	this.sendurl = this.options.danmakuapi + "send/";
     }else if(this.options.acvid){
-    	this.geturl="https://t5.haotown.cn/acfun/danmu/?vid="+acvid;
+    	this.geturl="https://t5.haotown.cn/acfun/danmu/?vid="+this.options.acvid;
     }else{
     	console.error("无法找到弹幕")
     }
@@ -336,7 +337,7 @@ class Tplayer{
 	    for (let i = 0; i < this.videosrcarr.length; i++) {
 	        let video = document.createElement("video")
 	         if (this.options.video.type == "hls") {
-	         	if (hls&&hls.isSupported()) {
+	         	if (Hls&&Hls.isSupported()) {
 		         	console.log('这是hls视频 启动加载');
 		         	let hls = new Hls();
 					hls.loadSource(this.videosrcarr[i]);
@@ -390,6 +391,10 @@ class Tplayer{
     
  init() {
  	let _this=this;
+ 	if(!pageInfo){
+ 		this.ele.tp_send.style.display='none'
+ 	}
+ 	
  	
     this.Element.addEventListener("canplaythrough", function(){
 			console.log('加载完成 可以进行播放');
@@ -399,7 +404,7 @@ class Tplayer{
     for (let i = 0; i < this.videoelearr.length; i++) {
         this.getallvideotime(this.videoelearr[i], i)
     }
-
+	
   
     //样式
     this.send = function(text, color, wz, me,user,size) {
@@ -533,7 +538,7 @@ class Tplayer{
 			}
 		
     }
-  	//post发弹幕
+  	//ws发弹幕
   	this.ele.tp_up.addEventListener("click", function() {
   		if(_this.ele.tp_text.value){
 	        _this.send(_this.ele.tp_text.value, _this.ele.tp_color_bo.style.backgroundColor,_this.dmplace, 1);
@@ -545,35 +550,8 @@ class Tplayer{
 	            _this.ele.tp_up.disabled = "";
 	            _this.ele.tp_up.style.background = "#8715EF";
 	        }, 500);
-	        var postData = {
-	            id:_this.options.danmakuid,
-	            text:_this.ele.tp_text.value,
-	            color:_this.ele.tp_color_bo.style.backgroundColor,
-	            time:parseInt(_this.getnowtime()*10),
-	            place:_this.dmplace
-	        };
 	        
-	        postData = function(obj) {
-	            // 转成post需要的字符串.
-	            var str = "";
-	            for (var prop in obj) {
-	                str += prop + "=" + obj[prop] + "&";
-	            }
-	            return str;
-	        }(postData);
-	        var xhr = new XMLHttpRequest();
-	        xhr.open("POST", _this.options.danmakuapi+"send/", true);
-	        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	        xhr.onreadystatechange = function() {
-	            var XMLHttpReq = xhr;
-	            if (XMLHttpReq.readyState == 4) {
-	                if (XMLHttpReq.status == 200) {
-	                    var text = XMLHttpReq.responseText;
-	                    console.log(text);
-	                }
-	            }
-	        };
-	        xhr.send(postData);
+	        _this.ws.send(sendComment(_this.ele.tp_text.value,_this.getnowtime(),colorRGB2Hex(_this.ele.tp_color_bo.style.backgroundColor)));
 	    }
   	});
     //回车发射
@@ -630,11 +608,7 @@ class Tplayer{
     });
     this.ele.setr7.onchange=function(){
         if (_this.ele.setr6.checked) {
-<<<<<<< HEAD
             _this.shielddanmaku()   
-=======
-            _this.shielddanmu()   
->>>>>>> 500f27de9138e710c0c1826f1cd5c48c2616e543
         }
     }
     this.ele.setr8.onchange=function(){
@@ -642,47 +616,16 @@ class Tplayer{
     	_this.config.definition=t
     }
     this.ele.setr7.value=_this.config.pbs
-<<<<<<< HEAD
-=======
-    if (this.config.qc) {
-        this.ele.setr5.click()
-    } 
-    if (this.config.pb) {
-        this.ele.setr6.click()
-    }
-    if (this.config.danmuo) {
-        this.ele.setr1.value=this.config.danmuo*100;
-    }
-    if (this.config.danmusize) {
-        this.ele.setr2.value=this.config.danmusize*50;
-    }
-    if (this.config.dmweight!=400) {
-        this.ele.setr3.checked=true
-    }
-    if (this.config.dmshadow==0) {
-        this.ele.setr4.checked=true
-    }
-  
-    if(this.config.definition){
-    	this.ele.setr8.selectedIndex=this.config.definition-1;
-    }
->>>>>>> 500f27de9138e710c0c1826f1cd5c48c2616e543
     
 
 
     this.ele.setr1.onchange=_this.changerset.bind(_this);
     this.ele.setr2.onchange=_this.changerset.bind(_this);
     this.ele.setclose.addEventListener('click',function(){
-    	_this.config.pbs=_this.ele.setr7.value
-    	localStorage.setItem('tdconfig', JSON.stringify(_this.config))
         _this.changerset.bind(_this)
-<<<<<<< HEAD
         _this.config.pbs=_this.ele.setr7.value
     	localStorage.setItem('tdconfig', JSON.stringify(_this.config))
         addClass(_this.ele.setbox,'tp-zoomoutdown');
-=======
-        addClass(_this.ele.setbox,'tp-zoomoutdown')
->>>>>>> 500f27de9138e710c0c1826f1cd5c48c2616e543
         setTimeout(function(){
             _this.ele.setbox.style.display='none'
             removeClass(_this.ele.setbox,'tp-zoomoutdown')
@@ -943,7 +886,7 @@ class Tplayer{
    
     //颜色
     let tpcolor = new Object();
-    tpcolor.arr = new Array("#FFFFFF", "#000000", "#4ab0c6", "#555656", "#09b745", "#f86141", "#FFEB3B", "#4d38d8", "#fe67c1", "#ff9c07");
+    tpcolor.arr = new Array("rgb(255, 255, 255)", "rgb(0, 0, 0)", "rgb(74,176,198)", "rgb(85, 86, 86)", "rgb(9, 183, 69)", "rgb(248, 97, 65)", "rgb(255, 235, 59)", "rgb(77, 56, 216)", "rgb(254, 103, 193)", "rgb(255, 156,7)");
     for (let r = 255; r >= 0; r -= 25) {
         for (let g = 0; g <= 255; g += 25) {
             for (let b = 0; b <= 255; b += 25) {
@@ -1117,13 +1060,93 @@ class Tplayer{
             this.innerText = "◀滚动弹幕";
         }
     });
- 
-
-
-	
     this.dmspeend(this.width / 100);
+    
+	 //ws相关  来自 esterTion/AcFun-HTML5-Player https://github.com/esterTion/AcFun-HTML5-Player
 
-	 
+	if(window.cid && window.WebSocket) {
+	var connected = false;
+	var sock = new WebSocket('ws://danmaku.acfun.cn:443/' + window.cid);
+
+	var open = function() {
+		connected = true;
+		var obj = {
+			client: '16bk983221049',
+			client_ck: '884509046',
+			vid: window.cid,
+			vlength: 0,
+			time: Date.now(),
+			uid: window.user.uid || null,
+			uid_ck: window.user.uid_ck || null
+		}
+		obj.uid == -1 && (obj.uid = null);
+		var data = JSON.stringify({
+			action: 'auth',
+			command: JSON.stringify(obj)
+		})
+		sock.send(data);
+		console.log("send", data);
+		sock.send(JSON.stringify({
+			"action": "onlanNumber",
+			"command": "WALLE DOES NOT HAVE PENNIS"
+		}));
+	}
+	var message = function(e) {
+		console.log("ws-message", e);
+		var data = JSON.parse(e.data);
+		if(data.action != undefined) {
+			var danmaku = JSON.parse(data.command);
+			console.log(danmaku);
+		} else if(data.status != undefined) {
+			switch(data.status) {
+				case '600':
+					console.log("在线人数", data.msg);
+					break;
+				case '500':
+					console.log("服务器异常");
+					break;
+				case '403':
+					console.log('[403]' + data.msg);
+					break;
+				case '401':
+					console.log('[401]' + data.msg);
+					break;
+				case '200':
+					console.log("弹幕发送成功");
+					break;
+				default:
+					console.log('not implemented status', data);
+			}
+		}
+	};
+	var close = function() {
+		connected = false;
+		console.warn('WebSocket closed!');
+	}
+	var error = function() {
+		connected = false;
+		console.warn('WebSocket connection error!');
+		setTimeout(function() {
+			sock = new WebSocket('ws://danmaku.acfun.cn:443/' + window.cid);
+			sock.addEventListener('open', open);
+			sock.addEventListener('message', message);
+			sock.addEventListener('close', close);
+			sock.addEventListener('error', error);
+			_this.ws = sock;
+		}, 5e3);
+	}
+	_this.ws = sock;
+	var sendInterval = setInterval(function() {
+		connected && sock.send(JSON.stringify({
+			"action": "onlanNumber",
+			"command": "WALLE DOES NOT HAVE PENNIS"
+		}))
+	}, 3e4);
+	sock.addEventListener('open', open);
+	sock.addEventListener('message', message);
+	sock.addEventListener('close', close);
+	sock.addEventListener('error', error);
+	}
 	 
 	 
   }
@@ -1494,14 +1517,8 @@ class Tplayer{
     }
 	changerset(){
         let e=this.ele;
-<<<<<<< HEAD
         this.config.danmakuo=parseInt(e.setr1.value)/100;
         this.config.danmakusize=parseInt(e.setr2.value)/50;
-=======
-        this.config.danmuo=parseInt(e.setr1.value)/100;
-        this.config.danmusize=parseInt(e.setr2.value)/50;
-        
->>>>>>> 500f27de9138e710c0c1826f1cd5c48c2616e543
         this.changerconfig();
     }
 	showbar() {
@@ -1631,13 +1648,8 @@ class Tplayer{
     }
    //菜单
     tp_menu(ev) {
-<<<<<<< HEAD
     	let _this=this;
         let container = this.ele.tplayer;
-=======
-    	let _thsi=this;
-        let container = this.ele.tdplayer;
->>>>>>> 500f27de9138e710c0c1826f1cd5c48c2616e543
         let rightmenu = this.ele.tp_rightmenu;
         if (!this.phone){
                 let target = ev.target || ev.srcElement;
@@ -1721,9 +1733,53 @@ class Tplayer{
         }
 
     }
-    
-	
+    	
 }
 
 window.Tplayer=Tplayer;
+var pageInfo=window.pageInfo;
+if(pageInfo){
+	window.cid=pageInfo.videoId;
+	window.user = {
+	   uid: getCookie('auth_key'),
+	   uid_ck: getCookie('auth_key_ac_sha1'),
+	   uname: getCookie('ac_username')
+	};
+}
+function getCookie(name) {
+    let cookies = {};
+    document.cookie.split('; ').forEach(function (i) {
+        let [key, ...val] = i.split('=');
+        cookies[key] = val.join('=');
+    });
+    return cookies[name] || '';
+}
 
+function colorRGB2Hex(color) {
+    var rgb = color.split(',');
+    var r = parseInt(rgb[0].split('(')[1]);
+    var g = parseInt(rgb[1]);
+    var b = parseInt(rgb[2].split(')')[0]);
+ 
+    var hex =  ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    return hex;
+ }
+
+
+	function sendComment(message, time, color) {
+		let obj = {
+			"action": 'post',
+			"command": JSON.stringify({
+				"mode": 1,
+				"color": parseInt(color, 16) || 16777215,
+				"size": 25,
+				"stime": time | 0,
+				"user": user.uid,
+				"message": message,
+				"time": (Date.now() / 1e3) | 0,
+				"islock": '2'
+			})
+		};
+		console.log(obj);
+		return JSON.stringify(obj);
+	}

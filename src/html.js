@@ -18,20 +18,20 @@ const html = {
       <li class="tp-definition">清晰度  <span></span></li>
       <li class="tp-ratio">视频比例 默认</li>
       <li class="tp-screenshot">截图</li>
-      <a href="https://github.com/haocity/tdplayer/issues" target="_blank">
+      <a href="https://github.com/haocity/tplayer/issues" target="_blank">
         <li>意见反馈</li></a>
       <a href="https://www.haotown.cn/about.html" target="_blank">
         <li>关于作者</li></a>
-      <a href="https://github.com/haocity/tdplayer" target="_blank">
-        <li>About tdplayer</li></a>
+      <a href="https://github.com/haocity/tplayer" target="_blank">
+        <li>About tplayer</li></a>
     </ul>
     <div class="video-end">
       <svg t="1493275296747" class="replay" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3488" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100">
         <path d="M48.012564 368.005052 256.007345 368.005052C282.50851 368.005052 303.987849 346.493648 303.987849 319.992484 303.987849 293.459261 282.50851 272.011981 256.007345 272.011981L172.518731 272.011981C247.808645 165.585172 371.698941 95.994406 512.016029 95.994406 741.749327 95.994406 928.004256 282.249339 928.004256 511.981298 928.004256 741.731959 741.749327 927.954828 512.016029 927.954828 282.249335 927.954828 95.994406 741.730625 95.994406 511.981298 95.994406 485.481472 74.513729 464.00213 48.012564 464.00213 21.479342 464.00213 0 485.481472 0 511.981298 0 794.734285 229.213614 1023.981298 512.017367 1023.981298 794.75299 1023.981298 1024 794.734285 1024 511.981298 1024 229.214949 794.751652 0 512.017367 0 340.405743 0 188.81594 84.590769 95.99574 214.213612L95.99574 128.003676C95.99574 101.471785 74.515063 79.991108 48.013903 79.991108 21.480677 79.991108 0.001338 101.471785 0.001338 128.003676L0.001338 319.993822C0 346.493645 21.479339 368.005052 48.012564 368.005052" p-id="3489" fill="#ffffff"></path>
       </svg>
     </div>
-    <div class="tdplayer"></div>
-    <div class="danmu-warp"></div>
+    <div class="tplayer"></div>
+    <div class="danmaku-warp"></div>
     <div class="tp-oneplay tp-acenter">
       <svg class="tp-acenter" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <path fill="#fff" d="M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z" /></svg>
@@ -92,8 +92,7 @@ const html = {
     </div>
     <div class="tp-video-con">
       <div class="tp-send">
-        <div class="tp-logo-small"></div>
-        <input type="text" class="tp-text" required="true" placeholder="客官，不来吐槽一下吗?" autocomplete="off" />
+        <input type="text" class="tp-text"  placeholder="客官，不来吐槽一下吗?" autocomplete="off" />
         <div class="tp-color">
           <div class="tp-color-bo" style="background-color: rgb(255, 255, 255)"></div>
           <div class="tp-con">
@@ -104,7 +103,7 @@ const html = {
         <input class="tp-up" type="submit" value="发送" /></div>
       <div class="tp-control">
         <div style="float:right;">
-          <span class="tp-control-alltime" style="padding:0 6px 0 12px">0:00</span><div class="tp-danmu-switch">弹</div>
+          <span class="tp-control-alltime" style="padding:0 6px 0 12px">0:00</span><div class="tp-danmaku-switch">弹</div>
           <div class="tp-set"></div>
           <div class="tp-vloop tp-vloop1"></div>
           <div class="tp-syk">
