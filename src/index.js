@@ -1085,18 +1085,18 @@ class Tplayer{
 			command: JSON.stringify(obj)
 		})
 		sock.send(data);
-		console.log("send", data);
+		//console.log("send", data);
 		sock.send(JSON.stringify({
 			"action": "onlanNumber",
 			"command": "WALLE DOES NOT HAVE PENNIS"
 		}));
 	}
 	var message = function(e) {
-		console.log("ws-message", e);
+		//console.log("ws-message", e);
 		var data = JSON.parse(e.data);
 		if(data.action != undefined) {
 			var danmaku = JSON.parse(data.command);
-			console.log(danmaku);
+			//console.log(danmaku);
 		} else if(data.status != undefined) {
 			switch(data.status) {
 				case '600':
