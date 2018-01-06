@@ -95,24 +95,26 @@ window.tdvidplay = function(options) {
 				 urleero()
 			}else{
 			  for (let i = 0; i < json.stream.length; i++) {
+			  	
 				if(json.stream[i].stream_type=='m3u8_hd3'){
 					vobj.v1=json.stream[i]
 					vobj.v1.v=1
-					break
+					
                 }else if(json.stream[i].stream_type=='m3u8_hd'){
 					vobj.v2=json.stream[i]
 					vobj.v2.v=2
-					break
+					
 				}else if(json.stream[i].stream_type=='m3u8_mp4'){
 					vobj.v3=json.stream[i]
 					vobj.v3.v=3
-					break
+					
 				}else  if(json.stream[i].stream_type=='m3u8_flv'){
 					vobj.v4=json.stream[i]
 					vobj.v4.v=4
-					break
+					
 				}
 			}
+			  console.log('vobj',vobj)
 			if(vobj.v1||vobj.v2||vobj.v3||vobj.v4){
 				videosrcarr.push(vobj)
 				new Tplayer({
@@ -245,7 +247,7 @@ class Tplayer{
     //判断地址类型
     if(typeof this.options.video.url[0]=='object'){
     	let src=this.options.video.url
-    	console.log('多清晰度视频');
+    	console.log('多清晰度视频',src);
     	let t=this.config.definition;
     	let vv,ele;
     	ele=document.createElement('ul')
