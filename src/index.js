@@ -219,6 +219,7 @@ class Tplayer{
 		"css":_this.$c(".css")[0],
 		"alltime_phone":_this.$c(".tp-control-alltime-phone")[0],
 		"vloop":_this.$c('.tp-vloop')[0],
+		"searchuser":$c(".tp-search-user")[0],
 		"setbox":_this.$c('.tp-video-set')[0],
 		"setclose":_this.$c('.tp-closeset')[0],
 		"setbtn":_this.$c('.tp-set')[0],
@@ -406,7 +407,15 @@ class Tplayer{
     for (let i = 0; i < this.videoelearr.length; i++) {
         this.getallvideotime(this.videoelearr[i], i)
     }
+	//弹幕发射检测登录
+	if(!window.user.uid){
+		this.ele.tp_text.value="请先进行登录,才可以发射弹幕哦！"
+		this.ele.tp_text.readonly = "readonly"
+		this.ele.tp_text.disabled = "disabled"
+	    this.ele.tp_up.disabled = "disabled"
+	}
 	
+
   
     //样式
     this.send = function(text, color, wz, me,user,size) {
@@ -545,7 +554,7 @@ class Tplayer{
   		if(_this.ele.tp_text.value){
 	        _this.send(_this.ele.tp_text.value, _this.ele.tp_color_bo.style.backgroundColor,_this.dmplace, 1);
 	        _this.ele.tp_text.readonly = "readonly";
-	        _this.ele.tp_up.disabled = "true";
+	        _this.ele.tp_up.disabled = "disabled";
 	        _this.ele.tp_up.style.background = "#777479";
 	        setTimeout(function() {
 	            _this.ele.tp_text.value = "";
@@ -1656,7 +1665,10 @@ class Tplayer{
         if (!this.phone){
                 let target = ev.target || ev.srcElement;
                 if (hasClass(target, "danmaku")) {
-                    
+                    if(target.user){
+                        this.ele.searchuser.style.display='block';
+                        this.ele.searchuser.innerHTML=`<a href="http://www.acfun.cn/u/${target.user}.aspx#page=1" target="_blank">查询发送者</a>`
+                    }
                     this.ele.copytext.innerHTML = target.innerHTML;
                     this.ele.copy.style.display = "block";
                     this.ele.copy.onclick = function() {

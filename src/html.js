@@ -18,12 +18,12 @@ const html = {
       <li class="tp-definition">清晰度  <span></span></li>
       <li class="tp-ratio">视频比例 默认</li>
       <li class="tp-screenshot">截图</li>
-      <a href="https://github.com/haocity/tplayer/issues" target="_blank">
+      <a href="https://github.com/haocity/tdplayer/issues" target="_blank">
         <li>意见反馈</li></a>
       <a href="https://www.haotown.cn/about.html" target="_blank">
         <li>关于作者</li></a>
-      <a href="https://github.com/haocity/tplayer" target="_blank">
-        <li>About tplayer</li></a>
+      <a href="https://github.com/haocity/tdplayer" target="_blank">
+        <li>About tdplayer</li></a>
     </ul>
     <div class="video-end">
       <svg t="1493275296747" class="replay" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3488" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100">
