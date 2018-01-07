@@ -408,11 +408,17 @@ class Tplayer{
         this.getallvideotime(this.videoelearr[i], i)
     }
 	//弹幕发射检测登录
-	if(!window.user.uid){
+	if(window.user&&!window.user.uid){
 		this.ele.tp_text.value="请先进行登录,才可以发射弹幕哦！"
 		this.ele.tp_text.readonly = "readonly"
 		this.ele.tp_text.disabled = "disabled"
 	    this.ele.tp_up.disabled = "disabled"
+	}else{
+		this.ele.tp_text.value="客官,不来吐槽一下吗？"
+		this.ele.tp_text.onclick=function(){
+			this.value="";
+			this.onclick=null;
+		}
 	}
 	
 
