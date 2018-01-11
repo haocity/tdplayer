@@ -469,9 +469,62 @@ class Tplayer{
                 _this.danmakuhide(e, dtop)
             }, 5e3)
         }else if(wz==7){
-        	console.log('高级弹幕');
         	let tj=JSON.parse(text);
-        	console.log(tj)
+        	console.log('高级弹幕',tj);
+        	if(!tj.l||tj.l.toFixed(2)==0){
+        	 	//时间如果为0
+        	 	if(tj.z){
+        	 		console.log('z存在',tj.z);
+        	 		for (var i = 0; i < tj.z.length; i++) {
+        	 			if(tj.z[i].l&&tj.l<=tj.z[i].l){
+        	 				tj.l=tj.z[i].l
+        	 				if(tj.z[i].x){
+        	 					tj.z[i].x=tj.p.x
+        	 				}else{
+        	 					if(tj.z[i-1]&&tj.z[i-1].x){
+        	 						tj.z[i].x=tj.p.x
+        	 					}
+        	 				}
+        	 				if(tj.z[i].y){
+        	 					console.log("y存在",y)
+        	 					let t=0;
+        	 					for (var z = 0; z < i; z++) {
+        	 						if(tj.z[z].y){
+        	 							t=t+tj.z[z].y;
+        	 						}
+        	 					}
+        	 					tj.p.y=tj.p.y+t*1000;
+        	 				}else{
+        	 					if(tj.z[i-1]&&tj.z[i-1].y){
+        	 						let t=0;
+        	 						for (var z = 0; z < i-1; z++) {
+        	 							if(tj.z[z].y){
+        	 								t=t+tj.z[z].y;
+        	 							}
+        	 						}
+        	 						tj.p.y=tj.p.y+t*1000;
+        	 						console.log("tj.p.y",t)
+        	 					}
+        	 				}
+        	 				if(tj.z[i].t){
+        	 					tj.a=tj.z[i].t
+        	 				}else{
+        	 					if(tj.z[i-1]&&tj.z[i-1].t){
+        	 						tj.a=tj.z[i].y
+        	 					}
+        	 				}
+        	 				console.log('l改变为',tj.l)
+        	 				
+        	 			}
+        	 		}
+        	 	}else{
+        	 		tj.l=2;
+        	 	}
+        	 	
+        	 	
+        	 }
+        	
+        	
         	//高级弹幕 test 
         	//{"e":0.52,"w":{"b":false,"l":[[1,16777215,1,2.7,2.7,5,3,false,false],[2,0,0,16777215,0.5,32,32,2,2,false,false,false]],"f":"黑体"},"l":5.551115123125783e-17,"f":0.52,"z":[{"t":0,"g":0.8,"l":0.2,"y":930,"f":0.8},{"t":1,"g":0.52,"l":0.2,"y":940,"f":0.52},{"l":1.3099999999999998},{"c":16776960,"x":-2,"t":0,"l":0.3,"v":2}],"t":0,"a":0,"n":"但是那样不行哦","ver":2,"b":false,"c":3,"p":{"x":35,"y":950},"ovph":false}
         	 dm.className = "danmaku danmaku-ad";
@@ -490,18 +543,11 @@ class Tplayer{
         	 }
         	 let e = this.ele.danmaku_warp.appendChild(dm);
         	 
-        	 if(!tj.l||tj.l.toFixed(2)==0){
-        	 	//时间如果为0
-        	 	if(tj.z){
-        	 		
-        	 	}
-        	 	tj.l=2;
-        	 	
-        	 }
+
         	
         	 setTimeout(function(){
         	 	 _this.danmakuhide(e)
-        	 },tj.l*1000)
+        	 },tj.l*1000-120)
         }
     }
    
@@ -1669,6 +1715,7 @@ class Tplayer{
         let container = this.ele.tplayer;
         let rightmenu = this.ele.tp_rightmenu;
         if (!this.phone){
+        		this.ele.searchuser.style.display='none';
                 let target = ev.target || ev.srcElement;
                 if (hasClass(target, "danmaku")) {
                     if(target.user){
