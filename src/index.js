@@ -475,48 +475,51 @@ class Tplayer{
         	 	//时间如果为0
         	 	if(tj.z){
         	 		console.log('z存在',tj.z);
-        	 		for (var i = 0; i < tj.z.length; i++) {
-        	 			if(tj.z[i].l&&tj.l<=tj.z[i].l){
-        	 				tj.l=tj.z[i].l
-        	 				if(tj.z[i].x){
-        	 					tj.z[i].x=tj.p.x
-        	 				}else{
-        	 					if(tj.z[i-1]&&tj.z[i-1].x){
-        	 						tj.z[i].x=tj.p.x
-        	 					}
-        	 				}
-        	 				if(tj.z[i].y){
-        	 					console.log("y存在",y)
-        	 					let t=0;
-        	 					for (var z = 0; z < i; z++) {
-        	 						if(tj.z[z].y){
-        	 							t=t+tj.z[z].y;
-        	 						}
-        	 					}
-        	 					tj.p.y=tj.p.y+t*1000;
-        	 				}else{
-        	 					if(tj.z[i-1]&&tj.z[i-1].y){
-        	 						let t=0;
-        	 						for (var z = 0; z < i-1; z++) {
-        	 							if(tj.z[z].y){
-        	 								t=t+tj.z[z].y;
-        	 							}
-        	 						}
-        	 						tj.p.y=tj.p.y+t*1000;
-        	 						console.log("tj.p.y",t)
-        	 					}
-        	 				}
-        	 				if(tj.z[i].t){
-        	 					tj.a=tj.z[i].t
-        	 				}else{
-        	 					if(tj.z[i-1]&&tj.z[i-1].t){
-        	 						tj.a=tj.z[i].y
-        	 					}
-        	 				}
-        	 				console.log('l改变为',tj.l)
-        	 				
-        	 			}
-        	 		}
+        	 		
+//      	 		for (var i = 0; i < tj.z.length; i++) {
+//      	 			if(tj.z[i].l&&tj.l<=tj.z[i].l){
+//      	 				tj.l=tj.z[i].l
+//      	 				if(tj.z[i].x){
+//      	 					console.log('x存在',tj.z[i].x)
+//      	 					tj.p.x=tj.z[i].x
+//      	 				}
+//      	 				if(tj.z[i].t){
+//      	 					tj.a=tj.z[i].t
+//      	 				}else{
+//      	 					if(tj.z[i-1]&&tj.z[i-1].t){
+//      	 						tj.a=tj.z[i].y
+//      	 					}
+//      	 				}
+//      	 				console.log('l改变为',tj.l)
+//      	 			}
+//      	 		}
+					
+					for (var i = 0; i < tj.z.length; i++) {
+						if(tj.l<=tj.z[i].l){
+							tj.l=tj.z[i].l
+							console.log('按'+i+'发射')
+							tj.maxi=i;
+						}
+					}
+					
+					for (var i = 0; i <= tj.maxi; i++) {
+						if(tj.z[i].x){
+							//console.log('x2存在',tj.z[i].x)
+      	 					tj.p.x=tj.z[i].x
+						}
+						if(tj.z[i].y){
+							//console.log('y2存在',tj.z[i].y)
+      	 					tj.p.x=tj.z[i].y
+						}
+						if(tj.z[i].t){
+							console.log('透明度存在',tj.z[i].t)
+      	 					tj.a=tj.z[i].t
+						}
+						
+					}
+					
+					
+					
         	 	}else{
         	 		tj.l=2;
         	 	}

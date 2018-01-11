@@ -16940,45 +16940,45 @@ var Tplayer = function () {
                         //时间如果为0
                         if (tj.z) {
                             console.log('z存在', tj.z);
+
+                            //      	 		for (var i = 0; i < tj.z.length; i++) {
+                            //      	 			if(tj.z[i].l&&tj.l<=tj.z[i].l){
+                            //      	 				tj.l=tj.z[i].l
+                            //      	 				if(tj.z[i].x){
+                            //      	 					console.log('x存在',tj.z[i].x)
+                            //      	 					tj.p.x=tj.z[i].x
+                            //      	 				}
+                            //      	 				if(tj.z[i].t){
+                            //      	 					tj.a=tj.z[i].t
+                            //      	 				}else{
+                            //      	 					if(tj.z[i-1]&&tj.z[i-1].t){
+                            //      	 						tj.a=tj.z[i].y
+                            //      	 					}
+                            //      	 				}
+                            //      	 				console.log('l改变为',tj.l)
+                            //      	 			}
+                            //      	 		}
+
                             for (var i = 0; i < tj.z.length; i++) {
-                                if (tj.z[i].l && tj.l <= tj.z[i].l) {
+                                if (tj.l <= tj.z[i].l) {
                                     tj.l = tj.z[i].l;
-                                    if (tj.z[i].x) {
-                                        tj.z[i].x = tj.p.x;
-                                    } else {
-                                        if (tj.z[i - 1] && tj.z[i - 1].x) {
-                                            tj.z[i].x = tj.p.x;
-                                        }
-                                    }
-                                    if (tj.z[i].y) {
-                                        console.log("y存在", y);
-                                        var t = 0;
-                                        for (var z = 0; z < i; z++) {
-                                            if (tj.z[z].y) {
-                                                t = t + tj.z[z].y;
-                                            }
-                                        }
-                                        tj.p.y = tj.p.y + t * 1000;
-                                    } else {
-                                        if (tj.z[i - 1] && tj.z[i - 1].y) {
-                                            var _t = 0;
-                                            for (var z = 0; z < i - 1; z++) {
-                                                if (tj.z[z].y) {
-                                                    _t = _t + tj.z[z].y;
-                                                }
-                                            }
-                                            tj.p.y = tj.p.y + _t * 1000;
-                                            console.log("tj.p.y", _t);
-                                        }
-                                    }
-                                    if (tj.z[i].t) {
-                                        tj.a = tj.z[i].t;
-                                    } else {
-                                        if (tj.z[i - 1] && tj.z[i - 1].t) {
-                                            tj.a = tj.z[i].y;
-                                        }
-                                    }
-                                    console.log('l改变为', tj.l);
+                                    console.log('按' + i + '发射');
+                                    tj.maxi = i;
+                                }
+                            }
+
+                            for (var i = 0; i <= tj.maxi; i++) {
+                                if (tj.z[i].x) {
+                                    //console.log('x2存在',tj.z[i].x)
+                                    tj.p.x = tj.z[i].x;
+                                }
+                                if (tj.z[i].y) {
+                                    //console.log('y2存在',tj.z[i].y)
+                                    tj.p.x = tj.z[i].y;
+                                }
+                                if (tj.z[i].t) {
+                                    console.log('透明度存在', tj.z[i].t);
+                                    tj.a = tj.z[i].t;
                                 }
                             }
                         } else {
@@ -17917,8 +17917,8 @@ var Tplayer = function () {
                 var t = this.removaldata.slice(0);
                 cache = t;
             } else {
-                var _t2 = this.data.slice(0);
-                cache = _t2;
+                var _t = this.data.slice(0);
+                cache = _t;
             }
 
             for (var i = cache.length - 1; i >= 0; i--) {
@@ -17938,8 +17938,8 @@ var Tplayer = function () {
             this.nowdata = cache;
             var elearr = this.$c('.danmaku-warp>.danmaku');
             for (var _x3 = 0; _x3 < elearr.length; _x3++) {
-                for (var _y = 0; _y < shieldarr.length; _y++) {
-                    if (elearr[_x3].innerText.indexOf(shieldarr[_y]) > -1) {
+                for (var y = 0; y < shieldarr.length; y++) {
+                    if (elearr[_x3].innerText.indexOf(shieldarr[y]) > -1) {
                         elearr[_x3].innerText = null;
                     }
                 }
