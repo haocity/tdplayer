@@ -124,6 +124,9 @@ section.player{
 }
 .danmaku-ad{
 	position: absolute;
+	-webkit-transform: translateX(50%);
+	-moz-transform: translateX(50%);
+	transform: translateX(50%);
 }
 @keyframes dmleft {
 	0% {
@@ -627,12 +630,15 @@ section.player{
 .tp-rightmenu {
 	display: none;
 	position: absolute;
+	overflow: hidden;
 	width: 130px;
-	border: 1px solid #EEEEEE;
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	background-color: rgba(0,0,0,0.8);
+	border-radius: 4px;
+    background: rgba(28, 28, 28, 0.9);
+    border: none;
+    text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
 	color: #fff;
 	z-index: 9999;
 }
@@ -641,12 +647,15 @@ section.player{
 	text-decoration: none;
 }
 .tp-rightmenu li {
-	padding: 2px 5px;
+	padding: 2px 0 2px 8px;
 	cursor: pointer;
 }
 .tp-rightmenu li:hover {
 	padding-left: 7px;
 	background-color: rgba(255,255,255,0.2);
+}
+.tp-search-user{
+	display: none;
 }
 ul.tp-speend {
 	display: none;
@@ -730,6 +739,18 @@ ul.tp-speend {
 }
 .noflash-alert{
 	display:none;
+}
+section.clearfix.wp.area.player {
+    z-index: 99;
+}
+.off-light{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
 }
 @media screen and (max-width: 700px) {
 	.tp-tranger{
