@@ -475,24 +475,6 @@ class Tplayer{
         	 	//时间如果为0
         	 	if(tj.z){
         	 		console.log('z存在',tj.z);
-        	 		
-//      	 		for (var i = 0; i < tj.z.length; i++) {
-//      	 			if(tj.z[i].l&&tj.l<=tj.z[i].l){
-//      	 				tj.l=tj.z[i].l
-//      	 				if(tj.z[i].x){
-//      	 					console.log('x存在',tj.z[i].x)
-//      	 					tj.p.x=tj.z[i].x
-//      	 				}
-//      	 				if(tj.z[i].t){
-//      	 					tj.a=tj.z[i].t
-//      	 				}else{
-//      	 					if(tj.z[i-1]&&tj.z[i-1].t){
-//      	 						tj.a=tj.z[i].y
-//      	 					}
-//      	 				}
-//      	 				console.log('l改变为',tj.l)
-//      	 			}
-//      	 		}
 					
 					for (var i = 0; i < tj.z.length; i++) {
 						if(tj.l<=tj.z[i].l){
@@ -517,6 +499,10 @@ class Tplayer{
 						}
 						
 					}
+
+				
+					
+					
 					
 					
 					
@@ -550,7 +536,7 @@ class Tplayer{
         	
         	 setTimeout(function(){
         	 	 _this.danmakuhide(e)
-        	 },tj.l*1000-120)
+        	 },tj.l*1000-20)
         }
     }
    
