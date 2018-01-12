@@ -124,6 +124,7 @@ section.player{
 }
 .danmaku-ad{
 	position: absolute;
+	white-space: nowrap;
 	-webkit-transform: translateX(50%);
 	-moz-transform: translateX(50%);
 	transform: translateX(50%);
