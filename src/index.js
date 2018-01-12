@@ -381,12 +381,7 @@ class Tplayer {
 		this.danmakuelement = this.ele.danmaku_warp
 		this.sjc = 0
 		this.dsq = 0
-		this.leftarr = {
-			t: [],
-			v: [],
-			out: [],
-			w: []
-		}
+		this.leftarr = {t:[],v:[],leaving:[],width:[]}
 		this.toparr = []
 		this.dmheight = 37
 		this.dmplace = 1
@@ -443,24 +438,26 @@ class Tplayer {
 				//left 弹幕
 				dm.appendChild(document.createTextNode(text))
 				dm.className = "danmaku tp-left"
-				this.ele.danmaku_warp.appendChild(dm)
-				dm.style.display='none';
-				let time = this.width / 100
-				let v = (dm.offsetWidth + this.width) / time
-				let dtop = this.getlefttop(v, dm.offsetWidth)
-				if((dtop+1) * this.dmheight<this.height){
-					if(this.config.danmakusize) {
-						dm.style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)"
-					} else {
+				if(this.config.danmakusize) {
+					dm.style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)"
+				} else {
 					dm.style.transform = "translateX(-" + this.width + "px)"
-					}
+				}
+				this.ele.danmaku_warp.appendChild(dm)
+				let twidth=dm.offsetWidth;
+				let time = this.width / 100
+				let v = ( twidth + this.width) / time
+				let dmtop = this.getlefttop(v,  twidth)
+				let leavetime =  twidth / v
+				this.leftarr.leaving[dmtop] = true
+				
+				
+				if((dmtop+1) * this.dmheight<this.height){
 					dm.style.display='block';
-					let outt = dm.offsetWidth / v
-					this.leftarr.out[dtop] = true
 					setTimeout(function() {
-						_this.leftarr.out[dtop] = false
-					}, outt * 1000 + 200)
-					dm.style.top = dtop * this.dmheight + "px"
+						_this.leftarr.leaving[dmtop] = false
+					}, leavetime * 1000 + 200)
+					dm.style.top = dmtop * this.dmheight + "px"
 					
 					dm.addEventListener("webkitAnimationEnd", function() {
 						_this.dmend(dm)
@@ -469,10 +466,11 @@ class Tplayer {
 						_this.dmend(dm)
 					})
 				}else{
-					this.leftarr.out[dtop] = false
+					this.leftarr.leaving[dmtop] = false
 					this.dmend(dm)
 					console.log('超出屏幕范围',this.height)
 				}
+
 				
 			} else if(wz == 2) {
 				//顶部弹幕
@@ -581,12 +579,7 @@ class Tplayer {
 						_this.tiao(0)
 					} else {
 						_this.ele.end.style.display = 'block'
-						_this.leftarr = {
-							t: [],
-							v: [],
-							out: [],
-							w: []
-						}
+						_this.leftarr={t:[],v:[],leaving:[],width:[]}
 						_this.toparr = []
 						let arr = _this.$c('.danmaku')
 						for(let i = arr.length - 1; i >= 0; i--) {
@@ -1324,13 +1317,12 @@ class Tplayer {
 		this.height = this.ele.tplayer_main.offsetHeight
 	}
 	joinfull() {
-		this.width = this.ele.tplayer_main.offsetWidth
-		this.height = this.ele.tplayer_main.offsetHeight
-		this.ele.video_ratio.ratio = 4;
-		this.ele.video_ratio.click();
+		let _this=this
+		this.ele.video_ratio.ratio = 4
+		this.ele.video_ratio.click()
 		setTimeout(function(){
-			this.width = this.ele.tplayer_main.offsetWidth
-			this.height = this.ele.tplayer_main.offsetHeight
+			_this.width = _this.ele.tplayer_main.offsetWidth
+			_this.height = _this.ele.tplayer_main.offsetHeight
 		},1000)
 	}
 	changerconfig() {
@@ -1525,42 +1517,41 @@ class Tplayer {
 		}
 	}
 
-	getlefttop(v, ww) {
-		let h
-		let t = this.getnowtime()
-		let allt = this.width / 100
-		for(let i = 0; i <= this.leftarr.t.length; i++) {
-			if(!this.leftarr.out[i]) {
-				if(this.leftarr.v[i] >= v) {
-					h = i;
-					break;
-				} else {
-					if(!this.leftarr.t[i]) {
-						break
-					}
-					//追上的时间和距离
-					let tt = this.width / 100 - t + this.leftarr.t[i];
-					let sz = tt * (v - this.leftarr.v[i]);
-					//间隔距离 这里-20是为了防止跟太紧
-					let so = (t - this.leftarr.t[i]) * this.leftarr.v[i] - this.leftarr.w[i] - 20;
-					//console.log(`${i}弹幕会在上一弹幕尾部飞行${tt}秒 速度差${v-this.leftarr.v[i]} 会追上路程 ${sz}  判断时距离 ${so}`)
-					if(sz < so) {
-						h = i;
-						break;
-					}
-				}
-			}
-		}
-		if(typeof(h) == 'undefined') {
-			h = this.leftarr.t.length;
-			//console.log('开辟新通道');
-		}
-		this.leftarr.t[h] = t;
-		this.leftarr.v[h] = v;
-		this.leftarr.out[h] = true;
-		this.leftarr.w[h] = ww;
-		return h;
-	};
+	getlefttop(v,dmwidth) {
+        let h
+        let t=this.getnowtime()
+        let allt=this.width/100
+        for (let i = 0; i <= this.leftarr.t.length; i++) {
+        	//leaving是否离开左侧屏幕 完全显示出来
+            if (!this.leftarr.leaving[i]) {
+                 if (this.leftarr.v[i]>=v) {
+                       h = i;
+                       break;
+                    }else {
+                       if (!this.leftarr.t[i]) {break}
+                       //追上的时间和距离
+                       let tt=this.width/100-t+this.leftarr.t[i];
+                       let sz= tt*(v-this.leftarr.v[i]);
+                       //间隔距离 这里-20是为了防止跟太紧
+                       let so=(t-this.leftarr.t[i])*this.leftarr.v[i]-this.leftarr.width[i]-20;
+                       //console.log(`${i}弹幕会在上一弹幕尾部飞行${tt}秒 速度差${v-this.leftarr.v[i]} 会追上路程 ${sz}  判断时距离 ${so}`)
+                       if (sz<so) {
+                            h = i;
+                            break;
+                       }
+                    }
+            }
+        }
+        if (typeof(h)=='undefined') {
+            h=this.leftarr.t.length;
+            //console.log('开辟新通道');
+        }
+        this.leftarr.t[h]=t;
+        this.leftarr.v[h]=v;
+        this.leftarr.leaving[h]=true;
+        this.leftarr.width[h]=dmwidth;
+        return h;
+    };
 	gettoptop() {
 		let h;
 		for(let i = 0; i <= this.toparr.length; i++) {
