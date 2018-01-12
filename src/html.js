@@ -132,7 +132,7 @@ const html = {
     </div>
   </div>
 </div>
-<style class="css" type="text/css"></style>`,
+`,
   test:()=>console.log("ok")
 }
 module.exports = html
