@@ -604,7 +604,7 @@ class Tplayer {
 					_this.ele.tp_up.style.background = "#8715EF";
 				}, 500);
 
-				_this.ws.send(sendComment(_this.ele.tp_text.value, _this.getnowtime(), colorRGB2Hex(_this.ele.tp_color_bo.style.backgroundColor)));
+				_this.ws.send(_this.sendComment(_this.ele.tp_text.value, _this.getnowtime(), colorRGB2Hex(_this.ele.tp_color_bo.style.backgroundColor)));
 			}
 		});
 		//回车发射
@@ -1247,7 +1247,10 @@ class Tplayer {
 	addacfundanmu(vid){
 		let _this = this;
 		fetch("http://danmu.aixifan.com/size/" + vid).then(response => response.json()).then(function(json) {
-			let max=Math.ceil(json[2]/2000);
+			let max=Math.ceil(json[2]/2000)
+			if(max==0){
+				max==1
+			}
 			let nowid=0;
 			let nowp=0;
 			for (let i = 1; i <= max; i++) {
@@ -1860,6 +1863,27 @@ class Tplayer {
 		}
 
 	}
+	sendComment(message, time, color) {
+		let mode=1;
+		if(this.dmplace==2){
+			mode=5
+		}
+		let obj = {
+			"action": 'post',
+			"command": JSON.stringify({
+				"mode": mode,
+				"color": parseInt(color, 16) || 16777215,
+				"size": 25,
+				"stime": time | 0,
+				"user": user.uid,
+				"message": message,
+				"time": (Date.now() / 1e3) | 0,
+				"islock": '2'
+			})
+		};
+		console.log(obj);
+		return JSON.stringify(obj);
+	}
 
 }
 
@@ -1893,20 +1917,3 @@ function colorRGB2Hex(color) {
 	return hex;
 }
 
-function sendComment(message, time, color) {
-	let obj = {
-		"action": 'post',
-		"command": JSON.stringify({
-			"mode": 1,
-			"color": parseInt(color, 16) || 16777215,
-			"size": 25,
-			"stime": time | 0,
-			"user": user.uid,
-			"message": message,
-			"time": (Date.now() / 1e3) | 0,
-			"islock": '2'
-		})
-	};
-	console.log(obj);
-	return JSON.stringify(obj);
-}

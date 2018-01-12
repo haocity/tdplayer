@@ -75,7 +75,7 @@
 
 var html = {
   main: function main() {
-    return "<div class=\"tp-video-warp\">\n  <div class=\"tp-video-main\">\n    <ul class=\"tp-rightmenu\">  \n      <li class=\"tp-copy-warp\">\n        <textarea rows=\"1\" class=\"tp-copy-input\">\u590D\u5236\u5F39\u5E55</textarea>\n      </li>\n      <li class=\"tp-search-user\"></li>\n      <li class=\"tp-speend-con\">\u64AD\u653E\u901F\u5EA6\n        <ul class=\"tp-speend\">\n          <li>0.5</li>\n          <li>0.75</li>\n          <li>\u6B63\u5E38</li>\n          <li>1.25</li>\n          <li>1.5</li>\n          <li>2</li></ul>\n      </li>\n      <li class=\"tp-definition\">\u6E05\u6670\u5EA6  <span></span></li>\n      <li class=\"tp-ratio\">\u89C6\u9891\u6BD4\u4F8B \u9ED8\u8BA4</li>\n      <li class=\"tp-screenshot\">\u622A\u56FE</li>\n      <a href=\"https://github.com/haocity/tdplayer/issues\" target=\"_blank\">\n        <li>\u610F\u89C1\u53CD\u9988</li></a>\n      <a href=\"https://github.com/haocity/tdplayer\" target=\"_blank\">\n        <li>About tdplayer</li></a>\n    </ul>\n    <div class=\"video-end\">\n      <svg t=\"1493275296747\" class=\"replay\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"3488\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100\" height=\"100\">\n        <path d=\"M48.012564 368.005052 256.007345 368.005052C282.50851 368.005052 303.987849 346.493648 303.987849 319.992484 303.987849 293.459261 282.50851 272.011981 256.007345 272.011981L172.518731 272.011981C247.808645 165.585172 371.698941 95.994406 512.016029 95.994406 741.749327 95.994406 928.004256 282.249339 928.004256 511.981298 928.004256 741.731959 741.749327 927.954828 512.016029 927.954828 282.249335 927.954828 95.994406 741.730625 95.994406 511.981298 95.994406 485.481472 74.513729 464.00213 48.012564 464.00213 21.479342 464.00213 0 485.481472 0 511.981298 0 794.734285 229.213614 1023.981298 512.017367 1023.981298 794.75299 1023.981298 1024 794.734285 1024 511.981298 1024 229.214949 794.751652 0 512.017367 0 340.405743 0 188.81594 84.590769 95.99574 214.213612L95.99574 128.003676C95.99574 101.471785 74.515063 79.991108 48.013903 79.991108 21.480677 79.991108 0.001338 101.471785 0.001338 128.003676L0.001338 319.993822C0 346.493645 21.479339 368.005052 48.012564 368.005052\" p-id=\"3489\" fill=\"#ffffff\"></path>\n      </svg>\n    </div>\n    <div class=\"tplayer\"></div>\n    <div class=\"danmaku-warp\"></div>\n    <div class=\"tp-oneplay tp-acenter\">\n      <svg class=\"tp-acenter\" viewbox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n        <path fill=\"#fff\" d=\"M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z\" /></svg>\n    </div>\n    <div class=\"tp-spinner tp-acenter\">\n      <div class=\"rect1\"></div>\n      <div class=\"rect2\"></div>\n      <div class=\"rect3\"></div>\n      <div class=\"rect4\"></div>\n      <div class=\"rect5\"></div>\n    </div>\n    <div class=\"tp-alert\">\n       <div class=\"tp-alert-container\"></div>\n       <div class=\"tp-alert-ok\">\u786E\u5B9A</div>\n    </div>\n    <div class=\"tp-video-set\">\n      <h4>\u8BBE\u7F6E</h4>\n      <span class='tp-closeset'>\xD7</span>\n      <table class=\"tp-settable\" width=\"300\" border=\"0\">\n      <tr>\n        <td>\u5F39\u5E55\u900F\u660E\u5EA6</td>\n        <td><input type=\"range\" class=\"tp-s-r1\" min=\"20\" max=\"100\" value=\"100\"/></td>\n      \n      </tr>\n      <tr>\n        <td>\u5F39\u5E55\u7F29\u653E</td>\n        <td><input type=\"range\" class=\"tp-s-r2\" min=\"20\" max=\"100\" value=\"50\"/></td>\n      </tr>\n      <tr>\n        <td><input class=\"tp-s-r3\" type=\"checkbox\"/>\u5F39\u5E55\u52A0\u7C97</td>\n        <td><input class=\"tp-s-r4\" type=\"checkbox\"/>\u5173\u95ED\u9634\u5F71</td>\n      </tr>\n      <tr>\n        <td colspan=\"2\"><input class=\"tp-s-r5\" type=\"checkbox\"/>\u5408\u5E76\u91CD\u590D\u5F39\u5E55</td>\n      </tr>\n      <tr>\n        <td><input class=\"tp-s-r6\" type=\"checkbox\"/>\u5C4F\u853D\u5F39\u5E55</td>\n        <td><input class=\"tp-s-r7\" type=\"text\" value=\"\"/></td>\n      </tr>\n      <tr>\n      <td style='padding: 6px 0'>\u4F18\u5148\u753B\u8D28</td>\n      <td>\n          <select style=\" width: 146px;padding: 2px 10px; border-radius: 3px;\" class=\"tp-s-r8\">\n            <option>\u8D85\u6E05</option>\n            <option>\u9AD8\u6E05</option>\n            <option>\u666E\u6E05</option>\n            <option>\u6D41\u7545</option>\n          </select>\n      </td>\n    </tr>\n      <tr>\n        <td colspan=\"2\">\n          <p>\u610F\u89C1\u53CD\u9988&&\u534F\u52A9\u5F00\u53D1&&\u6307\u5BFC \u8BF7\u8054\u7CFBQQ 1051667334</p>\n          <p>\u6280\u672F\u6C34\u5E73\u6709\u9650 \u611F\u8C22\u4F60\u7684\u4F7F\u7528</p>\n        </td>\n      </tr>\n    </table>\n    </div>\n    <div class=\"tp-video-con\">\n      <div class=\"tp-send\">\n        <input type=\"text\" class=\"tp-text\"  placeholder=\"\u5BA2\u5B98\uFF0C\u4E0D\u6765\u5410\u69FD\u4E00\u4E0B\u5417?\" autocomplete=\"off\" />\n        <div class=\"tp-color\">\n          <div class=\"tp-color-bo\" style=\"background-color: rgb(255, 255, 255)\"></div>\n          <div class=\"tp-con\">\n            <div class=\"tp-place\">\u25C0\u6EDA\u52A8\u5F39\u5E55</div>\n            <div class=\"tp-color-warp\"></div>\n          </div>\n        </div>\n        <input class=\"tp-up\" type=\"submit\" value=\"\u53D1\u9001\" /></div>\n      <div class=\"tp-control\">\n        <div style=\"float:right;\">\n          <span class=\"tp-control-alltime\" style=\"padding:0 6px 0 12px\">0:00</span><div class=\"tp-danmaku-switch\">\u5F39</div>\n          <div class=\"tp-set\"></div>\n          <div class=\"tp-vloop tp-vloop1\"></div>\n          <div class=\"tp-syk\">\n            <span class=\"tp-syk-ico\">\u266B</span>\n            <div class=\"tp-s-tranger\">\n              <div class=\"tp-s-tranger-a\" width=\"80%\"></div>\n            </div>\n          </div>\n          <svg class=\"video-full\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" class=\"tp-icon\" viewbox=\"0 0 1024 1024\" version=\"1.1\" p-id=\"1427\">\n            <path d=\"M971.862 52.538c-10.964-10.992-25.546-17.044-41.056-17.044L429.616 35.494l0 79.362 479.86 0 0 465.288 79.364 0L988.84 93.524C988.84 78.024 982.802 63.46 971.862 52.538z\" p-id=\"1428\" />\n            <path d=\"M115.092 429.62 35.728 429.62l0 500.854c0 15.5 6.038 30.066 16.982 40.994 10.966 10.988 25.544 17.04 41.05 17.04l469.182 0 0-79.364L115.092 909.144 115.092 429.62z\" p-id=\"1429\" />\n            <path d=\"M127.16 193.578l73.198 73.198-0.034 0.034 40.438 40.44 14.164 14.096 152.616 152.616c8.796 8.796 20.492 13.64 32.932 13.64 12.442 0 24.138-4.846 32.936-13.644 18.158-18.16 18.156-47.708-0.002-65.866l-141.318-141.318 0.094-0.094-40.484-40.486-14.162-13.97L192.812 127.492l146.47 0 0-92L101.16 35.492c-36.392 0-66 29.608-66 66l0 237.972 92 0L127.16 193.578z\" p-id=\"1430\" />\n            <path d=\"M896.578 830.358l-73.198-73.198 0.034-0.034-40.44-40.44-14.148-14.084-152.622-152.62c-8.796-8.8-20.496-13.648-32.942-13.648-12.444 0-24.14 4.848-32.94 13.646-18.148 18.156-18.148 47.702 0.004 65.866l141.31 141.306-0.094 0.094 40.492 40.494 14.16 13.974 84.728 84.726-146.734 0 0 92 238.386 0c36.392 0 66-29.608 66-66l0-237.96-92 0L896.574 830.358z\" p-id=\"1431\" /></svg>\n        </div>\n        <div style=\"float: left;\">\n          <svg class=\"tp-control-play tp-icon\" viewbox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path fill=\"#fff\" d=\"M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z\" /></svg>\n          <svg class=\"tp-control-paused tp-icon\" style=\"display:none\" viewbox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path fill=\"#fff\" d=\"M256.033769 192.014198l127.977743 0 0 639.933741-127.977743 0 0-639.933741ZM639.976 191.982l127.993 0 0 639.966-127.993 0 0-639.966z\" /></svg>\n          <span class=\"tp-control-nowtime\">0:00</span>\n          <span class=\"tp-control-alltime-phone\">/ 0:00</span></div>\n        <div class=\"tp-tranger\">\n          <div class=\"tp-tranger-a\"></div>\n          <div class=\"tp-tranger-b\"></div>\n          <div class=\"tp-tranger-c\"></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<style class=\"css\" type=\"text/css\"></style>";
+    return "<div class=\"tp-video-warp\">\n  <div class=\"tp-video-main\">\n    <ul class=\"tp-rightmenu\">  \n      <li class=\"tp-copy-warp\">\n        <textarea rows=\"1\" class=\"tp-copy-input\">\u590D\u5236\u5F39\u5E55</textarea>\n      </li>\n      <li class=\"tp-search-user\"></li>\n      <li class=\"tp-speend-con\">\u64AD\u653E\u901F\u5EA6\n        <ul class=\"tp-speend\">\n          <li>0.5</li>\n          <li>0.75</li>\n          <li>\u6B63\u5E38</li>\n          <li>1.25</li>\n          <li>1.5</li>\n          <li>2</li></ul>\n      </li>\n      <li class=\"tp-definition\">\u6E05\u6670\u5EA6  <span></span></li>\n      <li class=\"tp-ratio\">\u89C6\u9891\u6BD4\u4F8B \u9ED8\u8BA4</li>\n      <li class=\"tp-screenshot\">\u622A\u56FE</li>\n      <a href=\"https://github.com/haocity/tdplayer/issues\" target=\"_blank\">\n        <li>\u610F\u89C1\u53CD\u9988</li></a>\n      <a href=\"https://github.com/haocity/tdplayer\" target=\"_blank\">\n        <li>About tdplayer</li></a>\n    </ul>\n    <div class=\"video-end\">\n      <svg t=\"1493275296747\" class=\"replay\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"3488\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"100\" height=\"100\">\n        <path d=\"M48.012564 368.005052 256.007345 368.005052C282.50851 368.005052 303.987849 346.493648 303.987849 319.992484 303.987849 293.459261 282.50851 272.011981 256.007345 272.011981L172.518731 272.011981C247.808645 165.585172 371.698941 95.994406 512.016029 95.994406 741.749327 95.994406 928.004256 282.249339 928.004256 511.981298 928.004256 741.731959 741.749327 927.954828 512.016029 927.954828 282.249335 927.954828 95.994406 741.730625 95.994406 511.981298 95.994406 485.481472 74.513729 464.00213 48.012564 464.00213 21.479342 464.00213 0 485.481472 0 511.981298 0 794.734285 229.213614 1023.981298 512.017367 1023.981298 794.75299 1023.981298 1024 794.734285 1024 511.981298 1024 229.214949 794.751652 0 512.017367 0 340.405743 0 188.81594 84.590769 95.99574 214.213612L95.99574 128.003676C95.99574 101.471785 74.515063 79.991108 48.013903 79.991108 21.480677 79.991108 0.001338 101.471785 0.001338 128.003676L0.001338 319.993822C0 346.493645 21.479339 368.005052 48.012564 368.005052\" p-id=\"3489\" fill=\"#ffffff\"></path>\n      </svg>\n    </div>\n    <div class=\"tplayer\"></div>\n    <div class=\"danmaku-warp\"></div>\n    <div class=\"tp-oneplay tp-acenter\">\n      <svg class=\"tp-acenter\" viewbox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n        <path fill=\"#fff\" d=\"M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z\" /></svg>\n    </div>\n    <div class=\"tp-spinner tp-acenter\">\n      <div class=\"rect1\"></div>\n      <div class=\"rect2\"></div>\n      <div class=\"rect3\"></div>\n      <div class=\"rect4\"></div>\n      <div class=\"rect5\"></div>\n    </div>\n    <div class=\"tp-alert\">\n       <div class=\"tp-alert-container\"></div>\n       <div class=\"tp-alert-ok\">\u786E\u5B9A</div>\n    </div>\n    <div class=\"tp-video-set\">\n      <h4>\u8BBE\u7F6E</h4>\n      <span class='tp-closeset'>\xD7</span>\n      <table class=\"tp-settable\" width=\"300\" border=\"0\">\n      <tr>\n        <td>\u5F39\u5E55\u900F\u660E\u5EA6</td>\n        <td><input type=\"range\" class=\"tp-s-r1\" min=\"20\" max=\"100\" value=\"100\"/></td>\n      \n      </tr>\n      <tr>\n        <td>\u5F39\u5E55\u7F29\u653E</td>\n        <td><input type=\"range\" class=\"tp-s-r2\" min=\"20\" max=\"100\" value=\"50\"/></td>\n      </tr>\n      <tr>\n        <td><input class=\"tp-s-r3\" type=\"checkbox\"/>\u5F39\u5E55\u52A0\u7C97</td>\n        <td><input class=\"tp-s-r4\" type=\"checkbox\"/>\u5173\u95ED\u9634\u5F71</td>\n      </tr>\n      <tr>\n        <td colspan=\"2\"><input class=\"tp-s-r5\" type=\"checkbox\"/>\u5408\u5E76\u91CD\u590D\u5F39\u5E55</td>\n      </tr>\n      <tr>\n        <td><input class=\"tp-s-r6\" type=\"checkbox\"/>\u5C4F\u853D\u5F39\u5E55</td>\n        <td><input class=\"tp-s-r7\" type=\"text\" value=\"\"/></td>\n      </tr>\n      <tr>\n      <td style='padding: 6px 0'>\u4F18\u5148\u753B\u8D28</td>\n      <td>\n          <select style=\" width: 146px;padding: 2px 10px; border-radius: 3px;\" class=\"tp-s-r8\">\n            <option>\u8D85\u6E05</option>\n            <option>\u9AD8\u6E05</option>\n            <option>\u666E\u6E05</option>\n            <option>\u6D41\u7545</option>\n          </select>\n      </td>\n    </tr>\n      <tr>\n        <td colspan=\"2\">\n          <p>\u610F\u89C1\u53CD\u9988&&\u534F\u52A9\u5F00\u53D1&&\u6307\u5BFC \u8BF7\u8054\u7CFBQQ 1051667334</p>\n          <p>\u6280\u672F\u6C34\u5E73\u6709\u9650 \u611F\u8C22\u4F60\u7684\u4F7F\u7528</p>\n        </td>\n      </tr>\n    </table>\n    </div>\n    <div class=\"tp-video-con\">\n      <div class=\"tp-send\">\n        <input type=\"text\" class=\"tp-text\"  placeholder=\"\u5BA2\u5B98\uFF0C\u4E0D\u6765\u5410\u69FD\u4E00\u4E0B\u5417?\" autocomplete=\"off\" />\n        <div class=\"tp-color\">\n          <div class=\"tp-color-bo\" style=\"background-color: rgb(255, 255, 255)\"></div>\n          <div class=\"tp-con\">\n            <div class=\"tp-place\">\u25C0\u6EDA\u52A8\u5F39\u5E55</div>\n            <div class=\"tp-color-warp\"></div>\n          </div>\n        </div>\n        <input class=\"tp-up\" type=\"submit\" value=\"\u53D1\u9001\" /></div>\n      <div class=\"tp-control\">\n        <div style=\"float:right;\">\n          <span class=\"tp-control-alltime\" style=\"padding:0 6px 0 12px\">0:00</span><div class=\"tp-danmaku-switch\">\u5F39</div>\n          <div class=\"tp-set\"></div>\n          <div class=\"tp-vloop tp-vloop1\"></div>\n          <div class=\"tp-syk\">\n            <span class=\"tp-syk-ico\">\u266B</span>\n            <div class=\"tp-s-tranger\">\n              <div class=\"tp-s-tranger-a\" width=\"80%\"></div>\n            </div>\n          </div>\n          <svg class=\"video-full\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" class=\"tp-icon\" viewbox=\"0 0 1024 1024\" version=\"1.1\" p-id=\"1427\">\n            <path d=\"M971.862 52.538c-10.964-10.992-25.546-17.044-41.056-17.044L429.616 35.494l0 79.362 479.86 0 0 465.288 79.364 0L988.84 93.524C988.84 78.024 982.802 63.46 971.862 52.538z\" p-id=\"1428\" />\n            <path d=\"M115.092 429.62 35.728 429.62l0 500.854c0 15.5 6.038 30.066 16.982 40.994 10.966 10.988 25.544 17.04 41.05 17.04l469.182 0 0-79.364L115.092 909.144 115.092 429.62z\" p-id=\"1429\" />\n            <path d=\"M127.16 193.578l73.198 73.198-0.034 0.034 40.438 40.44 14.164 14.096 152.616 152.616c8.796 8.796 20.492 13.64 32.932 13.64 12.442 0 24.138-4.846 32.936-13.644 18.158-18.16 18.156-47.708-0.002-65.866l-141.318-141.318 0.094-0.094-40.484-40.486-14.162-13.97L192.812 127.492l146.47 0 0-92L101.16 35.492c-36.392 0-66 29.608-66 66l0 237.972 92 0L127.16 193.578z\" p-id=\"1430\" />\n            <path d=\"M896.578 830.358l-73.198-73.198 0.034-0.034-40.44-40.44-14.148-14.084-152.622-152.62c-8.796-8.8-20.496-13.648-32.942-13.648-12.444 0-24.14 4.848-32.94 13.646-18.148 18.156-18.148 47.702 0.004 65.866l141.31 141.306-0.094 0.094 40.492 40.494 14.16 13.974 84.728 84.726-146.734 0 0 92 238.386 0c36.392 0 66-29.608 66-66l0-237.96-92 0L896.574 830.358z\" p-id=\"1431\" /></svg>\n        </div>\n        <div style=\"float: left;\">\n          <svg class=\"tp-control-play tp-icon\" viewbox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path fill=\"#fff\" d=\"M836.1152 512 194.2848 886.4v-748.8000000000001L836.1152 512z\" /></svg>\n          <svg class=\"tp-control-paused tp-icon\" style=\"display:none\" viewbox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path fill=\"#fff\" d=\"M256.033769 192.014198l127.977743 0 0 639.933741-127.977743 0 0-639.933741ZM639.976 191.982l127.993 0 0 639.966-127.993 0 0-639.966z\" /></svg>\n          <span class=\"tp-control-nowtime\">0:00</span>\n          <span class=\"tp-control-alltime-phone\">/ 0:00</span></div>\n        <div class=\"tp-tranger\">\n          <div class=\"tp-tranger-a\"></div>\n          <div class=\"tp-tranger-b\"></div>\n          <div class=\"tp-tranger-c\"></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n";
   },
   test: function test() {
     return console.log("ok");
@@ -16632,14 +16632,14 @@ var Tplayer = function () {
 		if (this.options.danmakuapi && this.options.danmakuid) {
 			this.geturl = this.options.danmakuapi + "get/?id=" + this.options.danmakuid;
 			this.sendurl = this.options.danmakuapi + "send/";
+			this.adddanmaku(this.geturl);
 		} else if (this.options.acvid) {
-			this.geturl = "https://t5.haotown.cn/acfun/danmu/?vid=" + this.options.acvid;
+			this.addacfundanmu(this.options.acvid);
 		} else {
 			console.error("无法找到弹幕");
 		}
-		this.adddanmaku(this.geturl);
-		this.data = new Array();
 
+		this.data = new Array();
 		this.vloop = false;
 		this.nowduan = 0;
 		this.v = _html2.default.main();
@@ -16679,7 +16679,6 @@ var Tplayer = function () {
 			"replay": _this.$c(".replay")[0],
 			"copy": _this.$c(".tp-copy-warp")[0],
 			"copytext": _this.$c(".tp-copy-input")[0],
-			"css": _this.$c(".css")[0],
 			"alltime_phone": _this.$c(".tp-control-alltime-phone")[0],
 			"vloop": _this.$c('.tp-vloop')[0],
 			"searchuser": $c(".tp-search-user")[0],
@@ -16701,6 +16700,14 @@ var Tplayer = function () {
 			"screenshot": _this.$c(".tp-screenshot")[0],
 			"definition": _this.$c(".tp-definition")[0]
 		};
+		if (document.querySelector('.tp-css')) {
+			this.ele.css = document.querySelector('.tp-css');
+		} else {
+			this.ele.css = document.createElement('style');
+			this.ele.css.type = 'text/css';
+			this.ele.css.className = 'tp-css';
+			document.body.appendChild(this.ele.css);
+		}
 		if (localStorage.getItem('tdconfig') && localStorage.getItem('tdconfig') != "undefined") {
 			this.config = JSON.parse(localStorage.getItem('tdconfig'));
 			console.log('加载设置成功');
@@ -16839,12 +16846,7 @@ var Tplayer = function () {
 		this.danmakuelement = this.ele.danmaku_warp;
 		this.sjc = 0;
 		this.dsq = 0;
-		this.leftarr = {
-			t: [],
-			v: [],
-			out: [],
-			w: []
-		};
+		this.leftarr = { t: [], v: [], leaving: [], width: [] };
 		this.toparr = [];
 		this.dmheight = 37;
 		this.dmplace = 1;
@@ -16894,8 +16896,6 @@ var Tplayer = function () {
 
 			//样式
 			this.send = function (text, color, wz, me, user, size) {
-				this.width = this.ele.tplayer_main.offsetWidth;
-				this.height = this.ele.tplayer_main.offsetHeight;
 				var dm = document.createElement("div");
 				dm.user = user;
 				dm.style.color = color;
@@ -16913,33 +16913,42 @@ var Tplayer = function () {
 						dm.style.transform = "translateX(-" + this.width + "px)";
 					}
 					this.ele.danmaku_warp.appendChild(dm);
+					var twidth = dm.offsetWidth;
 					var _time = this.width / 100;
-					var v = (dm.offsetWidth + this.width) / _time;
-					var outt = dm.offsetWidth / v;
-					var dtop = this.getlefttop(v, dm.offsetWidth);
-					this.leftarr.out[dtop] = true;
-					setTimeout(function () {
-						_this.leftarr.out[dtop] = false;
-					}, outt * 1000 + 200);
+					var v = (twidth + this.width) / _time;
+					var dmtop = this.getlefttop(v, twidth);
+					var leavetime = twidth / v;
+					this.leftarr.leaving[dmtop] = true;
 
-					dm.style.top = dtop * this.dmheight + "px";
-					dm.addEventListener("webkitAnimationEnd", function () {
-						_this.dmend(dm);
-					});
-					dm.addEventListener("animationend", function () {
-						_this.dmend(dm);
-					});
+					if ((dmtop + 1) * this.dmheight < this.height) {
+						dm.style.display = 'block';
+						setTimeout(function () {
+							_this.leftarr.leaving[dmtop] = false;
+						}, leavetime * 1000 + 200);
+						dm.style.top = dmtop * this.dmheight + "px";
+
+						dm.addEventListener("webkitAnimationEnd", function () {
+							_this.dmend(dm);
+						});
+						dm.addEventListener("animationend", function () {
+							_this.dmend(dm);
+						});
+					} else {
+						this.leftarr.leaving[dmtop] = false;
+						this.dmend(dm);
+						console.log('超出屏幕范围', this.height);
+					}
 				} else if (wz == 2) {
 					//顶部弹幕
 					dm.appendChild(document.createTextNode(text));
 
 					dm.className = "danmaku tp-top";
-					var _dtop = this.gettoptop();
-					dm.style.top = _dtop * this.dmheight + "px";
-					this.toparr[_dtop] = 1;
+					var dtop = this.gettoptop();
+					dm.style.top = dtop * this.dmheight + "px";
+					this.toparr[dtop] = 1;
 					var e = this.ele.danmaku_warp.appendChild(dm);
 					setTimeout(function () {
-						_this.danmakuhide(e, _dtop);
+						_this.danmakuhide(e, dtop);
 					}, 5e3);
 				} else if (wz == 7) {
 					var tj = JSON.parse(text);
@@ -16947,8 +16956,7 @@ var Tplayer = function () {
 					if (!tj.l || tj.l.toFixed(2) == 0) {
 						//时间如果为0
 						if (tj.z) {
-							console.log('z存在', tj.z);
-
+							//console.log('z存在', tj.z);
 							for (var i = 0; i < tj.z.length; i++) {
 								if (tj.l <= tj.z[i].l) {
 									tj.l = tj.z[i].l;
@@ -17036,12 +17044,7 @@ var Tplayer = function () {
 							_this.tiao(0);
 						} else {
 							_this.ele.end.style.display = 'block';
-							_this.leftarr = {
-								t: [],
-								v: [],
-								out: [],
-								w: []
-							};
+							_this.leftarr = { t: [], v: [], leaving: [], width: [] };
 							_this.toparr = [];
 							var arr = _this.$c('.danmaku');
 							for (var _i13 = arr.length - 1; _i13 >= 0; _i13--) {
@@ -17068,7 +17071,7 @@ var Tplayer = function () {
 						_this.ele.tp_up.style.background = "#8715EF";
 					}, 500);
 
-					_this.ws.send(sendComment(_this.ele.tp_text.value, _this.getnowtime(), colorRGB2Hex(_this.ele.tp_color_bo.style.backgroundColor)));
+					_this.ws.send(_this.sendComment(_this.ele.tp_text.value, _this.getnowtime(), colorRGB2Hex(_this.ele.tp_color_bo.style.backgroundColor)));
 				}
 			});
 			//回车发射
@@ -17712,6 +17715,59 @@ var Tplayer = function () {
 			this.ele.tp_spinner.style.display = "none";
 		}
 	}, {
+		key: 'addacfundanmu',
+		value: function addacfundanmu(vid) {
+			var _this = this;
+			fetch("http://danmu.aixifan.com/size/" + vid).then(function (response) {
+				return response.json();
+			}).then(function (json) {
+				var max = Math.ceil(json[2] / 2000);
+				if (max == 0) {
+					max == 1;
+				}
+				var nowid = 0;
+				var nowp = 0;
+
+				var _loop2 = function _loop2(i) {
+					fetch("http://danmu.aixifan.com/V3/" + vid + '/' + i + '/2000').then(function (response) {
+						return response.json();
+					}).then(function (json) {
+						for (var x = 0; x < json.length; x++) {
+							for (var y = 0; y < json[x].length; y++) {
+								if (json[x][y]) {
+									var o = new Object();
+									o.text = json[x][y].m;
+									var c = json[x][y].c.split(',');
+									o.time = parseInt(c[0] * 10);
+									o.color = '#' + (Array(6).join(0) + parseInt(c[1]).toString(16)).slice(-6);
+									o.place = c[2];
+									o.size = c[3];
+									o.user = c[4];
+									if (o.place != 1 && o.place != 7) {
+										o.place = 2;
+									}
+									o.id = nowid;
+									nowid++;
+									_this.data.push(o);
+									_this.nowdata = _this.data.slice(0);
+								}
+							}
+						}
+						nowp++;
+						console.log('弹幕' + i + '段解析成功');
+						if (nowp == max) {
+							console.log('弹幕添加完成');
+							_this.setint();
+						}
+					});
+				};
+
+				for (var i = 1; i <= max; i++) {
+					_loop2(i);
+				}
+			});
+		}
+	}, {
 		key: 'adddanmaku',
 		value: function adddanmaku(url) {
 			var _this = this;
@@ -17727,7 +17783,6 @@ var Tplayer = function () {
 						}
 						if (t.danmu) {
 							for (var i = 0; i < t.danmu.length; i++) {
-								t.danmu[i].text = unescape(t.danmu[i].text);
 								_this.data.push(t.danmu[i]);
 							}
 						}
@@ -17748,12 +17803,19 @@ var Tplayer = function () {
 			console.log('弹幕速度调整为' + v);
 			this.config.v = v;
 			this.changerconfig();
+			this.width = this.ele.tplayer_main.offsetWidth;
+			this.height = this.ele.tplayer_main.offsetHeight;
 		}
 	}, {
 		key: 'joinfull',
 		value: function joinfull() {
+			var _this = this;
 			this.ele.video_ratio.ratio = 4;
 			this.ele.video_ratio.click();
+			setTimeout(function () {
+				_this.width = _this.ele.tplayer_main.offsetWidth;
+				_this.height = _this.ele.tplayer_main.offsetHeight;
+			}, 1000);
 		}
 	}, {
 		key: 'changerconfig',
@@ -17860,7 +17922,8 @@ var Tplayer = function () {
 		key: 'tpeixtfull',
 		value: function tpeixtfull() {
 			setTimeout(function () {
-				this.width = this.ele.tplayer.offsetWidth;
+				this.width = this.ele.tplayer_main.offsetWidth;
+				this.height = this.ele.tplayer_main.offsetHeight;
 				this.dmspeend(this.width / 100);
 				var e = this.ele.danmaku_warp.getElementsByTagName("div");
 				for (var i = e.length - 1; i >= 0; i--) {
@@ -17962,12 +18025,13 @@ var Tplayer = function () {
 		}
 	}, {
 		key: 'getlefttop',
-		value: function getlefttop(v, ww) {
+		value: function getlefttop(v, dmwidth) {
 			var h = void 0;
 			var t = this.getnowtime();
 			var allt = this.width / 100;
 			for (var i = 0; i <= this.leftarr.t.length; i++) {
-				if (!this.leftarr.out[i]) {
+				//leaving是否离开左侧屏幕 完全显示出来
+				if (!this.leftarr.leaving[i]) {
 					if (this.leftarr.v[i] >= v) {
 						h = i;
 						break;
@@ -17979,7 +18043,7 @@ var Tplayer = function () {
 						var tt = this.width / 100 - t + this.leftarr.t[i];
 						var sz = tt * (v - this.leftarr.v[i]);
 						//间隔距离 这里-20是为了防止跟太紧
-						var so = (t - this.leftarr.t[i]) * this.leftarr.v[i] - this.leftarr.w[i] - 20;
+						var so = (t - this.leftarr.t[i]) * this.leftarr.v[i] - this.leftarr.width[i] - 20;
 						//console.log(`${i}弹幕会在上一弹幕尾部飞行${tt}秒 速度差${v-this.leftarr.v[i]} 会追上路程 ${sz}  判断时距离 ${so}`)
 						if (sz < so) {
 							h = i;
@@ -17994,8 +18058,8 @@ var Tplayer = function () {
 			}
 			this.leftarr.t[h] = t;
 			this.leftarr.v[h] = v;
-			this.leftarr.out[h] = true;
-			this.leftarr.w[h] = ww;
+			this.leftarr.leaving[h] = true;
+			this.leftarr.width[h] = dmwidth;
 			return h;
 		}
 	}, {
@@ -18107,7 +18171,7 @@ var Tplayer = function () {
 					if (this.nowdata[i]) {
 						//console.log('nowtime:'+inttime);
 						if (this.nowdata[i].time == inttime) {
-							this.send(unescape(this.nowdata[i].text), this.nowdata[i].color, this.nowdata[i].place, false, this.nowdata[i].user, this.nowdata[i].size);
+							this.send(this.nowdata[i].text, this.nowdata[i].color, this.nowdata[i].place, false, this.nowdata[i].user, this.nowdata[i].size);
 							delete this.nowdata[i];
 						}
 					}
@@ -18345,6 +18409,29 @@ var Tplayer = function () {
 				this.play();
 			}
 		}
+	}, {
+		key: 'sendComment',
+		value: function sendComment(message, time, color) {
+			var mode = 1;
+			if (this.dmplace == 2) {
+				mode = 5;
+			}
+			var obj = {
+				"action": 'post',
+				"command": JSON.stringify({
+					"mode": mode,
+					"color": parseInt(color, 16) || 16777215,
+					"size": 25,
+					"stime": time | 0,
+					"user": user.uid,
+					"message": message,
+					"time": Date.now() / 1e3 | 0,
+					"islock": '2'
+				})
+			};
+			console.log(obj);
+			return JSON.stringify(obj);
+		}
 	}]);
 
 	return Tplayer;
@@ -18384,24 +18471,6 @@ function colorRGB2Hex(color) {
 	return hex;
 }
 
-function sendComment(message, time, color) {
-	var obj = {
-		"action": 'post',
-		"command": JSON.stringify({
-			"mode": 1,
-			"color": parseInt(color, 16) || 16777215,
-			"size": 25,
-			"stime": time | 0,
-			"user": user.uid,
-			"message": message,
-			"time": Date.now() / 1e3 | 0,
-			"islock": '2'
-		})
-	};
-	console.log(obj);
-	return JSON.stringify(obj);
-}
-
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -18411,7 +18480,7 @@ exports = module.exports = __webpack_require__(5)(undefined);
 
 
 // module
-exports.push([module.i, "/*acfun*/\r\n.vdown {\r\n    width: 110px;\r\n    margin: 0;\r\n    padding: 20px 10px;\r\n    cursor: pointer;\r\n    position: relative;\r\n}\r\n\r\nsection.crumb .vdown .ico {\r\n    width: 36px;\r\n    height: 36px;\r\n    border-radius: 50%;\r\n    margin-right: 10px;\r\n}\r\nsection.player{\r\n\tposition: relative;\r\n\tmin-height:653px;\r\n}\r\n#vdown {\r\n\tposition: absolute;\r\n\tz-index: 5;\r\n\twidth: 300px;\r\n\tbackground: #fff;\r\n\tborder: 1px solid #eee;\r\n\tborder-radius: 5px;\r\n\tmargin-left: -150px;\r\n\tleft: 160px;\r\n\tpadding: 20px 10px;\r\n\tbox-shadow: 0 3px 8px rgba(0,0,0,0.1);\r\n\tbackground-color: #fff;\r\n\toverflow: hidden;\r\n}\r\n.down-btn, .down-btn>a {\r\n\tcolor: #fff;\r\n\ttext-decoration: none;\r\n}\r\n.down-btn {\r\n\tdisplay: inline-block;\r\n\tmargin: 10px 5px;\r\n\tpadding: 5px 10px;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #d07878;\r\n\tbox-shadow: 1px 1px 5px #b5b5b5;\r\n\ttext-align: center;\r\n}\r\n/*player*/\r\n.tplayer{\r\n\theight: 100%;\r\n\twidth: 100%;\r\n}\r\n.tp-video-warp p{\r\n\tmargin: 0;\r\n}\r\n.tp-video-warp ul{\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}\r\n.tp-video-warp{\r\n\tfont-size: 14px;\r\n}\r\n.video-end {\r\n\tposition: absolute;\r\n\theight: 100%;\r\n\twidth: 100%;\r\n\tz-index: 8;\r\n\tbackground: #000 url(" + __webpack_require__(10) + ") no-repeat right 40px bottom 30px;\r\n\tdisplay: none;\r\n\topacity: 1;\r\n\tanimation: tpshow 3s;\r\n\t-webkit-animation:tpshow 3s;\r\n}\r\n@keyframes tpshow\r\n{\r\n\tfrom {opacity: 0}\r\n\tto {opacity: 1}\r\n}\r\n@-webkit-keyframes tpshow\r\n{\r\n\tfrom {opacity: 0}\r\n\tto {opacity: 1}\r\n}\r\n.video-end>.replay {\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\tmargin-left: -50px;\r\n\tmargin-top: -50px;\r\n\ttransition:transform 2s;\r\n\t-moz-transition:transform 2s;\r\n\t-webkit-transition:transform 2s;\r\n}\r\n.video-end>.replay:hover {\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-moz-transform: rotate(360deg);\r\n}\r\n.tp-video-main>.danmaku-warp>.danmaku {\r\n\tcolor: #fff;\r\n\tline-height: 37px;\r\n\tz-index: 6;\r\n\tpadding: 0 4px;\r\n\tfont-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;\r\n}\r\n.tp-left {\r\n\tposition: absolute;\r\n\twill-change: transform;\r\n\tright: 0;\r\n\tfont-size: 24px;\r\n\tanimation: dmleft 10s linear;\r\n\t-webkit-animation: dmleft 10s linear;\r\n\tcursor: pointer;\r\n\twhite-space: nowrap;\r\n}\r\n.tp-top {\r\n\tposition: absolute;\r\n    left: 50%;\r\n    text-align: center;\r\n    display: block;\r\n    font-size: 22px;\r\n    transform: translateX(-50%);\r\n    -webkit-transform: translateX(-50%);\r\n    white-space:nowrap;\r\n}\r\n.danmaku-ad{\r\n\tposition: absolute;\r\n\t-webkit-transform: translateX(50%);\r\n\t-moz-transform: translateX(50%);\r\n\ttransform: translateX(50%);\r\n}\r\n@keyframes dmleft {\r\n\t0% {\r\n\t-webkit-transform: translateX(100%);\r\n\ttransform: translateX(100%)\r\n}\r\n}\r\n@-webkit-keyframes dmleft {\r\n\t0% {\r\n\t-webkit-transform: translateX(100%);\r\n\ttransform: translateX(100%)\r\n}\r\n}\r\n.danmaku-warp {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\toverflow: hidden;\r\n\ttransform-origin: top left;\r\n\t-moz-transform-origin:top left;\r\n\t-webkit-transform-origin:top left;\r\n}\r\n.tp-send {\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\twidth: 60%;\r\n\theight: 35px;\r\n\tborder-radius: 5px;\r\n\tmargin: 0 0 0 -30%;\r\n\ttext-align: center;\r\n\tpadding: 4px 0;\r\n\tbackground-color: rgba(255, 255, 255, 0.79);\r\n\tz-index: 6;\r\n\tbox-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);\r\n}\r\n.tp-text {\r\n\twidth: 100%;\r\n    line-height: 36px;\r\n\tborder: none;\r\n\ttext-align: center;\r\n\tbackground-color: transparent;\r\n\toutline: none;\r\n}\r\n\r\n.tp-up {\r\n\tdisplay: none;\r\n\tposition: relative;\r\n\t\r\n\tleft: 20px;\r\n\tbackground-color: #8715EF;\r\n\tcolor: #fff;\r\n\tborder: 0 solid #000;\r\n\tline-height: 20px;\r\n\tborder-radius: 4px;\r\n\tpadding: 3px 20px;\r\n}\r\n\r\n.tp-msg{\r\n\tposition: absolute;\r\n    bottom: 60px;\r\n    right: 6px;\r\n    background-color: rgba(255, 255, 255, 0.95);\r\n    padding: 6px 10px;\r\n    z-index: 999;\r\n    border-radius: 6px;\r\n}\r\n.tp-msg>.tp-msg-close{\r\n\tcursor: pointer;\r\n    color: #000;\r\n    font-weight: 600;\r\n    font-size: 1.4em;\r\n    line-height: 18px;\r\n    padding-right: 8px;\r\n   \tfont-size: 15px;\r\n}\r\n.tp-video-main {\r\n\tposition: absolute;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground-color: #000;\r\n\t-webkit-user-select: none;\r\n\t-moz-user-select: none;\r\n\tuser-select: none;\r\n\toverflow:hidden;\r\n}\r\n.tp-video {\r\n\tposition: absolute;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    margin: auto;\r\n}\r\n.tp-video-con {\r\n\topacity: 0;\r\n\tposition: absolute;\r\n    bottom: 0;\r\n    height: 100px;\r\n    width: 100%;\r\n    background: linear-gradient(to top,rgba(0,0,0,.75),hsla(0,0%,100%,0));\r\n\ttransition: opacity 1s;\r\n\t-moz-transition: opacity 1s;\r\n\t-webkit-transition: opacity 1s;\r\n}\r\n.tp-video-con:hover{\r\n\topacity: 1!important;\r\n}\r\n.tp-control {\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tpadding-bottom: 10px;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 45px;\r\n\tcolor: #fff;\r\n\tline-height: 0;\r\n\tuser-select: none;\r\n\tz-index: 888;\r\n}\r\n.tp-control-nowtime,.tp-control-alltime{\r\n\tcursor: default;\r\n}\r\n.tp-icon {\r\n\tposition: relative;\r\n\ttop: 6px;\r\n\tpadding-left: 10px;\r\n\tpadding-right: 2px;\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tcursor: pointer;\r\n\tfill: #fff;\r\n}\r\n\r\n.tp-definition{\r\n\tdisplay: none;\r\n}\r\n.tp-danmaku-switch {\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tborder: 2px solid #fff;\r\n\tcolor: #fff;\r\n\tborder-radius: 50%;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tline-height: 22px;\r\n\tfont-size: 14px;\r\n\ttext-align: center;\r\n\tcursor: pointer;\r\n}\r\n.tp-danmaku-switch-c {\r\n\tcolor: #000 !important;\r\n\tborder: none !important;\r\n\tbackground-color: #fff;\r\n}\r\n\r\n.tp-vloop{\r\n\tdisplay: inline-block;\r\n    height: 25px;\r\n    width: 25px;\r\n    background-size: cover;\r\n    transform: translateY(8px);\r\n    cursor: pointer;\r\n}\r\n.tp-vloop1{\r\n\tbackground-image: url(" + __webpack_require__(11) + ")\r\n}\r\n.tp-vloop2{\r\n\tbackground-image: url(" + __webpack_require__(12) + ")\r\n}\r\n.tp-set{\r\n\tbackground-image: url(" + __webpack_require__(8) + ");\r\n\tdisplay: inline-block;\r\n    height: 24px;\r\n    width: 24px;\r\n    margin: 0 14px;\r\n    background-size: cover;\r\n    transform: translateY(8px);\r\n    cursor: pointer;\r\n}\r\n.sound-ico{\r\n\tbackground-image: url(" + __webpack_require__(9) + ");\r\n    display: inline-block;\r\n    height: 26px;\r\n    width: 26px;\r\n    background-size: cover;\r\n    cursor: pointer;\r\n    margin-right: 5px;\r\n    vertical-align: bottom;\r\n}\r\n.tp-alert,.tp-video-set{\r\n\tdisplay: none;\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%) translateY(-50%);\r\n    -webkit-transform: translateX(-50%) translateY(-50%);\r\n    z-index: 999;\r\n    background-color: rgba(255, 255, 255, 0.95);\r\n    border-radius: 5px;\r\n    overflow: hidden;\r\n    font-size: 14px;\r\n}\r\n\r\n.tp-video-set{\r\n\twidth: 400px;\r\n    height: 300px;\r\n}\r\n\r\n\r\n.tp-alert-ok{\r\n\twidth: 50px;\r\n\tbackground-color: #e05865;\r\n\tcolor: #fff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n    text-align: center;\r\n\tmargin: 5px auto;\r\n\tcursor: pointer;\r\n}\r\n.tp-closeset{\r\n\tposition:absolute;\r\n\ttop: 0;\r\n\tright:0;\r\n\tpadding:4px;\r\n\tcursor:pointer;\r\n\tcolor:#000;\r\n\tfont-weight: 600;\r\n\tfont-size: 1.4em;\r\n}\r\n.tp-alert-container{\r\n\tpadding: 20px\r\n}\r\n.tp-alert-container .tp-screenshot-canvas{\r\n\theight: auto;\r\n\twidth: 300px\r\n}\r\n.tp-settable{\r\n\tmargin:0 auto;\r\n\tcursor:default;\r\n}\r\n.tp-video-set>h4{\r\n\tmargin: 0 0 8px 0;\r\n\tpadding: 10px 20px;\r\n    background-color: rgb(243, 93, 93);\r\n    color: #fff;\r\n}\r\n.tp-syk {\r\n\tpadding: 10px 10px;\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\ttop: -7px;\r\n}\r\n.tp-s-tranger {\r\n  position: relative;\r\n  height: 10px;\r\n  width:80px;\r\n  margin-left: 30px;\r\n  top: 10px;\r\n  background-color: rgba(142, 129, 129, 0.6);\r\n  border-radius: 4px;\r\n  cursor: pointer;\r\n  overflow:hidden;\r\n}\r\n.tp-s-tranger>.tp-s-tranger-a {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 10%;\r\n  height: 100%;\r\n  background-color: #e33d3d;\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n.tp-tranger {\r\n\tposition: relative;\r\n\theight: 11px;\r\n\tbackground-color: rgba(0, 0, 0, 0.17);\r\n\tborder-radius: 6px;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tmargin-top: 18px;\r\n\tmargin-left: 80px;\r\n\tmargin-right: 170px;\r\n}\r\n.tp-tranger>.tp-tranger-a {\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tbackground-color: rgb(248, 73, 73);\r\n\theight: 100%;\r\n\twidth: 0;\r\n\tborder-radius: 6px;\r\n\tz-index: 3;\r\n}\r\n.tp-tranger>.tp-tranger-b {\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tbackground-color: #FFFFFF;\r\n\theight: 100%;\r\n\twidth: 11px;\r\n\tborder-radius: 50%;\r\n\tright: 16px;\r\n\tz-index: 5;\r\n}\r\n.tp-tranger>.tp-tranger-c {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\twidth: 0%;\r\n\theight: 100%;\r\n\tbackground-color: rgba(207, 198, 198, 0.47);\r\n\tborder-radius: 6px;\r\n\tz-index: 2;\r\n\toverflow: hidden;\r\n}\r\n.tp-syk-ico {\r\n\tposition: absolute;\r\n\ttop: 22px;\r\n\tleft:12px;\r\n\tfont-size: 1.6em;\r\n\tcursor:default;\r\n}\r\n\r\n/*loding*/\r\n.tp-oneplay{\r\n\twidth: 120px;\r\n    height: 111px;\r\n    z-index: 999;\r\n    background-color: rgb(234, 62, 73);\r\n    cursor: pointer;\r\n    border-radius: 10px;\r\n}\r\n.tp-oneplay>svg{\r\n\twidth: 100px;\r\n    height: 100px;\r\n    fill: #fff;\r\n    margin-left: 10px;\r\n}\r\n.tp-acenter{\r\n\tposition: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    right: 0;\r\n    margin: auto;\r\n}\r\n.tp-spinner {\r\n\twidth: 76px;\r\n\theight: 40px;\r\n\tz-index: 7;\r\n\tdisplay: none;\r\n}\r\n.tp-suspend {\r\n\t-webkit-animation-play-state: paused !important;\r\n\tanimation-play-state: paused !important;\r\n}\r\n.md-iframe {\r\n\tdisplay: none;\r\n}\r\n.tp-place2 {\r\n\tbackground-color: #3b3b3b;\r\n\tmargin: 2px 0 4px 0;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n.tp-spinner > div {\r\n\tbackground-color: #fff;\r\n\theight: 100%;\r\n\twidth: 6px;\r\n\tdisplay: inline-block;\r\n\t-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;\r\n\tanimation: sk-stretchdelay 1.2s infinite ease-in-out;\r\n\tborder: 1px solid #dadada;\r\n}\r\n.tp-spinner .rect2 {\r\n\t-webkit-animation-delay: -1.1s;\r\n\tanimation-delay: -1.1s;\r\n}\r\n.tp-spinner .rect3 {\r\n\t-webkit-animation-delay: -1.0s;\r\n\tanimation-delay: -1.0s;\r\n}\r\n.tp-spinner .rect4 {\r\n\t-webkit-animation-delay: -0.9s;\r\n\tanimation-delay: -0.9s;\r\n}\r\n.tp-spinner .rect5 {\r\n\t-webkit-animation-delay: -0.8s;\r\n\tanimation-delay: -0.8s;\r\n}\r\n@-webkit-keyframes sk-stretchdelay {\r\n\t0%, 40%, 100% {\r\n\t-webkit-transform: scaleY(0.4)\r\n}\r\n20% {\r\n\t-webkit-transform: scaleY(1.0)\r\n}\r\n}\r\n@keyframes sk-stretchdelay {\r\n\t0%, 40%, 100% {\r\n\ttransform: scaleY(0.4);\r\n\t-webkit-transform: scaleY(0.4);\r\n}\r\n20% {\r\n\ttransform: scaleY(1.0);\r\n\t-webkit-transform: scaleY(1.0);\r\n}\r\n}\r\n.video-full {\r\n\twidth: 20px;\r\n\tpadding-right: 30px;\r\n\ttop: 9px;\r\n\tposition: relative;\r\n\tpadding-left: 10px;\r\n\theight: 30px;\r\n\tcursor: pointer;\r\n\tfill: #fff;\r\n}\r\n:-webkit-full-screen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:-moz-full-screen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:-ms-fullscreen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:-full-screen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:fullscreen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n.tp-con {\r\n\tposition: absolute;\r\n\ttop: -90px;\r\n\tdisplay: none;\r\n\twidth: 150px;\r\n\tmargin: 0 auto;\r\n\tpadding: 6px;\r\n\tbackground-color: rgba(255, 255, 255, 0.75);\r\n\tborder-radius: 6px;\r\n\toverflow: hidden;\r\n}\r\n.tp-color {\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\ttop: 18px;\r\n    right: 15px;\r\n\tborder-radius: 4px;\r\n\tcursor: pointer;\r\n\tz-index: 7;\r\n}\r\n.tp-color-w{\r\n\tfloat: left;\r\n}\r\n.tp-color-warp {\r\n\theight: 60px;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.tp-color-main {\r\n\twidth: 20px;\r\n\theight: 20px;\r\n\tborder: 1px solid #FFFFFF;\r\n\tborder-radius: 2px;\r\n}\r\n.tp-color-bo {\r\n\tposition: relative;\r\n\tbottom: 8px;\r\n\twidth: 20px;\r\n\theight: 20px;\r\n\tborder-radius: 50%;\r\n\tborder: 1px solid #8b8585;\r\n}\r\n.tp-place {\r\n\ttext-align: center;\r\n\tpadding-bottom: 4px;\r\n}\r\n.tp-rightmenu {\r\n\tdisplay: none;\r\n\tposition: absolute;\r\n\toverflow: hidden;\r\n\twidth: 130px;\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tlist-style: none;\r\n\tborder-radius: 4px;\r\n    background: rgba(28, 28, 28, 0.9);\r\n    border: none;\r\n    text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;\r\n\tcolor: #fff;\r\n\tz-index: 9999;\r\n}\r\n.tp-rightmenu a {\r\n\tcolor: #fff;\r\n\ttext-decoration: none;\r\n}\r\n.tp-rightmenu li {\r\n\tpadding: 2px 0 2px 8px;\r\n\tcursor: pointer;\r\n}\r\n.tp-rightmenu li:hover {\r\n\tpadding-left: 7px;\r\n\tbackground-color: rgba(255,255,255,0.2);\r\n}\r\n.tp-search-user{\r\n\tdisplay: none;\r\n}\r\nul.tp-speend {\r\n\tdisplay: none;\r\n\tmargin: 4px 0 4px 30px;\r\n}\r\n\r\n.tp-copy-input{\r\n    display: block;\r\n    width: 100%;\r\n    height: 19px;\r\n    overflow: hidden;\r\n    padding: 0;\r\n    margin: 0;\r\n    background-color: transparent;\r\n    border: 0;\r\n    color: #fff;\r\n    resize: none;\r\n    cursor: pointer;\r\n    font-size: 15px;\r\n    line-height: 21px;\r\n    overflow:hidden;\r\n    font-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;\r\n}\r\n.tp-control-alltime-phone{\r\n\tdisplay: none;\r\n}\r\n.tp-loding{\r\n\t\tposition: absolute;\r\n\t    width: 100%;\r\n\t    height: 100%;\r\n\t    top: 0;\r\n\t\tleft: 0;\r\n\t\tz-index: 20;\r\n\t\t\r\n}\r\n.tp-loding-img-warp{\r\n\theight: 120px;\r\n\twidth: 120px;\r\n\tbox-sizing: content-box;\r\n\tborder: 8px solid rgba(200, 200, 200, 0.63);\r\n\tborder-radius: 50%;\r\n\tanimation:lodingborder 1s infinite alternate;\r\n\t-webkit-animation:lodingborder 1s infinite alternate;\r\n\toverflow: hidden;\r\n}\r\n\t@keyframes lodingborder\r\n\t{\r\n\t\tto { border: 14px solid rgba(200, 200, 200, 0.63);}\r\n\t}\r\n\t@-webkit-keyframes lodingborder\r\n\t{\r\n\t\tto { border: 14px solid rgba(200, 200, 200, 0.63);}\r\n\t}\r\n\t.tp-loding-img{\r\n\t\tbackground-image: url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac3/02.gif);\r\n\t   \twidth: 120px;\r\n\t   \theight: 120px;\r\n\t    background-repeat: no-repeat;\r\n\t    background-position: center;\r\n\t    background-size: 100px;\r\n\t    background-color: rgb(255, 255, 255);\r\n\t}\r\n\t.tp-loding-text{\r\n\t\tcolor: #ffffff;\r\n\t\ttext-align: center;\r\n\t\tposition: absolute;\r\n\t\tbottom: 30%;\r\n\t\twidth: 100%\r\n\t}\r\n.tp-img-back{\r\n\tposition: absolute;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-size: cover;\r\n    -webkit-filter: blur(10px);\r\n    -moz-filter: blur(10px);\r\n    -ms-filter: blur(10px);    \r\n    filter: blur(10px);    \r\n    z-index: 2;\r\n    overflow: hidden;\r\n}\r\n.noflash-alert{\r\n\tdisplay:none;\r\n}\r\nsection.clearfix.wp.area.player {\r\n    z-index: 99;\r\n}\r\n.off-light{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 50;\r\n    background-color: #000;\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n@media screen and (max-width: 700px) {\r\n\t.tp-tranger{\r\n\t\tposition: absolute;\r\n\t    width: 97%;\r\n\t    bottom: 4px;\r\n\t    margin: 0;\r\n\t}\r\n\t.tp-video-con>.tp-send{\r\n\t\tbottom: 60px;\r\n\t\tleft: initial;\r\n\t\tright: 10%;\r\n    \twidth: 80%;\r\n\t}\r\n\t.tp-control-alltime{\r\n\t\tdisplay: none;\r\n\t}\r\n\t.tp-control-alltime-phone{\r\n\t\tdisplay: inline-block;\r\n\t}\r\n}\r\n/*animation*/\r\n.tp-zoomoutdown{\r\n\tanimation:zoomOutDown .5s;\r\n\t-webkit-animation:zoomOutDown .5s;\r\n}\r\n@keyframes zoomOutDown {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n@-webkit-keyframes zoomOutDown {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n.tp-zoomoutup{\r\n\tanimation:zoomInUp .5s;\r\n\t-webkit-animation:zoomInUp .5s;\r\n}\r\n@keyframes zoomInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n@-webkit-keyframes zoomInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n@media screen and (max-width: 470px) {\r\n\t.tp-syk{\r\n\t\tdisplay: none;\r\n\t}\r\n}", ""]);
+exports.push([module.i, "/*acfun*/\r\n.vdown {\r\n    width: 110px;\r\n    margin: 0;\r\n    padding: 20px 10px;\r\n    cursor: pointer;\r\n    position: relative;\r\n}\r\n\r\nsection.crumb .vdown .ico {\r\n    width: 36px;\r\n    height: 36px;\r\n    border-radius: 50%;\r\n    margin-right: 10px;\r\n}\r\nsection.player{\r\n\tposition: relative;\r\n\tmin-height:653px;\r\n}\r\n#vdown {\r\n\tposition: absolute;\r\n\tz-index: 5;\r\n\twidth: 300px;\r\n\tbackground: #fff;\r\n\tborder: 1px solid #eee;\r\n\tborder-radius: 5px;\r\n\tmargin-left: -150px;\r\n\tleft: 160px;\r\n\tpadding: 20px 10px;\r\n\tbox-shadow: 0 3px 8px rgba(0,0,0,0.1);\r\n\tbackground-color: #fff;\r\n\toverflow: hidden;\r\n}\r\n.down-btn, .down-btn>a {\r\n\tcolor: #fff;\r\n\ttext-decoration: none;\r\n}\r\n.down-btn {\r\n\tdisplay: inline-block;\r\n\tmargin: 10px 5px;\r\n\tpadding: 5px 10px;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #d07878;\r\n\tbox-shadow: 1px 1px 5px #b5b5b5;\r\n\ttext-align: center;\r\n}\r\n/*player*/\r\n.tplayer{\r\n\theight: 100%;\r\n\twidth: 100%;\r\n}\r\n.tp-video-warp p{\r\n\tmargin: 0;\r\n}\r\n.tp-video-warp ul{\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}\r\n.tp-video-warp{\r\n\tfont-size: 14px;\r\n}\r\n.video-end {\r\n\tposition: absolute;\r\n\theight: 100%;\r\n\twidth: 100%;\r\n\tz-index: 8;\r\n\tbackground: #000 url(" + __webpack_require__(10) + ") no-repeat right 40px bottom 30px;\r\n\tdisplay: none;\r\n\topacity: 1;\r\n\tanimation: tpshow 3s;\r\n\t-webkit-animation:tpshow 3s;\r\n}\r\n@keyframes tpshow\r\n{\r\n\tfrom {opacity: 0}\r\n\tto {opacity: 1}\r\n}\r\n@-webkit-keyframes tpshow\r\n{\r\n\tfrom {opacity: 0}\r\n\tto {opacity: 1}\r\n}\r\n.video-end>.replay {\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\tmargin-left: -50px;\r\n\tmargin-top: -50px;\r\n\ttransition:transform 2s;\r\n\t-moz-transition:transform 2s;\r\n\t-webkit-transition:transform 2s;\r\n}\r\n.video-end>.replay:hover {\r\n\ttransform: rotate(360deg);\r\n\t-webkit-transform: rotate(360deg);\r\n\t-moz-transform: rotate(360deg);\r\n}\r\n.tp-video-main>.danmaku-warp>.danmaku {\r\n\tcolor: #fff;\r\n\tline-height: 37px;\r\n\tz-index: 6;\r\n\tpadding: 0 4px;\r\n\tfont-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;\r\n}\r\n.tp-left {\r\n\tposition: absolute;\r\n\twill-change: transform;\r\n\tright: 0;\r\n\tfont-size: 24px;\r\n\tanimation: dmleft 10s linear;\r\n\t-webkit-animation: dmleft 10s linear;\r\n\tcursor: pointer;\r\n\twhite-space: nowrap;\r\n}\r\n.tp-top {\r\n\tposition: absolute;\r\n    left: 50%;\r\n    text-align: center;\r\n    display: block;\r\n    font-size: 22px;\r\n    transform: translateX(-50%);\r\n    -webkit-transform: translateX(-50%);\r\n    white-space:nowrap;\r\n}\r\n.danmaku-ad{\r\n\tposition: absolute;\r\n\twhite-space: nowrap;\r\n\t-webkit-transform: translateX(50%);\r\n\t-moz-transform: translateX(50%);\r\n\ttransform: translateX(50%);\r\n}\r\n@keyframes dmleft {\r\n\t0% {\r\n\t-webkit-transform: translateX(100%);\r\n\ttransform: translateX(100%)\r\n}\r\n}\r\n@-webkit-keyframes dmleft {\r\n\t0% {\r\n\t-webkit-transform: translateX(100%);\r\n\ttransform: translateX(100%)\r\n}\r\n}\r\n.danmaku-warp {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\toverflow: hidden;\r\n\ttransform-origin: top left;\r\n\t-moz-transform-origin:top left;\r\n\t-webkit-transform-origin:top left;\r\n}\r\n.tp-send {\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\twidth: 60%;\r\n\theight: 35px;\r\n\tborder-radius: 5px;\r\n\tmargin: 0 0 0 -30%;\r\n\ttext-align: center;\r\n\tpadding: 4px 0;\r\n\tbackground-color: rgba(255, 255, 255, 0.79);\r\n\tz-index: 6;\r\n\tbox-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);\r\n}\r\n.tp-text {\r\n\twidth: 100%;\r\n    line-height: 36px;\r\n\tborder: none;\r\n\ttext-align: center;\r\n\tbackground-color: transparent;\r\n\toutline: none;\r\n}\r\n\r\n.tp-up {\r\n\tdisplay: none;\r\n\tposition: relative;\r\n\t\r\n\tleft: 20px;\r\n\tbackground-color: #8715EF;\r\n\tcolor: #fff;\r\n\tborder: 0 solid #000;\r\n\tline-height: 20px;\r\n\tborder-radius: 4px;\r\n\tpadding: 3px 20px;\r\n}\r\n\r\n.tp-msg{\r\n\tposition: absolute;\r\n    bottom: 60px;\r\n    right: 6px;\r\n    background-color: rgba(255, 255, 255, 0.95);\r\n    padding: 6px 10px;\r\n    z-index: 999;\r\n    border-radius: 6px;\r\n}\r\n.tp-msg>.tp-msg-close{\r\n\tcursor: pointer;\r\n    color: #000;\r\n    font-weight: 600;\r\n    font-size: 1.4em;\r\n    line-height: 18px;\r\n    padding-right: 8px;\r\n   \tfont-size: 15px;\r\n}\r\n.tp-video-main {\r\n\tposition: absolute;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground-color: #000;\r\n\t-webkit-user-select: none;\r\n\t-moz-user-select: none;\r\n\tuser-select: none;\r\n\toverflow:hidden;\r\n}\r\n.tp-video {\r\n\tposition: absolute;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    margin: auto;\r\n}\r\n.tp-video-con {\r\n\topacity: 0;\r\n\tposition: absolute;\r\n    bottom: 0;\r\n    height: 100px;\r\n    width: 100%;\r\n    background: linear-gradient(to top,rgba(0,0,0,.75),hsla(0,0%,100%,0));\r\n\ttransition: opacity 1s;\r\n\t-moz-transition: opacity 1s;\r\n\t-webkit-transition: opacity 1s;\r\n}\r\n.tp-video-con:hover{\r\n\topacity: 1!important;\r\n}\r\n.tp-control {\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tpadding-bottom: 10px;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 45px;\r\n\tcolor: #fff;\r\n\tline-height: 0;\r\n\tuser-select: none;\r\n\tz-index: 888;\r\n}\r\n.tp-control-nowtime,.tp-control-alltime{\r\n\tcursor: default;\r\n}\r\n.tp-icon {\r\n\tposition: relative;\r\n\ttop: 6px;\r\n\tpadding-left: 10px;\r\n\tpadding-right: 2px;\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tcursor: pointer;\r\n\tfill: #fff;\r\n}\r\n\r\n.tp-definition{\r\n\tdisplay: none;\r\n}\r\n.tp-danmaku-switch {\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tborder: 2px solid #fff;\r\n\tcolor: #fff;\r\n\tborder-radius: 50%;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tline-height: 22px;\r\n\tfont-size: 14px;\r\n\ttext-align: center;\r\n\tcursor: pointer;\r\n}\r\n.tp-danmaku-switch-c {\r\n\tcolor: #000 !important;\r\n\tborder: none !important;\r\n\tbackground-color: #fff;\r\n}\r\n\r\n.tp-vloop{\r\n\tdisplay: inline-block;\r\n    height: 25px;\r\n    width: 25px;\r\n    background-size: cover;\r\n    transform: translateY(8px);\r\n    cursor: pointer;\r\n}\r\n.tp-vloop1{\r\n\tbackground-image: url(" + __webpack_require__(11) + ")\r\n}\r\n.tp-vloop2{\r\n\tbackground-image: url(" + __webpack_require__(12) + ")\r\n}\r\n.tp-set{\r\n\tbackground-image: url(" + __webpack_require__(8) + ");\r\n\tdisplay: inline-block;\r\n    height: 24px;\r\n    width: 24px;\r\n    margin: 0 14px;\r\n    background-size: cover;\r\n    transform: translateY(8px);\r\n    cursor: pointer;\r\n}\r\n.sound-ico{\r\n\tbackground-image: url(" + __webpack_require__(9) + ");\r\n    display: inline-block;\r\n    height: 26px;\r\n    width: 26px;\r\n    background-size: cover;\r\n    cursor: pointer;\r\n    margin-right: 5px;\r\n    vertical-align: bottom;\r\n}\r\n.tp-alert,.tp-video-set{\r\n\tdisplay: none;\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%) translateY(-50%);\r\n    -webkit-transform: translateX(-50%) translateY(-50%);\r\n    z-index: 999;\r\n    background-color: rgba(255, 255, 255, 0.95);\r\n    border-radius: 5px;\r\n    overflow: hidden;\r\n    font-size: 14px;\r\n}\r\n\r\n.tp-video-set{\r\n\twidth: 400px;\r\n    height: 300px;\r\n}\r\n\r\n\r\n.tp-alert-ok{\r\n\twidth: 50px;\r\n\tbackground-color: #e05865;\r\n\tcolor: #fff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n    text-align: center;\r\n\tmargin: 5px auto;\r\n\tcursor: pointer;\r\n}\r\n.tp-closeset{\r\n\tposition:absolute;\r\n\ttop: 0;\r\n\tright:0;\r\n\tpadding:4px;\r\n\tcursor:pointer;\r\n\tcolor:#000;\r\n\tfont-weight: 600;\r\n\tfont-size: 1.4em;\r\n}\r\n.tp-alert-container{\r\n\tpadding: 20px\r\n}\r\n.tp-alert-container .tp-screenshot-canvas{\r\n\theight: auto;\r\n\twidth: 300px\r\n}\r\n.tp-settable{\r\n\tmargin:0 auto;\r\n\tcursor:default;\r\n}\r\n.tp-video-set>h4{\r\n\tmargin: 0 0 8px 0;\r\n\tpadding: 10px 20px;\r\n    background-color: rgb(243, 93, 93);\r\n    color: #fff;\r\n}\r\n.tp-syk {\r\n\tpadding: 10px 10px;\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\ttop: -7px;\r\n}\r\n.tp-s-tranger {\r\n  position: relative;\r\n  height: 10px;\r\n  width:80px;\r\n  margin-left: 30px;\r\n  top: 10px;\r\n  background-color: rgba(142, 129, 129, 0.6);\r\n  border-radius: 4px;\r\n  cursor: pointer;\r\n  overflow:hidden;\r\n}\r\n.tp-s-tranger>.tp-s-tranger-a {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 10%;\r\n  height: 100%;\r\n  background-color: #e33d3d;\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n.tp-tranger {\r\n\tposition: relative;\r\n\theight: 11px;\r\n\tbackground-color: rgba(0, 0, 0, 0.17);\r\n\tborder-radius: 6px;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tmargin-top: 18px;\r\n\tmargin-left: 80px;\r\n\tmargin-right: 170px;\r\n}\r\n.tp-tranger>.tp-tranger-a {\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tbackground-color: rgb(248, 73, 73);\r\n\theight: 100%;\r\n\twidth: 0;\r\n\tborder-radius: 6px;\r\n\tz-index: 3;\r\n}\r\n.tp-tranger>.tp-tranger-b {\r\n\tposition: relative;\r\n\tdisplay: inline-block;\r\n\tbackground-color: #FFFFFF;\r\n\theight: 100%;\r\n\twidth: 11px;\r\n\tborder-radius: 50%;\r\n\tright: 16px;\r\n\tz-index: 5;\r\n}\r\n.tp-tranger>.tp-tranger-c {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\twidth: 0%;\r\n\theight: 100%;\r\n\tbackground-color: rgba(207, 198, 198, 0.47);\r\n\tborder-radius: 6px;\r\n\tz-index: 2;\r\n\toverflow: hidden;\r\n}\r\n.tp-syk-ico {\r\n\tposition: absolute;\r\n\ttop: 22px;\r\n\tleft:12px;\r\n\tfont-size: 1.6em;\r\n\tcursor:default;\r\n}\r\n\r\n/*loding*/\r\n.tp-oneplay{\r\n\twidth: 120px;\r\n    height: 111px;\r\n    z-index: 999;\r\n    background-color: rgb(234, 62, 73);\r\n    cursor: pointer;\r\n    border-radius: 10px;\r\n}\r\n.tp-oneplay>svg{\r\n\twidth: 100px;\r\n    height: 100px;\r\n    fill: #fff;\r\n    margin-left: 10px;\r\n}\r\n.tp-acenter{\r\n\tposition: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    bottom: 0;\r\n    right: 0;\r\n    margin: auto;\r\n}\r\n.tp-spinner {\r\n\twidth: 76px;\r\n\theight: 40px;\r\n\tz-index: 7;\r\n\tdisplay: none;\r\n}\r\n.tp-suspend {\r\n\t-webkit-animation-play-state: paused !important;\r\n\tanimation-play-state: paused !important;\r\n}\r\n.md-iframe {\r\n\tdisplay: none;\r\n}\r\n.tp-place2 {\r\n\tbackground-color: #3b3b3b;\r\n\tmargin: 2px 0 4px 0;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n.tp-spinner > div {\r\n\tbackground-color: #fff;\r\n\theight: 100%;\r\n\twidth: 6px;\r\n\tdisplay: inline-block;\r\n\t-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;\r\n\tanimation: sk-stretchdelay 1.2s infinite ease-in-out;\r\n\tborder: 1px solid #dadada;\r\n}\r\n.tp-spinner .rect2 {\r\n\t-webkit-animation-delay: -1.1s;\r\n\tanimation-delay: -1.1s;\r\n}\r\n.tp-spinner .rect3 {\r\n\t-webkit-animation-delay: -1.0s;\r\n\tanimation-delay: -1.0s;\r\n}\r\n.tp-spinner .rect4 {\r\n\t-webkit-animation-delay: -0.9s;\r\n\tanimation-delay: -0.9s;\r\n}\r\n.tp-spinner .rect5 {\r\n\t-webkit-animation-delay: -0.8s;\r\n\tanimation-delay: -0.8s;\r\n}\r\n@-webkit-keyframes sk-stretchdelay {\r\n\t0%, 40%, 100% {\r\n\t-webkit-transform: scaleY(0.4)\r\n}\r\n20% {\r\n\t-webkit-transform: scaleY(1.0)\r\n}\r\n}\r\n@keyframes sk-stretchdelay {\r\n\t0%, 40%, 100% {\r\n\ttransform: scaleY(0.4);\r\n\t-webkit-transform: scaleY(0.4);\r\n}\r\n20% {\r\n\ttransform: scaleY(1.0);\r\n\t-webkit-transform: scaleY(1.0);\r\n}\r\n}\r\n.video-full {\r\n\twidth: 20px;\r\n\tpadding-right: 30px;\r\n\ttop: 9px;\r\n\tposition: relative;\r\n\tpadding-left: 10px;\r\n\theight: 30px;\r\n\tcursor: pointer;\r\n\tfill: #fff;\r\n}\r\n:-webkit-full-screen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:-moz-full-screen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:-ms-fullscreen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:-full-screen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n:fullscreen .tp-video-main {\r\n\theight: 100% !important;\r\n\twidth: 100% !important;\r\n\tposition: fixed;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n}\r\n.tp-con {\r\n\tposition: absolute;\r\n\ttop: -90px;\r\n\tdisplay: none;\r\n\twidth: 150px;\r\n\tmargin: 0 auto;\r\n\tpadding: 6px;\r\n\tbackground-color: rgba(255, 255, 255, 0.75);\r\n\tborder-radius: 6px;\r\n\toverflow: hidden;\r\n}\r\n.tp-color {\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\ttop: 18px;\r\n    right: 15px;\r\n\tborder-radius: 4px;\r\n\tcursor: pointer;\r\n\tz-index: 7;\r\n}\r\n.tp-color-w{\r\n\tfloat: left;\r\n}\r\n.tp-color-warp {\r\n\theight: 60px;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.tp-color-main {\r\n\twidth: 20px;\r\n\theight: 20px;\r\n\tborder: 1px solid #FFFFFF;\r\n\tborder-radius: 2px;\r\n}\r\n.tp-color-bo {\r\n\tposition: relative;\r\n\tbottom: 8px;\r\n\twidth: 20px;\r\n\theight: 20px;\r\n\tborder-radius: 50%;\r\n\tborder: 1px solid #8b8585;\r\n}\r\n.tp-place {\r\n\ttext-align: center;\r\n\tpadding-bottom: 4px;\r\n}\r\n.tp-rightmenu {\r\n\tdisplay: none;\r\n\tposition: absolute;\r\n\toverflow: hidden;\r\n\twidth: 130px;\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tlist-style: none;\r\n\tborder-radius: 4px;\r\n    background: rgba(28, 28, 28, 0.9);\r\n    border: none;\r\n    text-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;\r\n\tcolor: #fff;\r\n\tz-index: 9999;\r\n}\r\n.tp-rightmenu a {\r\n\tcolor: #fff;\r\n\ttext-decoration: none;\r\n}\r\n.tp-rightmenu li {\r\n\tpadding: 2px 0 2px 8px;\r\n\tcursor: pointer;\r\n}\r\n.tp-rightmenu li:hover {\r\n\tpadding-left: 7px;\r\n\tbackground-color: rgba(255,255,255,0.2);\r\n}\r\n.tp-search-user{\r\n\tdisplay: none;\r\n}\r\nul.tp-speend {\r\n\tdisplay: none;\r\n\tmargin: 4px 0 4px 30px;\r\n}\r\n\r\n.tp-copy-input{\r\n    display: block;\r\n    width: 100%;\r\n    height: 19px;\r\n    overflow: hidden;\r\n    padding: 0;\r\n    margin: 0;\r\n    background-color: transparent;\r\n    border: 0;\r\n    color: #fff;\r\n    resize: none;\r\n    cursor: pointer;\r\n    font-size: 15px;\r\n    line-height: 21px;\r\n    overflow:hidden;\r\n    font-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;\r\n}\r\n.tp-control-alltime-phone{\r\n\tdisplay: none;\r\n}\r\n.tp-loding{\r\n\t\tposition: absolute;\r\n\t    width: 100%;\r\n\t    height: 100%;\r\n\t    top: 0;\r\n\t\tleft: 0;\r\n\t\tz-index: 20;\r\n\t\t\r\n}\r\n.tp-loding-img-warp{\r\n\theight: 120px;\r\n\twidth: 120px;\r\n\tbox-sizing: content-box;\r\n\tborder: 8px solid rgba(200, 200, 200, 0.63);\r\n\tborder-radius: 50%;\r\n\tanimation:lodingborder 1s infinite alternate;\r\n\t-webkit-animation:lodingborder 1s infinite alternate;\r\n\toverflow: hidden;\r\n}\r\n\t@keyframes lodingborder\r\n\t{\r\n\t\tto { border: 14px solid rgba(200, 200, 200, 0.63);}\r\n\t}\r\n\t@-webkit-keyframes lodingborder\r\n\t{\r\n\t\tto { border: 14px solid rgba(200, 200, 200, 0.63);}\r\n\t}\r\n\t.tp-loding-img{\r\n\t\tbackground-image: url(http://cdn.aixifan.com/dotnet/20130418/umeditor/dialogs/emotion/images/ac3/02.gif);\r\n\t   \twidth: 120px;\r\n\t   \theight: 120px;\r\n\t    background-repeat: no-repeat;\r\n\t    background-position: center;\r\n\t    background-size: 100px;\r\n\t    background-color: rgb(255, 255, 255);\r\n\t}\r\n\t.tp-loding-text{\r\n\t\tcolor: #ffffff;\r\n\t\ttext-align: center;\r\n\t\tposition: absolute;\r\n\t\tbottom: 30%;\r\n\t\twidth: 100%\r\n\t}\r\n.tp-img-back{\r\n\tposition: absolute;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-size: cover;\r\n    -webkit-filter: blur(10px);\r\n    -moz-filter: blur(10px);\r\n    -ms-filter: blur(10px);    \r\n    filter: blur(10px);    \r\n    z-index: 2;\r\n    overflow: hidden;\r\n}\r\n.noflash-alert{\r\n\tdisplay:none;\r\n}\r\nsection.clearfix.wp.area.player {\r\n    z-index: 99;\r\n}\r\n.off-light{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 50;\r\n    background-color: #000;\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n@media screen and (max-width: 700px) {\r\n\t.tp-tranger{\r\n\t\tposition: absolute;\r\n\t    width: 97%;\r\n\t    bottom: 4px;\r\n\t    margin: 0;\r\n\t}\r\n\t.tp-video-con>.tp-send{\r\n\t\tbottom: 60px;\r\n\t\tleft: initial;\r\n\t\tright: 10%;\r\n    \twidth: 80%;\r\n\t}\r\n\t.tp-control-alltime{\r\n\t\tdisplay: none;\r\n\t}\r\n\t.tp-control-alltime-phone{\r\n\t\tdisplay: inline-block;\r\n\t}\r\n}\r\n/*animation*/\r\n.tp-zoomoutdown{\r\n\tanimation:zoomOutDown .5s;\r\n\t-webkit-animation:zoomOutDown .5s;\r\n}\r\n@keyframes zoomOutDown {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n@-webkit-keyframes zoomOutDown {\r\n  40% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  to {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\r\n    transform-origin: center bottom;\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n.tp-zoomoutup{\r\n\tanimation:zoomInUp .5s;\r\n\t-webkit-animation:zoomInUp .5s;\r\n}\r\n@keyframes zoomInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n@-webkit-keyframes zoomInUp {\r\n  from {\r\n    opacity: 0;\r\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\r\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\r\n  }\r\n\r\n  60% {\r\n    opacity: 1;\r\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\r\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\r\n  }\r\n}\r\n@media screen and (max-width: 470px) {\r\n\t.tp-syk{\r\n\t\tdisplay: none;\r\n\t}\r\n}", ""]);
 
 // exports
 
