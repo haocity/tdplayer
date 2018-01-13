@@ -50,6 +50,7 @@ window.tdvidplay = function(options) {
 	//pic 封面图片
 	//autoplay 是否自动播放
 	//ab 是否为番剧
+	//yk 是否为优酷
 	options.ele.style.backgroundColor = "#000000";
 	let videosrcarr = [];
 	let acflash = document.querySelector('section.player #player object') || document.querySelector('section.player #player #ACFlashPlayer')
@@ -90,15 +91,31 @@ window.tdvidplay = function(options) {
 	lodingimgwarp.appendChild(lodingimg)
 	e.appendChild(lodingimgwarp)
 	e.appendChild(lodingtext)
-
-	xhr("https://t5.haotown.cn/pyapi/vid/" + options.vid).then(t => JSON.parse(t)).then(function(json) {
-		let vobj = new Object
-		let vv
-		if(!json.stream) {
-			urleero()
-		} else {
+	if(options.yk){
+		console.log('优酷源');
+		fetch("https://t5.haotown.cn/youku/api/?id="+options.yk+"_end").then(t =>t.text()).then(function(s) {
+			let t=s.match(/([^"]+mp4[^"]+)/)
+			if(t){
+				window.a= new Tplayer({
+					Element: options.ele,
+					video: {
+						url: t[0],
+						pic: options.pic,
+						type: 'mp4',
+						autoplay: options.autoplay
+					},
+					acvid: options.vid
+				});
+			}else{
+				console.log("解析失败")
+				console.log(s)
+			}
+		})
+	}else{
+		xhr("https://t5.haotown.cn/pyapi/vid/" + options.vid).then(t => JSON.parse(t)).then(function(json) {
+			let vobj = new Object
+			let vv
 			for(let i = 0; i < json.stream.length; i++) {
-
 				if(json.stream[i].stream_type == 'm3u8_hd3') {
 					vobj.v1 = json.stream[i]
 					vobj.v1.v = 1
@@ -144,14 +161,11 @@ window.tdvidplay = function(options) {
 					console.log('本视频不支持')
 				}
 			}
-		}
+		
 
-	})
-
-	function urleero() {
-		console.log("失败 API超时 ")
-		lodingtext.innerText = "解析失败... 等待重试"
+		})
 	}
+	
 
 }
 

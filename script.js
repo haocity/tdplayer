@@ -17,6 +17,7 @@ function getvideop(){
 	        var script = document.createElement("script");
 	        script.setAttribute("type", "text/javascript");
 	        script.setAttribute("charset", "UTF-8");
+	        //script.setAttribute('src', 'https://app.haotown.cn/td/tdplayer.min.js?v=5.4'); 
 	        script.setAttribute('src', 'http://127.0.0.1:8020/tdplayer/dist/tdplayer.js');  
 	        document.head.appendChild(script);
 	        script.onload = function() {
@@ -33,14 +34,14 @@ function getvideop(){
 	                			ab:false
 	                			})
 	                	}else if(info.getAttribute("data-from")=='youku'){
-	                		$.info.show("优酷等待修复中 ");
-//	                		tdyoukuplay({
-//	                			ele:document.querySelector('#player'),
-//	                			ab:false,
-//	                			danmakuid:pageInfo.videoList[p].id,
-//	                			youkuid:pageInfo.videoList[p].source_id,
-//	                			pic:pageInfo.coverImage
-//	                		});
+	                		$.info.show("优酷 ");
+	                		tdvidplay({
+		            			ele:document.querySelector('#player'),
+		            			ab:false,
+		            			vid:pageInfo.videoList[p].id,
+		            			yk:pageInfo.videoList[p].source_id,
+		            			pic:pageInfo.coverImage
+	            			})
 	                			
 	                	}
 	                }
@@ -54,18 +55,17 @@ function getvideop(){
 	                			pic:pageInfo.album.coverImageH,
 	                			ab:true
 	                	})
-	            }else if(e.sourceType=='youku'){
+	            	}else if(e.sourceType=='youku'){
 	            		//优酷规则
-	            		$.info.show("优酷等待修复中 ");
-	            		//$.info.show("解析番剧区优酷中 ");
-//	            		document.querySelector('#player').innerHTML=null;
-//	            		tdyoukuplay({
-//	            			ele:document.querySelector('#player'),
-//	            			ab:true,
-//	            			danmakuid:e.danmakuId,
-//	            			youkuid:e.sourceId,
-//	            			pic:pageInfo.album.coverImageH
-//	            		});
+	            		$.info.show("解析番剧区优酷中 ");
+	            		document.querySelector('#player').innerHTML=null;
+	            		tdvidplay({
+	            			ele:document.querySelector('#player'),
+	            			ab:true,
+	            			vid:e.danmakuId,
+	            			yk:e.sourceId,
+	            			pic:pageInfo.album.coverImageH
+	            		});
 	            	}else{
 	            		$.info.show("不支持。 /(ㄒoㄒ)/~~" );
 	            	}
