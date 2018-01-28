@@ -93,7 +93,7 @@ window.tdvidplay = function(options) {
 	e.appendChild(lodingtext)
 	if(options.yk){
 		console.log('优酷源');
-		fetch("https://t5.haotown.cn/youku/api/?id="+options.yk+"_end").then(t =>t.text()).then(function(s) {
+		fetch("https://api.haotown.cn/youku/api/?id="+options.yk+"_end").then(t =>t.text()).then(function(s) {
 			let t=s.match(/([^"]+mp4[^"]+)/)
 			if(t){
 				window.a= new Tplayer({
@@ -112,7 +112,7 @@ window.tdvidplay = function(options) {
 			}
 		})
 	}else{
-		xhr("https://t5.haotown.cn/pyapi/vid/" + options.vid).then(t => JSON.parse(t)).then(function(json) {
+		xhr("https://api.haotown.cn/pyapi/vid/" + options.vid).then(t => JSON.parse(t)).then(function(json) {
 			let vobj = new Object
 			let vv
 			for(let i = 0; i < json.stream.length; i++) {
