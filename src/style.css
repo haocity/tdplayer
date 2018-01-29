@@ -6,7 +6,10 @@
     cursor: pointer;
     position: relative;
 }
-
+/*关闭错误提示*/
+#AHP_Notice{
+	display: none!important;
+}
 section.crumb .vdown .ico {
     width: 36px;
     height: 36px;

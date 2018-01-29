@@ -93,24 +93,43 @@ window.tdvidplay = function(options) {
 	e.appendChild(lodingtext)
 	if(options.yk){
 		console.log('优酷源');
-		fetch("https://api.haotown.cn/youku/api/?id="+options.yk+"_end").then(t =>t.text()).then(function(s) {
-			let t=s.match(/([^"]+mp4[^"]+)/)
-			if(t){
-				window.a= new Tplayer({
-					Element: options.ele,
-					video: {
-						url: t[0],
-						pic: options.pic,
-						type: 'mp4',
-						autoplay: options.autoplay
-					},
-					acvid: options.vid
-				});
-			}else{
-				console.log("解析失败")
-				console.log(s)
-			}
-		})
+		fetch("https://api.haotown.cn/youku/api/?id=" + options.yk + "_end").then(function(t) {
+				return t.json();
+			}).then(function(json) {
+					var vobj = new Object();
+					var vv = void 0;
+					for(let i = 0; i < json.stream.length; i++) {
+						if(json.stream[i].stream_type == 'mp4hd3') {
+							vobj.v1 = json.stream[i];
+							vobj.v1.v = 1;
+						} else if(json.stream[i].stream_type == 'mp4hd2') {
+							vobj.v2 = json.stream[i];
+							vobj.v2.v = 2;
+						} else if(json.stream[i].stream_type == 'mp4hd') {
+							vobj.v3 = json.stream[i];
+							vobj.v3.v = 3;
+						} else if(json.stream[i].stream_type == 'flvhd') {
+							vobj.v4 = json.stream[i];
+							vobj.v4.v = 4;
+						}
+					}
+					console.log('vobj', vobj);
+					if(vobj.v1 || vobj.v2 || vobj.v3 || vobj.v4) {
+						videosrcarr.push(vobj);
+						window.a = new Tplayer({
+							Element: options.ele,
+							video: {
+								url: videosrcarr,
+								pic: options.pic,
+								type: 'hls',
+								autoplay: options.autoplay
+							},
+							acvid: options.vid
+						});
+					} else {
+						console.log("解析失败");
+					}
+			})
 	}else{
 		xhr("https://api.haotown.cn/pyapi/vid/" + options.vid).then(t => JSON.parse(t)).then(function(json) {
 			let vobj = new Object
@@ -275,6 +294,9 @@ class Tplayer {
 				if(src[0][i].v == t) {
 					vv = src[0][i]
 				}
+				if(src[0][i].m3u8_url){
+					src[0][i].m3u8=src[0][i].m3u8_url
+				}
 				let li = document.createElement('li')
 				li.v = src[0][i].v
 				li.vsrc = src[0][i].m3u8
@@ -416,7 +438,6 @@ class Tplayer {
 		if(!pageInfo) {
 			this.ele.tp_send.style.display = 'none'
 		}
-
 		this.Element.addEventListener("canplaythrough", function() {
 			console.log('加载完成 可以进行播放');
 		});
@@ -482,7 +503,7 @@ class Tplayer {
 				}else{
 					this.leftarr.leaving[dmtop] = false
 					this.dmend(dm)
-					console.log('超出屏幕范围',this.height)
+					//console.log('超出屏幕范围',this.height)
 				}
 
 				
@@ -1902,15 +1923,6 @@ class Tplayer {
 }
 
 window.Tplayer = Tplayer;
-var pageInfo = window.pageInfo;
-if(pageInfo) {
-	window.cid = pageInfo.videoId;
-	window.user = {
-		uid: getCookie('auth_key'),
-		uid_ck: getCookie('auth_key_ac_sha1'),
-		uname: getCookie('ac_username')
-	};
-}
 
 function getCookie(name) {
 	let cookies = {};
