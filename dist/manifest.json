@@ -1,0 +1,34 @@
+{
+  "description": "TDPLAYER",
+  "manifest_version": 2,
+  "name": "TDlayer",
+  "version": "1.0.0.1",
+  "author":"haotown",
+  "homepage_url": "https://github.com/haocity/tdplayer/tree/extend",
+	"content_scripts": [
+    {
+      "matches": [
+        "http://*.acfun.cn/v/*",
+        "http://*.acfun.cn/bangumi/*",
+        "http://*.hapame.com/video/*"
+      ],
+      "all_frames": true,
+      "js": [
+        "pageinfo.js",
+        "tdplayer.js",
+        "start.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "*://*/*",
+    "storage"
+  ],
+  "background": {
+    "scripts": ["ua.js"]
+  },
+  "icons": { "128": "128.png" }
+}
