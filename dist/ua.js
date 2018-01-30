@@ -28,9 +28,11 @@ var requestRules = [{
 	}
 ];
 
+
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 	requestRules.forEach(function(rule) {
 		var flag = false;
+
 		details.requestHeaders.forEach(function(header) {
 			if(header.name === rule.data.name) {
 				flag = true;
@@ -50,6 +52,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 		}
 	});
 	
+	//console.log(JSON.stringify(details, null, 2));
 	return {
 		requestHeaders: details.requestHeaders
 	};
