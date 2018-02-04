@@ -1345,7 +1345,35 @@ class Tplayer {
 		xmlhttp.open("GET", url, true);
 		xmlhttp.send();
 	};
-
+	addonedanmaku(url) {
+	let _this = this;
+  	fetch(url).then(response => response.json()).then(function(json) {
+  		let nowid=0;
+  		for(let x = 0; x < json.length; x++) {
+  			for(let y = 0; y < json[x].length; y++) {
+  				if(json[x][y]) {
+  					let o = new Object
+  					o.text = json[x][y].m
+  					let c = json[x][y].c.split(',')
+  					o.time = parseInt(c[0] * 10)
+  					o.color = '#' + (Array(6).join(0) + parseInt(c[1]).toString(16)).slice(-6)
+  					o.place = c[2]
+  					o.size = c[3]
+  					o.user = c[4]
+  					if(o.place != 1 && o.place != 7) {
+  						o.place = 2
+  					}
+  					o.id = nowid
+  					nowid++
+  					_this.data.push(o)
+  					_this.nowdata = _this.data.slice(0);
+  				}
+  			}
+  		}
+  		console.log('弹幕添加完成')
+  		_this.setint();
+  	})
+  }
 	//弹幕速度
 	dmspeend(v) {
 		console.log('弹幕速度调整为' + v)
