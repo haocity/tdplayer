@@ -11,10 +11,14 @@ script.setAttribute("type", "text/javascript");
 script.setAttribute("charset", "UTF-8");
 script.innerHTML=`
 window.tdc=true;
-document.cookie="tdpager="+JSON.stringify(window.pageInfo);
+var e=document.createElement('page');
+e.innerHTML=JSON.stringify(window.pageInfo);
+e.style.display='none';
+document.body.appendChild(e);
 `;
 document.body.appendChild(script);
-let pageInfo=JSON.parse(getCookie('tdpager'));
+let pageInfo=JSON.parse(document.querySelector('page').innerHTML);
+console.log("pageInfo",pageInfo);
 window.pageInfo=pageInfo;
 window.cid = pageInfo.videoId;
 window.user = {
