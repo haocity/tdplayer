@@ -11,13 +11,14 @@ script.setAttribute("type", "text/javascript");
 script.setAttribute("charset", "UTF-8");
 script.innerHTML=`
 window.tdc=true;
-var e=document.createElement('page');
-e.innerHTML=JSON.stringify(window.pageInfo);
+var e=document.createElement('input');
+e.className='tdx';
+e.value=JSON.stringify(window.pageInfo);
 e.style.display='none';
 document.body.appendChild(e);
 `;
 document.body.appendChild(script);
-let pageInfo=JSON.parse(document.querySelector('page').innerHTML);
+let pageInfo=JSON.parse(document.querySelector('.tdx').value);
 console.log("pageInfo",pageInfo);
 window.pageInfo=pageInfo;
 window.cid = pageInfo.videoId;
