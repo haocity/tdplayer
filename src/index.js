@@ -532,9 +532,8 @@ class Tplayer {
 						for (let i = 0; i < tj.z.length; i++) {
 							let a=i;
 							setTimeout(function(){
-								console.log("all "+tj.z[a].l+'s')
 								dm.style.transition="all "+tj.z[a].l+'s';
-								console.log('到达动画时间',a,dm);
+								//console.log('到达动画时间',a,dm);
 								setTimeout(function(){
 									if(tj.z[a].x) {
 										//console.log('x2存在',tj.z[a].x)
@@ -545,8 +544,14 @@ class Tplayer {
 										dm.style.bottom = (1000 - tj.z[a].y) / 10 + '%';
 									}
 									if(tj.z[a].t) {
-										//console.log('透明度存在', tj.z[a].t)
 										dm.style.opacity = tj.z[a].t
+									}
+									if(tj.z[a].f||tj.z[a].g||tj.z[a].rx||tj.z[a].e){
+										tj.z[a].f=tj.z[a].f||0;
+										tj.z[a].g=tj.z[a].g||0;
+										tj.z[a].rx=tj.z[a].rx||0;
+										tj.z[a].e=tj.z[a].e||0;
+										dm.style.transform=`scale(${tj.z[a].f},${tj.z[a].g}) skew(${tj.z[a].rx}deg,${tj.z[a].e}deg) translateX(50%)`
 									}
 								},0);
 							},nowtime*1000);
@@ -576,6 +581,14 @@ class Tplayer {
 				if(tj.a) {
 					dm.style.opacity = tj.a;
 				}
+				if(tj.e||tj.f||tj.rx||tj.rx||tj.k){
+					tj.e=tj.e||0;
+					tj.f=tj.f||0;
+					tj.rx=tj.rx||0;
+					tj.k=tj.k||0;
+					dm.style.transform=`scale(${tj.e},${tj.f}) skew(${tj.rx}deg,${tj.k}deg) translateX(50%)`
+				}
+				
 				let e = this.ele.danmaku_warp.appendChild(dm);
 				setTimeout(function() {
 					_this.danmakuhide(e)
