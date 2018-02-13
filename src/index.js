@@ -301,24 +301,24 @@ class Tplayer {
 				li.v = src[0][i].v
 				li.vsrc = src[0][i].m3u8
 				li.addEventListener('click', function() {
-					console.log('清晰度切换' + this.v);
-					_this.pause();
+					console.log('正在为你切换清晰度切换'+this.v);
+   					_this.alert({t:'<span style="line-height:26px;font-size: 21px;">正在为你切换清晰度..</span>',time:3000,padding:'6px 10px',opacity:"0.9"})
 					_this.ele.definition.querySelector('span').innerHTML = _this.Definition(this.v)
 					let time = _this.Element.currentTime
 					let hls = new Hls();
-					hls.loadSource(this.vsrc);
-					hls.attachMedia(_this.Element);
-					hls.on(Hls.Events.MANIFEST_PARSED, function() {
-						let i = true;
-						_this.Element.addEventListener("canplay", function() {
-							if(i) {
-								i = false
-								_this.tiao(time)
-							}
-
-						});
-						_this.Element.style.display = 'block'
-					})
+					hls.loadSource(this.vsrc)
+					hls.attachMedia(_this.Element)
+					hls.on(Hls.Events.MANIFEST_PARSED,function() {
+						let i=true;
+						_this.Element.addEventListener("canplay", function(){
+						  	if(i){
+						  		i=false
+						  		_this.tiao(time)
+						  	}
+					});	   	
+				   	_this.Element.style.display='block'
+				})
+					
 				}, false);
 				li.innerHTML = _this.Definition(li.v)
 				ele.appendChild(li);
@@ -1208,7 +1208,11 @@ class Tplayer {
 				} else if(data.status != undefined) {
 					switch(data.status) {
 						case '600':
-							console.log("在线人数", data.msg);
+							if(_this.ele.livenumber){
+								_this.ele.livenumber.innerHTML='在线人数:'+data.msg
+							}else{
+								console.log("在线人数", data.msg);
+							}
 							break;
 						case '500':
 							console.log("服务器异常");
@@ -1255,7 +1259,14 @@ class Tplayer {
 			sock.addEventListener('close', close);
 			sock.addEventListener('error', error);
 		}
-
+		//在线人数
+		let w=document.querySelector('section.head>.crumbs .fr')||document.querySelector('section.head>.crumbs .fl');
+		if(w){
+			let e=document.createElement('span')
+			e.style.paddingLeft='10px'
+			_this.ele.livenumber=e
+			w.appendChild(e)
+		}
 	}
 	//函數
 	$c(e) {

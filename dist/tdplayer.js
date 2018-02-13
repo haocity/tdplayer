@@ -16765,8 +16765,8 @@ var Tplayer = function () {
 				li.v = src[0][i].v;
 				li.vsrc = src[0][i].m3u8;
 				li.addEventListener('click', function () {
-					console.log('清晰度切换' + this.v);
-					_this.pause();
+					console.log('正在为你切换清晰度切换' + this.v);
+					_this.alert({ t: '<span style="line-height:26px;font-size: 21px;">正在为你切换清晰度..</span>', time: 3000, padding: '6px 10px', opacity: "0.9" });
 					_this.ele.definition.querySelector('span').innerHTML = _this.Definition(this.v);
 					var time = _this.Element.currentTime;
 					var hls = new _hls2.default();
@@ -17674,7 +17674,11 @@ var Tplayer = function () {
 					} else if (data.status != undefined) {
 						switch (data.status) {
 							case '600':
-								console.log("在线人数", data.msg);
+								if (_this.ele.livenumber) {
+									_this.ele.livenumber.innerHTML = '在线人数:' + data.msg;
+								} else {
+									console.log("在线人数", data.msg);
+								}
 								break;
 							case '500':
 								console.log("服务器异常");
@@ -17720,6 +17724,14 @@ var Tplayer = function () {
 				sock.addEventListener('message', message);
 				sock.addEventListener('close', close);
 				sock.addEventListener('error', error);
+			}
+			//在线人数
+			var w = document.querySelector('section.head>.crumbs .fr') || document.querySelector('section.head>.crumbs .fl');
+			if (w) {
+				var _e = document.createElement('span');
+				_e.style.paddingLeft = '10px';
+				_this.ele.livenumber = _e;
+				w.appendChild(_e);
 			}
 		}
 		//函數
