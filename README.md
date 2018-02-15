@@ -15,19 +15,17 @@
 ------------
 
 
-- **(重要)**因为AC视频cdn屏蔽了浏览器UA及跨域 故需要安装插件进行跨域修改ua等操作 请安装[Boomfun](https://boomfun.work "Boomfun")开发的浏览器插件   真诚的感谢每一个为ac付出的人
- [chrome](http://static.boomfun.work/acplayer/ext_chrome.crx) ||   [firfox](http://static.boomfun.work/acplayer/ext_firefox.xpi)
-
+- 因为AC视频cdn屏蔽了浏览器UA及跨域 故需要安装插件进行跨域修改ua等操作 
+ [chrome](http://static.boomfun.work/acplayer/ext_chrome.crx)
 ### 功能
 - 替换播放器
 - 查询弹幕发送者
 - 屏蔽关键字弹幕
 ~~- 添加视频下载按钮~~(因视频服务屏蔽浏览器端 功能失效)
 ### 食用方法
-1.书签栏工具  进入[此处](https://t5.haotown.cn/td/) 在新页面中拖入书签栏  在你需要替换ac播放器时点击书签
-2.你也可以使用油猴脚本  需安装扩展 Tampermonkey    点击后进行添加 [脚本](https://t5.haotown.cn/td/monkey.user.js)
-
+- CHROME请启用开发者模式  把插件修改为zip解压后 选择加载已解压的扩展程序
+- 360，QQ，2345可直接把插件拖入浏览器 （部分需要拖入扩展页面）
 ## 开源协议
 
 The Star And Thank Author License（SATA）
-> 如果你喜欢的话
+> 如果你喜欢的话   你可以完全随意修改
