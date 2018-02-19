@@ -2,7 +2,7 @@
   "description": "TDPLAYER",
   "manifest_version": 2,
   "name": "TDlayer",
-  "version": "1.1.0.0",
+  "version": "1.2.0.0",
   "author":"haotown",
   "homepage_url": "https://github.com/haocity/tdplayer/tree/extend",
 	"content_scripts": [
