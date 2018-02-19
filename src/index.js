@@ -421,11 +421,13 @@ class Tplayer {
 		this.toparr = []
 		this.dmheight = 37
 		this.dmplace = 1
-		if(/android/i.test(navigator.userAgent) || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-			this.phone = true
-			this.ele.video_con.style.opacity = '1'
-			this.ele.video_con.style.display = 'none'
-		}
+		if (/android/i.test(navigator.userAgent) || /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+	        this.istouch=1
+	        this.ele.video_con.style.opacity='1'
+	        this.ele.video_con.style.display='none'
+   		}else{
+    		this.istouch=3//1.触摸 2.鼠标 3.可能为鼠标设备
+    	}
 		//弹幕行高
 		this.width = this.ele.tplayer_main.offsetWidth
 		this.height = this.ele.tplayer_main.offsetHeight
@@ -487,7 +489,7 @@ class Tplayer {
 				this.leftarr.leaving[dmtop] = true
 				
 				
-				if((dmtop+1) * this.dmheight<this.height){
+				if((dmtop+1) * this.dmheight*this.config.danmakusize<this.height){
 					dm.style.display='block';
 					setTimeout(function() {
 						_this.leftarr.leaving[dmtop] = false
@@ -793,38 +795,26 @@ class Tplayer {
 				_this.ele.danmaku_warp.style.cursor = 'none';
 			}, 3000)
 		})
-		//控件显示
-		if(this.phone) {
-			this.ele.tp_video_warp.style.height = this.ele.tp_video_warp.offsetWidth * 0.6 + 'px';
-			this.ele.danmaku_warp.addEventListener("click", function() {
-				let e = _this.ele.video_con;
+		//触摸
+		this.ele.danmaku_warp.addEventListener("touchend", () => {
+				if(this.istouch != 1) {
+					this.istouch == 1
+				}
+				let e = this.ele.video_con;
 				if(e.style.display == "block") {
 					e.style.display = "none"
-					if(_this.Element.paused) {
-						_this.play();
+					if(this.Element.paused) {
+						this.play();
 					} else {
-						_this.pause()
+						this.pause()
 					}
 				} else {
 					e.style.display = "block";
-					if(!_this.Element.paused) {
-						_this.pause()
+					if(!this.Element.paused) {
+						this.pause()
 					}
 				}
-
-			});
-		} else {
-			let ele = this.ele.video_con.childNodes;
-			for(var i = 0; i < ele.length; i++) {
-				ele[i].addEventListener('mousemove', function() {
-					_this.showbar();
-				})
-			}
-			this.ele.video_con.addEventListener('mousemove', function() {
-				_this.showbar();
-			})
-
-		}
+    	})
 
 		this.ele.alert_ok.addEventListener('click', function() {
 			_this.ele.alert.style.display = 'none'
@@ -981,7 +971,23 @@ class Tplayer {
 
 		this.ele.full.addEventListener("click", function() {
 			let e = _this.ele.tp_video_warp;
-			document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement ? document.cancelFullScreen ? document.cancelFullScreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitCancelFullScreen && document.webkitCancelFullScreen() : e.requestFullscreen ? e.requestFullscreen() : e.mozRequestFullScreen ? e.mozRequestFullScreen() : e.webkitRequestFullscreen && e.webkitRequestFullscreen();
+			if(document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) {
+				if(document.cancelFullScreen) {
+					document.cancelFullScreen();
+				} else if(document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				} else if(document.webkitCancelFullScreen) {
+					document.webkitCancelFullScreen();
+				}
+			} else {
+				if(e.requestFullscreen) {
+					e.requestFullscreen();
+				} else if(e.mozRequestFullScreen) {
+					e.mozRequestFullScreen();
+				} else if(e.webkitRequestFullscreen) {
+					e.webkitRequestFullscreen();
+				}
+			}
 			setTimeout(function() {
 				_this.width = _this.ele.tplayer_main.offsetWidth;
 				let e = _this.ele.danmaku_warp.getElementsByTagName("div");
@@ -1129,35 +1135,32 @@ class Tplayer {
 
 		});
 
-		this.ele.danmaku_warp.onmousedown = function(event) {
-			let ev = event || window.event || arguments.callee.caller.arguments[0];
-			if(ev.button == 0 && !_this.phone) {
-				//如果左按键
-				if(_this.ele.tp_rightmenu.style.display == "block") {
-					_this.ele.tp_rightmenu.style.display = "none";
-				} else {
-					//视频暂停
-					if(_this.Element.paused) {
-						_this.play();
-					} else {
-						_this.pause()
-
-					}
-				}
-			}
-		}
-
+    this.ele.danmaku_warp.onmousedown=function(event){
+         let ev = event || window.event || arguments.callee.caller.arguments[0];
+            if (ev.button == 0) {
+            	if(_this.istouch!=1){
+	                //如果左按键
+	                if (_this.ele.tp_rightmenu.style.display == "block") {
+	                    _this.ele.tp_rightmenu.style.display = "none";
+	                } else {
+	                    //视频暂停
+	                    if (_this.Element.paused) {
+	                       _this.play();
+	                    } else {
+	                         _this.pause()
+	                    }
+	                }
+	                _this.showbar();
+	            } 
+            }
+    }
 		//
 		this.ele.danmaku_warp.oncontextmenu = function(event) {
 			let ev = event || window.event || arguments.callee.caller.arguments[0];
 			_this.tp_menu(ev)
 			return false
 		}
-		this.ele.danmaku_warp.contextmenu = function(event) {
-			let ev = event || window.event || arguments.callee.caller.arguments[0];
-			_this.tp_menu(ev)
-			return false
-		}
+	
 
 		this.ele.tp_place.addEventListener("click", function() {
 			if(_this.dmplace == 1) {
@@ -1284,7 +1287,7 @@ class Tplayer {
 			}.bind(this), 100);
 			this.dsq = 1;
 		}
-		if(!this.phone) {
+		if(this.istouch!=1){
 			this.ele.video_con.style.opacity = "0";
 		}
 		let e = this.ele.danmaku_warp.getElementsByTagName("div");
@@ -1719,19 +1722,16 @@ class Tplayer {
 		this.changerconfig();
 	}
 	showbar() {
-		if(!this.phone) {
-			if(this.bar) {
-				clearTimeout(this.bar)
-			}
-			if(this.ele.video_con.style.opacity != '1') {
-				this.ele.video_con.style.opacity = "1";
-			}
-			let _this = this;
-			this.bar=setTimeout(function() {
-				_this.ele.video_con.style.opacity = "0";
-			}, 3000);
-		}
-
+			if(this.bar){
+	    		clearTimeout(this.bar)
+	    	}
+    		if(this.ele.video_con.style.opacity!='1'){
+    			this.ele.video_con.style.opacity = "1";
+    		}
+	        let _this=this;
+	    	this.bar=setTimeout(function(){
+	    		_this.ele.video_con.style.opacity = "0";
+	    	},3000);
 	}
 
 	//定时器
@@ -1867,7 +1867,7 @@ class Tplayer {
 		let _this = this;
 		let container = this.ele.tplayer;
 		let rightmenu = this.ele.tp_rightmenu;
-		if(!this.phone) {
+		if (this.istouch!=1){
 			this.ele.searchuser.style.display = 'none';
 			let target = ev.target || ev.srcElement;
 			if(hasClass(target, "danmaku")) {
