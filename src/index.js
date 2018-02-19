@@ -512,9 +512,8 @@ class Tplayer {
 			} else if(wz == 2) {
 				//顶部弹幕
 				dm.appendChild(document.createTextNode(text))
-
 				dm.className = "danmaku tp-top"
-				let dtop = this.gettoptop()
+				let dtop = this.getcansendtop()
 				dm.style.top = dtop * this.dmheight + "px"
 				this.toparr[dtop] = 1
 				let e = this.ele.danmaku_warp.appendChild(dm)
@@ -1270,6 +1269,19 @@ class Tplayer {
 			_this.ele.livenumber=e
 			w.appendChild(e)
 		}
+		//页面滚动显示
+		this.options.srollfixe=screen.height
+		if(this.options.srollfixe&&this.options.srollfixe>0){
+			document.addEventListener('scroll',()=> {
+				if((document.documentElement.scrollTop||document.body.scrollTop) >= this.options.srollfixe) {
+					this.ele.tp_video_warp.className='tp-video-warp tp-video-warp-fixed'
+				}else{
+					this.ele.tp_video_warp.className='tp-video-warp'
+				}
+			})
+		}
+		
+	
 	}
 	//函數
 	$c(e) {
@@ -1650,7 +1662,7 @@ class Tplayer {
         this.leftarr.width[h]=dmwidth;
         return h;
     };
-	gettoptop() {
+	getcansendtop() {
 		let h;
 		for(let i = 0; i <= this.toparr.length; i++) {
 			if(!this.toparr[i]) {
