@@ -96,8 +96,8 @@ window.tdvidplay = function(options) {
 		fetch("https://api.haotown.cn/youku/api/?id=" + options.yk + "_end").then(function(t) {
 				return t.json();
 			}).then(function(json) {
-					var vobj = new Object();
-					var vv = void 0;
+					let vobj = new Object();
+					let vv = void 0;
 					for(let i = 0; i < json.stream.length; i++) {
 						if(json.stream[i].stream_type == 'mp4hd3') {
 							vobj.v1 = json.stream[i];
@@ -190,13 +190,10 @@ window.tdvidplay = function(options) {
 
 class Tplayer {
 	constructor(options) {
-
 		let _this = this;
 		this.options = options;
-
-		console.log(this.options)
-		this.warp = this.options.Element
-
+		this.warp=document.querySelector(this.options.Element);
+		
 		if(this.options.danmakuapi && this.options.danmakuid) {
 			this.geturl = this.options.danmakuapi + "get/?id=" + this.options.danmakuid;
 			this.sendurl = this.options.danmakuapi + "send/";
@@ -266,16 +263,10 @@ class Tplayer {
 			"alert_container": _this.$c(".tp-alert-container")[0],
 			"alert_ok": _this.$c(".tp-alert-ok")[0],
 			"screenshot": _this.$c(".tp-screenshot")[0],
-			"definition": _this.$c(".tp-definition")[0]
+			"definition": _this.$c(".tp-definition")[0],
+			"css":_this.$c(".tp-css")[0]
 		}
-		if(document.querySelector('.tp-css')){
-			this.ele.css=document.querySelector('.tp-css')
-		}else{
-			 this.ele.css = document.createElement('style')
-	         this.ele.css.type = 'text/css'
-	         this.ele.css.className='tp-css'
-	         document.body.appendChild(this.ele.css) 
-		}
+		
 		if(localStorage.getItem('tdconfig') && localStorage.getItem('tdconfig') != "undefined") {
 			this.config = JSON.parse(localStorage.getItem('tdconfig'))
 			console.log('加载设置成功')
@@ -364,7 +355,7 @@ class Tplayer {
 			}
 			if(flvjs && flvjs.isSupported()) {
 				console.log('这是flv视频 启动加载');
-				var flvPlayer = flvjs.createPlayer({
+				let flvPlayer = flvjs.createPlayer({
 					type: 'flv',
 					segments: arr
 				});
@@ -475,11 +466,8 @@ class Tplayer {
 				//left 弹幕
 				dm.appendChild(document.createTextNode(text))
 				dm.className = "danmaku tp-left"
-				if(this.config.danmakusize) {
-					dm.style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)"
-				} else {
-					dm.style.transform = "translateX(-" + this.width + "px)"
-				}
+				dm.style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)"
+				
 				this.ele.danmaku_warp.appendChild(dm)
 				let twidth=dm.offsetWidth;
 				let time = this.width / 100
@@ -663,7 +651,7 @@ class Tplayer {
 		});
 		//回车发射
 		this.ele.tp_text.onkeydown = function(event) {
-			var e = event || window.event || arguments.callee.caller.arguments[0];
+			let e = event || window.event || arguments.callee.caller.arguments[0];
 			if(e.keyCode == 13) {
 				_this.ele.tp_up.click();
 			} else if(e.keyCode == 32) {
@@ -968,37 +956,33 @@ class Tplayer {
 			}
 		});
 
-		this.ele.full.addEventListener("click", function() {
-			let e = _this.ele.tp_video_warp;
-			if(document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement) {
-				if(document.cancelFullScreen) {
-					document.cancelFullScreen();
-				} else if(document.mozCancelFullScreen) {
-					document.mozCancelFullScreen();
-				} else if(document.webkitCancelFullScreen) {
-					document.webkitCancelFullScreen();
-				}
-			} else {
-				if(e.requestFullscreen) {
-					e.requestFullscreen();
-				} else if(e.mozRequestFullScreen) {
-					e.mozRequestFullScreen();
-				} else if(e.webkitRequestFullscreen) {
-					e.webkitRequestFullscreen();
-				}
-			}
-			setTimeout(function() {
-				_this.width = _this.ele.tplayer_main.offsetWidth;
-				let e = _this.ele.danmaku_warp.getElementsByTagName("div");
-				_this.dmspeend(_this.width / 100);
-				for(let i = 0; i < e.length; i++) {
-					if(hasClass(e[i], "tp-left")) {
-						e[i].style.transform = "translateX(-" + _this.width + "px)";
-					}
-				}
-			}, 1e3);
-		});
-
+	this.ele.full.addEventListener("click", ()=>{
+    	//全屏切换
+        let e = this.ele.tplayer_main
+        if(document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement){
+        	if(document.cancelFullScreen) {
+        		document.cancelFullScreen()
+        	} else if(document.mozCancelFullScreen) {
+        		document.mozCancelFullScreen()
+        	} else if(document.webkitCancelFullScreen) {
+        		document.webkitCancelFullScreen()
+        	}
+        	
+        } else {
+        	this.isfull=true;
+        	if(e.requestFullscreen) {
+        		e.requestFullscreen()
+        	} else if(e.mozRequestFullScreen) {
+        		e.mozRequestFullScreen()
+        	} else if(e.webkitRequestFullscreen) {
+        		e.webkitRequestFullscreen()
+        	}
+        }
+        
+    });
+    let screenChange = 'webkitfullscreenchange' || 'mozfullscreenchange' || 'fullscreenchange'
+   	this.ele.tplayer_main.addEventListener(screenChange,()=>{this.joinfull()},false);
+   
 		//颜色
 		let tpcolor = new Object();
 		tpcolor.arr = new Array("rgb(255, 255, 255)", "rgb(0, 0, 0)", "rgb(74,176,198)", "rgb(85, 86, 86)", "rgb(9, 183, 69)", "rgb(248, 97, 65)", "rgb(255, 235, 59)", "rgb(77, 56, 216)", "rgb(254, 103, 193)", "rgb(255, 156,7)");
@@ -1113,27 +1097,6 @@ class Tplayer {
 
 		})
 
-		document.addEventListener('webkitfullscreenchange', function(c) {
-			if(document.webkitFullscreenElement) {
-				console.log('进入全屏')
-				_this.joinfull()
-			} else {
-				console.log('退出全屏')
-				_this.tpeixtfull()
-			}
-
-		});
-		document.addEventListener('mozfullscreenchange', function(c) {
-			if(document.mozFullscreenElement) {
-				console.log('进入全屏')
-				_this.joinfull()
-			} else {
-				console.log('退出全屏')
-				_this.tpeixtfull()
-			}
-
-		});
-
     this.ele.danmaku_warp.onmousedown=function(event){
          let ev = event || window.event || arguments.callee.caller.arguments[0];
             if (ev.button == 0) {
@@ -1175,12 +1138,12 @@ class Tplayer {
 		//ws相关  来自 esterTion/AcFun-HTML5-Player https://github.com/esterTion/AcFun-HTML5-Player
 
 		if(window.cid && window.WebSocket) {
-			var connected = false;
-			var sock = new WebSocket('ws://danmaku.acfun.cn:443/' + window.cid);
+			let connected = false;
+			let sock = new WebSocket('ws://danmaku.acfun.cn:443/' + window.cid);
 
-			var open = function() {
+			let open = function() {
 				connected = true;
-				var obj = {
+				let obj = {
 					client: '16bk983221049',
 					client_ck: '884509046',
 					vid: window.cid,
@@ -1190,7 +1153,7 @@ class Tplayer {
 					uid_ck: window.user.uid_ck || null
 				}
 				obj.uid == -1 && (obj.uid = null);
-				var data = JSON.stringify({
+				let data = JSON.stringify({
 					action: 'auth',
 					command: JSON.stringify(obj)
 				})
@@ -1201,11 +1164,11 @@ class Tplayer {
 					"command": "WALLE DOES NOT HAVE PENNIS"
 				}));
 			}
-			var message = function(e) {
+			let message = function(e) {
 				//console.log("ws-message", e);
-				var data = JSON.parse(e.data);
+				let data = JSON.parse(e.data);
 				if(data.action != undefined) {
-					var danmaku = JSON.parse(data.command);
+					let danmaku = JSON.parse(data.command);
 					//console.log(danmaku);
 				} else if(data.status != undefined) {
 					switch(data.status) {
@@ -1233,11 +1196,11 @@ class Tplayer {
 					}
 				}
 			};
-			var close = function() {
+			let close = function() {
 				connected = false;
 				console.warn('WebSocket closed!');
 			}
-			var error = function() {
+			let error = function() {
 				connected = false;
 				console.warn('WebSocket connection error!');
 				setTimeout(function() {
@@ -1250,7 +1213,7 @@ class Tplayer {
 				}, 5e3);
 			}
 			_this.ws = sock;
-			var sendInterval = setInterval(function() {
+			let sendInterval = setInterval(function() {
 				connected && sock.send(JSON.stringify({
 					"action": "onlanNumber",
 					"command": "WALLE DOES NOT HAVE PENNIS"
@@ -1285,7 +1248,7 @@ class Tplayer {
 	}
 	//函數
 	$c(e) {
-		return this.options.Element.querySelectorAll(e);
+		return this.warp.querySelectorAll(e);
 	}
 	getthis() {
 		return this
@@ -1369,15 +1332,15 @@ class Tplayer {
 		let xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				var t = JSON.parse(xmlhttp.responseText);
+				let t = JSON.parse(xmlhttp.responseText);
 				if(t.success == 1) {
 					if(t.data) {
-						for(var i = 0; i < t.data.length; i++) {
+						for(let i = 0; i < t.data.length; i++) {
 							_this.data.push(t.data[i]);
 						}
 					}
 					if(t.danmu) {
-						for(var i = 0; i < t.danmu.length; i++) {
+						for(let i = 0; i < t.danmu.length; i++) {
 							_this.data.push(t.danmu[i]);
 						}
 					}
@@ -1426,15 +1389,41 @@ class Tplayer {
 		this.width = this.ele.tplayer_main.offsetWidth
 		this.height = this.ele.tplayer_main.offsetHeight
 	}
-	joinfull() {
-		let _this=this
-		this.ele.video_ratio.ratio = 4
-		this.ele.video_ratio.click()
-		setTimeout(function(){
-			_this.width = _this.ele.tplayer_main.offsetWidth
-			_this.height = _this.ele.tplayer_main.offsetHeight
-		},1000)
-	}
+	//全屏
+	 joinfull(){
+    	let isfull = document.fullscreenElement || document.mozFullScreenElement ||document.webkitFullscreenElement
+    	if(isfull) {
+    		if(this.ele.tplayer_main==isfull){
+				console.log('进入全屏')
+				this.ele.video_ratio.ratio=4
+		        this.ele.video_ratio.click()
+		        this.width = this.ele.tplayer_main.offsetWidth
+		        this.height =this.ele.tplayer_main.offsetHeight
+		        let e = this.ele.danmaku_warp.getElementsByTagName("div")
+		        this.width = this.ele.tplayer_main.offsetWidth
+				this.height = this.ele.tplayer_main.offsetHeight
+				for (let i = 0; i < e.length; i++) {
+	            	if (hasClass(e[i], "tp-left")) {
+	                	e[i].style.transform = "translateX(-" + this.width/this.config.danmakusize + "px)";
+	           		}
+	        	}
+				this.dmspeend(this.width / 100)
+			}
+		} else {
+			console.log('退出全屏')
+	    	this.width = this.ele.tplayer.offsetWidth
+	    	this.dmspeend(this.width / 100)
+	        let e = this.ele.danmaku_warp.getElementsByTagName("div")
+	        for (let i = e.length - 1; i >= 0; i--) {
+		        if (hasClass(e[i], "tp-left")) {
+		            e[i].style.transform = "translateX(-" + this.width/this.config.danmakusize + "px)"
+		        }
+	        }
+	        this.ele.video_ratio.ratio=4
+	        this.ele.video_ratio.click()
+		}
+    	
+    }
 	changerconfig() {
 		//默认清晰度
 		this.config.definition = this.config.definition || 1
@@ -1452,9 +1441,9 @@ class Tplayer {
 			shadow = `text-shadow: rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;`
 		}
 		this.ele.css.innerText = `
-        .tp-left {animation: dmleft  ${this.config.v}s linear;-webkit-animation: dmleft ${this.config.v}s linear;}
-        .danmaku-warp{font-weight:${this.config.dmweight};transform:scale(${this.config.danmakusize});-webkit-transform:scale(${this.config.danmakusize});-moz-transform:scale(${this.config.danmakusize});width:${100/this.config.danmakusize}%;height:${100/this.config.danmakusize}%;opacity:${this.config.danmakuo}}
-        .tp-video-main>.danmaku-warp>.danmaku{${shadow}}`;
+        ${t} .tp-left {animation: dmleft  ${this.config.v}s linear;-webkit-animation: dmleft ${this.config.v}s linear;}
+        ${t} .danmaku-warp{font-weight:${this.config.dmweight};transform:scale(${this.config.danmakusize});-webkit-transform:scale(${this.config.danmakusize});-moz-transform:scale(${this.config.danmakusize});width:${100/this.config.danmakusize}%;height:${100/this.config.danmakusize}%;opacity:${this.config.danmakuo}}
+        ${t} .tp-video-main>.danmaku-warp>.danmaku{${shadow}}`;
 		let earr = this.$c('.tp-left');
 		for(let i = 0; i < earr.length; i++) {
 			earr[i].style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)";
@@ -1491,9 +1480,9 @@ class Tplayer {
 			} else {
 				clearInterval(time)
 				console.log('播放下一段')
-				let t = _this.options.Element.childNodes
+				let t = _this.warp.childNodes
 				for(let i = 0; i < t.length; i++) {
-					_this.options.Element.removeChild(t[i])
+					_this.warp.removeChild(t[i])
 				}
 				if(typeof callback === "function") {
 					callback()
@@ -1530,21 +1519,7 @@ class Tplayer {
 			}
 		}
 	}
-	tpeixtfull() {
-		setTimeout(function() {
-			this.width = this.ele.tplayer_main.offsetWidth
-			this.height = this.ele.tplayer_main.offsetHeight
-			this.dmspeend(this.width / 100);
-			let e = this.ele.danmaku_warp.getElementsByTagName("div");
-			for(let i = e.length - 1; i >= 0; i--) {
-				if(hasClass(e[i], "tp-left")) {
-					e[i].style.transform = "translateX(-" + this.width + "px)";
-				}
-			}
-			this.ele.video_ratio.ratio = 4;
-			this.ele.video_ratio.click();
-		}.bind(this), 1000)
-	}
+
 
 	Definition(i) {
 		if(i == 1) {
@@ -2003,12 +1978,12 @@ function getCookie(name) {
 }
 
 function colorRGB2Hex(color) {
-	var rgb = color.split(',');
-	var r = parseInt(rgb[0].split('(')[1]);
-	var g = parseInt(rgb[1]);
-	var b = parseInt(rgb[2].split(')')[0]);
+	let rgb = color.split(',');
+	let r = parseInt(rgb[0].split('(')[1]);
+	let g = parseInt(rgb[1]);
+	let b = parseInt(rgb[2].split(')')[0]);
 
-	var hex = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+	let hex = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 	return hex;
 }
 

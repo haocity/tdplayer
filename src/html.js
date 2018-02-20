@@ -131,6 +131,7 @@ const html = {
       </div>
     </div>
   </div>
+   <style type="text/css" class="tp-css"></style>
 </div>
 `,
   test:()=>console.log("ok")
