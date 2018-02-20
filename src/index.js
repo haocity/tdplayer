@@ -467,7 +467,6 @@ class Tplayer {
 				dm.appendChild(document.createTextNode(text))
 				dm.className = "danmaku tp-left"
 				dm.style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)"
-				
 				this.ele.danmaku_warp.appendChild(dm)
 				let twidth=dm.offsetWidth;
 				let time = this.width / 100
@@ -1397,30 +1396,32 @@ class Tplayer {
 				console.log('进入全屏')
 				this.ele.video_ratio.ratio=4
 		        this.ele.video_ratio.click()
-		        this.width = this.ele.tplayer_main.offsetWidth
-		        this.height =this.ele.tplayer_main.offsetHeight
+		        
 		        let e = this.ele.danmaku_warp.getElementsByTagName("div")
 		        this.width = this.ele.tplayer_main.offsetWidth
 				this.height = this.ele.tplayer_main.offsetHeight
 				for (let i = 0; i < e.length; i++) {
 	            	if (hasClass(e[i], "tp-left")) {
-	                	e[i].style.transform = "translateX(-" + this.width/this.config.danmakusize + "px)";
+	            		
+	                	e[i].style.transform =  "translateX(-" + this.width / this.config.danmakusize + "px)"
 	           		}
 	        	}
 				this.dmspeend(this.width / 100)
 			}
 		} else {
 			console.log('退出全屏')
-	    	this.width = this.ele.tplayer.offsetWidth
-	    	this.dmspeend(this.width / 100)
-	        let e = this.ele.danmaku_warp.getElementsByTagName("div")
-	        for (let i = e.length - 1; i >= 0; i--) {
-		        if (hasClass(e[i], "tp-left")) {
-		            e[i].style.transform = "translateX(-" + this.width/this.config.danmakusize + "px)"
-		        }
-	        }
-	        this.ele.video_ratio.ratio=4
+			this.ele.video_ratio.ratio=4
 	        this.ele.video_ratio.click()
+	    	this.width = this.ele.tplayer_main.offsetWidth
+			this.height = this.ele.tplayer_main.offsetHeight
+			
+	        let e = this.ele.danmaku_warp.getElementsByTagName("div")
+	        for (let i = 0; i < e.length; i++) {
+	            	if (hasClass(e[i], "tp-left")) {
+	                	e[i].style.transform =  "translateX(-" + this.width / this.config.danmakusize + "px)"
+	           		}
+	        }
+	        this.dmspeend(this.width / 100)
 		}
     	
     }
