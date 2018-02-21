@@ -16,7 +16,7 @@ if(info) {
 	console.log("这是第" + p + "p");
 	if(pageInfo.videoList[p].source_type == 'zhuzhan') {
 		tdvidplay({
-			ele: document.querySelector('#player'),
+			ele: '#player',
 			vid: pageInfo.videoList[p].id,
 			pic: pageInfo.coverImage,
 			ab: false
@@ -24,7 +24,7 @@ if(info) {
 	} else if(info.getAttribute("data-from") == 'youku') {
 		$.info.show("优酷 ");
 		tdvidplay({
-			ele: document.querySelector('#player'),
+			ele: '#player',
 			ab: false,
 			vid: pageInfo.videoList[p].id,
 			yk: pageInfo.videoList[p].source_id,
@@ -39,7 +39,7 @@ if(info) {
 	if(e.sourceType == 'zhuzhan') {
 		document.querySelector('#player').innerHTML = null;
 		tdvidplay({
-			ele: document.querySelector('#player'),
+			ele: '#player',
 			vid: e.danmakuId,
 			pic: pageInfo.album.coverImageH,
 			ab: true
@@ -48,7 +48,7 @@ if(info) {
 		//优酷规则
 		document.querySelector('#player').innerHTML = null;
 		tdvidplay({
-			ele: document.querySelector('#player'),
+			ele: '#player',
 			ab: true,
 			vid: e.danmakuId,
 			yk: e.sourceId,
