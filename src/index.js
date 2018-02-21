@@ -51,13 +51,14 @@ window.tdvidplay = function(options) {
 	//autoplay 是否自动播放
 	//ab 是否为番剧
 	//yk 是否为优酷
-	options.ele.style.backgroundColor = "#000000";
-	let videosrcarr = [];
+	options.ele2=document.querySelector(options.ele)
+	options.ele2.style.backgroundColor = "#000000"
+	let videosrcarr = []
 	let acflash = document.querySelector('section.player #player object') || document.querySelector('section.player #player #ACFlashPlayer')
 	if(acflash) {
 		acflash.style.display = 'none';
-		options.ele.style.height = acflash.style.height;
-		options.ele.style.backgroundColor = "#000000"
+		options.ele2.style.height = acflash.style.height;
+		options.ele2.style.backgroundColor = "#000000"
 	}
 	let e = document.createElement('div')
 	e.className = "tp-loding";
@@ -72,8 +73,8 @@ window.tdvidplay = function(options) {
 	let backimg = document.createElement("div")
 	backimg.className = "tp-img-back"
 	backimg.style.backgroundImage = "url(" + options.pic + ")"
-	options.ele.appendChild(backimg)
-	options.ele.appendChild(e)
+	options.ele2.appendChild(backimg)
+	options.ele2.appendChild(e)
 	let lodingimg = document.createElement("div")
 	let lodingimgwarp = document.createElement("div")
 	lodingimgwarp.className = 'tp-loding-img-warp tp-acenter'
@@ -1441,7 +1442,8 @@ class Tplayer {
 		if(this.config.dmshadow) {
 			shadow = `text-shadow: rgb(0, 0, 0) 1px 0px 1px, rgb(0, 0, 0) 0px 1px 1px, rgb(0, 0, 0) 0px -1px 1px, rgb(0, 0, 0) -1px 0px 1px;`
 		}
-		this.ele.css.innerText = `
+		let t=this.options.Element
+		this.ele.css.innerHTML  = `
         ${t} .tp-left {animation: dmleft  ${this.config.v}s linear;-webkit-animation: dmleft ${this.config.v}s linear;}
         ${t} .danmaku-warp{font-weight:${this.config.dmweight};transform:scale(${this.config.danmakusize});-webkit-transform:scale(${this.config.danmakusize});-moz-transform:scale(${this.config.danmakusize});width:${100/this.config.danmakusize}%;height:${100/this.config.danmakusize}%;opacity:${this.config.danmakuo}}
         ${t} .tp-video-main>.danmaku-warp>.danmaku{${shadow}}`;
