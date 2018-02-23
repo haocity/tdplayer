@@ -1,6 +1,11 @@
 const html = {
     main: () => `<div class="tp-video-warp">
   <div class="tp-video-main">
+  	<div class="tp-open-minibox">打开小窗</div>
+  	<div class="tp-drag">
+  		<div class='tp-drag-close'>X</div>
+  		<div class='tp-drag-m' draggable="true">拖动</div>
+  	</div>
     <ul class="tp-rightmenu">  
       <li class="tp-copy-warp">
         <textarea rows="1" class="tp-copy-input">复制弹幕</textarea>

@@ -3,11 +3,10 @@
  * @author   HaoDong <ureygt@gmail.com> <http://www.haotown.cn>
  * @license  The Star And Thank Author License (SATA)
  */
-import html from './html';
-import './style.css';
-import Hls from 'hls.js';
-html.test();
-
+import html from './html'
+import './style.css'
+import Hls from 'hls.js'
+html.test()
 let hasClass = (elements, cName) => {
 	return !!elements.className.match(new RegExp("(\\s|^)" + cName + "(\\s|$)"));
 }
@@ -125,7 +124,8 @@ window.tdvidplay = function(options) {
 								type: 'hls',
 								autoplay: options.autoplay
 							},
-							acvid: options.vid
+							acvid: options.vid,
+							ab:options.ab
 						});
 					} else {
 						console.log("解析失败");
@@ -165,7 +165,8 @@ window.tdvidplay = function(options) {
 						type: 'hls',
 						autoplay: options.autoplay
 					},
-					acvid: options.vid
+					acvid: options.vid,
+					ab:options.ab
 				});
 			} else {
 				if(document.querySelector(".noflash-alert")) {
@@ -265,7 +266,10 @@ class Tplayer {
 			"alert_ok": _this.$c(".tp-alert-ok")[0],
 			"screenshot": _this.$c(".tp-screenshot")[0],
 			"definition": _this.$c(".tp-definition")[0],
-			"css":_this.$c(".tp-css")[0]
+			"css":_this.$c(".tp-css")[0],
+			"drag":_this.$c(".tp-drag-m")[0],
+			"drag_close":_this.$c(".tp-drag-close")[0],
+			"open_minibox":_this.$c(".tp-open-minibox")[0]
 		}
 		
 		if(localStorage.getItem('tdconfig') && localStorage.getItem('tdconfig') != "undefined") {
@@ -616,7 +620,7 @@ class Tplayer {
 					}
 					_this.changersound()
 				} else {
-					console.log("播放完毕" + arg)
+					console.log("播放完毕",arg,_this)
 					if(_this.vloop) {
 						_this.tiao(0)
 					} else {
@@ -629,6 +633,43 @@ class Tplayer {
 						}
 
 					}
+					 if(_this.options.ab){
+					 	//番剧下一段
+						this.isdirect=false
+						let toi
+						let ele=document.querySelectorAll('.digitized>li')
+						let nowt = document.querySelector('.digitized>li.play');
+						for(let i = 0; i < ele.length; i++) {
+							if(ele[i] == nowt) {
+								toi = i+1;
+								continue;
+							}
+						}
+						if(ele[toi]){
+							_this.nextvideo(function(){
+								ele[toi].click()
+							})
+						}
+						
+		
+					 }else{
+					 	this.isdirect=false
+						let toi
+						let nowt = document.querySelector('.scroll-div>a.active');
+					 	let ele=document.querySelectorAll('.part-wrap>.scroll-div>a')
+					 	for(let i = 0; i < ele.length; i++) {
+							if(ele[i] == nowt) {
+								toi = i+1;
+								continue;
+							}
+						}
+					 	if(ele[toi]){
+							_this.nextvideo(function(){
+								ele[toi].click()
+							})
+						}
+					 	
+					 }
 				}
 			}
 
@@ -1234,17 +1275,67 @@ class Tplayer {
 		}
 		//页面滚动显示
 		this.options.srollfixe=screen.height
-		if(this.options.srollfixe&&this.options.srollfixe>0){
+		if(this.options.srollfixe){
 			document.addEventListener('scroll',()=> {
+				if(this.options.srollfixe>0){
 				if((document.documentElement.scrollTop||document.body.scrollTop) >= this.options.srollfixe) {
 					this.ele.tp_video_warp.className='tp-video-warp tp-video-warp-fixed'
 				}else{
 					this.ele.tp_video_warp.className='tp-video-warp'
 				}
+				}
 			})
 		}
-		
-	
+		//关闭小窗
+		this.ele.drag_close.addEventListener('click',()=> {
+			this.ele.tp_video_warp.className='tp-video-warp'
+			this.options.srollfixe=-1
+			_this.ele.open_minibox.style.display='block'
+		})
+		//打开
+		this.ele.open_minibox.addEventListener('click',function(){
+			_this.options.srollfixe=screen.height
+			this.style.display='none'
+			if((document.documentElement.scrollTop||document.body.scrollTop) >= _this.options.srollfixe) {
+				_this.ele.tp_video_warp.className='tp-video-warp tp-video-warp-fixed'
+			}
+		})
+		//拖动
+		this.ele.drag.addEventListener('dragstart',function(e) {
+			this.style.opacity='0'
+		})
+		this.ele.drag.addEventListener('drag',function(e) {
+			console.log(e)
+			_this.ele.tp_video_warp.style.top=e.clientY+'px'
+			_this.ele.tp_video_warp.style.right=document.body.clientWidth-_this.ele.tp_video_warp.clientWidth-e.clientX+'px'
+		})
+		this.ele.drag.addEventListener('dragend',function(e) {
+			this.style.opacity='1'
+			_this.ele.tp_video_warp.style.top=e.clientY+'px'
+			_this.ele.tp_video_warp.style.right=document.body.clientWidth-_this.ele.tp_video_warp.clientWidth-e.clientX+'px'
+		})
+		 if(_this.options.ab){
+			//番剧
+			let e=document.querySelector('.choice>.dig')
+			if(e){
+				e.click()
+				document.querySelector('.choice>.img').style.display='none'
+				let ele = document.querySelectorAll('.digitized>li');
+				for(let i = 0; i < ele.length; i++) {
+					ele[i].i = i
+					ele[i].addEventListener('click', function() {
+						let ii = this.i
+						setTimeout(function() {
+							_this.abto(ii)
+						}, 500)
+					})
+				
+				}
+				
+			
+			}
+			
+		}
 	}
 	//函數
 	$c(e) {
@@ -1455,46 +1546,52 @@ class Tplayer {
 	}
 	//下一段提示
 	nextvideo(callback) {
-		console.log('视频存在下一段')
-		let e = document.createElement('div')
-		e.className = 'tp-msg'
-
-		let text = document.createElement('span')
-		text.i = 5;
-		text.innerHTML = text.i + '秒后将播放下一段'
-
-		let btn = document.createElement('span')
-		btn.innerHTML = '×'
-		btn.className = 'tp-msg-close'
-		btn.addEventListener('click', function() {
-			btn.parentNode.parentNode.removeChild(btn.parentNode)
-			if(time) {
-				clearInterval(time)
-			}
-		})
-		e.appendChild(btn)
-		e.appendChild(text)
-		let _this = this;
-		this.ele.tplayer_main.appendChild(e)
-		let time = setInterval(function() {
-			if(text.i > 0) {
-				text.i--
-					text.innerHTML = text.i + '秒后将播放下一段'
-			} else {
-				clearInterval(time)
-				console.log('播放下一段')
-				let t = _this.warp.childNodes
-				for(let i = 0; i < t.length; i++) {
-					_this.warp.removeChild(t[i])
+		if(!this.isdirect){
+			console.log('视频存在下一段')
+			let e = document.createElement('div')
+			e.className = 'tp-msg'
+	
+			let text = document.createElement('span')
+			text.i = 5;
+			text.innerHTML = text.i + '秒后将播放下一段'
+	
+			let btn = document.createElement('span')
+			btn.innerHTML = '×'
+			btn.className = 'tp-msg-close'
+			btn.addEventListener('click', function() {
+				btn.parentNode.parentNode.removeChild(btn.parentNode)
+				if(time) {
+					clearInterval(time)
 				}
-				if(typeof callback === "function") {
-					callback()
+			})
+			e.appendChild(btn)
+			e.appendChild(text)
+			let _this = this;
+			this.ele.tplayer_main.appendChild(e)
+			let time = setInterval(function() {
+				if(text.i > 0) {
+					text.i--
+						text.innerHTML = text.i + '秒后将播放下一段'
 				} else {
-					console.log('eero')
-					console.log(callback)
+					clearInterval(time)
+					console.log('播放下一段')
+					let t = _this.warp.childNodes
+					for(let i = 0; i < t.length; i++) {
+						_this.warp.removeChild(t[i])
+					}
+					if(typeof callback === "function") {
+						callback()
+					} else {
+						console.log('eero')
+						console.log(callback)
+					}
 				}
+			}, 1000)
+		}else{
+			if(typeof callback === "function") {
+				callback()
 			}
-		}, 1000)
+		}
 	}
 	getnowtime() {
 		let videotime = 0;
@@ -1945,6 +2042,34 @@ class Tplayer {
 		}
 
 	}
+	abto(toi) {
+		let ele = document.querySelectorAll('.digitized>li')
+		console.log("番剧 ", toi, this.isdirect)
+		let _this = this;
+		xhr("http://www.acfun.cn/album/abm/bangumis/video?albumId=" + pageInfo.album.id)
+			.then(t => JSON.parse(t)).then(function(t) {
+			if(ele[toi]) {
+			console.log("播放下一段", t.data.content[toi].videos[0])
+			if(t.data.content[toi].videos[0].sourceType == 'youku') {
+				document.querySelector('#player').innerHTML = null;
+				tdvidplay({
+					ele: '#player',
+					ab: true,
+					vid: t.data.content[toi].videos[0].danmakuId,
+					yk: t.data.content[toi].videos[0].sourceId
+				});
+			} else {
+				document.querySelector('#player').innerHTML = null;
+				tdvidplay({
+					ele: '#player',
+					vid: t.data.content[toi].videos[0].danmakuId,
+					ab: true
+				})
+			}
+
+		}
+
+	})}
 	sendComment(message, time, color) {
 		let mode=1;
 		if(this.dmplace==2){

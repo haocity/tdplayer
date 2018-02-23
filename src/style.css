@@ -6,6 +6,13 @@
     cursor: pointer;
     position: relative;
 }
+section.player #player.small {
+    width: auto !important;
+    height: auto !important;
+    position: absolute;
+    right: 100px;
+    z-index: 3;
+}
 /*关闭错误提示*/
 #AHP_Notice{
 	display: none!important;
@@ -52,7 +59,26 @@ section.player{
 	height: 100%;
 	width: 100%;
 }
-
+.tp-drag{
+	position: absolute;
+    display: none;
+    width: 100%;
+    border-top: 1px solid #9c9c9c;
+    top: 0;
+    color: #000;
+    background: #ffffffe8;
+    z-index: 6;
+    overflow: hidden;
+}
+.tp-drag>.tp-drag-m{
+	cursor: move;
+	text-align: center;
+}
+.tp-drag>.tp-drag-close{
+	float: right;
+	padding: 0 10px;
+	cursor: pointer;
+}
 .tp-video-warp.tp-video-warp-fixed{
     position: fixed;
     right: 10px;
@@ -60,6 +86,22 @@ section.player{
     width: 360px;
     height: 230px;
     z-index: 99;
+}
+.tp-video-warp.tp-video-warp-fixed:hover>.tp-video-main>.tp-drag{
+	display: block;
+}
+.tp-open-minibox{
+	position: fixed;
+    bottom: 0px;
+    right: 0;
+    padding: 2px 6px;
+    display: none;
+    background-color: #0c0c0cbf;
+    color: #fff;
+    line-height: 26px;
+    text-align: center;
+    margin-top: 5px;
+    cursor: pointer;
 }
 .tp-video-warp.tp-video-warp-fixed .tp-control{
 	display: none!important;
