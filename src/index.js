@@ -473,7 +473,7 @@ class Tplayer {
 				dm.className = "danmaku tp-left"
 				dm.style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)"
 				this.ele.danmaku_warp.appendChild(dm)
-				let twidth=dm.offsetWidth;
+				let twidth=dm.offsetWidth*this.config.danmakusize;
 				let time = this.width / 100
 				let v = ( twidth + this.width) / time
 				let dmtop = this.getlefttop(v,  twidth)
