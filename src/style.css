@@ -721,6 +721,7 @@ section.player{
 .tp-rightmenu li {
 	padding: 2px 0 2px 8px;
 	cursor: pointer;
+	position: relative;
 }
 .tp-rightmenu li:hover {
 	padding-left: 7px;
@@ -733,7 +734,9 @@ ul.tp-speend {
 	display: none;
 	margin: 4px 0 4px 30px;
 }
-
+.tp-copy-t{
+	position: absolute;
+}
 .tp-copy-input{
     display: block;
     width: 100%;
@@ -746,10 +749,11 @@ ul.tp-speend {
     color: #fff;
     resize: none;
     cursor: pointer;
-    font-size: 15px;
-    line-height: 21px;
+    font-size: 14px;
+    line-height: 23px;
     overflow:hidden;
     font-family: Avenir Next,Helvetica,Arial,Lantinghei SC,Microsoft YaHei,sans-serif;
+    padding-left: 29px;
 }
 .tp-control-alltime-phone{
 	display: none;

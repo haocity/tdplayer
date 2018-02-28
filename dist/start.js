@@ -37,7 +37,6 @@ if(info) {
 	pageInfo.videoId=e.danmakuId;
 	window.cid = pageInfo.videoId;
 	if(e.sourceType == 'zhuzhan') {
-		document.querySelector('#player').innerHTML = null;
 		tdvidplay({
 			ele: '#player',
 			vid: e.danmakuId,
@@ -46,7 +45,7 @@ if(info) {
 		})
 	} else if(e.sourceType == 'youku') {
 		//优酷规则
-		document.querySelector('#player').innerHTML = null;
+	
 		tdvidplay({
 			ele: '#player',
 			ab: true,

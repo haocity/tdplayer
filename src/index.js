@@ -132,7 +132,9 @@ window.tdvidplay = function(options) {
 					}
 			})
 	}else{
-		xhr("https://api.haotown.cn/pyapi/vid/" + options.vid).then(t => JSON.parse(t)).then(function(json) {
+		fetch("https://api.haotown.cn/pyapi/vid/" + options.vid).then(function(t) {
+				return t.json();
+			}).then(function(json) {
 			let vobj = new Object
 			let vv
 			for(let i = 0; i < json.stream.length; i++) {
@@ -168,22 +170,20 @@ window.tdvidplay = function(options) {
 					acvid: options.vid,
 					ab:options.ab
 				});
-			} else {
-				if(document.querySelector(".noflash-alert")) {
-					document.querySelector(".noflash-alert").style.display = "block";
-				}
-				try {
-					$c('object')[0].style.display = 'block'
-					e.style.display = 'none'
-					$.info.error('替换失败 本视频不支持')
-					backimg.style.display = 'none'
-					acflash.style.display = 'block'
-				} catch(e) {
-					console.log('本视频不支持')
-				}
 			}
-		
-
+		}).catch((e)=>{
+			console.log('解析失败',e)
+			if(document.querySelector(".noflash-alert")) {
+				document.querySelector(".noflash-alert").style.display = "block";
+			}
+			try {
+					$c('object')[0].style.display = 'block'
+					document.querySelector('.tp-loding').style.display = 'none'
+					document.querySelector('.tp-img-back').style.display = 'none'
+					$.info.error('替换失败 本视频不支持')
+			} catch(e) {
+					console.log('本视频不支持')
+			}
 		})
 	}
 	
@@ -1081,14 +1081,17 @@ class Tplayer {
 					for(let i = 0; i < _this.videoelearr.length; i++) {
 						_this.videoelearr[i].playbackRate = t;
 					}
+					_this.ele.tp_speend_con.querySelector('a').innerHTML="播放速度  "+this.innerHTML
 				};
 			} else {
 				e.onclick = function() {
 					for(let i = 0; i < _this.videoelearr.length; i++) {
 						_this.videoelearr[i].playbackRate = 1;
 					}
+					_this.ele.tp_speend_con.querySelector('a').innerHTML="播放速度  "+this.innerHTML
 				};
 			}
+			
 		}
 		//视频比例设置
 		this.ele.video_ratio.ratio = 1;
@@ -1961,6 +1964,13 @@ class Tplayer {
 				if(target.user) {
 					this.ele.searchuser.style.display = 'block';
 					this.ele.searchuser.innerHTML = `<a href="http://www.acfun.cn/u/${target.user}.aspx#page=1" target="_blank">查询发送者</a>`
+					let p=document.createElement('a')
+					p.style.marginLeft='10px'
+					p.innerHTML='屏蔽'
+					p.onclick=function(){
+						target.parentNode.removeChild(target)
+					}
+					this.ele.searchuser.appendChild(p)
 				}
 				this.ele.copytext.innerHTML = target.innerHTML;
 				this.ele.copy.style.display = "block";

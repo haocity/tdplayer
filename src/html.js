@@ -8,10 +8,11 @@ const html = {
   	</div>
     <ul class="tp-rightmenu">  
       <li class="tp-copy-warp">
-        <textarea rows="1" class="tp-copy-input">复制弹幕</textarea>
+      	<a class="tp-copy-t">复制</a>
+        <textarea rows="1" class="tp-copy-input">弹幕</textarea>
       </li>
       <li class="tp-search-user"></li>
-      <li class="tp-speend-con">播放速度
+      <li class="tp-speend-con"><a>播放速度  正常</a>
         <ul class="tp-speend">
           <li>0.5</li>
           <li>0.75</li>
@@ -22,9 +23,10 @@ const html = {
       </li>
       <li class="tp-definition">清晰度  <span></span></li>
       <li class="tp-ratio">视频比例 默认</li>
-      <li class="tp-screenshot">截图</li>
-      <a href="https://github.com/haocity/tdplayer/issues" target="_blank">
-        <li>意见反馈</li></a>
+      <li>
+      	<a class="tp-screenshot">截图</a>
+      	<a href="https://github.com/haocity/tdplayer/issues" target="_blank">意见反馈</a>
+      </li>
       <a href="https://github.com/haocity/tdplayer" target="_blank">
         <li>About tdplayer</li></a>
     </ul>
