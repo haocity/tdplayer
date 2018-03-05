@@ -92,28 +92,41 @@ window.tdvidplay = function(options) {
 	e.appendChild(lodingimgwarp)
 	e.appendChild(lodingtext)
 	if(options.yk){
-		console.log('优酷源');
-		fetch("https://api.haotown.cn/youku/api/?id=" + options.yk + "_end").then(function(t) {
-				return t.json();
-			}).then(function(json) {
-					let vobj = new Object();
-					let vv = void 0;
-					for(let i = 0; i < json.stream.length; i++) {
-						if(json.stream[i].stream_type == 'mp4hd3') {
-							vobj.v1 = json.stream[i];
-							vobj.v1.v = 1;
-						} else if(json.stream[i].stream_type == 'mp4hd2') {
-							vobj.v2 = json.stream[i];
-							vobj.v2.v = 2;
-						} else if(json.stream[i].stream_type == 'mp4hd') {
-							vobj.v3 = json.stream[i];
-							vobj.v3.v = 3;
-						} else if(json.stream[i].stream_type == 'flvhd') {
-							vobj.v4 = json.stream[i];
-							vobj.v4.v = 4;
-						}
-					}
-					console.log('vobj', vobj);
+		console.log('优酷源',options.yk)
+		//解析来自https://github.com/esterTion/AcFun-HTML5-Player/blob/master/src/acfun_html5.js
+		if(!pageInfo.sourceId){
+			pageInfo.sourceId=pageInfo.video.videos[0].sourceId
+		}
+		 pageInfo.sourceId = pageInfo.sourceId.match(/([a-zA-Z0-9+=]+)/)[1];
+         var h = new Headers();
+            h.append('Range', 'bytes=0-0');
+            fetch('https://player.youku.com/player.php/sid/' + pageInfo.sourceId + '/newPlayer/true/v.swf', {
+                method: 'GET',
+                headers: h,
+                credentials: 'include',
+                referrer: location.href,
+                cache: 'no-cache',
+                redirect: 'follow'
+            }).then(function (r) {
+                pageInfo.yk_cna = r.url.match(/cna=([^&]+)/)[1];
+                pageInfo.yk_vext = r.url.match(/vext=([^&]+)/)[1];
+                return fetch('https://api.youku.com/players/custom.json?client_id=0edbfd2e4fc91b72&video_id=' + pageInfo.sourceId + '&refer=http://cdn.aixifan.com/player/cooperation/AcFunXYouku.swf&vext=' + pageInfo.yk_vext + '&embsig=undefined&styleid=undefined&type=flash', {
+                    method: 'GET',
+                    credentials: 'include',
+                    referrer: location.href,
+                    cache: 'no-cache'
+                }).then(function (r) { return r.json(); });
+            }).then(function (data) {
+                pageInfo.yk_r = data.stealsign;
+                return fetch('https://ups.youku.com/ups/get.json?vid=' + pageInfo.sourceId + '&ccode=0405&client_ip=192.168.1.1&utid=' + pageInfo.yk_cna + '&client_ts=' + Date.now() + '&r=' + pageInfo.yk_r, {
+                    method: 'GET',
+                    credentials: 'include',
+                    referrer: location.href,
+                    cache: 'no-cache'
+                }).then(function (r) { return r.json(); });
+            }).then(function (data) { 
+            		let json=data.data
+					let vobj=parsevideo(json,true)
 					if(vobj.v1 || vobj.v2 || vobj.v3 || vobj.v4) {
 						videosrcarr.push(vobj);
 						window.a = new Tplayer({
@@ -126,36 +139,16 @@ window.tdvidplay = function(options) {
 							},
 							acvid: options.vid,
 							ab:options.ab
-						});
-					} else {
-						console.log("解析失败");
+						})
 					}
+            }).catch((e)=>{
+				playerror(e)
 			})
 	}else{
 		fetch("https://api.haotown.cn/pyapi/vid/" + options.vid).then(function(t) {
 				return t.json();
-			}).then(function(json) {
-			let vobj = new Object
-			let vv
-			for(let i = 0; i < json.stream.length; i++) {
-				if(json.stream[i].stream_type == 'm3u8_hd3') {
-					vobj.v1 = json.stream[i]
-					vobj.v1.v = 1
-
-				} else if(json.stream[i].stream_type == 'm3u8_hd') {
-					vobj.v2 = json.stream[i]
-					vobj.v2.v = 2
-
-				} else if(json.stream[i].stream_type == 'm3u8_mp4') {
-					vobj.v3 = json.stream[i]
-					vobj.v3.v = 3
-
-				} else if(json.stream[i].stream_type == 'm3u8_flv') {
-					vobj.v4 = json.stream[i]
-					vobj.v4.v = 4
-
-				}
-			}
+		}).then(function(json) {
+			let vobj=parsevideo(json)
 			console.log('vobj', vobj)
 			if(vobj.v1 || vobj.v2 || vobj.v3 || vobj.v4) {
 				videosrcarr.push(vobj)
@@ -172,22 +165,59 @@ window.tdvidplay = function(options) {
 				});
 			}
 		}).catch((e)=>{
-			console.log('解析失败',e)
-			if(document.querySelector(".noflash-alert")) {
-				document.querySelector(".noflash-alert").style.display = "block";
-			}
-			try {
-					$c('object')[0].style.display = 'block'
-					document.querySelector('.tp-loding').style.display = 'none'
-					document.querySelector('.tp-img-back').style.display = 'none'
-					$.info.error('替换失败 本视频不支持')
-			} catch(e) {
-					console.log('本视频不支持')
-			}
+			playerror(e)
 		})
 	}
-	
-
+	function playerror(e){
+		console.log('error:',e)
+		if(document.querySelector('.tp-loding')){
+			document.querySelector('.tp-loding').style.display = 'none'
+			$c('object')[0].style.display = 'block'
+			document.querySelector('.tp-img-back').style.display = 'none'
+			if($&&$.info&&$.info.error){
+				$.info.error('替换失败 本视频不支持')
+			}else{
+				console.log('替换失败 本视频不支持')
+			}
+		}	
+	}
+	function parsevideo(json,yk){
+		let vobj = new Object
+		if(yk) {
+			for(let i = 0; i < json.stream.length; i++) {
+				if(json.stream[i].stream_type == 'mp4hd3') {
+					vobj.v1 = json.stream[i];
+					vobj.v1.v = 1;
+				} else if(json.stream[i].stream_type == 'mp4hd2') {
+					vobj.v2 = json.stream[i];
+					vobj.v2.v = 2;
+				} else if(json.stream[i].stream_type == 'mp4hd') {
+					vobj.v3 = json.stream[i];
+					vobj.v3.v = 3;
+				} else if(json.stream[i].stream_type == 'flvhd') {
+					vobj.v4 = json.stream[i];
+					vobj.v4.v = 4;
+				}
+			}
+		}else{
+			for(let i = 0; i < json.stream.length; i++) {
+				if(json.stream[i].stream_type == 'm3u8_hd3') {
+					vobj.v1 = json.stream[i]
+					vobj.v1.v = 1
+				} else if(json.stream[i].stream_type == 'm3u8_hd') {
+					vobj.v2 = json.stream[i]
+					vobj.v2.v = 2
+				} else if(json.stream[i].stream_type == 'm3u8_mp4') {
+					vobj.v3 = json.stream[i]
+					vobj.v3.v = 3
+				} else if(json.stream[i].stream_type == 'm3u8_flv') {
+					vobj.v4 = json.stream[i]
+					vobj.v4.v = 4
+				}
+			}
+		}
+		return vobj
+	}
 }
 
 class Tplayer {
@@ -287,6 +317,7 @@ class Tplayer {
 			let vv, ele;
 			ele = document.createElement('ul')
 			for(let i in src[0]) {
+				console.log(i)
 				if(src[0][i].v == t) {
 					vv = src[0][i]
 				}
