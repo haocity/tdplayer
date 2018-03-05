@@ -84,7 +84,7 @@ section.player{
     right: 10px;
     top: 10px;
     width: 360px;
-    height: 230px;
+    height: 208px;
     z-index: 99;
 }
 .tp-video-warp.tp-video-warp-fixed:hover>.tp-video-main>.tp-drag{
@@ -183,9 +183,9 @@ section.player{
 .danmaku-ad{
 	position: absolute;
 	white-space: nowrap;
-	-webkit-transform: translateX(50%);
-	-moz-transform: translateX(50%);
-	transform: translateX(50%);
+	-webkit-transform: translate(50%,50%);
+	-moz-transform: translate(50%,50%);
+	transform: translate(50%,50%);
 }
 @keyframes dmleft {
 	0% {

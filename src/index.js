@@ -127,9 +127,8 @@ window.tdvidplay = function(options) {
             }).then(function (data) { 
             		let json=data.data
 					let vobj=parsevideo(json,true)
-					if(vobj.v1 || vobj.v2 || vobj.v3 || vobj.v4) {
-						videosrcarr.push(vobj);
-						window.a = new Tplayer({
+					videosrcarr.push(vobj);
+					window.a = new Tplayer({
 							Element: options.ele,
 							video: {
 								url: videosrcarr,
@@ -139,8 +138,8 @@ window.tdvidplay = function(options) {
 							},
 							acvid: options.vid,
 							ab:options.ab
-						})
-					}
+					})
+					
             }).catch((e)=>{
 				playerror(e)
 			})
@@ -148,22 +147,21 @@ window.tdvidplay = function(options) {
 		fetch("https://api.haotown.cn/pyapi/vid/" + options.vid).then(function(t) {
 				return t.json();
 		}).then(function(json) {
-			let vobj=parsevideo(json)
+			let vobj = parsevideo(json)
 			console.log('vobj', vobj)
-			if(vobj.v1 || vobj.v2 || vobj.v3 || vobj.v4) {
-				videosrcarr.push(vobj)
-				window.a= new Tplayer({
-					Element: options.ele,
-					video: {
-						url: videosrcarr,
-						pic: options.pic,
-						type: 'hls',
-						autoplay: options.autoplay
-					},
-					acvid: options.vid,
-					ab:options.ab
-				});
-			}
+			videosrcarr.push(vobj)
+			window.a = new Tplayer({
+				Element: options.ele,
+				video: {
+					url: videosrcarr,
+					pic: options.pic,
+					type: 'hls',
+					autoplay: options.autoplay
+				},
+				acvid: options.vid,
+				ab: options.ab
+			});
+			
 		}).catch((e)=>{
 			playerror(e)
 		})
@@ -186,33 +184,33 @@ window.tdvidplay = function(options) {
 		if(yk) {
 			for(let i = 0; i < json.stream.length; i++) {
 				if(json.stream[i].stream_type == 'mp4hd3') {
-					vobj.v1 = json.stream[i];
-					vobj.v1.v = 1;
+					vobj[1] = json.stream[i];
+					vobj[1].v = 1;
 				} else if(json.stream[i].stream_type == 'mp4hd2') {
-					vobj.v2 = json.stream[i];
-					vobj.v2.v = 2;
+					vobj[2] = json.stream[i];
+					vobj[2].v = 2;
 				} else if(json.stream[i].stream_type == 'mp4hd') {
-					vobj.v3 = json.stream[i];
-					vobj.v3.v = 3;
+					vobj[3] = json.stream[i];
+					vobj[3].v = 3;
 				} else if(json.stream[i].stream_type == 'flvhd') {
-					vobj.v4 = json.stream[i];
-					vobj.v4.v = 4;
+					vobj[4] = json.stream[i];
+					vobj[4].v = 4;
 				}
 			}
 		}else{
 			for(let i = 0; i < json.stream.length; i++) {
 				if(json.stream[i].stream_type == 'm3u8_hd3') {
-					vobj.v1 = json.stream[i]
-					vobj.v1.v = 1
+					vobj[1] = json.stream[i]
+					vobj[1].v = 1
 				} else if(json.stream[i].stream_type == 'm3u8_hd') {
-					vobj.v2 = json.stream[i]
-					vobj.v2.v = 2
+					vobj[2] = json.stream[i]
+					vobj[2].v = 2
 				} else if(json.stream[i].stream_type == 'm3u8_mp4') {
-					vobj.v3 = json.stream[i]
-					vobj.v3.v = 3
+					vobj[3] = json.stream[i]
+					vobj[3].v = 3
 				} else if(json.stream[i].stream_type == 'm3u8_flv') {
-					vobj.v4 = json.stream[i]
-					vobj.v4.v = 4
+					vobj[4] = json.stream[i]
+					vobj[4].v = 4
 				}
 			}
 		}
@@ -317,7 +315,6 @@ class Tplayer {
 			let vv, ele;
 			ele = document.createElement('ul')
 			for(let i in src[0]) {
-				console.log(i)
 				if(src[0][i].v == t) {
 					vv = src[0][i]
 				}
@@ -351,14 +348,14 @@ class Tplayer {
 				ele.appendChild(li);
 			}
 			if(!vv) {
-				if(src[0].v1) {
-					vv = src[0].v1
-				} else if(src[0].v2) {
-					vv = src[0].v2
-				} else if(src[0].v3) {
-					vv = src[0].v3
-				} else if(src[0].v4) {
-					vv = src[0].v4
+				if(src[0][1]) {
+					vv = src[0][1]
+				} else if(src[0][2]) {
+					vv = src[0][2]
+				} else if(src[0][3]) {
+					vv = src[0][3]
+				} else if(src[0][4]) {
+					vv = src[0][4]
 				}
 			}
 			this.videosrcarr = [vv.m3u8]
@@ -1869,6 +1866,7 @@ class Tplayer {
 					}
 				}
 			}
+		
 		}
 	}
 	//返回当前播放段
