@@ -460,7 +460,8 @@ class Tplayer {
 	}
 
 	init() {
-		let _this = this;
+		let _this = this
+		this.nowdm=[]
 		if(!pageInfo) {
 			this.ele.tp_send.style.display = 'none'
 		}
@@ -489,6 +490,8 @@ class Tplayer {
 		//样式
 		this.send = function(text, color, wz, me, user, size) {
 			let dm = document.createElement("div")
+			let videotime = this.getnowtime()
+			let inttime = parseInt(videotime * 10)
 			dm.user = user
 			dm.style.color = color
 			dm.style.fontSize = size + 'px'
@@ -499,63 +502,75 @@ class Tplayer {
 				//left 弹幕
 				dm.appendChild(document.createTextNode(text))
 				dm.className = "danmaku tp-left"
+				//this.config.danmakusize
 				dm.style.transform = "translateX(-" + this.width / this.config.danmakusize + "px)"
 				this.ele.danmaku_warp.appendChild(dm)
-				let twidth=dm.offsetWidth*this.config.danmakusize;
+				let twidth = dm.offsetWidth * this.config.danmakusize;
 				let time = this.width / 100
-				let v = ( twidth + this.width) / time
-				let dmtop = this.getlefttop(v,  twidth)
-				let leavetime =  twidth / v
+				let v = (twidth + this.width) / time
+				let dmtop = this.getlefttop(v, twidth)
+				let leavetime = twidth / v
 				this.leftarr.leaving[dmtop] = true
-				
-				
-				if((dmtop+1) * this.dmheight*this.config.danmakusize<this.height){
-					dm.style.display='block';
-					setTimeout(function() {
-						_this.leftarr.leaving[dmtop] = false
-					}, leavetime * 1000 + 200)
+
+				if((dmtop + 1) * this.dmheight * this.config.danmakusize < this.height) {
+					dm.style.display = 'block';
+
+					//console.log('leavetime',leavetime)
+					this.nowdm.push({
+						time: inttime + leavetime.toFixed(1) * 10,
+						call: function() {
+							_this.leftarr.leaving[dmtop] = false
+						}
+					})
+
 					dm.style.top = dmtop * this.dmheight + "px"
-					
+
 					dm.addEventListener("webkitAnimationEnd", function() {
 						_this.dmend(dm)
 					})
 					dm.addEventListener("animationend", function() {
 						_this.dmend(dm)
 					})
-				}else{
+				} else {
 					this.leftarr.leaving[dmtop] = false
 					this.dmend(dm)
-					//console.log('超出屏幕范围',this.height)
+					console.log('超出屏幕范围')
 				}
 
-				
 			} else if(wz == 2) {
 				//顶部弹幕
 				dm.appendChild(document.createTextNode(text))
+
 				dm.className = "danmaku tp-top"
 				let dtop = this.getcansendtop()
 				dm.style.top = dtop * this.dmheight + "px"
 				this.toparr[dtop] = 1
 				let e = this.ele.danmaku_warp.appendChild(dm)
-				setTimeout(function() {
-					_this.danmakuhide(e, dtop)
-				}, 5e3)
+				this.nowdm.push({
+					time: inttime + 50,
+					call: function() {
+						_this.danmakuhide(e, dtop)
+					},
+					g: true
+				})
+
 			} else if(wz == 7) {
 				let tj = JSON.parse(text);
 				console.log('高级弹幕', tj);
-					//时间如果为0
-					if(!tj.l || tj.l.toFixed(2) == 0) {
-						tj.l=0;
-					}
-					let nowtime=tj.l;
-					if(tj.z) {
-						//console.log('z存在', tj.z);
-						for (let i = 0; i < tj.z.length; i++) {
-							let a=i;
-							setTimeout(function(){
-								dm.style.transition="all "+tj.z[a].l+'s';
+				//时间如果为0
+				if(!tj.l || tj.l.toFixed(2) == 0) {
+					tj.l = 0;
+				}
+				let nowtime = tj.l;
+				if(tj.z) {
+					//console.log('z存在', tj.z);
+					for(let i = 0; i < tj.z.length; i++) {
+						let a = i;
+						this.nowdm.push({
+							"call": function() {
+								dm.style.transition = "all " + tj.z[a].l + 's';
 								//console.log('到达动画时间',a,dm);
-								setTimeout(function(){
+								setTimeout(function() {
 									if(tj.z[a].x) {
 										//console.log('x2存在',tj.z[a].x)
 										dm.style.right = (1000 - tj.z[a].x) / 10 + '%';
@@ -567,24 +582,25 @@ class Tplayer {
 									if(tj.z[a].t) {
 										dm.style.opacity = tj.z[a].t
 									}
-									if(tj.z[a].f||tj.z[a].g||tj.z[a].rx||tj.z[a].e){
-										tj.z[a].f=tj.z[a].f||0;
-										tj.z[a].g=tj.z[a].g||0;
-										tj.z[a].rx=tj.z[a].rx||0;
-										tj.z[a].e=tj.z[a].e||0;
-										dm.style.transform=`scale(${tj.z[a].f},${tj.z[a].g}) skew(${tj.z[a].rx}deg,${tj.z[a].e}deg) translateX(50%)`
+									if(tj.z[a].f || tj.z[a].g || tj.z[a].rx || tj.z[a].e) {
+										tj.z[a].f = tj.z[a].f || 0;
+										tj.z[a].g = tj.z[a].g || 0;
+										tj.z[a].rx = tj.z[a].rx || 0;
+										tj.z[a].e = tj.z[a].e || 0;
+										dm.style.transform = `scale(${tj.z[a].f},${tj.z[a].g}) skew(${tj.z[a].rx}deg,${tj.z[a].e}deg) translate(50%,50%)`
 									}
-								},0);
-							},nowtime*1000);
-							if(tj.z[i].l){
-								nowtime=nowtime+tj.z[i].l;
-							}
+								}, 0)
+							},
+							"time": inttime + nowtime.toFixed(1) * 10,
+							g: true
+						})
+						if(tj.z[i].l) {
+							nowtime = nowtime + tj.z[i].l;
 						}
-					} else {
-						tj.l = 2;
 					}
-
-				
+				} else {
+					tj.l = 2;
+				}
 
 				//高级弹幕 test 
 				//{"e":0.52,"w":{"b":false,"l":[[1,16777215,1,2.7,2.7,5,3,false,false],[2,0,0,16777215,0.5,32,32,2,2,false,false,false]],"f":"黑体"},"l":5.551115123125783e-17,"f":0.52,"z":[{"t":0,"g":0.8,"l":0.2,"y":930,"f":0.8},{"t":1,"g":0.52,"l":0.2,"y":940,"f":0.52},{"l":1.3099999999999998},{"c":16776960,"x":-2,"t":0,"l":0.3,"v":2}],"t":0,"a":0,"n":"但是那样不行哦","ver":2,"b":false,"c":3,"p":{"x":35,"y":950},"ovph":false}
@@ -602,21 +618,24 @@ class Tplayer {
 				if(tj.a) {
 					dm.style.opacity = tj.a;
 				}
-				if(tj.e||tj.f||tj.rx||tj.rx||tj.k){
-					tj.e=tj.e||0;
-					tj.f=tj.f||0;
-					tj.rx=tj.rx||0;
-					tj.k=tj.k||0;
-					dm.style.transform=`scale(${tj.e},${tj.f}) skew(${tj.rx}deg,${tj.k}deg) translateX(50%)`
+				if(tj.e || tj.f || tj.rx || tj.rx || tj.k) {
+					tj.e = tj.e || 0;
+					tj.f = tj.f || 0;
+					tj.rx = tj.rx || 0;
+					tj.k = tj.k || 0;
+					dm.style.transform = `scale(${tj.e},${tj.f}) skew(${tj.rx}deg,${tj.k}deg) translate(50%,50%)`
 				}
-				
+
 				let e = this.ele.danmaku_warp.appendChild(dm);
-				setTimeout(function() {
-					_this.danmakuhide(e)
-				}, nowtime * 1000 - 10)
+				this.nowdm.push({
+					"call": function() {
+						_this.danmakuhide(e)
+					},
+					"time": inttime + nowtime.toFixed(1) * 10,
+					g: true
+				})
 			}
 		}
-
 		//重播
 		this.ele.replay.addEventListener("click", function() {
 			_this.tiao(0)
@@ -929,21 +948,23 @@ class Tplayer {
 		}, false)
 
 		//定时器二 1s执行一次
-		setInterval(function() {
-			let videotime = _this.getnowtime(videotime);
-			//当前段播放将要结束 缓存下一段
-			let temp = _this.videoelearr[_this.nowduan].currentTime;
-			if(temp + 20 >= _this.videotimearr[_this.nowduan]) {
-				if(_this.videoelearr[_this.nowduan + 1]) {
-					if(_this.videoelearr[_this.nowduan + 1].preload != "auto") {
-						_this.videoelearr[_this.nowduan + 1].preload = "auto";
-						console.log("当前正在播放第" + _this.nowduan + "段，正在加载下一段");
-					}
-				}
-			}
-			_this.ele.nowtime.innerHTML = _this.getvideotime(videotime).m + ":" + _this.getvideotime(videotime).s;
-
-		}, 1e3);
+		setInterval(()=>{
+	    	this.width = this.ele.tplayer_main.offsetWidth
+			this.height =this.ele.tplayer_main.offsetHeight
+	    	let videotime=this.getnowtime(videotime);
+	        //当前段播放将要结束 缓存下一段
+	        let temp = _this.videoelearr[this.nowduan].currentTime;
+	        if (temp + 20 >= _this.videotimearr[this.nowduan]) {
+	            if (this.videoelearr[this.nowduan + 1]) {
+	            	if (this.videoelearr[this.nowduan + 1].preload != "auto") {
+		                this.videoelearr[this.nowduan + 1].preload = "auto";
+		                console.log("当前正在播放第" + this.nowduan + "段，正在加载下一段");
+		            }
+	            }
+	        }
+	        this.ele.nowtime.innerHTML = this.getvideotime(videotime).m + ":" + this.getvideotime(videotime).s;
+	        
+	    }, 1e3);
 
 		//进度条
 		this.ele.tranger.onmousedown = function(event) {
@@ -1525,7 +1546,6 @@ class Tplayer {
 				this.height = this.ele.tplayer_main.offsetHeight
 				for (let i = 0; i < e.length; i++) {
 	            	if (hasClass(e[i], "tp-left")) {
-	            		
 	                	e[i].style.transform =  "translateX(-" + this.width / this.config.danmakusize + "px)"
 	           		}
 	        	}
@@ -1720,16 +1740,11 @@ class Tplayer {
 	}
 
 	danmakuhide(e, topid) {
-		let _this = this;
-		if(this.Element.paused) {
-			setTimeout(function() {
-				_this.danmakuhide(e, topid)
-			}, this.width * 10 + 1e3)
-		} else {
-			e.parentNode.removeChild(e);
-			if(topid !== undefined) {
-				this.toparr[topid] = 0
-			}
+		if(e&&e.parentNode){
+			e.parentNode.removeChild(e)
+		}
+		if(topid !== undefined) {
+			this.toparr[topid] = 0
 		}
 	}
 
@@ -1854,21 +1869,27 @@ class Tplayer {
 
 	//定时器
 	danmakutime() {
-		let videotime = this.getnowtime();
-		if(this.nowdata) {
-			let inttime = parseInt(videotime * 10);
-			for(let i = 0; i < this.nowdata.length; i++) {
-				if(this.nowdata[i]) {
-					//console.log('nowtime:'+inttime);
-					if(this.nowdata[i].time == inttime) {
-						this.send(this.nowdata[i].text, this.nowdata[i].color, this.nowdata[i].place, false, this.nowdata[i].user, this.nowdata[i].size);
-						delete this.nowdata[i];
-					}
-				}
-			}
-		
-		}
-	}
+    	let videotime = this.getnowtime();
+        if (this.nowdata) {
+            let inttime = parseInt(videotime * 10);
+            for (let i = 0; i < this.nowdata.length; i++) {
+                if (this.nowdata[i]) {
+                    //console.log('nowtime:'+inttime);
+                    if (this.nowdata[i].time == inttime) {
+                        this.send(unescape(this.nowdata[i].text), this.nowdata[i].color, this.nowdata[i].place,false,this.nowdata[i].user,this.nowdata[i].size);
+                        delete this.nowdata[i];
+                    }
+                }
+            }
+            //弹幕定时器
+            for (var i = 0; i < this.nowdm.length; i++) {
+            	 if (this.nowdm[i]&&this.nowdm[i].time&&this.nowdm[i].time == inttime) {
+            	 	this.nowdm[i].call()
+            	 	delete this.nowdm[i];
+            	 }
+            }
+        }
+    }
 	//返回当前播放段
 	getduan(time) {
 		let mun = 0;
@@ -2078,6 +2099,12 @@ class Tplayer {
 		}
 		if(this.ele.video_control_play.display != "none") {
 			this.play();
+		}
+		 //清空top和高级弹幕
+		 for (let i = 0; i < this.nowdm.length; i++) {
+			if(this.nowdm[i]&&this.nowdm[i].call){
+				this.nowdm[i].call()
+			}
 		}
 
 	}
