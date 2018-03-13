@@ -516,17 +516,16 @@ section.player{
 /*loding*/
 .tp-oneplay{
 	width: 120px;
-    height: 111px;
+    height: 80px;
     z-index: 999;
     background-color: rgb(234, 62, 73);
     cursor: pointer;
     border-radius: 10px;
 }
 .tp-oneplay>svg{
-	width: 100px;
-    height: 100px;
+	width: 68px;
+    height: 80px;
     fill: #fff;
-    margin-left: 10px;
 }
 .tp-acenter{
 	position: absolute;

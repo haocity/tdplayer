@@ -27,8 +27,10 @@ const html = {
       	<a class="tp-screenshot">截图</a>
       	<a href="https://github.com/haocity/tdplayer/issues" target="_blank">意见反馈</a>
       </li>
-      <a href="https://github.com/haocity/tdplayer" target="_blank">
-        <li>About tdplayer</li></a>
+      <li>
+       <a href="https://github.com/haocity/tdplayer" target="_blank">关于</a>
+       <a class="tp-info">视频信息</a>
+      </li>
     </ul>
     <div class="video-end">
       <svg t="1493275296747" class="replay" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3488" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100">

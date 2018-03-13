@@ -297,7 +297,9 @@ class Tplayer {
 			"css":_this.$c(".tp-css")[0],
 			"drag":_this.$c(".tp-drag-m")[0],
 			"drag_close":_this.$c(".tp-drag-close")[0],
-			"open_minibox":_this.$c(".tp-open-minibox")[0]
+			"open_minibox":_this.$c(".tp-open-minibox")[0],
+			"video_info":_this.$c(".tp-info")[0]
+			
 		}
 		
 		if(localStorage.getItem('tdconfig') && localStorage.getItem('tdconfig') != "undefined") {
@@ -317,6 +319,7 @@ class Tplayer {
 			for(let i in src[0]) {
 				if(src[0][i].v == t) {
 					vv = src[0][i]
+					_this.de=i
 				}
 				if(src[0][i].m3u8_url){
 					src[0][i].m3u8=src[0][i].m3u8_url
@@ -325,7 +328,8 @@ class Tplayer {
 				li.v = src[0][i].v
 				li.vsrc = src[0][i].m3u8
 				li.addEventListener('click', function() {
-					console.log('正在为你切换清晰度切换'+this.v);
+					console.log('正在为你切换清晰度切换'+this.v)
+					_this.de=this.v
    					_this.alert({t:'<span style="line-height:26px;font-size: 21px;">正在为你切换清晰度..</span>',time:3000,padding:'6px 10px',opacity:"0.9"})
 					_this.ele.definition.querySelector('span').innerHTML = _this.Definition(this.v)
 					let time = _this.Element.currentTime
@@ -350,18 +354,22 @@ class Tplayer {
 			if(!vv) {
 				if(src[0][1]) {
 					vv = src[0][1]
+					_this.de=1
 				} else if(src[0][2]) {
 					vv = src[0][2]
+					_this.de=2
 				} else if(src[0][3]) {
 					vv = src[0][3]
+					_this.de=3
 				} else if(src[0][4]) {
 					vv = src[0][4]
+					_this.de=4
 				}
 			}
 			this.videosrcarr = [vv.m3u8]
 			//创建清晰度菜单
 			this.ele.definition.querySelector('span').innerHTML = _this.Definition(vv.v)
-			this.ele.definition.appendChild(ele);
+			this.ele.definition.appendChild(ele)
 			this.ele.definition.style.display = 'block';
 			this.ele.definition.ul = this.ele.definition.querySelector('ul')
 			this.ele.definition.ul.style.display = 'none'
@@ -1366,6 +1374,18 @@ class Tplayer {
 			_this.ele.tp_video_warp.style.top=e.clientY+'px'
 			_this.ele.tp_video_warp.style.right=document.body.clientWidth-_this.ele.tp_video_warp.clientWidth-e.clientX+'px'
 		})
+		//视频信息
+		this.ele.video_info.addEventListener('click',()=> {
+			let h=this.videoelearr[this.nowduan].videoHeight;
+			let w=this.videoelearr[this.nowduan].videoWidth;
+			let warp = document.createElement("div")
+			this.ele.tp_rightmenu.style.display = 'none'
+			console.log(this.de)
+			warp.innerHTML = `<p>视频信息</p><p>分辨率:${w}X${h}</p><p>清晰度:${this.Definition(this.de)}</p>` 
+			this.alert({t:warp,btn:true})
+		})
+		
+		
 		 if(_this.options.ab){
 			//番剧
 			let e=document.querySelector('.choice>.dig')
@@ -1883,7 +1903,7 @@ class Tplayer {
             }
             //弹幕定时器
             for (var i = 0; i < this.nowdm.length; i++) {
-            	 if (this.nowdm[i]&&this.nowdm[i].time&&this.nowdm[i].time == inttime) {
+            	 if (this.nowdm[i]&&this.nowdm[i].time&&this.nowdm[i].time <= inttime) {
             	 	this.nowdm[i].call()
             	 	delete this.nowdm[i];
             	 }
