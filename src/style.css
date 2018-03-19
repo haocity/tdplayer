@@ -25,7 +25,6 @@ section.crumb .vdown .ico {
 }
 section.player{
 	position: relative;
-	min-height:653px;
 }
 #vdown {
 	position: absolute;

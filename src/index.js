@@ -100,11 +100,12 @@ window.tdvidplay = function(options) {
 		 pageInfo.sourceId = pageInfo.sourceId.match(/([a-zA-Z0-9+=]+)/)[1];
          var h = new Headers();
             h.append('Range', 'bytes=0-0');
+            let nreferrer=location.href
             fetch('https://player.youku.com/player.php/sid/' + pageInfo.sourceId + '/newPlayer/true/v.swf', {
                 method: 'GET',
                 headers: h,
                 credentials: 'include',
-                referrer: location.href,
+                referrer: nreferrer,
                 cache: 'no-cache',
                 redirect: 'follow'
             }).then(function (r) {
@@ -113,7 +114,7 @@ window.tdvidplay = function(options) {
                 return fetch('https://api.youku.com/players/custom.json?client_id=0edbfd2e4fc91b72&video_id=' + pageInfo.sourceId + '&refer=http://cdn.aixifan.com/player/cooperation/AcFunXYouku.swf&vext=' + pageInfo.yk_vext + '&embsig=undefined&styleid=undefined&type=flash', {
                     method: 'GET',
                     credentials: 'include',
-                    referrer: location.href,
+                    referrer: nreferrer,
                     cache: 'no-cache'
                 }).then(function (r) { return r.json(); });
             }).then(function (data) {
@@ -121,7 +122,7 @@ window.tdvidplay = function(options) {
                 return fetch('https://ups.youku.com/ups/get.json?vid=' + pageInfo.sourceId + '&ccode=0405&client_ip=192.168.1.1&utid=' + pageInfo.yk_cna + '&client_ts=' + Date.now() + '&r=' + pageInfo.yk_r, {
                     method: 'GET',
                     credentials: 'include',
-                    referrer: location.href,
+                    referrer: nreferrer,
                     cache: 'no-cache'
                 }).then(function (r) { return r.json(); });
             }).then(function (data) { 
@@ -424,7 +425,9 @@ class Tplayer {
 								this.play();
 							}
 						});
-					} else {
+					}else if(video.canPlayType('application/vnd.apple.mpegurl')) {
+					    video.src = this.videosrcarr[i]
+					 }else {
 						console.error("请预先加载hls.js")
 					}
 				} else {
@@ -476,6 +479,7 @@ class Tplayer {
 		this.Element.addEventListener("canplaythrough", function() {
 			console.log('加载完成 可以进行播放');
 		});
+		
 		this.videoelearr = this.ele.tplayer.getElementsByTagName("video")
 		this.videotimearr = []
 		for(let i = 0; i < this.videoelearr.length; i++) {
@@ -2134,8 +2138,7 @@ class Tplayer {
 		let _this = this;
 		xhr("http://www.acfun.cn/album/abm/bangumis/video?albumId=" + pageInfo.album.id)
 			.then(t => JSON.parse(t)).then(function(t) {
-			if(ele[toi]) {
-			console.log("播放下一段", t.data.content[toi].videos[0])
+			if (ele[toi]&&t.data&&t.data.content[toi]) {
 			if(t.data.content[toi].videos[0].sourceType == 'youku') {
 				document.querySelector('#player').innerHTML = null;
 				tdvidplay({

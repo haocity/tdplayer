@@ -56,4 +56,7 @@ if(info) {
 
 	} 
 }
-
+let a= document.querySelector('section.player')
+if(a){
+a.style.minHeight=a.offsetWidth*0.5625+'px'
+}
