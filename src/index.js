@@ -1010,7 +1010,8 @@ class Tplayer {
 		}, false);
 		document.addEventListener("keydown", function(event) {
 			let ev = event || window.event || arguments.callee.caller.arguments[0];
-			if(_this.ele.tp_video_warp.xz == true) {
+			
+			if(_this.ele.tp_video_warp.xz == true&&ev.target.nodeName!='INPUT') {
 				_this.showbar();
 				if(ev.keyCode == 39 || 37) {
 					if(_this.ele.end.style.display == "block") {
