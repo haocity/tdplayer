@@ -299,6 +299,7 @@ class Tplayer {
 			"drag":_this.$c(".tp-drag-m")[0],
 			"drag_close":_this.$c(".tp-drag-close")[0],
 			"open_minibox":_this.$c(".tp-open-minibox")[0],
+			"tip":_this.$c(".tp-tip")[0],
 			"video_info":_this.$c(".tp-info")[0]
 			
 		}
@@ -979,6 +980,32 @@ class Tplayer {
 	    }, 1e3);
 
 		//进度条
+	this.ele.tranger.addEventListener('mousemove',function(e){
+    	if(!this.last){
+    		this.last=e.x
+    		this.w=this.offsetWidth
+    		this.w2=_this.getLeft(this)
+    		this.t=_this.getTop(this)
+    	}
+    	
+    	if(this.last-e.x>4||this.last-e.x<-4){
+    		
+			_this.ele.tip.style.left=e.x-22+'px';
+			_this.ele.tip.style.top=this.t-27-document.documentElement.scrollTop+'px';
+			
+			var xbl =(e.x-this.w2)/this.w;
+			var videotime = _this.alltime*xbl;
+			var a=_this.getvideotime(videotime);
+			_this.ele.tip.innerHTML=a.m + ":" + a.s;
+		}
+	})
+    
+   this.ele.tranger.addEventListener('mouseleave',function(){
+		 _this.ele.tip.style.display='none'
+	})
+    this.ele.tranger.addEventListener('mouseenter',function(){
+		 _this.ele.tip.style.display='block'
+	})
 		this.ele.tranger.onmousedown = function(event) {
 			let e = event || window.event || arguments.callee.caller.arguments[0];
 			let xbl = _this.show_coords(e, this);
@@ -1158,15 +1185,30 @@ class Tplayer {
 		//视频比例设置
 		this.ele.video_ratio.ratio = 1;
 		this.ele.video_ratio.addEventListener('click', function() {
+			let vh=_this.Element.videoHeight
+        	let vw=_this.Element.videoWidth
 			if(this.ratio == 1) {
-				this.ratio = 2
-				_this.ele.tplayer.style.transform = `scale(1,0.892)`
-				_this.ele.tplayer.style.webkitTransform = `scale(1,0.892)`
+				this.ratio = 2;
+	            let vb= vw*0.75/vh
+	            if(vb>1){
+	           		_this.ele.tplayer.style.transform=`scale(${1/vb},1)`
+	            	_this.ele.tplayer.style.webkitTransform=`scale(${1/vb},1)`
+	           	}else{
+	           		_this.ele.tplayer.style.transform=`scale(1,${vb})`
+	            	_this.ele.tplayer.style.webkitTransform=`scale(1,${vb})`
+	           	}
 				this.innerText = `视频比例 4:3`
 			} else if(this.ratio == 2) {
 				this.ratio = 3
-				_this.ele.tplayer.style.transform = `scale(0.841,1)`
-				_this.ele.tplayer.style.webkitTransform = `scale(0.841,1)`
+				let vb= vw*0.5625/vh
+           	
+	           	if(vb>1){
+	           		_this.ele.tplayer.style.transform=`scale(${1/vb},1)`
+	            	_this.ele.tplayer.style.webkitTransform=`scale(${1/vb},1)`
+	           	}else{
+	           		_this.ele.tplayer.style.transform=`scale(1,${vb})`
+	            	_this.ele.tplayer.style.webkitTransform=`scale(1,${vb})`
+	           	}
 				this.innerText = `视频比例 16:9`
 			} else if(this.ratio == 3) {
 				this.ratio = 4
@@ -1563,6 +1605,8 @@ class Tplayer {
     	if(isfull) {
     		if(this.ele.tplayer_main==isfull){
 				console.log('进入全屏')
+				this.ele.tranger.last=false
+				
 				this.ele.video_ratio.ratio=4
 		        this.ele.video_ratio.click()
 		        
@@ -1578,6 +1622,8 @@ class Tplayer {
 			}
 		} else {
 			console.log('退出全屏')
+			this.ele.tranger.last=false
+			
 			this.ele.video_ratio.ratio=4
 	        this.ele.video_ratio.click()
 	    	this.width = this.ele.tplayer_main.offsetWidth

@@ -10,7 +10,7 @@ let script = document.createElement("script");
 script.setAttribute("type", "text/javascript");
 script.setAttribute("charset", "UTF-8");
 script.innerHTML=`
-window.tdc='1.4.1.0';
+window.tdc='1.4.2.0';
 var e=document.createElement('input');
 e.className='tdx';
 e.value=JSON.stringify(window.pageInfo);

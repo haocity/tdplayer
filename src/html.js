@@ -132,6 +132,7 @@ const html = {
             <path fill="#fff" d="M256.033769 192.014198l127.977743 0 0 639.933741-127.977743 0 0-639.933741ZM639.976 191.982l127.993 0 0 639.966-127.993 0 0-639.966z" /></svg>
           <span class="tp-control-nowtime">0:00</span>
           <span class="tp-control-alltime-phone">/ 0:00</span></div>
+          <div class="tp-tip">1:00</div>
         <div class="tp-tranger">
           <div class="tp-tranger-a"></div>
           <div class="tp-tranger-b"></div>
